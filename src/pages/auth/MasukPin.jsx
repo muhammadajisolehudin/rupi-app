@@ -62,7 +62,7 @@ export default function MasukPin() {
       setIsPinCompleted(true);
       console.log(pinValue);
       console.log("Navigate to MasukPin page");
-      navigate("/dashboard");
+      navigate("/beranda");
     } else {
       // Handle case where PIN is not complete
       console.log("PIN is not complete");
