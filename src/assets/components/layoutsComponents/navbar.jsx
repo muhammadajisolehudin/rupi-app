@@ -22,11 +22,13 @@ function Navbar() {
 
   return (
     <AppBar
+      position="fixed" // Atur position menjadi 'fixed' untuk memastikan bayangan terlihat
       sx={{
-        position: 'static',
         backgroundColor: '#ffffff',
         color: '#0066AE',
-        boxShadow: '0px 2px 4px 0px rgba(40, 41, 61, 0.04), 0px 8px 16px 0px rgba(96, 97, 112, 0.16)',
+        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Bayangan dengan intensitas dan opacity yang ditingkatkan
+        paddingX: "1rem",
+        zIndex: 9999, // Pastikan z-index yang cukup besar agar AppBar selalu di atas konten lain
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between', height: '85px' }}>

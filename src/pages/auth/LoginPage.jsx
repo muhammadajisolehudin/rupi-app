@@ -24,8 +24,8 @@ export const LoginPage= () =>{
                         </Box>
                     </Grid>
                     <Grid item xs={6} style={{ backgroundColor: "#E4EDFF", display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                        <img src={vektor} alt="vektor" style={{ height:"15rem", width:"100%" }} />
-                        <img src={imgWallet} alt="img wallet" height={400} style={{ marginTop: '-5rem' }}/>
+                        <img src={vektor} alt="vektor" style={{ height:"12rem", width:"100%" }} />
+                        <img src={imgWallet} alt="img wallet" height={400} style={{ marginTop: '-3rem' }}/>
                         <Typography variant="h5" style={{ fontWeight: 'bold', marginTop: '10px' }}>Selamat datang di Rupi App</Typography>
                         <Typography variant="body1" style={{ marginTop: '10px', textAlign: "center" }}>Cek saldo, transfer cepat dan aman, serta mutasi rekening bersama Rupi App. <br/> Semua jadi mudah dalam genggaman Anda!</Typography>
                     </Grid>

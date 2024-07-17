@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
 	Box,
-	Container,
 	CssBaseline,
 	Grid,
 	IconButton,
@@ -11,8 +10,8 @@ import {
 } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import PropTypes from "prop-types";
-import imgCardNasabah from "../img/card-nasabah.png";
-import imgCalendar from "../img/calendar.png";
+import imgCardNasabah from "../../img/card-nasabah.png";
+import imgCalendar from "../../img/calendar.png";
 import { Link } from "react-router-dom";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -107,13 +106,13 @@ export const InfoSaldo = () => {
 	return (
 		<React.Fragment>
 			<CssBaseline>
-				<Container sx={{ my: 2 }}>
+				{/* <Container> */}
 					<Typography variant="h4" component="div" sx={{ my: 3 }}>
 						Info Saldo
 					</Typography>
 
-					<Grid container style={{ width: "100%" }}>
-						<Grid item xs={10} sm={10} md={6} lg={6} sx={{ pr: 3 }}>
+					<Grid container style={{ width: "100%"}}>
+						<Grid item xs={10} sm={10} md={6} lg={6} sx={{ pr: 3, borderRadius: 0,  }}>
 							<Box
 								component={Paper}
 								elevation={5}
@@ -200,7 +199,7 @@ export const InfoSaldo = () => {
 							</Grid>
 						</Grid>
 					</Grid>
-				</Container>
+				{/* </Container> */}
 			</CssBaseline>
 		</React.Fragment>
 	);
