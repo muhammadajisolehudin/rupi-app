@@ -11,7 +11,7 @@ export const Layout = ({ children }) => {
                 {/* navbar */}
                     
                     <Box sx={{ backgroundColor: "#F5F5F5" }}>
-                    { children }
+                      { children }
                     </Box>
                 {/* footer */}
 

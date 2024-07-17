@@ -1,6 +1,7 @@
 import { Box, Card, Container, Typography } from "@mui/material"
 import { Layout } from "./layout"
 import user from "../assets/img/icons/user.png"
+import { CardList } from "../assets/components/cardComponents/CardList"
 
 
 export const BerandaPage = () =>{
@@ -17,6 +18,7 @@ export const BerandaPage = () =>{
                         </Typography>
                     </Box>
                 </Card>
+                <CardList />
 
             </Container>
         </Layout>
