@@ -23,6 +23,7 @@ function Navbar() {
   return (
     <AppBar
       sx={{
+        position: 'static',
         backgroundColor: '#ffffff',
         color: '#0066AE',
         boxShadow: '0px 2px 4px 0px rgba(40, 41, 61, 0.04), 0px 8px 16px 0px rgba(96, 97, 112, 0.16)',
