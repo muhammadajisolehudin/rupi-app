@@ -1,8 +1,8 @@
 // Layout.tsx
 import { Box, CssBaseline } from '@mui/material';
 import React from "react"
-import Navbar from '../assets/components/navbar/navbar';
-import { Footer } from '../assets/components/footer/Footer';
+import Navbar from '../assets/components/layoutsComponents/navbar';
+import { Footer } from '../assets/components/layoutsComponents/Footer';
 
 export const Layout = ({ children }) => {
 
