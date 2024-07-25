@@ -7,6 +7,7 @@ import { TransferSearch } from "../assets/components/transferComponents/Transfer
 import { TambahRekening } from "../assets/components/transferComponents/TambahRekening";
 import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
 import profileIcon from '../assets/img/icons/placeholder-profile.png'; // pastikan import profileIcon
+import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
 
 const initialCardData = [
     {
@@ -63,6 +64,7 @@ export const TransferRupiahPage = () => {
                         <Typography variant="body1" sx={{ marginLeft: 2, color: "#0A3967" }}>
                             Transfer ke Sesama Bank
                         </Typography>
+                        {/* <BreadcrumbsComponent /> */}
                     </Box>
                 </Card>
                 <TransferSearch />
