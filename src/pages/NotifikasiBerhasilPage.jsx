@@ -1,4 +1,3 @@
-// NotifikasiBerhasilPage.js
 import React, { useState } from 'react';
 import { Box, Button, Container, Typography, Modal, Card, IconButton, Divider } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close"

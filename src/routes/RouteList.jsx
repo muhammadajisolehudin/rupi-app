@@ -4,6 +4,7 @@ import { LoginPage } from '../pages/auth/LoginPage';
 import { BerandaPage } from '../pages/BerandaPage';
 import { TransferRupiahPage } from '../pages/TransferRupiahPage';
 import { NotifikasiBerhasilPage } from '../pages/NotifikasiBerhasilPage';
+import { QRTerimaTransfer } from '../pages/QRTerimaTransfer';
 import BuatPin from "../pages/auth/BuatPin";
 import MasukPin from "../pages/auth/MasukPin";
 import BuatPasswordBaru from "../pages/auth/BuatPassword";
@@ -17,6 +18,7 @@ export const RouteList = () => {
           <Route path="/beranda" element={ <BerandaPage/>}/>
           <Route path="/transfer-rupiah" element={ <TransferRupiahPage/>}/>
           <Route path="/notif-success" element={ <NotifikasiBerhasilPage/>}/>
+          <Route path="/QR-terima-transfer" element={ <QRTerimaTransfer/>}/>
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/buat-pin" element={<BuatPin />} />
