@@ -5,6 +5,7 @@ import { BerandaPage } from '../pages/BerandaPage';
 import BuatPin from "../pages/auth/SetPinPage";
 import MasukPin from "../pages/auth/MasukPin";
 import BuatPasswordBaru from "../pages/auth/SetPasswordPage";
+import { TransferRupiahPage } from "../pages/TransferRupiahPage";
 // import { PinBaru } from "../pages/auth/PinBaru";
 
 export const RouteList = () => {
@@ -17,6 +18,7 @@ export const RouteList = () => {
         <Route path="/set-pin" element={<BuatPin />} />
         <Route path="/masuk-pin" element={<MasukPin/>}/>
         <Route path="/set-password" element={<BuatPasswordBaru/>}/>
+        <Route path="/transfer-rupiah" element={ <TransferRupiahPage/>}/>
       </Routes>
     </BrowserRouter>
   );
