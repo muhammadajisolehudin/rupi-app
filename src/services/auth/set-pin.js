@@ -7,7 +7,9 @@ const setPin = async (input) => {
 };
 
 const useSetPin = () => {
-  return useMutation(setPin);
+  return useMutation({
+    mutationFn:setPin
+  })
 };
 
 export { setPin, useSetPin };

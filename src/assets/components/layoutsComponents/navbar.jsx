@@ -4,20 +4,27 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import NotificationIcon from '../../img/icons/Notification.svg';
 import SearchIcon from '../../img/icons/Search.svg';
 import SettingIcon from '../../img/icons/Setting.svg';
 import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
 import LogoutIcon from '../../img/icons/Logout.svg';
+import { useSignout } from '../../../services/auth/signout';
 
 function Navbar() {
   const [activePage, setActivePage] = useState('beranda');
   const navigate = useNavigate();
+  const { mutate: logout } = useSignout();
 
   const handlePageChange = (pageName, path) => {
     setActivePage(pageName);
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login')
   };
 
   return (
@@ -94,7 +101,7 @@ function Navbar() {
             variant="h6"
             fontWeight={activePage === 'aktivitas' ? 700 : 400}
             style={{ cursor: 'pointer' }}
-            onClick={() => handlePageChange('aktivitas', '/aktivitas')}
+            onClick={() => handlePageChange()}
           >
             Aktivitas
           </Typography>
@@ -120,12 +127,15 @@ function Navbar() {
             style={{ cursor: 'pointer', padding: '10px' }}
             onClick={() => handlePageChange('accountSettings', '/')}
           />
-          <img
-            src={LogoutIcon}
-            alt="logout"
-            style={{ cursor: 'pointer', padding: '10px' }}
-            onClick={() => handlePageChange('logout', '/')}
-          />
+          <Button>
+            <img
+              src={LogoutIcon}
+              alt="logout"
+              style={{ cursor: 'pointer', padding: '10px' }}
+              onClick={() => handleLogout()}
+            />
+          </Button>
+
         </Box>
       </Toolbar>
     </AppBar>

@@ -2,21 +2,48 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { BerandaPage } from '../pages/BerandaPage';
-import BuatPin from "../pages/auth/SetPinPage";
-import MasukPin from "../pages/auth/MasukPin";
-import BuatPasswordBaru from "../pages/auth/SetPasswordPage";
+import VerifyOtpPage from '../pages/auth/VerifyOtpPage';
+import SetPin from '../pages/auth/SetPinPage';
+import SetPasswordPage from '../pages/auth/SetPasswordPage';
+import PinPage from '../pages/auth/MasukPin';
+import { ProtectedUser } from '../assets/components/Protected/protected';
 // import { PinBaru } from "../pages/auth/PinBaru";
 
 export const RouteList = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/beranda" element={ <BerandaPage/>}/>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/set-pin" element={<BuatPin />} />
-        <Route path="/masuk-pin" element={<MasukPin/>}/>
-        <Route path="/set-password" element={<BuatPasswordBaru/>}/>
+        <Route
+          path="*"
+          element={
+            <ProtectedUser>
+              <Routes>
+                <Route path="/verify" element={<VerifyOtpPage />} />
+                <Route path="/beranda" element={<BerandaPage />} />
+                <Route path="/set-pin" element={<SetPin />} />
+                <Route path="/pin" element={<PinPage />} />
+                <Route path="/set-password" element={<SetPasswordPage />} />
+              </Routes>
+            </ProtectedUser>
+          }
+        />
+
+        {/* <Route
+          path="/admin/*"
+          element={
+            <ProtectedUser>
+              <Routes>
+                <Route path="/verify" element={<VerifyOtpPage />} />
+                <Route path="/beranda" element={<BerandaPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/set-pin" element={<SetPin />} />
+                <Route path="/pin" element={<PinPage />} />
+                <Route path="/set-password" element={<SetPasswordPage />} />
+              </Routes>
+            </ProtectedUser>
+          }
+        /> */}
       </Routes>
     </BrowserRouter>
   );
