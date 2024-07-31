@@ -10,31 +10,14 @@ export const MaukanNominalTranferPage = () => {
 
     const formik = useFormik({
       initialValues: {
-        username: "",
-        password: "",
+        account_number: "",
       },
       validationSchema: Yup.object({
-        username: Yup.string().required("Required"),
-        password: Yup.string()
-          .min(6, "Password must be at least 6 characters")
-          .matches(
-            /[a-z]/,
-            "Password must contain at least one lowercase letter"
-          )
-          .matches(
-            /[A-Z]/,
-            "Password must contain at least one uppercase letter"
-          )
-          .matches(/[0-9]/, "Password must contain at least one number")
-          .matches(
-            /[@$!%*?&#]/,
-            "Password must contain at least one special character"
-          )
-          .required("Required"),
+        account_number: Yup.string().required("Required"),
       }),
       onSubmit: async (values) => {
         console.log("Form Submitted", values); // Debug log
-        mutation.mutate(values); // Panggil mutate dari useMutation
+        // mutation.mutate(values); // Panggil mutate dari useMutation
       },
     });
 
@@ -49,14 +32,14 @@ export const MaukanNominalTranferPage = () => {
               margin="normal"
               required
               fullWidth
-              id="username"
-              name="username"
+              id="account_number"
+              name="account_number"
               type="text"
-              autoComplete="username"
+              autoComplete="account_number"
               placeholder="Masukkan Rupiah Id"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.username}
+              value={formik.values.account_number}
               InputProps={{
                 style: { borderRadius: "8px", height: "3rem" },
               }}
