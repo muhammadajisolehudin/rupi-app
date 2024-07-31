@@ -1,13 +1,14 @@
 // TransferRupiahPage.js
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Card, Container, Typography } from "@mui/material";
-import { Layout } from "./layout";
-import { CardTransaksi } from "../assets/components/cardComponents/CardTransaksi";
-import { TransferSearch } from "../assets/components/transferComponents/TransferSearch";
-import { TambahRekening } from "../assets/components/transferComponents/TambahRekening";
-import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
-import profileIcon from '../assets/img/icons/placeholder-profile.png'; // pastikan import profileIcon
-import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
+import { Layout } from "../layout";
+import { CardTransaksi } from "../../assets/components/cardComponents/CardTransaksi";
+import { TransferSearch } from "../../assets/components/transferComponents/TransferSearch";
+import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
+// import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
+import profileIcon from '../../assets/img/icons/placeholder-profile.png'; // pastikan import profileIcon
+import BreadcrumbsComponent from '../../assets/components/layoutsComponents/Breadcrumbs';
+// import { BreadcrumbsTranferRupiah } from '../../assets/components/layoutsComponents/BreadcrumbsTransferRupiah';
 
 const initialCardData = [
     {
@@ -49,24 +50,11 @@ export const TransferRupiahPage = () => {
 
     return (
         <Layout>
-            <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
-                <Card
-                    sx={{
-                        minWidth: 275,
-                        height: 70,
-                        bgcolor: "transparent",
-                        display: "flex",
-                        alignItems: "center"
-                    }}
-                >
-                    <Box sx={{ display: "flex", alignItems: "center", p: 2 }}>
-                        <SyncAltRoundedIcon style={{ color: "#0A3967" }} />
-                        <Typography variant="body1" sx={{ marginLeft: 2, color: "#0A3967" }}>
-                            Transfer ke Sesama Bank
-                        </Typography>
-                        {/* <BreadcrumbsComponent /> */}
-                    </Box>
-                </Card>
+            <Container sx={{ paddingTop: "1.5rem", paddingBottom: "2rem" }}>
+
+                <BreadcrumbsComponent />
+                {/* <BreadcrumbsTranferRupiah/> */}
+            
                 <TransferSearch />
                 <TambahRekening />
                 <Box
@@ -80,9 +68,9 @@ export const TransferRupiahPage = () => {
                 >
                     <Typography>Transaksi Favorit</Typography>
                 </Box>
-                <CardTransaksi 
-                    cardData={favoriteCards} 
-                    handleToggleFavorite={handleToggleFavorite} 
+                <CardTransaksi
+                    cardData={favoriteCards}
+                    handleToggleFavorite={handleToggleFavorite}
                 />
                 <Box
                     sx={{
@@ -95,9 +83,9 @@ export const TransferRupiahPage = () => {
                 >
                     <Typography>Daftar Transfer</Typography>
                 </Box>
-                <CardTransaksi 
-                    cardData={nonFavoriteCards} 
-                    handleToggleFavorite={handleToggleFavorite} 
+                <CardTransaksi
+                    cardData={nonFavoriteCards}
+                    handleToggleFavorite={handleToggleFavorite}
                 />
             </Container>
         </Layout>

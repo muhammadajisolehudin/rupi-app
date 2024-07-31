@@ -5,7 +5,7 @@ import { BerandaPage } from '../pages/BerandaPage';
 import BuatPin from "../pages/auth/SetPinPage";
 import MasukPin from "../pages/auth/MasukPin";
 import BuatPasswordBaru from "../pages/auth/SetPasswordPage";
-import { TransferRupiahPage } from "../pages/TransferRupiahPage";
+import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
 // import { PinBaru } from "../pages/auth/PinBaru";
 
 export const RouteList = () => {
