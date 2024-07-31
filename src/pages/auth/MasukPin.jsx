@@ -1,69 +1,33 @@
-import { useState, useEffect } from "react";
-import {
-  Box,
-  Button,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "../authLayout";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-export default function MasukPin() {
-  const [pin, setPin] = useState(["", "", "", "", "", ""]);
-  const [isPinCompleted, setIsPinCompleted] = useState(false);
+export default function PinPage() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      const key = event.key;
-      if (key === "Enter") {
-        handleButtonClick();
-      }
-
-      if (key >= "0" && key <= "9") {
-        const index = pin.findIndex((entry) => entry === "");
-        if (index !== -1) {
-          const newpin = [...pin];
-          newpin[index] = key;
-          setPin(newpin);
-        }
-      } else if (key === "Backspace") {
-        // Find the first non-empty slot from the end of the array
-        const index = pin
-          .slice()
-          .reverse()
-          .findIndex((entry) => entry !== "");
-        if (index !== -1) {
-          const newpin = [...pin];
-          // Calculate the correct index in the original array
-          const originalIndex = pin.length - 1 - index;
-          newpin[originalIndex] = "";
-          setPin(newpin);
-        }
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [pin]);
-
-  const handleButtonClick = () => {
-    const isPinComplete = pin.every((entry) => entry !== "");
-    const pinValue = parseInt(pin.join(""), 10);
-    if (isPinComplete) {
-      // Navigate to MasukPin page or perform further actions
-      setIsPinCompleted(true);
+  const formik = useFormik({
+    initialValues: {
+      pin: ["", "", "", "", "", ""],
+    },
+    validationSchema: Yup.object({
+      pin: Yup.array()
+        .of(
+          Yup.string()
+            .matches(/^[0-9]+$/, "Must be a digit")
+            .length(1, "Must be 1 digit")
+        )
+        .required("PIN is required"),
+    }),
+    onSubmit: (values) => {
+      const pinValue = parseInt(values.pin.join(""), 10);
       console.log(pinValue);
-      console.log("Navigate to MasukPin page");
+      console.log("Navigate to Beranda page");
+
       navigate("/beranda");
-    } else {
-      // Handle case where PIN is not complete
-      console.log("PIN is not complete");
-    }
-  };
+    },
+  });
 
   return (
     <AuthLayout>
@@ -75,7 +39,6 @@ export default function MasukPin() {
           gap: 10,
           alignItems: "center",
           flexDirection: "column",
-          // width: 452,
           height: 617,
           my: "auto",
         }}
@@ -92,12 +55,12 @@ export default function MasukPin() {
             mt: 5,
           }}
         >
-          {[...Array(6)].map((_, index) => (
+          {formik.values.pin.map((digit, index) => (
             <Box
               key={index}
               sx={{
                 borderRadius: "50%",
-                bgcolor: pin[index] ? "#0066AE" : "#B3B3B3",
+                bgcolor: digit ? "#0066AE" : "#B3B3B3",
                 width: 30,
                 height: 30,
               }}
@@ -105,12 +68,11 @@ export default function MasukPin() {
           ))}
         </Box>
         <Button
-          onClick={handleButtonClick}
+          onClick={formik.handleSubmit}
           sx={{
-            backgroundColor: "#0066AE",
-            py: 2,
+            py: 1.5,
             px: 18,
-            borderRadius: "12px",
+            borderRadius: "8px",
             textTransform: "capitalize",
           }}
           variant="contained"

@@ -5,18 +5,22 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useSetPassword } from "../../services/auth/set-password";
+import { Navigate } from "react-router-dom";
 
-export default function BuatPasswordBaru() {
+export default function SetPasswordPage() {
   // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
+  // const [confirm_password, setconfirm_password] = useState("");
   // const [isPasswordCompleted, setIsPasswordCompleted] = useState(false);
   // const [passwordError, setPasswordError] = useState("");
   // const navigate = useNavigate();
 
+  const password = useSetPassword();
+
   const formik = useFormik({
     initialValues: {
       password: "",
-      confirmPassword: "",
+      confirm_password: "",
     },
     validationSchema: Yup.object({
       password: Yup.string()
@@ -29,18 +33,24 @@ export default function BuatPasswordBaru() {
           "Password must contain at least one special character"
         )
         .required("Required"),
-      confirmPassword: Yup.string()
+      confirm_password: Yup.string()
         .oneOf([Yup.ref("password"), null], "Passwords must match")
         .required("Required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values); // Debug log
-      // Panggil mutate dari useMutation
+      try {
+        await password.mutateAsync(values);
+        Navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
+      } catch (error) {
+        console.error("Login failed, error:", error); // Debug log
+        // Error handling sudah diatur di dalam useLoginMutation
+      }
+
     },
   });
 
   // const handleButtonClick = () => {
-  //   if (password && confirmPassword && password === confirmPassword) {
+  //   if (password && confirm_password && password === confirm_password) {
   //     setIsPasswordCompleted(true);
   //     setPasswordError("");
   //     console.log("Password successfully set");
@@ -118,7 +128,7 @@ export default function BuatPasswordBaru() {
             </Typography>
           ) : null}
           <label
-            htmlFor="confirmPassword"
+            htmlFor="confirm_password"
             style={{ justifyContent: "flex-start" }}
           >
             Confirm Password
@@ -127,23 +137,23 @@ export default function BuatPasswordBaru() {
             margin="normal"
             required
             fullWidth
-            name="confirmPassword"
+            name="confirm_password"
             type="password"
-            // type={showconfirmPassword ? "text" : "confirmPassword"}
-            id="confirmPassword"
+            // type={showconfirm_password ? "text" : "confirm_password"}
+            id="confirm_password"
             placeholder="Masuksn ulang password"
-            autoComplete="current-confirmPassword"
+            autoComplete="current-confirm_password"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formik.values.confirmPassword}
+            value={formik.values.confirm_password}
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
           />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+          {formik.touched.confirm_password && formik.errors.confirm_password ? (
             <Typography sx={{ fontSize: 10, color: "red" }}>
-              {formik.errors.confirmPassword}
+              {formik.errors.confirm_password}
             </Typography>
           ) : null}
 

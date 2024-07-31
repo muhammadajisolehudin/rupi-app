@@ -5,11 +5,12 @@ import checklistIcon from "../../assets/img/checklist-icon.png";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useSetPin } from "../../services/auth/set-pin";
 
-export default function BuatPin() {
+export default function SetPin() {
   const [isPinCompleted, setIsPinCompleted] = useState(false);
   const navigate = useNavigate();
-
+  const pin = useSetPin()
   const formik = useFormik({
     initialValues: {
       pin: ["", "", "", "", "", ""],
@@ -20,14 +21,25 @@ export default function BuatPin() {
         .length(6, "PIN must be exactly 6 digits")
         .required("PIN is required"),
     }),
-    onSubmit: (values) => {
-      const pinValue = parseInt(values.pin.join(""), 10);
-      setIsPinCompleted(true);
-      console.log(pinValue);
-      console.log("Navigate to MasukPin page");
+    onSubmit: async (values) => {
+       const pinString = values.otp.join("");
+
+      const payload = {
+        ...values,
+        pin:pinString,
+      };
+      
+      try {
+        await pin.mutateAsync(payload);
+        setIsPinCompleted(true);
+      } catch (error) {
+        console.error("Login failed, error:", error); // Debug log
+        // Error handling sudah diatur di dalam useLoginMutation
+      }
+      
 
       setTimeout(() => {
-        navigate("/masuk-pin");
+        navigate("/pin");
       }, 1500);
     },
   });
@@ -113,10 +125,9 @@ export default function BuatPin() {
             <Button
               onClick={formik.handleSubmit}
               sx={{
-                backgroundColor: "#0066AE",
-                py: 2,
+                py: 1.5,
                 px: 18,
-                borderRadius: "12px",
+                borderRadius: "8px",
                 textTransform: "capitalize",
               }}
               variant="contained"

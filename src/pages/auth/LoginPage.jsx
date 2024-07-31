@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,39 +14,15 @@ import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-
-// Fungsi login menggunakan Axios
-const login = async (values) => {
-  const response = await axios.post(
-    "https://api.rupiapp.me/auth/signin",
-    values
-  );
-  return response.data;
-};
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "../../services/auth/signin";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const mutation = useLogin(); // Gunakan useLoginMutation dari authService
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-
-  // Inisialisasi useMutation dengan fungsi login
-  const mutation = useMutation({
-    mutationFn: login, // Set mutationFn dengan fungsi login
-    onSuccess: (data) => {
-      console.log("Login successful, response data:", data); // Debug log
-      alert("Login successful!");
-    },
-    onError: (error) => {
-      console.error(
-        "Login failed, error response:",
-        error.response ? error.response.data : error.message
-      ); // Debug log
-      alert("Login failed. Please check your credentials.");
-    },
-  });
 
   const formik = useFormik({
     initialValues: {
@@ -67,7 +44,13 @@ export const LoginPage = () => {
     }),
     onSubmit: async (values) => {
       console.log("Form Submitted", values); // Debug log
-      mutation.mutate(values); // Panggil mutate dari useMutation
+      try {
+        await mutation.mutateAsync(values); // Panggil mutateAsync dari useLoginMutation
+        navigate("/verify"); // Navigasi ke halaman beranda setelah login sukses
+      } catch (error) {
+        console.error("Login failed, error:", error); // Debug log
+        // Error handling sudah diatur di dalam useLoginMutation
+      }
     },
   });
 
@@ -78,10 +61,12 @@ export const LoginPage = () => {
         elevation={5}
         square={false}
         sx={{
-          height: 617,
           display: "flex",
           justifyContent: "center",
           flexDirection: "column",
+          my: "auto",
+          height: 617,
+          px: 4,
         }}
       >
         <Typography
@@ -102,7 +87,6 @@ export const LoginPage = () => {
           onSubmit={formik.handleSubmit}
           sx={{
             my: 1,
-            mx: 8,
             display: "flex",
             flexDirection: "column",
           }}
@@ -177,8 +161,8 @@ export const LoginPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 1, mb: 5, py: 1.5, borderRadius: "8px" }}
-            disabled={mutation.isLoading} // Disable button when loading
+            sx={{ mt: 2, mb: 5, py: 1.5, borderRadius: "8px" }}
+            disabled={mutation.isLoading}
           >
             {mutation.isLoading ? "Logging in..." : "Masuk"}
           </Button>
@@ -187,3 +171,5 @@ export const LoginPage = () => {
     </AuthLayout>
   );
 };
+
+

@@ -7,7 +7,10 @@ const verifyOtp = async (input) => {
 };
 
 const useVerifyOtp = () => {
-  return useMutation(verifyOtp);
+  // return useMutation(verifyOtp);
+  return useMutation({
+    mutationFn: verifyOtp,
+  });
 };
 
 export { verifyOtp, useVerifyOtp };

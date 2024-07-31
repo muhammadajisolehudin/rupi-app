@@ -23,10 +23,17 @@ http.interceptors.request.use((config) => {
     };
   }
 
+  const authToken = CookiesStorage.get(CookiesKey.AuthToken);
+
   config.headers = {
     ...config.headers,
-    Authorization: `${CookiesStorage.get(CookiesKey.AuthToken) ? CookiesStorage.get(CookiesKey.AuthToken) : ""}`,
+    Authorization: authToken ? `Bearer ${authToken}` : "",
   };
+
+  // config.headers = {
+  //   ...config.headers,
+  //   Authorization: `${CookiesStorage.get(CookiesKey.AuthToken) ? CookiesStorage.get(CookiesKey.AuthToken) : ""}`,
+  // };
   return config;
 });
 
