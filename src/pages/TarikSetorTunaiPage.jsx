@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Layout } from "./layout";
 import { Box, Card, Container, Paper, Typography } from "@mui/material";
-import { CardAccountInfo } from "../assets/components/cardComponents/CardAccountInfo";
+// import { CardAccountInfo } from "../assets/components/cardComponents/CardAccountInfo";
 import { TarikTunai } from "../assets/components/tarikSetorComponents/TarikTunai";
+import { SetorTunai } from "../assets/components/tarikSetorComponents/SetorTunai";
 
 export const TarikSetorTunaiPage = () => {
 	const [currentView, setCurrentView] = useState("tarik");
@@ -17,11 +18,7 @@ export const TarikSetorTunaiPage = () => {
 		} else if (currentView === "setor") {
 			return (
 				<>
-					<Typography variant="h5" sx={{ mt: 5 }}>
-						Sumber Rupiah
-					</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
-					<button>Lanjutkan</button>
+					<SetorTunai />
 				</>
 			);
 		} else if (currentView === "token") {
