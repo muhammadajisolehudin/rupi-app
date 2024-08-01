@@ -23,23 +23,22 @@ const SetorTunaiAwal = ({ onNext }) => {
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Sumber Rupiah
 				</Typography>
-				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }}>
-					<div>
+				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }} role="region" aria-labelledby="account-info-label">
+					<div id="account-info-label">
 						<Typography>
 							<span style={{ color: "grey" }}>No. Rekening:</span> <span>5667 2323 1444 5554</span>
 						</Typography>
-					</div>
-					<div>
 						<Typography>
 							<span style={{ color: "grey" }}>Saldo:</span> <span>Rp {"5300000".toLocaleString("id-ID")}</span>
 						</Typography>
 					</div>
 				</Card>
+
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Metode
 				</Typography>
-				<Card variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }}>
-					<Typography sx={{ backgroundColor: "white", padding: 1, paddingBottom: '8px !important' }}>
+				<Card variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }} role="region" aria-labelledby="method-info">
+					<Typography id="method-info" sx={{ backgroundColor: "white", padding: 1, paddingBottom: '8px !important' }}>
 						ATM BCA
 					</Typography>
 				</Card>
@@ -53,8 +52,8 @@ const SetorTunaiAwal = ({ onNext }) => {
 							width: "1100px",
 							backgroundColor: "#0066AE",
 							color: "white",
-							marginTop: "50px"
 						}}
+						aria-label="Lanjutkan ke langkah berikutnya"
 					>
 						Lanjutkan
 					</button>
@@ -104,13 +103,11 @@ const KonfirmasiSetor = ({ onNext }) => {
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Rekening Tujuan
 				</Typography>
-				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }}>
-					<div>
+				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }} role="region" aria-labelledby="destination-account">
+				<div id="destination-account">
 						<Typography>
 							<span style={{ color: "grey" }}>No. Rekening:</span> <span>5667 2323 1444 5554</span>
 						</Typography>
-					</div>
-					<div>
 						<Typography>
 							<span style={{ color: "grey" }}>Saldo:</span> <span>Rp {"5300000".toLocaleString("id-ID")}</span>
 						</Typography>
@@ -139,6 +136,7 @@ const KonfirmasiSetor = ({ onNext }) => {
 							backgroundColor: "#0066AE",
 							color: "white",
 						}}
+						aria-label="Lanjutkan ke langkah berikutnya"
 					>
 						Lanjutkan
 					</button>
@@ -214,7 +212,7 @@ const PinInput = ({ onSubmit }) => {
         alignItems: "center",
       }}
     >
-      <Typography variant="h5" sx={{ fontWeight: 600, mx: "auto", my: 5 }}>
+      <Typography id="pin-input" variant="h5" sx={{ fontWeight: 600, mx: "auto", my: 5 }}>
         Masukkan PIN
       </Typography>
       <Box
@@ -225,6 +223,8 @@ const PinInput = ({ onSubmit }) => {
           gap: 2,
           mt: 5,
         }}
+        role="group"
+        aria-labelledby="pin-input"
       >
         {[...Array(6)].map((_, index) => (
           <Box
@@ -257,6 +257,7 @@ const PinInput = ({ onSubmit }) => {
             backgroundColor: "#0066AE",
             color: "white",
           }}
+          aria-label="Lanjutkan dengan PIN yang dimasukkan"
         >
           Lanjutkan
         </button>
@@ -269,125 +270,132 @@ const PinInput = ({ onSubmit }) => {
 const KodeSetor = () => {
 	return (
 		<>
-    <Box
-			sx={{
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				my: 4,
-				flexDirection: "column",
-			}}
-		>
-			<img
-				src={checklistIcon}
-				alt="checklist icon"
-				style={{ margin: "10px", width: "136px", height: "136px" }}
-			/>
-			<Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
-				Uang Siap Disetor
-			</Typography>
-			<Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
-			<Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
-		</Box>
+			<Box
+				sx={{
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+					my: 4,
+					flexDirection: "column",
+				}}
+			>
+				<img
+					src={checklistIcon}
+					alt="Icon Checklist"
+					style={{ margin: "10px", width: "136px", height: "136px" }}
+				/>
+				<Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
+					Uang Siap Disetor
+				</Typography>
+				<Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }} aria-live="polite" aria-label="Tanggal dan waktu transaksi">
+					12 Jul 2024 . 11:35 WIB
+				</Typography>
+				<Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }} aria-live="polite" aria-label="Nomor referensi">
+					No. Ref 12736192837636
+				</Typography>
+			</Box>
 
-		<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-			<Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
-				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-					<Box>
-						<Typography sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
-						<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-							ATM BCA
-						</Typography>
-					</Box>
+			<Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+				<Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
+					<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+						<Box>
+							<Typography sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
+							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+								ATM BCA
+							</Typography>
+						</Box>
 
-					<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-						<Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
-						<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-							12.35
-						</Typography>
+						<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+							<Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
+							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+								12.35
+							</Typography>
+						</Box>
 					</Box>
-				</Box>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						my: 2,
-					}}
-				>
 					<Box
 						sx={{
 							display: "flex",
 							alignItems: "center",
-							justifyContent: "space-evenly",
-							bgcolor: "#E4EDFF",
-							p: 1,
-							width: "415px",
+							justifyContent: "center",
+							my: 2,
 						}}
 					>
-						<Typography>Kode Penyetoran</Typography>
-						<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-							222488
+						<Box
+							sx={{
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "space-evenly",
+								bgcolor: "#E4EDFF",
+								p: 1,
+								width: "415px",
+							}}
+						>
+							<Typography>Kode Penyetoran</Typography>
+							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
+								222488
+							</Typography>
+						</Box>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							mt: 2,
+							color: "#B3B3B3",
+						}}
+					>
+						<Typography>Rekening Tujuan</Typography>
+					</Box>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							mt: 1,
+							color: "#0A3967",
+							gap: 1,
+						}}
+					>
+						<Typography variant='h6' sx={{ fontWeight: "bold"}} aria-label="Nama pemegang akun rekening">
+							Samsul
+						</Typography>
+						<Typography variant='h6'> - </Typography>
+						<Typography variant='h6' aria-label="Nomor rekening">
+							5667 2323 1444 5554 
 						</Typography>
 					</Box>
-				</Box>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						mt: 2,
-						color: "#B3B3B3",
-					}}
-				>
-					<Typography>Rekening Tujuan</Typography>
-				</Box>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						mt: 1,
-						color: "#0A3967",
-						gap: 1,
-					}}
-				>
-					<Typography variant='h6' sx={{ fontWeight: "bold"}} >Samsul</Typography>
-					<Typography variant='h6'> - </Typography>
-						<Typography variant='h6'>
-						5667 2323 1444 5554 
-						</Typography>
-				</Box>
-				<Box
-					sx={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						mt: 2,
-						color: "#0066AE",
-					}}
-				>
-					<ShareIcon />
-					<Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
-				</Box>
-			</Card>
-		</Box>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+							mt: 2,
+							color: "#0066AE",
+						}}
+					>
+						<ShareIcon aria-label="Share code icon" />
+						<Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
+					</Box>
+				</Card>
+			</Box>
 
-		<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
-			<button
-				type="submit"
-				style={{
-					borderRadius: "10px",
-					border: 0,
-					padding: "11px",
-					width: "800px",
-					backgroundColor: "#0066AE",
-					color: "white",
-				}}
-			>
-				Buat Token Baru
-			</button>
-		</Box>
+			<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
+				<button
+					type="submit"
+					style={{
+						borderRadius: "10px",
+						border: 0,
+						padding: "11px",
+						width: "800px",
+						backgroundColor: "#0066AE",
+						color: "white",
+					}}
+					aria-label="Buat token baru"
+				>
+					Buat Token Baru
+				</button>
+			</Box>
 		</>
 	);
 };
