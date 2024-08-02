@@ -42,8 +42,14 @@ export const RouteList = () => {
           path="/transfer-rupiah/transfer-ke-penerima-baru/transfer-berhasil"
           element={<TransferBerhasilPage />}
         />
+        {/* auth */}
         <Route path="/QR-terima-transfer" element={<QRTerimaTransfer />} />
-        <Route
+        <Route path="/verify" element={<VerifyOtpPage />} />
+        <Route path="/beranda" element={<BerandaPage />} />
+        <Route path="/set-pin" element={<SetPin />} />
+        <Route path="/pin" element={<PinPage />} />
+        <Route path="/set-password" element={<SetPasswordPage />} />
+        {/* <Route
           path="*"
           element={
             <ProtectedUser>
@@ -56,7 +62,7 @@ export const RouteList = () => {
               </Routes>
             </ProtectedUser>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );
