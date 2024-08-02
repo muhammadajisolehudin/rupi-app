@@ -4,6 +4,10 @@ import calendarIcon from "../../../icons/calendar.png";
 import avatarWaveImage from "../../../images/avatar and wave.png";
 
 export const CardHero = () => {
+  const lightBlue = "#EDF4FF";
+  const darkBlue = "#0A3967";
+  const blue = "#0066AE";
+
   return (
     <Box
       sx={{
@@ -13,7 +17,7 @@ export const CardHero = () => {
         display: "flex",
         flexDirection: "row",
         padding: { xs: "20px 36px", lg: "40px 72px" },
-        height: "248px",
+        height: "auto",
         position: "relative",
         borderRadius: "20px",
         overflow: "hidden",
@@ -25,8 +29,8 @@ export const CardHero = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "#EDF4FF",
-            color: "#0A3967",
+            backgroundColor: lightBlue,
+            color: darkBlue,
             width: { xs: "100%", lg: "80%" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
@@ -53,7 +57,7 @@ export const CardHero = () => {
           variant="h1"
           component="h1"
           sx={{
-            color: "#0A3967",
+            color: darkBlue,
             fontSize: { xs: "24px", lg: "32px" },
             fontWeight: 700,
             marginBottom: "16px",
@@ -65,7 +69,7 @@ export const CardHero = () => {
           variant="body1"
           component="p"
           sx={{
-            color: "#0066AE",
+            color: blue,
             fontSize: { xs: "14px", lg: "18px" },
             fontWeight: 500,
             marginBottom: "40px",

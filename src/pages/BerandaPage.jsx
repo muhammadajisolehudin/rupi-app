@@ -2,6 +2,7 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { Layout } from "./layout";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { CardHero } from "../assets/components/cardComponents/CardHero";
+import { CardBalance } from "../assets/components/cardComponents/CardBalance";
 import { CardList } from "../assets/components/cardComponents/CardList";
 import { InfoSaldo } from "../assets/components/dashboard/InfoSaldo";
 import { Menu } from "../assets/components/dashboard/Menu";
@@ -17,7 +18,9 @@ export const BerandaPage = () => {
           <Grid item xs={12} lg={7}>
             <CardHero />
           </Grid>
-          <Grid item xs={12} lg={5}></Grid>
+          <Grid item xs={12} lg={5}>
+            <CardBalance />
+          </Grid>
         </Grid>
       </Container>
 
