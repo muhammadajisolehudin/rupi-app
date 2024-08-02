@@ -5,7 +5,6 @@ import { CardHero } from "../assets/components/cardComponents/CardHero";
 import { CardBalance } from "../assets/components/cardComponents/CardBalance";
 import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanceRecap";
 import { CardList } from "../assets/components/cardComponents/CardList";
-import { InfoSaldo } from "../assets/components/dashboard/InfoSaldo";
 import { Menu } from "../assets/components/dashboard/Menu";
 
 export const BerandaPage = () => {
@@ -26,34 +25,32 @@ export const BerandaPage = () => {
 
         <Grid container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
           <Grid item xs={12} lg={8}>
-
+            <Menu />
           </Grid>
           <Grid item xs={12} lg={4}>
             <CardFinanceRecap />
           </Grid>
         </Grid>
-      </Container>
 
-      <InfoSaldo />
-      <Menu />
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginTop: "2rem",
-          marginBottom: "1rem",
-        }}
-      >
-        <Typography> Transaksi Favorit</Typography>
-        <Button sx={{ backgroundColor: "#0066AE", color: "white" }}>
-          <Typography variant="body2" sx={{ textTransform: "none" }}>
-            Lihat Semua
-          </Typography>
-          <ChevronRightRoundedIcon />
-        </Button>
-      </Box>
-      <CardList />
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginTop: "2rem",
+            marginBottom: "1rem",
+          }}
+        >
+          <Typography> Transaksi Favorit</Typography>
+          <Button sx={{ backgroundColor: "#0066AE", color: "white" }}>
+            <Typography variant="body2" sx={{ textTransform: "none" }}>
+              Lihat Semua
+            </Typography>
+            <ChevronRightRoundedIcon />
+          </Button>
+        </Box>
+        <CardList />
+      </Container>
     </Layout>
   );
 };
