@@ -13,6 +13,7 @@ import { RekeningBaruPage } from '../pages/TransferRupiah/RekeningBaruPage';
 import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransferPage';
 import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
 import { TransferBerhasilPage } from '../pages/TransferRupiah/TransferBerhasilPage';
+import { QRTerimaTransfer } from '../pages/QRTerimaTransfer';
 
 
 export const RouteList = () => {
@@ -41,7 +42,7 @@ export const RouteList = () => {
           path="/transfer-rupiah/transfer-ke-penerima-baru/transfer-berhasil"
           element={<TransferBerhasilPage />}
         />
-
+        <Route path="/QR-terima-transfer" element={<QRTerimaTransfer />} />
         <Route
           path="*"
           element={
@@ -57,16 +58,6 @@ export const RouteList = () => {
           }
         />
       </Routes>
-      {/* <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/beranda" element={<BerandaPage />} />
-        <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
-
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/buat-pin" element={<BuatPin />} />
-        <Route path="/masuk-pin" element={<MasukPin />} />
-        <Route path="/buat-password" element={<BuatPasswordBaru />} />
-      </Routes> */}
     </BrowserRouter>
   );
 };

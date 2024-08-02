@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Card, Grid, Link, Typography } from "@mui/material";
+import { Box, Breadcrumbs, Card, Link, Typography } from "@mui/material";
 import DoubleArrowRight from "../../img/icons/double-arrow-right.svg";
 import DoubleArrowRightBlue from "../../img/icons/double-arrow-right-blue.svg";
 import { useLocation } from "react-router-dom"; 
