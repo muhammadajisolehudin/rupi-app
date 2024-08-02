@@ -13,7 +13,6 @@ export const CardFinanceRecap = () => {
       <Card
         sx={{
           display: "flex",
-          height: "511px",
           padding: "40px 20px",
           flexDirection: "column",
           borderRadius: "10px",
@@ -34,6 +33,7 @@ export const CardFinanceRecap = () => {
                 fontSize: "24px",
                 fontWeight: 700,
                 lineHeight: "24px",
+                marginBottom: "24px",
                 letterSpacing: "0.15px",
               }}
             >
@@ -54,7 +54,7 @@ export const CardFinanceRecap = () => {
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
             >
-              <img src={buttonEnter} alt="" style={{ width: "32px" }} />
+              <img src={buttonEnter} alt="" style={{ width: "36px" }} />
             </Button>
           </Box>
         </Box>
@@ -117,7 +117,6 @@ export const CardFinanceRecap = () => {
             padding: "30px 50px",
             alignItems: "center",
             backgroundColor: red,
-            marginBottom: "32px",
             borderRadius: "10px",
           }}
         >

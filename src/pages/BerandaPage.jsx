@@ -37,13 +37,45 @@ export const BerandaPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginTop: "2rem",
-            marginBottom: "1rem",
+            marginTop: "80px",
+            marginBottom: "40px",
           }}
         >
-          <Typography> Transaksi Favorit</Typography>
-          <Button sx={{ backgroundColor: "#0066AE", color: "white" }}>
-            <Typography variant="body2" sx={{ textTransform: "none" }}>
+          <Typography
+            sx={{
+              color: "#1C1C1E",
+              fontFamily: "Calibri",
+              fontSize: "32px",
+              fontWeight: 400,
+              lineHeight: "40px",
+              letterSpacing: "-0.75px",
+            }}
+          >
+            Transaksi Favorit
+          </Typography>
+          <Button
+            sx={{
+              backgroundColor: "#0066AE",
+              color: "white",
+              padding: "10px 20px",
+              borderRadius: "10px",
+              "&:hover": {
+                backgroundColor: "#0066AE",
+                color: "white",
+              },
+            }}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                textTransform: "none",
+                fontFamily: "Calibri",
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "24px",
+                letterSpacing: "-0.15px",
+              }}
+            >
               Lihat Semua
             </Typography>
             <ChevronRightRoundedIcon />
