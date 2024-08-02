@@ -12,7 +12,7 @@ import { NominalTransferPage } from '../pages/TransferRupiah/NominalTransferPage
 import { RekeningBaruPage } from '../pages/TransferRupiah/RekeningBaruPage';
 import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransferPage';
 import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
-import { NotifikasiBerhasilPage } from '../pages/NotifikasiBerhasilPage';
+import { TransferBerhasilPage } from '../pages/TransferRupiah/TransferBerhasilPage';
 
 
 export const RouteList = () => {
@@ -22,22 +22,25 @@ export const RouteList = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
         <Route
-          path="/transfer-rupiah/masukan-nomor-rekening"
+          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-nomor-rekening"
           element={<RekeningBaruPage />}
         />
         <Route
-          path="/transfer-rupiah/masukan-nominal-transfer"
+          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-nominal-transfer"
           element={<NominalTransferPage />}
         />
         <Route
-          path="/transfer-rupiah/konfirmasi-transfer"
+          path="/transfer-rupiah/transfer-ke-penerima-baru/konfirmasi-transfer"
           element={<KonfirmasiTransferPage />}
         />
         <Route
-          path="/transfer-rupiah/masukan-pin"
+          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-pin"
           element={<MasukanPinPage />}
         />
-        <Route path="/notif-success" element={<NotifikasiBerhasilPage />} />
+        <Route
+          path="/transfer-rupiah/transfer-ke-penerima-baru/transfer-berhasil"
+          element={<TransferBerhasilPage />}
+        />
 
         <Route
           path="*"

@@ -52,13 +52,13 @@ export const MasukanPinPage = () => {
     <Layout>
       <Container sx={{ paddingTop: "1.5rem", paddingBottom: "2rem" }}>
         <BreadcrumbsComponent />
-        <Card sx={{ mt: 6 }}>
+        <Card sx={{ mt: 6, mb:4 }}>
           <BreadcrumbsTranferRupiah />
           <FormikProvider value={formik}>
             <Grid
               container
               sx={{
-                py: 6,
+                py: 8,
                 px: 8,
                 display: "flex",
                 flexDirection: "column",
@@ -66,7 +66,7 @@ export const MasukanPinPage = () => {
                 gap: 5,
               }}
             >
-              <Typography variant="h4" sx={{ fontWeight: 600 }}>
+              <Typography variant="h5" sx={{ fontWeight: 600 }}>
                 Masukkan PIN
               </Typography>
               <PinInput />
@@ -76,8 +76,9 @@ export const MasukanPinPage = () => {
                 sx={{
                   py: 1.5,
                   px: 18,
-                  borderRadius: "8px",
+                  borderRadius: 3,
                   textTransform: "capitalize",
+                  mt:4,
                 }}
                 variant="contained"
               >

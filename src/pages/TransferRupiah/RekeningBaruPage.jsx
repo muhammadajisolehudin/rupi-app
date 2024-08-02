@@ -24,7 +24,7 @@ export const RekeningBaruPage = () => {
     <Layout>
       <Container sx={{ paddingTop: "1.5rem", paddingBottom: "2rem" }}>
         <BreadcrumbsComponent />
-        <Card sx={{ mt: 6 }}>
+        <Card sx={{ mt: 6, mb:4 }}>
           <BreadcrumbsTranferRupiah />
           <Box
             sx={{
