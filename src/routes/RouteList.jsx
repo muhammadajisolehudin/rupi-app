@@ -14,6 +14,7 @@ import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransf
 import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
 import { TransferBerhasilPage } from '../pages/TransferRupiah/TransferBerhasilPage';
 import { QRTerimaTransfer } from '../pages/QRTerimaTransfer';
+import { TarikSetorTunaiPage } from "../pages/TarikSetorTunaiPage";
 
 
 export const RouteList = () => {
@@ -44,6 +45,7 @@ export const RouteList = () => {
         />
         {/* auth */}
         <Route path="/QR-terima-transfer" element={<QRTerimaTransfer />} />
+        <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
         <Route path="/verify" element={<VerifyOtpPage />} />
         <Route path="/beranda" element={<BerandaPage />} />
         <Route path="/set-pin" element={<SetPin />} />
@@ -66,6 +68,10 @@ export const RouteList = () => {
       </Routes>
     </BrowserRouter>
   );
+
+
+// import { PinBaru } from "../pages/auth/PinBaru";
+
 };
 
 // export default RouteList;
