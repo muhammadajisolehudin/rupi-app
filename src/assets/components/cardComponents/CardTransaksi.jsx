@@ -10,7 +10,7 @@ export const CardTransaksi = ({ cardData, handleToggleFavorite }) => {
     return (
         <Box sx={{ minWidth: 275 }}>
             {cardData.map(card => (
-                <Card key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 3 }}>
+                <Card key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }}>
                     <CardContent sx={{ backgroundColor: "white", padding: 1, paddingBottom: '8px !important' }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginX: "3rem" }}>
                             <Box sx={{ display: "flex", gap: 4, width: "100%", alignItems: "center" }}>

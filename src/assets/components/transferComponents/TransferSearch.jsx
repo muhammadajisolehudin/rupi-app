@@ -18,7 +18,7 @@ export const TransferSearch = () => {
                     display: 'flex',
                     alignItems: 'center',
                     position: 'relative',
-                    borderRadius: '8px',
+                    borderRadius: 2,
                     border: '1px solid var(--Neutral-03, #B3B3B3)',
                     flexGrow: 1,
                     marginRight: 2, 

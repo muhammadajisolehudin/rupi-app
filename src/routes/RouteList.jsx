@@ -8,6 +8,10 @@ import SetPin from '../pages/auth/SetPinPage';
 import SetPasswordPage from '../pages/auth/SetPasswordPage';
 import PinPage from '../pages/auth/MasukPin';
 import { ProtectedUser } from '../assets/components/Protected/protected';
+import { NominalTransferPage } from '../pages/TransferRupiah/NominalTransferPage';
+import { RekeningBaruPage } from '../pages/TransferRupiah/RekeningBaruPage';
+import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransferPage';
+import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
 // import { PinBaru } from "../pages/auth/PinBaru";
 
 export const RouteList = () => {
@@ -15,7 +19,24 @@ export const RouteList = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/transfer-rupiah" element={ <TransferRupiahPage/>}/>
+        <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+        <Route
+          path="/transfer-rupiah/masukan-nomor-rekening"
+          element={<RekeningBaruPage />}
+        />
+        <Route
+          path="/transfer-rupiah/masukan-nominal-transfer"
+          element={<NominalTransferPage />}
+        />
+        <Route
+          path="/transfer-rupiah/konfirmasi-transfer"
+          element={<KonfirmasiTransferPage />}
+        />
+        <Route
+          path="/transfer-rupiah/masukan-pin"
+          element={<MasukanPinPage />}
+        />
+        
         <Route
           path="*"
           element={

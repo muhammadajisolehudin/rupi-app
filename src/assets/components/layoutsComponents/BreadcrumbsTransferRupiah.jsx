@@ -20,6 +20,7 @@ export const BreadcrumbsTranferRupiah = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center", // Center horizontally
+        borderRadius: "16px 16px 0 0",
       }}
     >
       <Box
@@ -33,10 +34,10 @@ export const BreadcrumbsTranferRupiah = () => {
         <Breadcrumbs
           separator={
             <img
-                color="red"
-                src={DoubleArrowRight}
-                alt="Separator"
-                style={{ width: 16, height: 16 }}
+              color="red"
+              src={DoubleArrowRight}
+              alt="Separator"
+              style={{ width: 16, height: 16 }}
             />
           }
           sx={{ flex: 1 }}
@@ -59,11 +60,7 @@ export const BreadcrumbsTranferRupiah = () => {
                 height={30}
                 width={30}
                 borderRadius="50%"
-                border={
-                  isLinkActive("/")
-                    ? "2px solid blue"
-                    : "2px solid gray"
-                }
+                border={isLinkActive("/") ? "2px solid blue" : "2px solid gray"}
                 // bgcolor={isLinkActive("/") ? "blue" : "transparent"} // Example of active background color
                 display="flex"
                 justifyContent="center"

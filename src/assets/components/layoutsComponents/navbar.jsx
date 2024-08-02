@@ -31,30 +31,30 @@ function Navbar() {
     <AppBar
       position="fixed" // Atur position menjadi 'fixed' untuk memastikan bayangan terlihat
       sx={{
-        backgroundColor: '#ffffff',
-        color: '#0066AE',
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Bayangan dengan intensitas dan opacity yang ditingkatkan
+        backgroundColor: "#ffffff",
+        color: "#0066AE",
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Bayangan dengan intensitas dan opacity yang ditingkatkan
         paddingX: "1rem",
         zIndex: 9999, // Pastikan z-index yang cukup besar agar AppBar selalu di atas konten lain
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', height: '85px' }}>
+      <Toolbar sx={{ justifyContent: "space-between", height: "85px" }}>
         {/* Logo and App Title */}
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
           }}
         >
-          <img id='logo' src="/logo.png" alt="Logo" />
-          <Typography id='logoText' variant="h6" fontWeight={700}>
+          <img id="logo" src="/logo.png" alt="Logo" />
+          <Typography id="logoText" variant="h6" fontWeight={700}>
             Rupi App
           </Typography>
         </Box>
 
         {/* Search Bar */}
-        <Box
+        {/* <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
@@ -82,60 +82,61 @@ function Navbar() {
               width: '100%',
             }}
           />
-        </Box>
+        </Box> */}
 
-        {/* Navigation Menu */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-          <Typography
-            id="beranda"
-            variant="h6"
-            fontWeight={activePage === 'beranda' ? 700 : 400}
-            style={{ cursor: 'pointer' }}
-            onClick={() => handlePageChange('beranda', '/beranda')}
-          >
-            Beranda
-          </Typography>
+        <Box sx={{  display:"flex", gap:8  }}>
+          {/* Navigation Menu */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: "32px" }}>
+            <Typography
+              id="beranda"
+              variant="h6"
+              fontWeight={activePage === "beranda" ? 700 : 400}
+              style={{ cursor: "pointer" }}
+              onClick={() => handlePageChange("beranda", "/beranda")}
+            >
+              Beranda
+            </Typography>
 
-          <Typography
-            id="aktivitas"
-            variant="h6"
-            fontWeight={activePage === 'aktivitas' ? 700 : 400}
-            style={{ cursor: 'pointer' }}
-            onClick={() => handlePageChange()}
-          >
-            Aktivitas
-          </Typography>
-        </Box>
+            <Typography
+              id="aktivitas"
+              variant="h6"
+              fontWeight={activePage === "aktivitas" ? 700 : 400}
+              style={{ cursor: "pointer" }}
+              onClick={() => handlePageChange()}
+            >
+              Aktivitas
+            </Typography>
+          </Box>
 
-        {/* Icons */}
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <img
-            src={NotificationIcon}
-            alt="notifications"
-            style={{ cursor: 'pointer', padding: '10px' }}
-            onClick={() => handlePageChange('notifications', '/')}
-          />
-          <img
-            src={CustomerServiceIcon}
-            alt="customer service"
-            style={{ cursor: 'pointer', padding: '0 20px 0 10px' }}
-            onClick={() => handlePageChange('customerService', '/')}
-          />
-          <img
-            src={SettingIcon}
-            alt="account settings"
-            style={{ cursor: 'pointer', padding: '10px' }}
-            onClick={() => handlePageChange('accountSettings', '/')}
-          />
-          <Button>
+          {/* Icons */}
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <img
-              src={LogoutIcon}
-              alt="logout"
-              style={{ cursor: 'pointer', padding: '10px' }}
-              onClick={() => handleLogout()}
+              src={NotificationIcon}
+              alt="notifications"
+              style={{ cursor: "pointer", padding: "10px" }}
+              onClick={() => handlePageChange("notifications", "/")}
             />
-          </Button>
-
+            <img
+              src={CustomerServiceIcon}
+              alt="customer service"
+              style={{ cursor: "pointer", padding: "0 20px 0 10px" }}
+              onClick={() => handlePageChange("customerService", "/")}
+            />
+            <img
+              src={SettingIcon}
+              alt="account settings"
+              style={{ cursor: "pointer", padding: "10px" }}
+              onClick={() => handlePageChange("accountSettings", "/")}
+            />
+            <Button>
+              <img
+                src={LogoutIcon}
+                alt="logout"
+                style={{ cursor: "pointer", padding: "10px" }}
+                onClick={() => handleLogout()}
+              />
+            </Button>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>
