@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSetPin } from "../../services/auth/set-pin";
 
-export default function SetPin() {
+export const SetPin = () => {
   const [isPinCompleted, setIsPinCompleted] = useState(false);
   const navigate = useNavigate();
   const pin = useSetPin()

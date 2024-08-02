@@ -1,18 +1,19 @@
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
-import { BerandaPage } from '../pages/BerandaPage';
-import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
-import VerifyOtpPage from '../pages/auth/VerifyOtpPage';
-import SetPin from '../pages/auth/SetPinPage';
-import SetPasswordPage from '../pages/auth/SetPasswordPage';
-import PinPage from '../pages/auth/MasukPin';
+import { VerifyOtpPage } from '../pages/auth/VerifyOtpPage';
+import { SetPin } from '../pages/auth/SetPinPage';
+import { SetPasswordPage } from '../pages/auth/SetPasswordPage';
+import { PinPage } from '../pages/auth/MasukPin';
 import { ProtectedUser } from '../assets/components/Protected/protected';
+import { BerandaPage } from "../pages/BerandaPage";
+import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
 import { NominalTransferPage } from '../pages/TransferRupiah/NominalTransferPage';
 import { RekeningBaruPage } from '../pages/TransferRupiah/RekeningBaruPage';
 import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransferPage';
 import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
-// import { PinBaru } from "../pages/auth/PinBaru";
+import { NotifikasiBerhasilPage } from '../pages/NotifikasiBerhasilPage';
+
 
 export const RouteList = () => {
   return (
@@ -36,7 +37,8 @@ export const RouteList = () => {
           path="/transfer-rupiah/masukan-pin"
           element={<MasukanPinPage />}
         />
-        
+        <Route path="/notif-success" element={<NotifikasiBerhasilPage />} />
+
         <Route
           path="*"
           element={
@@ -52,6 +54,16 @@ export const RouteList = () => {
           }
         />
       </Routes>
+      {/* <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/beranda" element={<BerandaPage />} />
+        <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/buat-pin" element={<BuatPin />} />
+        <Route path="/masuk-pin" element={<MasukPin />} />
+        <Route path="/buat-password" element={<BuatPasswordBaru />} />
+      </Routes> */}
     </BrowserRouter>
   );
 };

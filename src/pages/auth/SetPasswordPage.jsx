@@ -8,7 +8,7 @@ import * as Yup from "yup";
 import { useSetPassword } from "../../services/auth/set-password";
 import { Navigate } from "react-router-dom";
 
-export default function SetPasswordPage() {
+export const SetPasswordPage = () => {
   // const [password, setPassword] = useState("");
   // const [confirm_password, setconfirm_password] = useState("");
   // const [isPasswordCompleted, setIsPasswordCompleted] = useState(false);

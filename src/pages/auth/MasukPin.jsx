@@ -4,7 +4,7 @@ import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
-export default function PinPage() {
+export const PinPage = () => {
   const navigate = useNavigate();
 
   const formik = useFormik({

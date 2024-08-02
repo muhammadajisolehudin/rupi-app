@@ -6,7 +6,7 @@ import { AuthLayout } from "../authLayout";
 import { useVerifyOtp } from "../../services/auth/verify";
 import { useNavigate } from "react-router-dom";
 
-const VerifyOtpPage = () => {
+export const VerifyOtpPage = () => {
   const inputRefs = useRef([]);
   const otp = useVerifyOtp();
   const navigate = useNavigate
@@ -154,4 +154,4 @@ const VerifyOtpPage = () => {
   );
 };
 
-export default VerifyOtpPage;
+// export default VerifyOtpPage;
