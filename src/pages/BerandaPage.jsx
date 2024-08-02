@@ -3,6 +3,7 @@ import { Layout } from "./layout";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import { CardHero } from "../assets/components/cardComponents/CardHero";
 import { CardBalance } from "../assets/components/cardComponents/CardBalance";
+import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanceRecap";
 import { CardList } from "../assets/components/cardComponents/CardList";
 import { InfoSaldo } from "../assets/components/dashboard/InfoSaldo";
 import { Menu } from "../assets/components/dashboard/Menu";
@@ -15,11 +16,20 @@ export const BerandaPage = () => {
         sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}
       >
         <Grid container>
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={12} lg={8}>
             <CardHero />
           </Grid>
-          <Grid item xs={12} lg={5}>
+          <Grid item xs={12} lg={4}>
             <CardBalance />
+          </Grid>
+        </Grid>
+
+        <Grid container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
+          <Grid item xs={12} lg={8}>
+
+          </Grid>
+          <Grid item xs={12} lg={4}>
+            <CardFinanceRecap />
           </Grid>
         </Grid>
       </Container>
