@@ -35,7 +35,6 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
                 boxShadow: 24,
                 p: 4,
                 textAlign: 'center',
-                zIndex: 1301
             }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={handleClose}>
