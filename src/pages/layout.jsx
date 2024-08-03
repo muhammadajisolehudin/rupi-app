@@ -4,7 +4,7 @@ import React from "react";
 import Navbar from "../assets/components/layoutsComponents/navbar";
 import { Footer } from "../assets/components/layoutsComponents/Footer";
 
-export const Layout = ({ children = null }) => {
+export const Layout = ({ children }) => {
   return (
     <React.Fragment>
       <CssBaseline />

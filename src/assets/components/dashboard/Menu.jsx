@@ -80,7 +80,7 @@ export const Menu = () => {
             <ReuseCard
               imgSrc={imgTransactions}
               title="Transfer Rupiah"
-              targetLink="/transfer-rupi"
+              targetLink="/transfer-rupiah"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -91,23 +91,20 @@ export const Menu = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <ReuseCard
-              imgSrc={imgQris}
-              targetLink="/qris"
-            />
+            <ReuseCard imgSrc={imgQris} targetLink="/qris" />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseCard
               imgSrc={imgQR}
               title="QR Terima Transfer"
-              targetLink="/qrcode"
+              targetLink="/QR-terima-transfer"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseCard
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
-              targetLink="/tarik-tunai"
+              targetLink="/tarik-setor-tunai"
             />
           </Grid>
         </Grid>

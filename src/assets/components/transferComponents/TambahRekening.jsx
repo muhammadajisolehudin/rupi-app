@@ -30,7 +30,11 @@ export const TambahRekening = () => {
             padding: 3,
             width: "100%",
           }}
-          onClick={() => handlePageChange("/transfer-rupiah/rekening-baru")}
+          onClick={() =>
+            handlePageChange(
+              "/transfer-rupiah/transfer-ke-penerima-baru"
+            )
+          }
         >
           <img
             src={addIcon}

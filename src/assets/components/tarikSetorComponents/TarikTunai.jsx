@@ -1,6 +1,6 @@
 // import React from "react";
 
-import { Box, Card, Container, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Container, Grid, Paper, TextField, Typography } from "@mui/material";
 import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
 import { Form, useFormik } from "formik";
 import * as Yup from "yup";
@@ -9,20 +9,22 @@ import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../img/checklist-icon.png";
 import logoIcon from "/logo.png";
 import { Link } from "react-router-dom";
+import NominalInput from "../inputComponnet/NominalInput";
 
 const RequestNominalForm = ({ onNext }) => {
 	const formik = useFormik({
 		initialValues: {
-			nominal: "",
+			amount: "",
 			namaToken: "",
 			accountNumber: "5667 2323 1444 5554",
 			balance: 5000000,
 		},
 		validationSchema: Yup.object({
-			nominal: Yup.number().min(50000, "Nominal Tarik Tunai minimal IDR 50.000").required("Required"),
+			amount: Yup.number().min(50000, "Nominal Tarik Tunai minimal IDR 50.000").required("Required"),
 			namaToken: Yup.string().min(6, "Must be at least 6 characters"),
 		}),
 		onSubmit: (values) => {
+			console.log(values)
 			onNext(values);
 		},
 	});
@@ -31,70 +33,75 @@ const RequestNominalForm = ({ onNext }) => {
 		<>
 			<Container>
 				<form onSubmit={formik.handleSubmit}>
-					<Typography variant="h6" sx={{ mt: 5 }}>
-						Rekening Tujuan
-					</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
-
-					<Box sx={{ bgcolor: "#EFEFEF", borderRadius: 1, p: 1, mt: 4 }}>
-						<Typography>Nominal Bayar</Typography>
-						<TextField
-							aria-label="input nominal"
-							margin="normal"
-							name="nominal"
-							type="number"
-							id="nominal"
-							placeholder="Rp 0"
-							autoComplete="current-nominal"
-							fullWidth
-							required
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.nominal}
-						/>
-					</Box>
-					{formik.touched.nominal && formik.errors.nominal ? (
-						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formik.errors.nominal}</Typography>
-					) : (
-						<Typography sx={{ fontSize: 12, color: "grey", mt: 2 }}>
-							Nominal Tarik Tunai minimal IDR 50.000
-						</Typography>
-					)}
-
-					<Typography sx={{ mt: 4 }}>Beri Nama Token</Typography>
-					<TextField
-						aria-label="tambahkan nama token tarik tunai"
-						margin="normal"
-						name="namaToken"
-						type="text"
-						id="namaToken"
-						placeholder="Tambahkan nama token tarik tunai"
-						autoComplete="current-nominal"
-						fullWidth
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.namaToken}
-					/>
-					{formik.touched.namaToken && formik.errors.namaToken ? (
-						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formik.errors.namaToken}</Typography>
-					) : null}
-
-					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
-						<button
-							type="submit"
-							style={{
-								borderRadius: "15px",
-								border: 0,
-								padding: "8px",
-								width: "500px",
-								backgroundColor: "#0066AE",
-								color: "white",
+					<Grid container spacing={5} sx={{
+						py: 6,
+						px: 4,
+					}}>
+						<Grid item xs={12}>
+							<Typography>Rekening Tujuan</Typography>
+							<CardAccountInfo
+								accountNumber={"5667 2323 1444 5554"}
+								balance={5000000}
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<NominalInput
+								text={"Nominal Bayar"}
+								value={formik.values.amount}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+							/>
+							{formik.touched.amount && formik.errors.amount ? (
+								<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>
+									{formik.errors.amount}
+								</Typography>
+							) : (
+								<Typography sx={{ fontSize: 12, color: "grey", mt: 2 }}>
+									Nominal Tarik Tunai minimal IDR 50.000
+								</Typography>
+							)}
+						</Grid>
+						<Grid
+							item
+							xs={12}
+							sx={{
+								display: "flex",
+								flexDirection: "column",
+								gap: 2,
 							}}
-							aria-label="submit request tarik tunai form"
 						>
-							Lanjutkan
-						</button>
-					</Box>
+							<Typography mt={0} pt={0}>Beri Nama Token</Typography>
+							<TextField
+								aria-label="tambahkan nama token tarik tunai"
+								name="namaToken"
+								type="text"
+								id="namaToken"
+								placeholder="Tambahkan nama token tarik tunai"
+								autoComplete="current-nominal"
+								fullWidth
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								value={formik.values.namaToken}
+							/>
+							{formik.touched.namaToken && formik.errors.namaToken ? (
+								<Typography sx={{ fontSize: 10, color: "red" }}>
+									{formik.errors.namaToken}
+								</Typography>
+							) : null}
+						</Grid>
+
+						<Grid item xs={12}>
+							<Button
+								type="submit"
+								fullWidth
+								variant="contained"
+								sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+							// disabled={mutation.isLoading}
+							>
+								Lanjutkan
+							</Button>
+						</Grid>
+					</Grid>
 				</form>
 			</Container>
 		</>
@@ -274,13 +281,13 @@ const InputPinForm = ({ onSubmit }) => {
 				</Typography>
 			)}
 			<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
-				<button
+				<Button
 					onClick={handleButtonClick}
-					type="button"
+					fullWidth
 					style={{
 						borderRadius: "10px",
 						border: 0,
-						padding: "11px",
+						py: 1.5,
 						width: "800px",
 						backgroundColor: "#0066AE",
 						color: "white",
@@ -288,7 +295,7 @@ const InputPinForm = ({ onSubmit }) => {
 					aria-label="submit pin"
 				>
 					Lanjutkan
-				</button>
+				</Button>
 			</Box>
 		</Box>
 	);

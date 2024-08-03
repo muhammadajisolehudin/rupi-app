@@ -28,9 +28,7 @@ const BreadcrumbsComponent = () => {
       <Box sx={{ display: "flex", alignItems: "center", p: 2 }}>
         <Breadcrumbs
           aria-label="breadcrumb"
-          separator={
-            <span style={{ color: "#B3B3B3", margin: "0 8px" }}>&gt;</span>
-          }
+          separator={<span style={{ color: "#B3B3B3" }}> / </span>}
         >
           <Link
             component={RouterLink}

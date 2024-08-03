@@ -1,13 +1,13 @@
 // TransferRupiahPage.js
 import { useState } from 'react';
-import { Box, Card, Container, Typography } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { Layout } from "../layout";
 import { CardTransaksi } from "../../assets/components/cardComponents/CardTransaksi";
 import { TransferSearch } from "../../assets/components/transferComponents/TransferSearch";
 import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
 // import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
 import profileIcon from '../../assets/img/icons/placeholder-profile.png'; // pastikan import profileIcon
-import BreadcrumbsComponent from '../../assets/components/layoutsComponents/Breadcrumbs';
+import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
 // import { BreadcrumbsTranferRupiah } from '../../assets/components/layoutsComponents/BreadcrumbsTransferRupiah';
 
 const initialCardData = [
@@ -50,11 +50,8 @@ export const TransferRupiahPage = () => {
 
     return (
         <Layout>
-            <Container sx={{ paddingTop: "1.5rem", paddingBottom: "2rem" }}>
-
+            <Box sx={{ mx:6 ,paddingTop: "1.5rem", paddingBottom: "2rem" }}>
                 <BreadcrumbsComponent />
-                {/* <BreadcrumbsTranferRupiah/> */}
-            
                 <TransferSearch />
                 <TambahRekening />
                 <Box
@@ -87,7 +84,7 @@ export const TransferRupiahPage = () => {
                     cardData={nonFavoriteCards}
                     handleToggleFavorite={handleToggleFavorite}
                 />
-            </Container>
+            </Box>
         </Layout>
     );
 };

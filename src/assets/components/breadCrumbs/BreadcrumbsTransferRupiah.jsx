@@ -1,55 +1,38 @@
 import { Box, Breadcrumbs, Card, Link, Typography } from "@mui/material";
 import DoubleArrowRight from "../../img/icons/double-arrow-right.svg";
 import DoubleArrowRightBlue from "../../img/icons/double-arrow-right-blue.svg";
-import { useLocation } from "react-router-dom"; 
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 export const BreadcrumbsTranferRupiah = () => {
-  const location = useLocation(); 
 
-  const getLastPathSegment = () => {
-    const pathSegments = location.pathname.split("/").filter((x) => x);
-    return pathSegments[pathSegments.length - 1];
-  };
-
-  const lastPathSegment = getLastPathSegment();
-
-  const isLinkActive = (path) => {
-    return lastPathSegment === path.replace("/", "");
-  };
-
-  // Array of steps
+  const { step } = useTransferRupiahContext();
+  
   const steps = [
     {
-      link: "/transfer-rupiah/transfer-ke-penerima-baru/masukan-nomor-rekening",
-      path: "masukan-nomor-rekening",
       label: "Masukan Nomor Rekening",
       step: 1,
     },
     {
-      link: "/transfer-rupiah/transfer-ke-penerima-baru/masukan-nominal-transfer",
-      path: "masukan-nominal-transfer",
       label: "Masukan Nominal Transfer",
       step: 2,
     },
     {
-      link: "/transfer-rupiah/transfer-ke-penerima-baru/konfirmasi-transfer",
-      path: "konfirmasi-transfer",
       label: "Konfirmasi Transfer",
       step: 3,
     },
     {
-      link: "/transfer-rupiah/transfer-ke-penerima-baru/masukan-pin",
-      path: "masukan-pin",
       label: "Masukan Pin",
       step: 4,
     },
     {
-      link: "/transfer-rupiah/transfer-ke-penerima-baru/transfer-berhasil",
-      path: "transfer-berhasil",
       label: "Transfer Berhasil",
       step: 5,
     },
   ];
+
+  const isLinkActive = (stepInArray) => {
+    return stepInArray === step;
+  };
 
   return (
     <Card
@@ -69,15 +52,15 @@ export const BreadcrumbsTranferRupiah = () => {
         separator={null}
         width="100%"
       >
-        {steps.map(({ path, label, step }) => (
+        {steps.map(({ label, step }) => (
           
             <Link
-              key={path}
+              key={step}
               // href={link}
               underline="none"
               sx={{
                 width: "100%",
-                color: isLinkActive(path) ? "#0066AE" : "#B3B3B3",
+                color: isLinkActive(step) ? "#0066AE" : "#B3B3B3",
                 bgcolor: "red",
               }}
             >
@@ -92,7 +75,7 @@ export const BreadcrumbsTranferRupiah = () => {
                   width={30}
                   borderRadius="50%"
                   border={`2px solid ${
-                    isLinkActive(path) ? "#0066AE" : "#B3B3B3"
+                    isLinkActive(step) ? "#0066AE" : "#B3B3B3"
                   }`}
                   display="flex"
                   justifyContent="center"
@@ -117,7 +100,7 @@ export const BreadcrumbsTranferRupiah = () => {
                 </Typography>
                 <img
                   src={
-                    isLinkActive(path) ? DoubleArrowRightBlue : DoubleArrowRight
+                    isLinkActive(step) ? DoubleArrowRightBlue : DoubleArrowRight
                   }
                   alt="Separator"
                 />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { Layout } from "./layout";
-import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
+import BreadcrumbsComponent from '../assets/components/breadCrumbs/Breadcrumbs';
 import QRISIcon from '../assets/img/icons/QRIS-Icon.png'; 
 import LogoIcon from '../assets/img/icons/3.png'; 
 import QRImage from '../assets/img/Rupi App QR.png'; 

@@ -8,41 +8,28 @@ import { PinPage } from '../pages/auth/MasukPin';
 import { ProtectedUser } from '../assets/components/Protected/protected';
 import { BerandaPage } from "../pages/BerandaPage";
 import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
-import { NominalTransferPage } from '../pages/TransferRupiah/NominalTransferPage';
-import { RekeningBaruPage } from '../pages/TransferRupiah/RekeningBaruPage';
-import { KonfirmasiTransferPage } from '../pages/TransferRupiah/konfirmasiTransferPage';
-import { MasukanPinPage } from '../pages/TransferRupiah/MasukanPinPage';
-import { TransferBerhasilPage } from '../pages/TransferRupiah/TransferBerhasilPage';
+
 import { QRTerimaTransfer } from '../pages/QRTerimaTransfer';
-import { TarikSetorTunaiPage } from "../pages/TarikSetorTunaiPage";
+import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPage";
+import Index from '../pages/TransferRupiah/TrasnferKePenerimaBaru';
+import { TransferRupiahProvider } from '../context/TransferRupiahContext';
 
 
 export const RouteList = () => {
   return (
     <BrowserRouter>
+      <TransferRupiahProvider>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
-        <Route
-          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-nomor-rekening"
-          element={<RekeningBaruPage />}
-        />
-        <Route
-          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-nominal-transfer"
-          element={<NominalTransferPage />}
-        />
-        <Route
-          path="/transfer-rupiah/transfer-ke-penerima-baru/konfirmasi-transfer"
-          element={<KonfirmasiTransferPage />}
-        />
-        <Route
-          path="/transfer-rupiah/transfer-ke-penerima-baru/masukan-pin"
-          element={<MasukanPinPage />}
-        />
-        <Route
-          path="/transfer-rupiah/transfer-ke-penerima-baru/transfer-berhasil"
-          element={<TransferBerhasilPage />}
-        />
+        
+          <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+          <Route
+            path="/transfer-rupiah/transfer-ke-penerima-baru"
+            element={<Index />}
+          />
+       
+
+
         {/* auth */}
         <Route path="/QR-terima-transfer" element={<QRTerimaTransfer />} />
         <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
@@ -66,11 +53,12 @@ export const RouteList = () => {
           }
         /> */}
       </Routes>
+      </TransferRupiahProvider>
     </BrowserRouter>
   );
 
 
-// import { PinBaru } from "../pages/auth/PinBaru";
+  // import { PinBaru } from "../pages/auth/PinBaru";
 
 };
 
