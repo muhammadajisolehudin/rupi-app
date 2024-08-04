@@ -110,9 +110,13 @@ export const LoginPage = () => {
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
+            aria-required="true"
+            aria-invalid={formik.touched.username && formik.errors.username ? "true" : "false"}
+            aria-describedby="username-error"
+            aria-label="Masukkan username"
           />
           {formik.touched.username && formik.errors.username ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="username-error" sx={{ fontSize: 10, color: "red" }}>
               {formik.errors.username}
             </Typography>
           ) : null}
@@ -131,12 +135,16 @@ export const LoginPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
+            aria-required="true"
+            aria-invalid={formik.touched.password && formik.errors.password ? "true" : "false"}
+            aria-describedby="password-error"
+            aria-label="Masukkan password"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
+                    aria-label="Button tampilkan password"
                     onClick={handleClickShowPassword}
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -146,13 +154,19 @@ export const LoginPage = () => {
             }}
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="password-error" sx={{ fontSize: 10, color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
           <Grid container>
             <Grid item xs sx={{ mt: 1, mb: 2 }}>
-              <Link href="#" variant="body2" style={{ textDecoration: "none" }}>
+              <Link
+                href="#"
+                variant="body2"
+                style={{ textDecoration: "none" }}
+                role="button"
+                aria-label="Button Lupa ID/Password"
+              >
                 Lupa ID/Password?
               </Link>
             </Grid>
@@ -163,6 +177,7 @@ export const LoginPage = () => {
             variant="contained"
             sx={{ mt: 2, mb: 5, py: 1.5, borderRadius: "8px" }}
             disabled={mutation.isLoading}
+            aria-label="Button Masuk"
           >
             {mutation.isLoading ? "Logging in..." : "Masuk"}
           </Button>

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Box, Button, Paper, TextField, Typography, Link } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";
@@ -134,9 +134,21 @@ export const VerifyOtpPage = () => {
                       style: { textAlign: "center" },
                     }}
                     inputRef={(el) => (inputRefs.current[index] = el)}
+                    aria-label="Input 6 Digit Kode OTP"
                   />
                 </Box>
               ))}
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Link
+                href="#"
+                style={{ textDecoration: "none", mx: "auto", mt: 4, color: "grey" }}
+                variant="body1"
+                role="button"
+                aria-label="Button Kirim kode baru"
+              >
+                Kirim kode baru
+              </Link>
             </Box>
             <Button
               type="submit"
@@ -144,6 +156,7 @@ export const VerifyOtpPage = () => {
               variant="contained"
               sx={{ mt: 4, mb: 5, py: 1.5, borderRadius: "8px" }}
               disabled={formik.isSubmitting || !formik.isValid}
+              aria-label="Button Lanjutkan"
             >
               Lanjutkan
             </Button>
