@@ -23,10 +23,9 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
             onClose={handleClose}
             aria-labelledby="modal-title"
             aria-describedby="modal-description"
-            sx={{ zIndex: 1300 }} 
         >
             <Card sx={{
-                position: 'fixed',
+                position: 'absolute',
                 top: '50%',
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
@@ -37,6 +36,7 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
                 p: 4,
                 textAlign: 'center',
                 zIndex: 1301
+
             }}>
                 <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <IconButton onClick={handleClose}>

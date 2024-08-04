@@ -54,7 +54,8 @@ const FilterModal = ({ open, handleClose }) => {
                 >
                     <CloseIcon />
                 </IconButton>
-                <Typography id="filter-modal-title" variant="h6" component="h2" sx={{ mb: 2, textAlign: 'center' }}>
+                <Typography id="filter-modal-title" variant="h6" component="h2" sx={{ mb: 4, textAlign: 'center', fontWeight: 'bold' }}>
+
                     Filter
                 </Typography>
                 <TextField
@@ -63,14 +64,17 @@ const FilterModal = ({ open, handleClose }) => {
                     variant="outlined"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    sx={{ mb: 2, bgcolor: 'white', borderRadius: 1 }}
- 		            // InputProps={{ 
-                    //     startAdornment: (
-                    //         <InputAdornment position="start">
-                    //           <img src={SearchIcon} alt="search" style={{ width: '20px' }} />
-                    //         </InputAdornment>
-                    //       )
-                    //  }}
+                    sx={{ mb: 4, bgcolor: 'white', borderRadius: 1 }}
+ 		        //     InputProps={{ 
+                //         startAdornment: (
+                //             <InputAdornment position="start">
+                //               <img src={SearchIcon} alt="search" style={{ width: '20px' }} />
+                //               <Typography id="body-2" variant="h6" component="p" sx={{ mb: 2, textAlign: 'center' }}>
+                //     Cari apa
+                // </Typography>
+                //             </InputAdornment>
+                //           )
+                //      }}
                 />
                 <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
                     <Typography sx={{ ml: 'auto', cursor: 'pointer', color: 'gray' }} onClick={handleResetDates}>

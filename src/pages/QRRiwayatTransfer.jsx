@@ -126,4 +126,6 @@ const QRRiwayatTransfer = () => {
     );
 };
 
+
 export default QRRiwayatTransfer;
+
