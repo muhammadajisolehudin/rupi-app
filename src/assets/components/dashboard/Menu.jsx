@@ -12,7 +12,7 @@ import imgTransactions from "../../img/Transaction-Icon.png";
 import imgQR from "../../img/qr-code-Icon.png";
 import imgTopUp from "../../img/top-up-Icon.png";
 import imgMoney from "../../img/money-Icon.png";
-import imgQris from "../../img/QRIS-Icon.png";
+import imgQris from "../../img/icons/QRIS-Icon.png";
 
 const ReuseCard = ({ imgSrc, title, targetLink }) => {
   return (
@@ -97,7 +97,7 @@ export const Menu = () => {
             <ReuseCard
               imgSrc={imgQR}
               title="QR Terima Transfer"
-              targetLink="/QR-terima-transfer"
+              targetLink="/qr-terima-transfer"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>

@@ -8,17 +8,17 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png";
 import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
-import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
+import PropTypes from 'prop-types';
 
-export const KonfirmasiTransfer = ({ onNext }) => {
+export const KonfirmasiTransferForm = ({ onNext }) => {
   const formik = useFormik({
     initialValues: {
-      destination_id: "",
-      amount: "100000",
-      description: "ini hanya bisa dibaca",
-      type: "TRANSFER",
+      destination_id: onNext.destination_id,
+      amount: onNext.amount,
+      description: onNext.description,
+      type: onNext.type,
       pin: "",
-      transaction_purpose: "",
+      transaction_purpose: onNext.transaction_purpose,
     },
     validationSchema: Yup.object({
       amount: Yup.string().required("Required"),
@@ -161,4 +161,8 @@ export const KonfirmasiTransfer = ({ onNext }) => {
       
       
   );
+};
+
+KonfirmasiTransferForm.propTypes = {
+  onNext: PropTypes.any,
 };

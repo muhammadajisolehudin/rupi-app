@@ -1,0 +1,81 @@
+
+.custom-swal-confirm-button {
+    color: white; /* Warna teks */
+    border: none; /* Hapus border */
+    margin-top: -10px; /* Margin atas */
+    font-size: 16px; /* Ukuran font */
+    font-weight: bold; /* Ketebalan font */
+    border-radius: 5px; /* Radius sudut */
+    /* Tambahan gaya lainnya */
+}
+
+/* styles.css */
+.custom-swal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.custom-succes-image-container {
+    width: 6rem;
+    height: 6rem;
+    border: 0.9rem solid #12D79C;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: relative; /* Memungkinkan posisi absolute pada anak-anak */
+    overflow: hidden; /* Memastikan gambar tetap di dalam lingkaran */
+}
+
+.custom-fail-image-container {
+    width: 6rem;
+    height: 6rem;
+    /* border: 0.9rem solid red; */
+    background-color: #CB3A31;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: relative; /* Memungkinkan posisi absolute pada anak-anak */
+    overflow: hidden; /* Memastikan gambar tetap di dalam lingkaran */
+}
+
+.custom-swal-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Membuat gambar bundar sesuai dengan kontainer */
+    position: absolute; /* Memungkinkan posisi absolute untuk animasi */
+    opacity: 0; /* Awalnya tidak terlihat */
+    animation: checkmarkAnimation 0.6s ease forwards; /* Animasi untuk ceklist */
+}
+
+@keyframes checkmarkAnimation {
+    0% {
+        opacity: 0;
+        transform: scale(0.2); /* Awalnya sangat kecil */
+    }
+    50% {
+        transform: scale(1.2); /* Pertengahan, tumbuh besar sebelum mengecil */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1); /* Akhir, ukuran normal */
+    }
+}
+
+.custom-swal-title {
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.custom-swal-message {
+    margin: 0;
+    font-size: 14px;
+}

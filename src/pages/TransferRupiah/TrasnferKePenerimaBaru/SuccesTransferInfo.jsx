@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
 import ModalTransferBerhasil from "../../../assets/components/Modal/ModalTransferBerhasil";
-// import TransferModal from "./TransferModal"; // Import komponen modal
+// import PropTypes from 'prop-types';
 
-export const TransferBerhasil = ({ onNext }) => {
+export const SuccesTransferInfo = () => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -59,4 +59,7 @@ export const TransferBerhasil = ({ onNext }) => {
   );
 };
 
-export default TransferBerhasil;
+
+// SuccesTransferInfo.propTypes = {
+//   onNext: PropTypes.any,
+// };

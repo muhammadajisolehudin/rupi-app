@@ -3,7 +3,8 @@ import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const verifyOtp = async (input) => {
-  return await http.post(API_ENDPOINT.AUTH_VERIFY, input);
+  const result = await http.post(API_ENDPOINT.AUTH_VERIFY, input);
+  return result.data;
 };
 
 const useVerifyOtp = () => {

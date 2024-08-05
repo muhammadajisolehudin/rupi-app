@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import { Box, Button, Card, Container, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import { TarikTunai } from "./TarikTunai";
 import { Layout } from "../layout";
 import BreadcrumbsComponent from "../../assets/components/breadCrumbs/Breadcrumbs";
+import { SetorTunai } from "./SetorTunai";
 
 
 export const TarikSetorTunaiPage = () => {
@@ -19,7 +20,7 @@ export const TarikSetorTunaiPage = () => {
 		} else if (currentView === "setor") {
 			return (
 				<>
-					{/* <SetorTunai /> */}
+					<SetorTunai />
 				</>
 			);
 		} else if (currentView === "token") {

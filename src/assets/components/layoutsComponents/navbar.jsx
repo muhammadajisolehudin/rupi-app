@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
+// import InputBase from '@mui/material/InputBase';
 import { Box, Button } from '@mui/material';
 import NotificationIcon from '../../img/icons/Notification.svg';
-import SearchIcon from '../../img/icons/Search.svg';
+// import SearchIcon from '../../img/icons/Search.svg';
 import SettingIcon from '../../img/icons/Setting.svg';
 import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
 import LogoutIcon from '../../img/icons/Logout.svg';
-import { useSignout } from '../../../services/auth/signout';
+import { useAuthContext } from '../../../context/AuthContext';
 
 function Navbar() {
   const [activePage, setActivePage] = useState('beranda');
   const navigate = useNavigate();
-  const { mutate: logout } = useSignout();
+  const { logout } = useAuthContext()
 
   const handlePageChange = (pageName, path) => {
     setActivePage(pageName);
@@ -52,37 +52,6 @@ function Navbar() {
             Rupi App
           </Typography>
         </Box>
-
-        {/* Search Bar */}
-        {/* <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            position: 'relative',
-            marginLeft: '20px',
-            backgroundColor: '#ffffff',
-            borderRadius: '8px',
-            border: '1px solid var(--Neutral-03, #B3B3B3)',
-            width: '390px',
-          }}
-        >
-          <img
-            id="searchIcon"
-            src={SearchIcon}
-            alt="search"
-            style={{ position: 'absolute', left: '15px', height: '12px' }}
-          />
-          <InputBase
-            id="searchBox"
-            placeholder="Cari"
-            inputProps={{ 'aria-label': 'search' }}
-            sx={{
-              paddingLeft: '40px',
-              paddingRight: '10px',
-              width: '100%',
-            }}
-          />
-        </Box> */}
 
         <Box sx={{  display:"flex", gap:8  }}>
           {/* Navigation Menu */}

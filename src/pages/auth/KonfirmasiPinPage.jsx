@@ -1,10 +1,17 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useSetPin } from "../../services/auth/set-pin";
 
-export const PinPage = () => {
+export const KonfirmasiPinPage = () => {
+
+  const { state } = useLocation();
+
+  const pinData = state?.payload; 
+
+  const pin = useSetPin()
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -20,12 +27,23 @@ export const PinPage = () => {
         )
         .required("PIN is required"),
     }),
-    onSubmit: (values) => {
-      const pinValue = parseInt(values.pin.join(""), 10);
-      console.log(pinValue);
-      console.log("Navigate to Beranda page");
+    onSubmit: async (values) => {
+      const pinString = values.otp.join("");
+      const payload = {
+        ...values,
+        pin: pinString,
+      };
 
-      navigate("/beranda");
+      if (pinString !== pinData?.pin) {
+        alert("PIN tidak sesuai");
+        return;
+      }
+      try {
+        await pin.mutateAsync(payload);
+        navigate("/beranda")
+      } catch (error) {
+        console.log(error)
+      }
     },
   });
 

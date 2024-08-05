@@ -4,26 +4,33 @@ import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png"
 import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
 import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import PropTypes from 'prop-types';
 
 
+export const InputNominalTransferForm = ({ onNext }) => {
 
-export const NominalTransfer = ({ onNext }) => {
   const formik = useFormik({
     initialValues: {
+      //butuh satu endpoint get detination id by name
       destination_id: "",
       amount: "",
       description: "",
       type: "TRANSFER",
       pin: "",
-      transaction_purpose: "",
+      transaction_purpose: "OTHER",
     },
     validationSchema: Yup.object({
       amount: Yup.string().required("Required"),
       description: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values);
-      onNext(values);
+      try {
+        console.log("Form Submitted", values);
+        onNext(values);
+      } catch (error) {
+        console.log("message error: ",error)
+      }
+      
       // Panggil fungsi mutate di sini jika menggunakan useMutation
     },
   });
@@ -120,4 +127,8 @@ export const NominalTransfer = ({ onNext }) => {
 
 
   );
+};
+
+InputNominalTransferForm.propTypes = {
+  onNext: PropTypes.any,
 };

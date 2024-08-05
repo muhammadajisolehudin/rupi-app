@@ -6,7 +6,8 @@ import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 const Signout = async () => {
   await http.post(API_ENDPOINT.AUTH_SIGNOUT);
   // Hapus token dari cookies
-  CookiesStorage.remove(CookiesKey.AuthToken, CookiesKey.User);
+  CookiesStorage.remove(CookiesKey.AuthToken);
+  CookiesStorage.remove(CookiesKey.User);
 };
 
 const useSignout = () => {

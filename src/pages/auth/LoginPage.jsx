@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -15,12 +15,14 @@ import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../services/auth/signin";
+import SuccesAlert from "../../assets/components/AlertComponents/SuccesAlert";
+import FailAlert from "../../assets/components/AlertComponents/FailAlert";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const mutation = useLogin(); // Gunakan useLoginMutation dari authService
+  const { login, isLoading, isError, isSuccess, error } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -33,23 +35,17 @@ export const LoginPage = () => {
       username: Yup.string().required("Required"),
       password: Yup.string()
         .min(6, "Password must be at least 6 characters")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[@$!%*?&#]/,
-          "Password must contain at least one special character"
-        )
         .required("Required"),
     }),
     onSubmit: async (values) => {
       console.log("Form Submitted", values); // Debug log
       try {
-        await mutation.mutateAsync(values); // Panggil mutateAsync dari useLoginMutation
-        navigate("/verify"); // Navigasi ke halaman beranda setelah login sukses
+        await login(values);
+        navigate("/verify");
       } catch (error) {
-        console.error("Login failed, error:", error); // Debug log
-        // Error handling sudah diatur di dalam useLoginMutation
+        console.error("Login failed, error:", error);
+        // setErrorMessage(error.response ? error.response.data.message : error.message);
+        
       }
     },
   });
@@ -102,7 +98,7 @@ export const LoginPage = () => {
             name="username"
             type="text"
             autoComplete="username"
-            placeholder="Masukkan Rupiah Id"
+            placeholder="Masukkan Username"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.username}
@@ -153,7 +149,7 @@ export const LoginPage = () => {
           <Grid container>
             <Grid item xs sx={{ mt: 1, mb: 2 }}>
               <Link href="#" variant="body2" style={{ textDecoration: "none" }}>
-                Lupa ID/Password?
+                Lupa Username/Password?
               </Link>
             </Grid>
           </Grid>
@@ -162,12 +158,18 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 2, mb: 5, py: 1.5, borderRadius: "8px" }}
-            disabled={mutation.isLoading}
+            disabled={isLoading}
           >
-            {mutation.isLoading ? "Logging in..." : "Masuk"}
+            {isLoading ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
       </Box>
+      {isError && (
+        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
+      )}
+      {isSuccess && (
+        <SuccesAlert message="" title="Login Berhasil" />
+      )}
     </AuthLayout>
   );
 };

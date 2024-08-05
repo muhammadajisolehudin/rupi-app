@@ -1,16 +1,23 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";
 import { useVerifyOtp } from "../../services/auth/verify";
 import { useNavigate } from "react-router-dom";
+import SuccesAlert from "../../assets/components/AlertComponents/SuccesAlert";
+import { useVerifyOtpResend } from "../../services/auth/verify-resend";
+import { useAuthContext } from "../../context/AuthContext";
+import FailAlert from "../../assets/components/AlertComponents/FailAlert";
 
 export const VerifyOtpPage = () => {
   const inputRefs = useRef([]);
+  const { user } = useAuthContext()
+  const [ verifyStatus, setVerifyStatus ] = useState()
   const otp = useVerifyOtp();
-  const navigate = useNavigate
-  // Inisialisasi Formik
+  const resendOtp = useVerifyOtpResend();
+  const navigate = useNavigate()
+
   const formik = useFormik({
     initialValues: {
       type: "LOGIN",
@@ -32,16 +39,17 @@ export const VerifyOtpPage = () => {
         ...values,
         otp: otpString,
       };
-      
-      console.log("Form submitted:", values);
+
       try {
-        await otp.mutateAsync(payload);
-        navigate("/beranda"); 
+        const response = await otp.mutateAsync(payload);
+        setVerifyStatus(response.message);
+        console.log("status regis : ", verifyStatus)
+        verifyStatus === "Registration verified" ? navigate("/set-password") : navigate("/beranda")
       } catch (error) {
-        console.error("Login failed, error:", error); // Debug log
-        // Error handling sudah diatur di dalam useLoginMutation
+        console.error("Login failed, error:", error); 
+  
       }
-      // Implementasi fungsi lanjutkan setelah submit
+      
     },
   });
 
@@ -69,6 +77,17 @@ export const VerifyOtpPage = () => {
       }
     }
     formik.setFieldValue("otp", newOtp);
+  };
+
+  const handleResendOtp = async () => {
+    try {
+      console.log("ini data user dari use : ", user)
+      await resendOtp.mutateAsync(user.username);
+      // await otp.mutateAsync(payload);
+    } catch (error) {
+      console.error("Resend OTP failed:", error);
+      // Tangani error jika resend OTP gagal
+    }
   };
 
   return (
@@ -138,6 +157,15 @@ export const VerifyOtpPage = () => {
                 </Box>
               ))}
             </Box>
+            <Typography onClick={handleResendOtp} 
+            sx={{
+              color: "#B3B3B3",
+              cursor: "pointer",
+              "&:hover": {
+                color: "#1976d2", 
+              },
+            }}>Kirim Kode Baru </Typography>
+            {/* <h1>Welcome, {user ? user.username : "Guest"}</h1> */}
             <Button
               type="submit"
               fullWidth
@@ -150,6 +178,13 @@ export const VerifyOtpPage = () => {
           </Box>
         </form>
       </Paper>
+      {otp.isError && (
+        <FailAlert message={otp.error?.response?.data?.message || otp.error?.message} title="Verifikasi Gagal" />
+      )}
+      {otp.isSuccess && (
+        <SuccesAlert message="" title="Verifikasi Berhasil" />
+      )}
+      {/* <SuccesAlert message="" title="Login Berhasil"/> */}
     </AuthLayout>
   );
 };

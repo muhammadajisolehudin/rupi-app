@@ -6,15 +6,11 @@ import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSetPassword } from "../../services/auth/set-password";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SetPasswordPage = () => {
-  // const [password, setPassword] = useState("");
-  // const [confirm_password, setconfirm_password] = useState("");
-  // const [isPasswordCompleted, setIsPasswordCompleted] = useState(false);
-  // const [passwordError, setPasswordError] = useState("");
-  // const navigate = useNavigate();
 
+  const navigate = useNavigate()
   const password = useSetPassword();
 
   const formik = useFormik({
@@ -40,7 +36,7 @@ export const SetPasswordPage = () => {
     onSubmit: async (values) => {
       try {
         await password.mutateAsync(values);
-        Navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
+        navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
       } catch (error) {
         console.error("Login failed, error:", error); // Debug log
         // Error handling sudah diatur di dalam useLoginMutation

@@ -3,17 +3,21 @@ import { Button, Grid, Typography } from "@mui/material";
 import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
 import PinInput from "../../../assets/components/inputComponnet/PinInput";
-// import PinInput from "../../components/PinInput"; // Update path if needed
+import PropTypes from 'prop-types';
+import { useAddTransaksiIntrabank } from "../../../services/transfer-rupiah/add-transaksi-intrabank";
 
-export const MasukanPin = ({ onNext }) => {
+export const InputPinForm = ({ onNext }) => {
+
+  const transaksiIntrabank = useAddTransaksiIntrabank();
+
   const formik = useFormik({
     initialValues: {
-      destination_id: "",
-      amount: "",
-      description: "",
-      type: "TRANSFER",
+      destination_id: onNext.destination_id,
+      amount: onNext.amount,
+      description: onNext.description,
+      type: onNext.type,
       pin: ["", "", "", "", "", ""],
-      transaction_purpose: "",
+      transaction_purpose: onNext.transaction_purpose,
     },
     validationSchema: Yup.object({
       pin: Yup.array()
@@ -25,8 +29,15 @@ export const MasukanPin = ({ onNext }) => {
         .required("PIN is required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values);
-      onNext(values);
+      try {
+        console.log("Form Submitted", values);
+        await transaksiIntrabank.mutateAsync(values);
+        onNext(values);
+      } catch (error) {
+        console.log("ini error nya :", error);
+      }
+     
+      
       // Call mutation function here if using useMutation
     },
   });
@@ -81,4 +92,8 @@ export const MasukanPin = ({ onNext }) => {
         </Grid>
       </FormikProvider>
   );
+};
+
+InputPinForm.propTypes = {
+  onNext: PropTypes.any,
 };

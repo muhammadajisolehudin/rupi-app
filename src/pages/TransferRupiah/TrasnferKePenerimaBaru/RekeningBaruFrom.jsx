@@ -2,8 +2,13 @@ import { Box, Button, Grid, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import BcaIcon from "../../../assets/img/icons/bcaIcon.png";
+import PropTypes from 'prop-types';
+import { useAddDataRekening } from "../../../services/transfer-rupiah/add-rekening-baru";
 
-export const RekeningBaru = ({ onNext }) => {
+export const RekeningBaruForm = ({ onNext }) => {
+
+  const addRekening = useAddDataRekening();
+
   const formik = useFormik({
     initialValues: {
       account_number: "",
@@ -12,9 +17,15 @@ export const RekeningBaru = ({ onNext }) => {
       account_number: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values);
-      onNext(values);
-      // Panggil fungsi mutate di sini jika menggunakan useMutation
+
+      try {
+        console.log("Form Submitted", values);
+        await addRekening.mutateAsync(values);
+        onNext(values);
+      } catch (error) {
+        console.error("Login failed, error:", error); 
+      }   
+      
     },
   });
 
@@ -62,4 +73,8 @@ export const RekeningBaru = ({ onNext }) => {
 
 
   );
+};
+
+RekeningBaruForm.propTypes = {
+  onNext: PropTypes.any,
 };

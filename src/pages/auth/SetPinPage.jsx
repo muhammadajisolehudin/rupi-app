@@ -7,7 +7,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSetPin } from "../../services/auth/set-pin";
 
-export const SetPin = () => {
+export const SetPinPage = () => {
   const [isPinCompleted, setIsPinCompleted] = useState(false);
   const navigate = useNavigate();
   const pin = useSetPin()
@@ -30,8 +30,10 @@ export const SetPin = () => {
       };
       
       try {
-        await pin.mutateAsync(payload);
-        setIsPinCompleted(true);
+        // await pin.mutateAsync(payload);
+        setIsPinCompleted(true)
+        // navigate("/pin")
+        navigate("/pin", { state: { payload } });
       } catch (error) {
         console.error("Login failed, error:", error); // Debug log
         // Error handling sudah diatur di dalam useLoginMutation
