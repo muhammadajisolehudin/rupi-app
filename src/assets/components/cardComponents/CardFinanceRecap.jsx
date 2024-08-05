@@ -1,5 +1,5 @@
 import { Box, Card, Typography, Button } from "@mui/material";
-import buttonEnter from "../../../icons/button enter.png";
+import buttonEnter from "../../../icons/button enter.svg";
 import pemasukanIcon from "../../../icons/pemasukan.png";
 import pengeluaranIcon from "../../../icons/pengeluaran.png";
 
@@ -51,9 +51,7 @@ export const CardFinanceRecap = () => {
             </Typography>
           </Box>
           <Box component="a" href="/saldo">
-            <Button
-              sx={{ minWidth: "auto", padding: 0 }}
-            >
+            <Button sx={{ minWidth: "auto", padding: 0 }}>
               <img src={buttonEnter} alt="" style={{ width: "36px" }} />
             </Button>
           </Box>
@@ -69,11 +67,7 @@ export const CardFinanceRecap = () => {
             borderRadius: "10px",
           }}
         >
-          <img
-            src={pemasukanIcon}
-            alt=""
-            style={{ width: "auto" }}
-          />
+          <img src={pemasukanIcon} alt="" style={{ width: "auto" }} />
           <Box sx={{ marginLeft: "32px" }}>
             <Typography
               sx={{
@@ -82,6 +76,7 @@ export const CardFinanceRecap = () => {
                 fontWeight: 400,
                 lineHeight: "24px",
                 letterSpacing: "0.15px",
+                marginBottom: "8px",
               }}
             >
               Total Pemasukan
@@ -92,6 +87,7 @@ export const CardFinanceRecap = () => {
                 fontSize: "24px",
                 fontWeight: 700,
                 lineHeight: "24px",
+                marginBottom: "8px",
                 letterSpacing: "0.15px",
               }}
             >
@@ -120,11 +116,7 @@ export const CardFinanceRecap = () => {
             borderRadius: "10px",
           }}
         >
-          <img
-            src={pengeluaranIcon}
-            alt=""
-            style={{ width: "auto" }}
-          />
+          <img src={pengeluaranIcon} alt="" style={{ width: "auto" }} />
           <Box sx={{ marginLeft: "32px" }}>
             <Typography
               sx={{
@@ -132,6 +124,7 @@ export const CardFinanceRecap = () => {
                 fontSize: "24px",
                 fontWeight: 400,
                 lineHeight: "24px",
+                marginBottom: "8px",
                 letterSpacing: "0.15px",
               }}
             >
@@ -143,6 +136,7 @@ export const CardFinanceRecap = () => {
                 fontSize: "24px",
                 fontWeight: 700,
                 lineHeight: "24px",
+                marginBottom: "8px",
                 letterSpacing: "0.15px",
               }}
             >

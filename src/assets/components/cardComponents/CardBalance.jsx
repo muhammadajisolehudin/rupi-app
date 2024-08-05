@@ -1,5 +1,5 @@
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
-import buttonEnter from "../../../icons/button enter.png";
+import buttonEnter from "../../../icons/button enter.svg";
 import arrowDownIcon from "../../../icons/arrow down.png";
 import copyIcon from "../../../icons/copy.png";
 import showIcon from "../../../icons/show.png";

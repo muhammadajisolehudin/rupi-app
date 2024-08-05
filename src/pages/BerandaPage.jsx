@@ -7,6 +7,8 @@ import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanc
 import { CardList } from "../assets/components/cardComponents/CardList";
 import { Menu } from "../assets/components/dashboard/Menu";
 
+import backgroundWave from "../images/wave background.png";
+
 export const BerandaPage = () => {
   return (
     <Layout>
@@ -14,7 +16,7 @@ export const BerandaPage = () => {
         maxWidth={false}
         sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}
       >
-        <Grid container>
+        <Grid container sx={{ marginBottom: "40px" }}>
           <Grid item xs={12} lg={8}>
             <CardHero />
           </Grid>
@@ -23,7 +25,23 @@ export const BerandaPage = () => {
           </Grid>
         </Grid>
 
-        <Grid container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
+        <Grid
+          container
+          sx={{
+            paddingTop: "2rem",
+            paddingBottom: "2rem",
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            position: "relative",
+            marginLeft: "-25px",
+            marginRight: "-25px",
+            width: "calc(100% + 50px)",
+            backgroundImage: `url(${backgroundWave})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "bottom",
+            backgroundSize: "cover",
+          }}
+        >
           <Grid item xs={12} lg={8}>
             <Menu />
           </Grid>

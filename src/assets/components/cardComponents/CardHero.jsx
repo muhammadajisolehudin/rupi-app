@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import { Box, Typography } from "@mui/material";
 import bannerImage from "../../../images/banner.png";
 import calendarIcon from "../../../icons/calendar.png";
@@ -7,6 +9,14 @@ export const CardHero = () => {
   const lightBlue = "#EDF4FF";
   const darkBlue = "#0A3967";
   const blue = "#0066AE";
+
+  const [dateState, setDateState] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDateState(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Box
@@ -50,7 +60,17 @@ export const CardHero = () => {
             }}
           />
           <Typography variant="body1" component="p" sx={{ marginBottom: 0 }}>
-            29 Juli 2024, 10:00 AM
+            {`${dateState.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}, ${dateState
+              .toLocaleTimeString("id-ID", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })
+              .replace(/\./g, ":")}`}
           </Typography>
         </Box>
         <Typography
