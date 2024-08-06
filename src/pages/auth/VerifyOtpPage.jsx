@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -13,7 +13,7 @@ import FailAlert from "../../assets/components/AlertComponents/FailAlert";
 export const VerifyOtpPage = () => {
   const inputRefs = useRef([]);
   const { user } = useAuthContext()
-  const [ verifyStatus, setVerifyStatus ] = useState()
+  // const [ verifyStatus, setVerifyStatus ] = useState()
   const otp = useVerifyOtp();
   const resendOtp = useVerifyOtpResend();
   const navigate = useNavigate()
@@ -41,10 +41,8 @@ export const VerifyOtpPage = () => {
       };
 
       try {
-        const response = await otp.mutateAsync(payload);
-        setVerifyStatus(response.message);
-        console.log("status regis : ", verifyStatus)
-        verifyStatus === "Registration verified" ? navigate("/set-password") : navigate("/beranda")
+        await otp.mutateAsync(payload);
+        navigate("/beranda")
       } catch (error) {
         console.error("Login failed, error:", error); 
   

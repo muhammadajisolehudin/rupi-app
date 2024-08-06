@@ -164,7 +164,7 @@ export const LoginPage = () => {
           </Button>
         </Box>
       </Box>
-      {isError && (
+      {error && (
         <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
       )}
       {isSuccess && (

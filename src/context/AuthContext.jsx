@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { useLogin } from "../services/auth/signin";
 import { useSignout } from "../services/auth/signout";
 import { CookiesKey, CookiesStorage } from "../utils/cookies";
+// import { useGetAccountDetail } from "../services/account/account-detail";
 // import useLogin from "../services/auth/useLogin";
 
 const AuthContext = createContext();
@@ -13,7 +14,11 @@ export const AuthProvider = ({ children }) => {
     
 
     const loginMutation = useLogin();
-    const { mutate: logoutMutation } = useSignout();
+    
+    // const { data : dataAccount, isLoading : isLoadingAccount, isError: isErrorAccount , error : errorAccount } = useGetAccountDetail();
+
+
+    const { mutate: logoutMutation, isLoading: isLoadingSignout, IsError: isErrorSignout, error:errorSignout  } = useSignout();
 
     const login = async (input) => {
         try {
@@ -31,5 +36,24 @@ export const AuthProvider = ({ children }) => {
         logoutMutation();
     }
 
-    return <AuthContext.Provider value={{ login, user, logout, ...loginMutation }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider
+        value={{
+            login,
+            user,
+            logout,
+            // Login mutation related values
+            ...loginMutation,
+            // Account detail related values
+            // dataAccount,
+            // isLoadingAccount,
+            // isErrorAccount,
+            // errorAccount,
+            // Signout mutation related values
+            isLoadingSignout,
+            isErrorSignout,
+            errorSignout,
+        }}
+    >
+        {children}
+    </AuthContext.Provider>
 };

@@ -8,13 +8,15 @@ export const API_ENDPOINT = {
   AUTH_FORGOT_PASSWORD: "/auth/forgot-password",
   AUTH_SET_PASSWORD: "/auth/set-password",
   AUTH_SET_PIN: "/auth/set-pin",
-//   AUTH_CHANGE_PASSWORD: "",
-//   AUTH_RESEND_OTP_PASSWORD: "",
-//   AUTH_ACTIVATE_ACCOUNT: "",
+  //   AUTH_CHANGE_PASSWORD: "",
+  //   AUTH_RESEND_OTP_PASSWORD: "",
+  //   AUTH_ACTIVATE_ACCOUNT: "",
 
   // Transfer Rupiah
   TRANSFER_DESTINATIONS: "/transfer/destinations",
-  TRANSFER_INTRABANK: "/transfer/intrabank"
+  TRANSFER_INTRABANK: "/transfer/intrabank",
   // ADD_DATA_REKENING: ""
- 
+
+  // Account
+  ACCOUNT_DETAIL: "/account/detail",
 };

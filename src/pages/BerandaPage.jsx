@@ -7,7 +7,9 @@ import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanc
 import { CardList } from "../assets/components/cardComponents/CardList";
 import { Menu } from "../assets/components/dashboard/Menu";
 
+
 export const BerandaPage = () => {
+  
   return (
     <Layout>
       <Container

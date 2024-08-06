@@ -30,10 +30,6 @@ http.interceptors.request.use((config) => {
     Authorization: authToken ? `Bearer ${authToken}` : "",
   };
 
-  // config.headers = {
-  //   ...config.headers,
-  //   Authorization: `${CookiesStorage.get(CookiesKey.AuthToken) ? CookiesStorage.get(CookiesKey.AuthToken) : ""}`,
-  // };
   return config;
 });
 

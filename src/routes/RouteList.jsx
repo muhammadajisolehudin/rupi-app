@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { VerifyOtpPage } from '../pages/auth/VerifyOtpPage';
 import { SetPinPage } from '../pages/auth/SetPinPage';
@@ -15,15 +15,18 @@ import { QrisPage } from '../pages/Qris/QrisPage';
 import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBaru';
 import QrBayar from '../pages/Qris/QrBayar';
 import { AuthProvider } from '../context/AuthContext';
+import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
+
 
 
 export const RouteList = () => {
+  // const navigate = useNavigate()
   return (
     <BrowserRouter>
       <AuthProvider>
         <TransferRupiahProvider>
           <Routes>
-            <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+            {/* <Route path="/transfer-rupiah" element={<TransferRupiahPage />} /> */}
               <Route
                 path="/transfer-rupiah/transfer-ke-penerima-baru"
                 element={<TransferKePenerimaBaru />}
@@ -41,34 +44,61 @@ export const RouteList = () => {
         <Routes>
           {/* auth */}
           <Route path="/login" element={<LoginPage />} />
+          
           {/* <Route path="/verify" element={<VerifyOtpPage />} />
           <Route path="/beranda" element={<BerandaPage />} />
-          <Route path="/set-pin" element={<SetPin />} />
-          <Route path="/pin" element={<PinPage />} />
-          <Route path="/set-password" element={<SetPasswordPage />} /> */}
-          <Route
+          
+          <Route path="/set-password" element={<SetPasswordPage />} />
+          <Route path="/set-pin" element={<SetPinPage />} />
+          <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} /> */}
+          {/* <Route
             path="*"
             element={
               <ProtectedUser>
+                
                 <Routes>
                   <Route path="/verify" element={<VerifyOtpPage />} />
-                  <Route path="/beranda" element={<BerandaPage />} />
                   <Route path="/set-pin" element={<SetPinPage />} />
                   <Route path="/pin" element={<KonfirmasiPinPage />} />
                   <Route path="/set-password" element={<SetPasswordPage />} />
                 </Routes>
               </ProtectedUser>
             }
+          /> */}
+
+          <Route
+            path="/*"
+            element={
+              <ProtectedUser>
+                <Routes>
+                  <Route path="/verify" element={<VerifyOtpPage />} />
+                  {/* <Route path="/beranda" element={<BerandaPage />} /> */}
+                  <Route path="/set-pin" element={<SetPinPage />} />
+                  <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
+                  <Route path="/set-password" element={<SetPasswordPage />} />
+                  <Route
+                    path="/*"
+                    element={
+                      <ProtectedAccount>
+                        <Routes>
+                          <Route path="/beranda" element={<BerandaPage />} />
+                          <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+                          {/* Add more protected account routes here */}
+                        </Routes>
+                      </ProtectedAccount>
+                    }
+                  />
+                </Routes>
+              </ProtectedUser>
+            }
           />
+          <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
         
       </AuthProvider>
     </BrowserRouter>
   );
 
-
-  // import { PinBaru } from "../pages/auth/PinBaru";
-
 };
 
-// export default RouteList;
+
