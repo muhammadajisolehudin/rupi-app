@@ -25,76 +25,46 @@ export const RouteList = () => {
     <BrowserRouter>
       <AuthProvider>
         <TransferRupiahProvider>
+
           <Routes>
-            {/* <Route path="/transfer-rupiah" element={<TransferRupiahPage />} /> */}
-              <Route
-                path="/transfer-rupiah/transfer-ke-penerima-baru"
-                element={<TransferKePenerimaBaru />}
-              />
-              <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
+            {/* auth */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/*"
+              element={
+                <ProtectedUser>
+                  <Routes>
+                    <Route path="/verify" element={<VerifyOtpPage />} />
+                    <Route path="/set-pin" element={<SetPinPage />} />
+                    <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
+                    <Route path="/set-password" element={<SetPasswordPage />} />
+                    <Route
+                      path="/*"
+                      element={
+                        <ProtectedAccount>
+                          <Routes>
+                            <Route path="/beranda" element={<BerandaPage />} />
+                            <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+                            <Route
+                              path="/transfer-rupiah/transfer-ke-penerima-baru"
+                              element={<TransferKePenerimaBaru />}
+                            />
+                            <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
+                            <Route path="/qris" element={<QrisPage />} />
+                            <Route path="/qris/qr-bayar" element={<QrBayar />} />
+                            <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
+                          </Routes>
+                        </ProtectedAccount>
+                      }
+                    />
+                  </Routes>
 
-              <Route path="/qris" element={<QrisPage />} />
-              <Route path="/qris/qr-bayar" element={<QrBayar />} />
-
-              <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
+                </ProtectedUser>
+              }
+            />
+            <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         </TransferRupiahProvider>
-
-        
-        <Routes>
-          {/* auth */}
-          <Route path="/login" element={<LoginPage />} />
-          
-          {/* <Route path="/verify" element={<VerifyOtpPage />} />
-          <Route path="/beranda" element={<BerandaPage />} />
-          
-          <Route path="/set-password" element={<SetPasswordPage />} />
-          <Route path="/set-pin" element={<SetPinPage />} />
-          <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} /> */}
-          {/* <Route
-            path="*"
-            element={
-              <ProtectedUser>
-                
-                <Routes>
-                  <Route path="/verify" element={<VerifyOtpPage />} />
-                  <Route path="/set-pin" element={<SetPinPage />} />
-                  <Route path="/pin" element={<KonfirmasiPinPage />} />
-                  <Route path="/set-password" element={<SetPasswordPage />} />
-                </Routes>
-              </ProtectedUser>
-            }
-          /> */}
-
-          <Route
-            path="/*"
-            element={
-              <ProtectedUser>
-                <Routes>
-                  <Route path="/verify" element={<VerifyOtpPage />} />
-                  {/* <Route path="/beranda" element={<BerandaPage />} /> */}
-                  <Route path="/set-pin" element={<SetPinPage />} />
-                  <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
-                  <Route path="/set-password" element={<SetPasswordPage />} />
-                  <Route
-                    path="/*"
-                    element={
-                      <ProtectedAccount>
-                        <Routes>
-                          <Route path="/beranda" element={<BerandaPage />} />
-                          <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
-                          {/* Add more protected account routes here */}
-                        </Routes>
-                      </ProtectedAccount>
-                    }
-                  />
-                </Routes>
-              </ProtectedUser>
-            }
-          />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-        
       </AuthProvider>
     </BrowserRouter>
   );
