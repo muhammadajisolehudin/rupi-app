@@ -32,6 +32,7 @@ export const CardHero = () => {
         borderRadius: "20px",
         overflow: "hidden",
       }}
+      aria-label="Banner utama dengan informasi waktu dan sapaan"
     >
       <Box sx={{ flexDirection: "column" }}>
         <Box
@@ -41,7 +42,7 @@ export const CardHero = () => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
-            width: { xs: "100%", lg: "80%" },
+            width: { xs: "100%", lg: "90%" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",
@@ -49,6 +50,7 @@ export const CardHero = () => {
             boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
             borderRadius: "10px",
           }}
+          aria-label="Tanggal dan waktu saat ini"
         >
           <img
             src={calendarIcon}
@@ -82,6 +84,7 @@ export const CardHero = () => {
             fontWeight: 700,
             marginBottom: "16px",
           }}
+          aria-label="Ucapan selamat datang kepada anda"
         >
           Selamat Siang, Samsul!
         </Typography>
@@ -94,6 +97,7 @@ export const CardHero = () => {
             fontWeight: 500,
             marginBottom: "40px",
           }}
+          aria-label="Ucapan semoga harimu menyenangkan"
         >
           Semoga harimu menyenangkan!
         </Typography>

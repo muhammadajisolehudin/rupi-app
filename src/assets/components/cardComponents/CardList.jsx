@@ -81,7 +81,10 @@ export const CardList = () => {
                     </Typography>
                   </Box>
                 </Box>
-                <Button>
+                <Button
+                  aria-label={`Tombol Detail Transaksi ${card.title}, ini akan membawa Anda ke halaman detail transaksi ini`}
+                  role="button"
+                >
                   <ChevronRightRoundedIcon fontSize="large" />
                 </Button>
               </Box>

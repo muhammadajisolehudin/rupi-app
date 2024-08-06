@@ -1,6 +1,8 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { Layout } from "./layout";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
+
+import { Layout } from "./layout";
+
 import { CardHero } from "../assets/components/cardComponents/CardHero";
 import { CardBalance } from "../assets/components/cardComponents/CardBalance";
 import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanceRecap";
@@ -82,6 +84,8 @@ export const BerandaPage = () => {
                 color: "white",
               },
             }}
+            aria-label="Tombol Lihat Semua Transaksi, ini akan membawa Anda ke halaman transaksi"
+            role="button"
           >
             <Typography
               variant="body2"

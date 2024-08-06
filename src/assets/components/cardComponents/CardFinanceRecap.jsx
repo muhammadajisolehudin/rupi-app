@@ -50,7 +50,12 @@ export const CardFinanceRecap = () => {
               Periode 1 Jul 2024 - 21 Jul 2024
             </Typography>
           </Box>
-          <Box component="a" href="/saldo">
+          <Box
+            component="a"
+            href="/saldo"
+            aria-label="Tombol Saldo, ini akan membawa Anda ke halaman Saldo"
+            role="button"
+          >
             <Button sx={{ minWidth: "auto", padding: 0 }}>
               <img src={buttonEnter} alt="" style={{ width: "36px" }} />
             </Button>
