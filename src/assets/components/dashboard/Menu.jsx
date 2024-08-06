@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-  Typography,
+  Button,
   Container,
-  Box,
-  Grid,
   CssBaseline,
-  Paper,
+  Grid,
+  Typography,
 } from "@mui/material";
 import imgTransactions from "../../img/Transaction-Icon.png";
 import imgQR from "../../img/qr-code-Icon.png";
@@ -14,45 +13,50 @@ import imgTopUp from "../../img/top-up-Icon.png";
 import imgMoney from "../../img/money-Icon.png";
 import imgQris from "../../img/icons/QRIS-Icon.png";
 
-const ReuseCard = ({ imgSrc, title, targetLink }) => {
+const ReuseButton = ({ imgSrc, title, targetLink, ariaLabel }) => {
   return (
-    <a href={targetLink} style={{ textDecoration: "none" }}>
-      <Box
-        component={Paper}
-        elevation={5}
-        sx={{
-          bgcolor: "#0066AE",
-          display: "flex",
-          alignItems: "center",
-          mb: 2,
-          justifyContent: "center",
-          flexDirection: "column",
-          gap: "24px",
-          width: "257px",
-          borderRadius: "10px",
-          padding: "25px 20px",
+    <Button
+      role="button"
+      component="button"
+      href={targetLink}
+      aria-label={ariaLabel}
+      sx={{
+        textDecoration: "none",
+        bgcolor: "#0066AE",
+        display: "flex",
+        alignItems: "center",
+        mb: 2,
+        justifyContent: "center",
+        flexDirection: "column",
+        gap: "24px",
+        width: "auto",
+        borderRadius: "10px",
+        padding: "25px 20px",
+        backgroundColor: "#0066AE",
+        minHeight: "150px",
+        p: 2,
+        "&:hover": {
           backgroundColor: "#0066AE",
-          minHeight: "150px",
-          p: 2,
-        }}
+        },
+      }}
+    >
+      <img src={imgSrc} alt={title} />
+      <Typography
+        variant="h5"
+        component="div"
+        style={{ fontSize: "24px", color: "white" }}
       >
-        <img src={imgSrc} alt={title} />
-        <Typography
-          variant="h5"
-          component="div"
-          style={{ fontSize: "24px", color: "white" }}
-        >
-          {title}
-        </Typography>
-      </Box>
-    </a>
+        {title}
+      </Typography>
+    </Button>
   );
 };
 
-ReuseCard.propTypes = {
+ReuseButton.propTypes = {
   imgSrc: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   targetLink: PropTypes.string.isRequired,
+  ariaLabel: PropTypes.string.isRequired,
 };
 
 export const Menu = () => {
@@ -77,34 +81,63 @@ export const Menu = () => {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4}>
-            <ReuseCard
+            <ReuseButton
               imgSrc={imgTransactions}
               title="Transfer Rupiah"
+<<<<<<< HEAD
               targetLink="/transfer-rupiah"
+=======
+              targetLink="/transfer-rupi"
+              ariaLabel="Tombol Menu Transfer Rupiah, ini akan membawa Anda ke halaman Transfer Rupiah"
+              role="button"
+>>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <ReuseCard
+            <ReuseButton
               imgSrc={imgTopUp}
               title="Mutasi Rekening"
               targetLink="/mutasi"
+              ariaLabel="Tombol Menu Mutasi Rekening, ini akan membawa Anda ke halaman Mutasi Rekening"
+              role="button"
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
+<<<<<<< HEAD
             <ReuseCard imgSrc={imgQris} targetLink="/qris" />
+=======
+            <ReuseButton
+              imgSrc={imgQris}
+              targetLink="/qris"
+              ariaLabel="Tombol Menu QRIS, ini akan membawa Anda ke halaman QRIS"
+              role="button"
+            />
+>>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <ReuseCard
+            <ReuseButton
               imgSrc={imgQR}
               title="QR Terima Transfer"
+<<<<<<< HEAD
               targetLink="/qr-terima-transfer"
+=======
+              targetLink="/qrcode"
+              ariaLabel="Tombol Menu QR Terima Transfer, ini akan membawa Anda ke halaman QR Terima Transfer"
+              role="button"
+>>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <ReuseCard
+            <ReuseButton
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
+<<<<<<< HEAD
               targetLink="/tarik-setor-tunai"
+=======
+              targetLink="/tarik-tunai"
+              ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Set"
+              role="button"
+>>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
         </Grid>

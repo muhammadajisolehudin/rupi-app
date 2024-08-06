@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
-import buttonEnter from "../../../icons/button enter.png";
+
+import buttonEnter from "../../../icons/button enter.svg";
 import arrowDownIcon from "../../../icons/arrow down.png";
 import copyIcon from "../../../icons/copy.png";
 import showIcon from "../../../icons/show.png";
@@ -23,12 +24,16 @@ export const CardBalance = () => {
           marginBottom: "24px",
           borderRadius: "10px",
         }}
+        aria-label="Informasi saldo pengguna"
       >
         <Typography sx={{ color: darkBlue, fontSize: "20px", fontWeight: 700 }}>
           Info Saldo
         </Typography>
         <Box component="a" href="/saldo">
-          <Button sx={{ minWidth: "auto", padding: 0 }}>
+          <Button
+            sx={{ minWidth: "auto", padding: 0 }}
+            aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Saldo"
+          >
             <img src={buttonEnter} alt="" style={{ width: "28px" }} />
           </Button>
         </Box>
@@ -62,6 +67,7 @@ export const CardBalance = () => {
               justifyContent: "space-between",
               alignItems: "center",
             }}
+            aria-label="Informasi rekening pengguna dan tombol salin"
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography
@@ -81,8 +87,10 @@ export const CardBalance = () => {
                 style={{ width: "24px", height: "24px" }}
               />
             </Box>
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
-              {" "}
+            <Button
+              sx={{ minWidth: "auto", padding: 0 }}
+              aria-label="Tombol Salin, ini akan menyalin nomor rekening pengguna"
+            >
               <img src={copyIcon} alt="" style={{ width: "24px" }} />
             </Button>
           </Box>
@@ -93,6 +101,7 @@ export const CardBalance = () => {
               justifyContent: "space-between",
               alignItems: "center",
             }}
+            aria-label="Informasi saldo pengguna saat ini dan tombol tampilkan"
           >
             <Typography
               sx={{
@@ -101,10 +110,14 @@ export const CardBalance = () => {
                 fontWeight: 500,
                 marginBottom: 0,
               }}
+              aria-label="Saldo pengguna saat ini"
             >
               IDR <span style={{ fontWeight: 700 }}>5.000.000</span>
             </Typography>
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
+            <Button
+              sx={{ minWidth: "auto", padding: 0 }}
+              aria-label="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
+            >
               <img
                 src={showIcon}
                 alt=""
