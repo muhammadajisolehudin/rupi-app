@@ -30,7 +30,6 @@ export const SetPinPage = () => {
     },
   });
 
-  // Handle keydown events
   useEffect(() => {
     const handleKeyDown = (event) => {
       const key = event.key;
@@ -52,6 +51,7 @@ export const SetPinPage = () => {
     };
   }, [formik.values.pin]);
 
+
   return (
     <AuthLayout>
       <Paper
@@ -67,6 +67,7 @@ export const SetPinPage = () => {
         }}
       >
         <Typography
+          id="buat-pin-baru"
           variant="h4"
           sx={{ fontWeight: 600, mx: "auto", mt: 10 }}
         >
@@ -80,6 +81,9 @@ export const SetPinPage = () => {
             gap: 2,
             mt: 5,
           }}
+          aria-required="true"
+          aria-describedby="buat-pin-baru"
+          aria-label="masukkan 6 digit pin"
         >
           {Array.from({ length: 6 }, (_, index) => (
             <Box
@@ -107,6 +111,8 @@ export const SetPinPage = () => {
             textTransform: "capitalize",
           }}
           variant="contained"
+          role="button"
+          aria-label="lanjutkan pembuatan pin baru"
         >
           Lanjutkan
         </Button>
@@ -114,3 +120,7 @@ export const SetPinPage = () => {
     </AuthLayout>
   );
 };
+
+
+
+

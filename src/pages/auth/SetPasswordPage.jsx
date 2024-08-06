@@ -113,13 +113,17 @@ export const SetPasswordPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
+            aria-label="Masukkan password baru"
+            aria-required="true"
+            aria-invalid={formik.touched.password && formik.errors.password ? "true" : "false"}
+            aria-describedby="password-error"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="password-error" sx={{ fontSize: 10, color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
@@ -142,13 +146,17 @@ export const SetPasswordPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.confirm_password}
+            aria-label="Masukkan ulang password baru"
+            aria-required="true"
+            aria-invalid={formik.touched.confirm_password && formik.errors.confirm_password ? "true" : "false"}
+            aria-describedby="confirm_password-error"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
           />
           {formik.touched.confirm_password && formik.errors.confirm_password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="confirm_password-error" sx={{ fontSize: 10, color: "red" }}>
               {formik.errors.confirm_password}
             </Typography>
           ) : null}
@@ -159,6 +167,7 @@ export const SetPasswordPage = () => {
             variant="contained"
             sx={{ mt: 4, mb: 5, py: 1.5, borderRadius: "8px" }}
             // disabled={mutation.isLoading}
+            aria-label="Button Lanjutkan"
           >
             Lanjutkan
           </Button>
