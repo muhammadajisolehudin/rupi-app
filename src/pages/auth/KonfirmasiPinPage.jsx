@@ -1,4 +1,4 @@
-import { Box, Button, Paper, Typography, TextField } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
@@ -75,7 +75,7 @@ export const KonfirmasiPinPage = () => {
           my: "auto",
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 10 }}>
+        <Typography id="konfirmasi-pin"  variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 10 }}>
           Konfirmasi PIN
         </Typography>
         <Box
@@ -86,6 +86,9 @@ export const KonfirmasiPinPage = () => {
             gap: 2,
             mt: 5,
           }}
+          aria-required="true"
+          aria-label="masukkan 6 digit pin"
+          aria-labelledby="masukkan-pin"
         >
           {Array.from({ length: 6 }, (_, index) => (
             <Box
@@ -113,6 +116,8 @@ export const KonfirmasiPinPage = () => {
             textTransform: "capitalize",
           }}
           variant="contained"
+          role="button"
+          aria-label="lanjutkan mengirim pin"
         >
           Lanjutkan
         </Button>
