@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetAccountBank } from '../../../services/account/account-detail'; // Sesuaikan path ini
 import { useAuthContext } from '../../../context/AuthContext';
+import { Box, CircularProgress } from '@mui/material';
 
 export const ProtectedAccount = ({ children }) => {
     const { account, setAccount } = useAuthContext()
@@ -26,7 +27,18 @@ export const ProtectedAccount = ({ children }) => {
 
 
     if (isLoading) {
-        return <div>Loading...</div>; // Tampilkan loader saat data di-fetch
+        return (
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100vh', // Menggunakan 100% dari tinggi viewport
+                }}
+            >
+                <CircularProgress />
+            </Box>
+        ); // Tampilkan loader saat data di-fetch
     }
 
     return children;

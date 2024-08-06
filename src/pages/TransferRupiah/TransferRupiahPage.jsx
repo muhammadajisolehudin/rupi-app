@@ -37,17 +37,54 @@ import { useAddFavorite } from '../../services/transfer-rupiah/add-favorite-tran
 // ];
 
 export const TransferRupiahPage = () => {
-    const [destinationData, setDestinationData] = useState(null);
-    console.log("ini data :", destinationData)
+    // const [destinationData, setDestinationData] = useState(null);
+    const [destinationData, setDestinationData] = useState({
+        favorites: [],
+        others: []
+    });
+
 
     //fetching api 
     const { data: dataTransaksi } = useGetDataTransaksi();
 
-    // const { mutate: updateFavorite } = useAddFavorite();
+    const { mutate: updateFavorite } = useAddFavorite();
+
+    const handleToggleFavorite = (id, currentFavoriteStatus) => {
+        const newFavoriteStatus = !currentFavoriteStatus;
+        // console.log("ini dta sudah benar apa belum : ", newFavoriteStatus )
+        updateFavorite({ id, input: { is_favorites: newFavoriteStatus } });
+
+        // Opsional: Memperbarui status lokal setelah update berhasil
+        setDestinationData(prevData => {
+            const updatedFavorites = prevData.favorites.filter(item => item.id !== id);
+            const updatedOthers = prevData.others.filter(item => item.id !== id);
+
+            const updatedItem = dataTransaksi.find(item => item.id === id);
+            updatedItem.favorite = newFavoriteStatus;
+
+            if (newFavoriteStatus) {
+                updatedFavorites.push(updatedItem);
+            } else {
+                updatedOthers.push(updatedItem);
+            }
+
+            return {
+                favorites: updatedFavorites,
+                others: updatedOthers
+            };
+        });
+    };
+
 
     useEffect(() => {
-        setDestinationData(dataTransaksi)
-    }, [destinationData]);
+        if (dataTransaksi) {
+            // Pisahkan data menjadi favorit dan bukan favorit
+            const favorites = dataTransaksi.filter(item => item.favorites);
+            const others = dataTransaksi.filter(item => !item.favorites);
+
+            setDestinationData({ favorites, others });
+        }
+    }, [dataTransaksi, updateFavorite]);
 
     return (
         <Layout>
@@ -66,10 +103,11 @@ export const TransferRupiahPage = () => {
                 >
                     <Typography>Transaksi Favorit</Typography>
                 </Box>
-                {/* <CardTransaksi
-                    cardData={destinationData}
-                    // handleToggleFavorite={handleToggleFavorite}
-                /> */}
+                {destinationData.favorites.length > 0 ? (
+                    <CardTransaksi data={destinationData.favorites} handleToggleFavorite={handleToggleFavorite} />
+                ) : (
+                    <Typography variant="caption">Tidak ada transaksi favorit.</Typography>
+                )}
                 <Box
                     sx={{
                         display: "flex",
@@ -81,10 +119,11 @@ export const TransferRupiahPage = () => {
                 >
                     <Typography>Daftar Transfer</Typography>
                 </Box>
-                {/* <CardTransaksi
-                    cardData={nonFavoriteCards}
-                    handleToggleFavorite={handleToggleFavorite}
-                /> */}
+                {destinationData.others.length > 0 ? (
+                    <CardTransaksi data={destinationData.others} handleToggleFavorite={handleToggleFavorite}/>
+                ) : (
+                    <p></p>
+                )}
             </Box>
         </Layout>
     );

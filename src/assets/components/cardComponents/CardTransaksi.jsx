@@ -10,7 +10,7 @@ import profileIcon from '../../img/icons/placeholder-profile.png';
 export const CardTransaksi = ({ data, handleToggleFavorite }) => {
     return (
         <Box sx={{ minWidth: 275 }}>
-            {data.map(card => (
+            {data?.map(card => (
                 <Card key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }}>
                     <CardContent sx={{ backgroundColor: "white", padding: 1, paddingBottom: '8px !important' }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginX: "3rem" }}>
@@ -25,13 +25,13 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
                                     <Typography variant="caption">{card.account_number}</Typography>
                                 </Box>
                             </Box>
-                            <StarRoundedIcon 
-                                fontSize='large' 
-                                sx={{ 
-                                    color: card.favorites ? '#FFB831' : '#B3B3B3', 
-                                    cursor: "pointer" 
-                                }} 
-                                onClick={() => handleToggleFavorite(card.id)}
+                            <StarRoundedIcon
+                                fontSize='large'
+                                sx={{
+                                    color: card.favorites ? '#FFB831' : '#B3B3B3', // Pastikan penggunaan `card.favorite`
+                                    cursor: "pointer"
+                                }}
+                                onClick={() => handleToggleFavorite(card.id, card.favorites)} // Menambahkan `card.favorite`
                             />
                         </Box>
                     </CardContent>

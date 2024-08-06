@@ -6,21 +6,27 @@ import NominalInput from "../../../assets/components/inputComponnet/NominalInput
 import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
 import PropTypes from 'prop-types';
 import { useAuthContext } from "../../../context/AuthContext";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 
 export const InputNominalTransferForm = ({ onNext }) => {
   const { account } = useAuthContext()
-  // console.log(account)
-
+  const { formData } = useTransferRupiahContext();
+  
+  console.log("lihat saja disini form data: ", formData)
+  console.log("lihat saja disini masku tidak : ", formData.destination_id)
   const formik = useFormik({
     initialValues: {
       //butuh satu endpoint get detination id by name
-      destination_id: "",
+      destination_id: formData.destination_id ,
+      fullname: formData.fullname,
+      account_number: formData.account_number,
       amount: "",
       description: "",
       type: "TRANSFER",
       pin: "",
       transaction_purpose: "OTHER",
+
     },
     validationSchema: Yup.object({
       amount: Yup.string().required("Required"),
@@ -67,10 +73,10 @@ export const InputNominalTransferForm = ({ onNext }) => {
             </Grid>
             <Grid item xs={11} sx={{ pl: 3 }}>
               <Typography sx={{ fontWeight: "bold" }}>
-                Nama Penerima
+                {formData.fullname}
               </Typography>
               <Typography variant="caption">
-                Nama Bank - No rekenig 12345678
+                Nama Bank - No rekenig {formData.account_number}
               </Typography>
             </Grid>
           </Grid>

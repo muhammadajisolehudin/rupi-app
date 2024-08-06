@@ -7,6 +7,10 @@ export const TransferRupiahProvider = ({ children }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
 
+    // const handleNext = (values) => {
+    //     setFormData((prevData) => ({ ...prevData, ...values }));
+    //     setStep((prevStep) => prevStep + 1);
+    // };
     const handleNext = (values) => {
         setFormData((prevData) => ({ ...prevData, ...values }));
         setStep((prevStep) => prevStep + 1);
@@ -19,7 +23,7 @@ export const TransferRupiahProvider = ({ children }) => {
 
 
     return (
-        <TransferRupiahContext.Provider value={{ step, setStep, handleNext, handleSubmit }}>
+        <TransferRupiahContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData }}>
             {children}
         </TransferRupiahContext.Provider>
     );
