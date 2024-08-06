@@ -17,7 +17,7 @@ const getDataTransaksi = async ({ queryKey }) => {
 const useGetDataTransaksi = (options) => {
    return useQuery({
      queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS, options],
-     queryFn: () => getDataTransaksi(),
+     queryFn: getDataTransaksi,
    });
 };
 

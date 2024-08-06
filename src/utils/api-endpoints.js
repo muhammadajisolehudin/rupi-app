@@ -15,6 +15,7 @@ export const API_ENDPOINT = {
   // Transfer Rupiah
   TRANSFER_DESTINATIONS: "/transfer/destinations",
   TRANSFER_INTRABANK: "/transfer/intrabank",
+  TRANSFER_FAVORITE: "/transfer/destinations",
   // ADD_DATA_REKENING: ""
 
   // Account

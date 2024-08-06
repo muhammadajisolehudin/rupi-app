@@ -5,7 +5,7 @@ import bannerImage from "../../../images/banner.png";
 import calendarIcon from "../../../icons/calendar.png";
 import avatarWaveImage from "../../../images/avatar and wave.png";
 
-export const CardHero = () => {
+export const CardHero = ({ user }) => {
   const lightBlue = "#EDF4FF";
   const darkBlue = "#0A3967";
   const blue = "#0066AE";
@@ -82,11 +82,13 @@ export const CardHero = () => {
             color: darkBlue,
             fontSize: { xs: "24px", lg: "32px" },
             fontWeight: 700,
-            marginBottom: "16px",
+            marginBottom: "16px",  // Ganti dengan nilai yang sesuai
+            maxWidth: "70%",  // Ganti dengan nilai yang sesuai
+            
           }}
           aria-label="Ucapan selamat datang kepada anda"
         >
-          Selamat Siang, Samsul!
+          Selamat Siang, {user.full_name}!
         </Typography>
         <Typography
           variant="body1"

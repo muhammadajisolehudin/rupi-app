@@ -3,7 +3,7 @@ import buttonEnter from "../../../icons/button enter.svg";
 import pemasukanIcon from "../../../icons/pemasukan.png";
 import pengeluaranIcon from "../../../icons/pengeluaran.png";
 
-export const cardFinanceRecap = () => {
+export const CardFinanceRecap = () => {
   const neutral = "#FFFFFF";
   const green = "#12D79C";
   const red = "#CB3A31";
