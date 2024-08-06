@@ -32,10 +32,10 @@ export const LoginPage = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Required"),
+      username: Yup.string().required("Username harus diisi"),
       password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .required("Required"),
+        .min(6, "password minimal 8 karakter")
+        .required("Password harus diisi"),
     }),
     onSubmit: async (values) => {
       console.log("Form Submitted", values); // Debug log
@@ -160,8 +160,8 @@ export const LoginPage = () => {
                 variant="body2"
                 style={{ textDecoration: "none" }}
                 role="button"
-                aria-label="Button Lupa ID/Password">
-                Lupa Username/Password?
+                aria-label="Button Lupa Username atau Password">
+                Lupa Username/Password? 
               </Link>
             </Grid>
           </Grid>

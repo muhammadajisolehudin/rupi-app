@@ -140,7 +140,7 @@ export const VerifyOtpPage = () => {
 										}}
 										inputRef={(el) => (inputRefs.current[index] = el)}
 										aria-required="true"
-										aria-label="Input 6 Digit Kode OTP"
+										aria-label="Input enam Digit Kode OTP"
 									/>
 								</Box>
 							))}
