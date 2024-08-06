@@ -5,9 +5,12 @@ import ImgPenerima from "../../../assets/img/user-rectangle.png"
 import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
 import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
 import PropTypes from 'prop-types';
+import { useAuthContext } from "../../../context/AuthContext";
 
 
 export const InputNominalTransferForm = ({ onNext }) => {
+  const { account } = useAuthContext()
+  // console.log(account)
 
   const formik = useFormik({
     initialValues: {
@@ -75,8 +78,8 @@ export const InputNominalTransferForm = ({ onNext }) => {
         <Grid item xs={12}>
           <Typography>Sumber Rupiah</Typography>
           <CardAccountInfo
-            accountNumber={"5667 2323 1444 5554"}
-            balance={5000000}
+            accountNumber={account.account_number}
+            balance={account.balance}
           />
         </Grid>
         <Grid item xs={12}>

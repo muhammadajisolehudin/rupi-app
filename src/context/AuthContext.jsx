@@ -12,10 +12,9 @@ export const useAuthContext = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(CookiesStorage?.get(CookiesKey.User));
     
+    const [account, setAccount] = useState([])
 
     const loginMutation = useLogin();
-    
-    // const { data : dataAccount, isLoading : isLoadingAccount, isError: isErrorAccount , error : errorAccount } = useGetAccountDetail();
 
 
     const { mutate: logoutMutation, isLoading: isLoadingSignout, IsError: isErrorSignout, error:errorSignout  } = useSignout();
@@ -41,14 +40,9 @@ export const AuthProvider = ({ children }) => {
             login,
             user,
             logout,
-            // Login mutation related values
+            account,
+            setAccount,
             ...loginMutation,
-            // Account detail related values
-            // dataAccount,
-            // isLoadingAccount,
-            // isErrorAccount,
-            // errorAccount,
-            // Signout mutation related values
             isLoadingSignout,
             isErrorSignout,
             errorSignout,

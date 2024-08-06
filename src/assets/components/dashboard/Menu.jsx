@@ -84,13 +84,9 @@ export const Menu = () => {
             <ReuseButton
               imgSrc={imgTransactions}
               title="Transfer Rupiah"
-<<<<<<< HEAD
               targetLink="/transfer-rupiah"
-=======
-              targetLink="/transfer-rupi"
               ariaLabel="Tombol Menu Transfer Rupiah, ini akan membawa Anda ke halaman Transfer Rupiah"
               role="button"
->>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
@@ -103,41 +99,29 @@ export const Menu = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-<<<<<<< HEAD
-            <ReuseCard imgSrc={imgQris} targetLink="/qris" />
-=======
             <ReuseButton
               imgSrc={imgQris}
               targetLink="/qris"
               ariaLabel="Tombol Menu QRIS, ini akan membawa Anda ke halaman QRIS"
               role="button"
             />
->>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
               imgSrc={imgQR}
               title="QR Terima Transfer"
-<<<<<<< HEAD
-              targetLink="/qr-terima-transfer"
-=======
               targetLink="/qrcode"
               ariaLabel="Tombol Menu QR Terima Transfer, ini akan membawa Anda ke halaman QR Terima Transfer"
               role="button"
->>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
-<<<<<<< HEAD
-              targetLink="/tarik-setor-tunai"
-=======
               targetLink="/tarik-tunai"
               ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Set"
               role="button"
->>>>>>> 4f01e194fccea1cd4efb0e3225b03c94eb3a3750
             />
           </Grid>
         </Grid>

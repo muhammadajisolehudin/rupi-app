@@ -17,7 +17,6 @@ export const RekeningBaruForm = ({ onNext }) => {
       account_number: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-
       try {
         console.log("Form Submitted", values);
         await addRekening.mutateAsync(values);

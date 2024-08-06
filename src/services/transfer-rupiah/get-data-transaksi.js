@@ -4,22 +4,17 @@ import http from "../../utils/http";
 import { useQuery } from "@tanstack/react-query";
 
 const getDataTransaksi = async ({ queryKey }) => {
-  const [_key, _params] = queryKey;
-  const { data } = await http
-    .get(_key, { params: _params })
-    .then((result) => {
-      return result;
-    })
-    .catch((error) => {
-      console.error("Error geting data:", error);
-      return null;
-    });
-
-  return data.data;
+  const [_key] = queryKey;
+  try {
+    const result = await http.get(_key);
+    return result.data.data;
+  } catch (error) {
+    console.error("Error in getAccountDetail:", error);
+    throw error;
+  }
 };
 
 const useGetDataTransaksi = (options) => {
-//   return useQuery([API_ENDPOINT.DATA_CLASS, options], getDataTransaksi);
    return useQuery({
      queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS, options],
      queryFn: () => getDataTransaksi(),
