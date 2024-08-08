@@ -3,7 +3,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import { Layout } from "../layout";
 import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
 import ilustrasi from '../assets/img/complete ilustrasi.png'; 
-import SuccessNotificationModal from '../../assets/components/Modal/ModalNotifBerhasil';
+import SuccessNotificationModal from '../../assets/components/Modals/ModalNotifBerhasil';
 import SuccessTransferModal from '../../assets/components/Modal/ModalTransferBerhasil';
 
 export const NotifikasiBerhasilPage = () => {

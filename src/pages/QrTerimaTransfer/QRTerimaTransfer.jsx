@@ -2,13 +2,13 @@ import React from 'react';
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { Layout } from "../layout";
 // import BreadcrumbsComponent from '../assets/components/breadCrumbs/Breadcrumbs';
-import QRISIcon from '../assets/img/icons/QRIS-Icon.png'; 
-import LogoIcon from '../assets/img/icons/3.png'; 
-import QRImage from '../assets/img/Rupi App QR.png'; 
-import ScanIcon from '../assets/img/icons/mage_scan.png'; 
-import ShareIcon from '../assets/img/icons/mdi_share.png'; 
-import RiayatIcon from '../assets/img/icons/Document.png'; 
-import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
+import QRISIcon from '../../assets/img/icons/QRIS-Icon.png'; 
+import LogoIcon from '../../assets/img/icons/3.png'; 
+import QRImage from '../../assets/img/Rupi App QR.png'; 
+import ScanIcon from '../../assets/img/icons/mage_scan.png'; 
+import ShareIcon from '../../assets/img/icons/mdi_share.png'; 
+import RiayatIcon from '../../assets/img/icons/Document.png'; 
+import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs'
 import { useNavigate } from 'react-router-dom';
 
 export const QRTerimaTransfer = () => {
@@ -36,86 +36,95 @@ export const QRTerimaTransfer = () => {
 
     return (
         <Layout>
-            <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
+            {/* <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}> */}
+            <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
                 <BreadcrumbsComponent />
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Button 
-                        variant="contained" 
-                        sx={{ backgroundColor: '#0066AE', color: '#fff', ml: 'auto', borderRadius: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem 3rem' }}
-                        onClick={goToRiwayat}
-                    >
-                        <img src={RiayatIcon} alt="Riwayat" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
-                        Riwayat
-                    </Button>
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Typography variant="h6" component="div" sx={{ textAlign: 'center', flexGrow: 1 }}>
-                        QR Terima Transfer
-                    </Typography>
-                </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)' }}>
-                    <Card sx={{ backgroundColor: '#0066AE', color: '#fff', width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px' }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
-                            <img src={QRISIcon} alt="QRIS Icon" style={{ width: '59px', height: '23px' }} />
-                            <img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
-                        </Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                            Samsul
-                        </Typography>
-                        <Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
-                            RupiApp by BCA - {formatAccountNumber(accountNumber)}
-                        </Typography>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
-                            <img src={QRImage} alt="QR Code" style={{ width: '200px', height: 'auto' }} />
-                        </Box>
-                        <Button 
-                            variant="outlined" 
-                            sx={{ borderColor: '#fff', color: '#fff', width: '100%', mb: '2rem' }}
+                {/* <Card sx={{ mt: 6, mb: 4 }}>
+                    
+                </Card> */}
+                <Box sx={{ px: 6, mt:6, mb: 4 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Button
+                            variant="contained"
+                            sx={{ backgroundColor: '#0066AE', color: '#fff', ml: 'auto', borderRadius: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem 3rem' }}
+                            onClick={goToRiwayat}
                         >
-                            Tambah Nominal
+                            <img src={RiayatIcon} alt="Riwayat" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
+                            Riwayat
                         </Button>
-                        <Typography variant="body2" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                            QR ini hanya untuk 1 kali transaksi
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography variant="h6" component="div" sx={{ textAlign: 'center', flexGrow: 1 }}>
+                            QR Terima Transfer
                         </Typography>
-                        <Typography variant="body2" sx={{ textAlign: 'center', mb: '2rem' }}>
-                            Berlaku hingga {formatExpiryDate(expiryDate)} WIB
-                        </Typography>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
-                            <Button 
-                                variant="contained" 
-                                sx={{ 
-                                    backgroundColor: '#fff', 
-                                    color: '#0066AE', 
-                                    width: '48%', 
-                                    '&:hover': {
-                                        backgroundColor: '#f0f0f0'
-                                    } 
-                                }}
-                            >
-                                <img src={ScanIcon} alt="Scan QR" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
-                                Buat QR Baru
-                            </Button>
-                            <Box sx={{ width: '7%', textAlign: 'center' }}>
-                                |
+                    </Box>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)' }}>
+                        <Card sx={{ backgroundColor: '#0066AE', color: '#fff', width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px' }}>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
+                                <img src={QRISIcon} alt="QRIS Icon" style={{ width: '59px', height: '23px' }} />
+                                <img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
                             </Box>
-                            <Button 
-                                variant="contained" 
-                                sx={{ 
-                                    backgroundColor: '#fff', 
-                                    color: '#0066AE', 
-                                    width: '48%', 
-                                    '&:hover': {
-                                        backgroundColor: '#f0f0f0' 
-                                    } 
-                                }}
+                            <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                                Samsul
+                            </Typography>
+                            <Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
+                                RupiApp by BCA - {formatAccountNumber(accountNumber)}
+                            </Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
+                                <img src={QRImage} alt="QR Code" style={{ width: '200px', height: 'auto' }} />
+                            </Box>
+                            <Button
+                                variant="outlined"
+                                sx={{ borderColor: '#fff', color: '#fff', width: '100%', mb: '2rem' }}
                             >
-                                <img src={ShareIcon} alt="Share" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '3px' }} />
-                                Bagikan QR
+                                Tambah Nominal
                             </Button>
-                        </Box>
-                    </Card>
+                            <Typography variant="body2" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
+                                QR ini hanya untuk 1 kali transaksi
+                            </Typography>
+                            <Typography variant="body2" sx={{ textAlign: 'center', mb: '2rem' }}>
+                                Berlaku hingga {formatExpiryDate(expiryDate)} WIB
+                            </Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#fff',
+                                        color: '#0066AE',
+                                        width: '48%',
+                                        '&:hover': {
+                                            backgroundColor: '#f0f0f0'
+                                        }
+                                    }}
+                                >
+                                    <img src={ScanIcon} alt="Scan QR" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
+                                    Buat QR Baru
+                                </Button>
+                                <Box sx={{ width: '7%', textAlign: 'center' }}>
+                                    |
+                                </Box>
+                                <Button
+                                    variant="contained"
+                                    sx={{
+                                        backgroundColor: '#fff',
+                                        color: '#0066AE',
+                                        width: '48%',
+                                        '&:hover': {
+                                            backgroundColor: '#f0f0f0'
+                                        }
+                                    }}
+                                >
+                                    <img src={ShareIcon} alt="Share" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '3px' }} />
+                                    Bagikan QR
+                                </Button>
+                            </Box>
+                        </Card>
+                    </Box>
                 </Box>
-            </Container>
+
+            </Box>
+                
+            {/* </Container> */}
         </Layout>
     );
 };
