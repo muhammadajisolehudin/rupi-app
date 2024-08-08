@@ -2,8 +2,8 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png";
-import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import NominalInput from "../../../assets/components/Inputs/NominalInput";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types";
 
 export const InputNominalBayarForm = ({ onNext }) => {

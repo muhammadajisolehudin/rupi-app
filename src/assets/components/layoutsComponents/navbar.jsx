@@ -13,7 +13,7 @@ import LogoutIcon from '../../img/icons/Logout.svg';
 import { useAuthContext } from '../../../context/AuthContext';
 
 function Navbar() {
-  const [activePage, setActivePage] = useState('beranda');
+  const [activePage, setActivePage] = useState("beranda");
   const navigate = useNavigate();
   const { logout } = useAuthContext()
 
@@ -29,13 +29,13 @@ function Navbar() {
 
   return (
     <AppBar
-      position="fixed" // Atur position menjadi 'fixed' untuk memastikan bayangan terlihat
+      position="fixed"
       sx={{
         backgroundColor: "#ffffff",
         color: "#0066AE",
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Bayangan dengan intensitas dan opacity yang ditingkatkan
         paddingX: "1rem",
-        zIndex: 9999, // Pastikan z-index yang cukup besar agar AppBar selalu di atas konten lain
+        zIndex: 9999,
       }}
     >
       <Toolbar sx={{ justifyContent: "space-between", height: "85px" }}>
@@ -47,8 +47,18 @@ function Navbar() {
             gap: "8px",
           }}
         >
-          <img id="logo" src="/logo.png" alt="Logo" />
-          <Typography id="logoText" variant="h6" fontWeight={700}>
+          <img
+            id="logo"
+            src="/logo.png"
+            aria-label="Logo Rupi App"
+            alt="Logo Rupi App"
+          />
+          <Typography
+            id="logoText"
+            variant="h6"
+            fontWeight={700}
+            aria-label="Nama Aplikasi, Rupi App"
+          >
             Rupi App
           </Typography>
         </Box>

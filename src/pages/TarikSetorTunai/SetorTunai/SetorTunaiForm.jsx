@@ -1,6 +1,6 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 
 export const SetorTunaiForm = ({ onNext }) => {
     const formik = useFormik({

@@ -1,8 +1,8 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
-import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
+import NominalInput from "../../../assets/components/Inputs/NominalInput";
 
 export const TarikTunaiForm = ({ onNext }) => {
     const formik = useFormik({

@@ -1,4 +1,4 @@
-import { Box, Card, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
 
@@ -82,21 +82,22 @@ export const SuccesInfo= () => {
                 </Card>
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
-                <button
-                    type="submit"
-                    style={{
-                        borderRadius: "10px",
-                        border: 0,
-                        padding: "11px",
-                        width: "800px",
-                        backgroundColor: "#0066AE",
-                        color: "white",
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5, px:10 }}>
+                <Button
+                    onClick=""
+                    fullWidth
+                    sx={{
+                        py: 1.5,
+                        px: 18,
+                        borderRadius: 3,
+                        textTransform: "capitalize",
+                        mt: 4,
                     }}
                     aria-label="button make new token"
+                    variant="contained"
                 >
                     Buat Token Baru
-                </button>
+                </Button>
             </Box>
         </>
     );

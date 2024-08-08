@@ -1,12 +1,22 @@
-import { Box, Typography } from "@mui/material";
-import bannerImage from "../../../images/banner.png";
-import calendarIcon from "../../../icons/calendar.png";
-import avatarWaveImage from "../../../images/avatar and wave.png";
+import { useState, useEffect } from "react";
 
-export const CardHero = () => {
+import { Box, Typography } from "@mui/material";
+import bannerImage from "../../img/banner.png";
+import calendarIcon from "../../img/icons/calendar.png";
+import avatarWaveImage from "../../img/avatar and wave.png";
+
+export const CardHero = ({ user }) => {
   const lightBlue = "#EDF4FF";
   const darkBlue = "#0A3967";
   const blue = "#0066AE";
+
+  const [dateState, setDateState] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDateState(new Date());
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Box
@@ -22,6 +32,7 @@ export const CardHero = () => {
         borderRadius: "20px",
         overflow: "hidden",
       }}
+      aria-label="Banner utama dengan informasi waktu dan sapaan"
     >
       <Box sx={{ flexDirection: "column" }}>
         <Box
@@ -31,7 +42,7 @@ export const CardHero = () => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
-            width: { xs: "100%", lg: "80%" },
+            width: { xs: "100%", lg: "90%" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",
@@ -39,6 +50,7 @@ export const CardHero = () => {
             boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)",
             borderRadius: "10px",
           }}
+          aria-label="Tanggal dan waktu saat ini"
         >
           <img
             src={calendarIcon}
@@ -50,7 +62,17 @@ export const CardHero = () => {
             }}
           />
           <Typography variant="body1" component="p" sx={{ marginBottom: 0 }}>
-            29 Juli 2024, 10:00 AM
+            {`${dateState.toLocaleDateString("id-ID", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}, ${dateState
+              .toLocaleTimeString("id-ID", {
+                hour: "numeric",
+                minute: "numeric",
+                hour12: true,
+              })
+              .replace(/\./g, ":")}`}
           </Typography>
         </Box>
         <Typography
@@ -60,10 +82,13 @@ export const CardHero = () => {
             color: darkBlue,
             fontSize: { xs: "24px", lg: "32px" },
             fontWeight: 700,
-            marginBottom: "16px",
+            marginBottom: "16px",  // Ganti dengan nilai yang sesuai
+            maxWidth: "70%",  // Ganti dengan nilai yang sesuai
+            
           }}
+          aria-label="Ucapan selamat datang kepada anda"
         >
-          Selamat Siang, Samsul!
+          Selamat Siang, {user.full_name}!
         </Typography>
         <Typography
           variant="body1"
@@ -74,6 +99,7 @@ export const CardHero = () => {
             fontWeight: 500,
             marginBottom: "40px",
           }}
+          aria-label="Ucapan semoga harimu menyenangkan"
         >
           Semoga harimu menyenangkan!
         </Typography>

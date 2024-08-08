@@ -8,12 +8,18 @@ const PinInput = () => {
 	// Handle change in input field
 	const handleChange = (index, event) => {
 		const { value } = event.target;
-		if (/^\d?$/.test(value)) {
-			const newPin = [...values.pin];
-			newPin[index] = value;
-			setFieldValue("pin", newPin);
 
-			if (value && index < values.pin.length - 1) {
+		if (/^\d?$/.test(value)) {
+			// Convert the PIN string to an array to update specific digit
+			const newPinArray = values.pin.split("");
+			newPinArray[index] = value;
+
+			// Join array to form a new PIN string
+			const newPinString = newPinArray.join("");
+			setFieldValue("pin", newPinString);
+
+			// Focus on the next input field if needed
+			if (value && index < 5) {
 				document.getElementById(`pin-input-${index + 1}`).focus();
 			}
 		}
@@ -37,11 +43,11 @@ const PinInput = () => {
 
 	return (
 		<Box sx={{ display: "flex", gap: 2 }}>
-			{values.pin.map((digit, index) => (
+			{Array.from({ length: 6 }, (_, index) => (
 				<TextField
 					key={index}
 					id={`pin-input-${index}`}
-					value={digit}
+					value={values.pin[index] || ""}
 					onChange={(event) => handleChange(index, event)}
 					onKeyDown={(event) => handleKeyDown(index, event)}
 					inputProps={{ maxLength: 1, style: { textAlign: "center" } }}
@@ -50,7 +56,7 @@ const PinInput = () => {
 					aria-label={"Masukkan 6 Digit Pin"}
 					sx={{
 						borderRadius: "50%",
-						bgcolor: digit ? "#0066AE" : "#B3B3B3",
+						bgcolor: values.pin[index] ? "#0066AE" : "#B3B3B3",
 						width: 30,
 						height: 30,
 						"& .MuiOutlinedInput-root": {

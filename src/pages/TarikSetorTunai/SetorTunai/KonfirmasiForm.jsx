@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import logoIcon from "/logo.png";
 
 export const KonfirmasiForm = ({ onNext }) => {

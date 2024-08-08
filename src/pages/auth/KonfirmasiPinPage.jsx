@@ -4,48 +4,62 @@ import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSetPin } from "../../services/auth/set-pin";
+import { useEffect } from "react";
 
 export const KonfirmasiPinPage = () => {
-
   const { state } = useLocation();
+  console.log("state : ", state);
+  const pinData = state?.pin;
 
-  const pinData = state?.payload; 
-
-  const pin = useSetPin()
+  const pinMutation = useSetPin();
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
-      pin: ["", "", "", "", "", ""],
+      pin:pinData,
+      confirm_pin: "",
     },
     validationSchema: Yup.object({
-      pin: Yup.array()
-        .of(
-          Yup.string()
-            .matches(/^[0-9]+$/, "Must be a digit")
-            .length(1, "Must be 1 digit")
-        )
-        .required("PIN is required"),
+      confirm_pin: Yup.string()
+        .length(6, "PIN harus terdiri dari 6 digit")
+        .matches(/^\d+$/, "PIN harus berisi angka saja")
+        .required("PIN diperlukan"),
     }),
     onSubmit: async (values) => {
-      const pinString = values.otp.join("");
-      const payload = {
-        ...values,
-        pin: pinString,
-      };
-
-      if (pinString !== pinData?.pin) {
-        alert("PIN tidak sesuai");
+      if (values.confirm_pin !== pinData) {
+        formik.setFieldError('confirm_pin', 'PIN tidak sesuai');
         return;
       }
+
       try {
-        await pin.mutateAsync(payload);
-        navigate("/beranda")
+        await pinMutation.mutateAsync(values);
+        navigate("/beranda");
       } catch (error) {
-        console.log(error)
+        console.error("PIN confirmation failed, error:", error);
       }
     },
   });
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key;
+      if (key === "Enter") {
+        formik.handleSubmit();
+      } else if (key >= "0" && key <= "9") {
+        if (formik.values.confirm_pin.length < 6) {
+          formik.setFieldValue("confirm_pin", formik.values.confirm_pin + key);
+        }
+      } else if (key === "Backspace") {
+        formik.setFieldValue("confirm_pin", formik.values.confirm_pin.slice(0, -1));
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [formik.values.confirm_pin]);
 
   return (
     <AuthLayout>
@@ -61,8 +75,8 @@ export const KonfirmasiPinPage = () => {
           my: "auto",
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 10 }}>
-          Masukkan PIN
+        <Typography id="konfirmasi-pin"  variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 10 }}>
+          Konfirmasi PIN
         </Typography>
         <Box
           sx={{
@@ -72,19 +86,27 @@ export const KonfirmasiPinPage = () => {
             gap: 2,
             mt: 5,
           }}
+          aria-required="true"
+          aria-label="masukkan 6 digit pin"
+          aria-labelledby="masukkan-pin"
         >
-          {formik.values.pin.map((digit, index) => (
+          {Array.from({ length: 6 }, (_, index) => (
             <Box
               key={index}
               sx={{
                 borderRadius: "50%",
-                bgcolor: digit ? "#0066AE" : "#B3B3B3",
+                bgcolor: formik.values.confirm_pin[index] ? "#0066AE" : "#B3B3B3",
                 width: 30,
                 height: 30,
               }}
             />
           ))}
         </Box>
+        {formik.touched.confirm_pin && formik.errors.confirm_pin && (
+          <Typography color="error" sx={{ my: 2 }}>
+            {formik.errors.confirm_pin}
+          </Typography>
+        )}
         <Button
           onClick={formik.handleSubmit}
           sx={{
@@ -94,10 +116,12 @@ export const KonfirmasiPinPage = () => {
             textTransform: "capitalize",
           }}
           variant="contained"
+          role="button"
+          aria-label="lanjutkan mengirim pin"
         >
           Lanjutkan
         </Button>
       </Paper>
     </AuthLayout>
   );
-}
+};

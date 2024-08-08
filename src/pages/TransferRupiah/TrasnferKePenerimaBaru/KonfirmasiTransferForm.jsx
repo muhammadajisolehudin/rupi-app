@@ -2,18 +2,22 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 export const KonfirmasiTransferForm = ({ onNext }) => {
+	const { account } = useAuthContext();
+	const { formData } = useTransferRupiahContext();
 	const formik = useFormik({
 		initialValues: {
-			destination_id: onNext.destination_id,
-			amount: onNext.amount,
-			description: onNext.description,
-			type: onNext.type,
+			destination_id: formData.destination_id,
+			amount: formData.amount,
+			description: formData.description,
+			type: formData.type,
 			pin: "",
-			transaction_purpose: onNext.transaction_purpose,
+			transaction_purpose: formData.transaction_purpose,
 		},
 		validationSchema: Yup.object({
 			amount: Yup.string().required("Required"),
@@ -47,7 +51,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						<Grid item xs={1}>
 							<img
 								src={ImgPenerima}
-								alt="Foto User Penerima Transfer"
+								alt="User Penerima Transfer"
 								style={{
 									width: 60,
 									height: 60,
@@ -57,8 +61,8 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 							></img>
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
-							<Typography sx={{ fontWeight: "bold" }}>Nama Penerima</Typography>
-							<Typography variant="caption">Nama Bank - No rekenig 12345678</Typography>
+							<Typography sx={{ fontWeight: "bold" }}>{formData.fullname}</Typography>
+							<Typography variant="caption">Nama Bank - No rekenig {formData.account_number}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -89,8 +93,12 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 								alignItems: "center", // Align items vertically centered
 							}}
 						>
-							<Typography sx={{ fontWeight: "bold" }}>Nominal Transfer</Typography>
-							<Typography sx={{ fontWeight: "bold" }}>Rp.{formik.values.amount}</Typography>
+							<Typography sx={{ fontWeight: "bold" }} id="nominal-transfer">
+								Nominal Transfer
+							</Typography>
+							<Typography sx={{ fontWeight: "bold" }} aria-labelledby="nominal-transfer">
+								Rp.{formik.values.amount}
+							</Typography>
 						</Grid>
 						<Grid
 							xs={12}
@@ -100,8 +108,11 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 								alignItems: "center", // Align items vertically centered
 							}}
 						>
-							<Typography>Biaya Transfer </Typography>
-							<Typography sx={{ fontWeight: "bold" }}> Rp. </Typography>
+							<Typography id="biaya-transfer">Biaya Transfer </Typography>
+							<Typography sx={{ fontWeight: "bold" }} aria-labelledby="biaya-transfer">
+								{" "}
+								Rp.{" "}
+							</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -112,8 +123,14 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						}}
 						aria-hidden="true"
 					/>
-					<Typography sx={{ mt: 3 }}>Sumber Rupiah</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
+					<Typography sx={{ mt: 3 }} id="sumber-rupiah">
+						Sumber Rupiah
+					</Typography>
+					<CardAccountInfo
+						accountNumber={account.account_number}
+						balance={account.balance}
+						aria-labelledby="sumber-rupiah"
+					/>
 				</Grid>
 				<Grid
 					item
@@ -124,7 +141,9 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						gap: 2,
 					}}
 				>
-					<Typography sx={{ mt: 0, pt: 0 }}>Catatan Transfer</Typography>
+					<Typography sx={{ mt: 0, pt: 0 }} id="catatan-transfer-rupiah">
+						Catatan Transfer
+					</Typography>
 					<TextField
 						sx={{ width: "100%" }}
 						value={formik.values.description}
@@ -132,6 +151,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						InputProps={{
 							readOnly: true, // Menambahkan properti readOnly untuk menampilkan sebagai teks
 						}}
+						aria-labelledby="catatan-trasnfer-rupiah"
 					/>
 				</Grid>
 				<Grid item xs={12} mt={6}>
@@ -140,8 +160,8 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						fullWidth
 						variant="contained"
 						sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+						aria-label="Lanjutkan Transfer"
 						// disabled={mutation.isLoading}
-						aria-label={"Lanjutkan Konfirmasi Transfer"}
 					>
 						Lanjutkan
 					</Button>
