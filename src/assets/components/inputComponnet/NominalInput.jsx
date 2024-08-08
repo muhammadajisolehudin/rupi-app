@@ -43,6 +43,7 @@ const NominalInput = ({ text, value, onChange, onBlur }) => {
 							color: "#B3B3B3",
 						},
 					}}
+					aria-label="Input Nominal"
 				></TextField>
 			</Box>
 		</Box>
