@@ -110,7 +110,7 @@ export const Menu = () => {
             <ReuseButton
               imgSrc={imgQR}
               title="QR Terima Transfer"
-              targetLink="/qrcode"
+              targetLink="/qr-terima-transfer"
               ariaLabel="Tombol Menu QR Terima Transfer, ini akan membawa Anda ke halaman QR Terima Transfer"
               role="button"
             />
@@ -119,7 +119,7 @@ export const Menu = () => {
             <ReuseButton
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
-              targetLink="/tarik-tunai"
+              targetLink="/tarik-setor-tunai"
               ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Set"
               role="button"
             />

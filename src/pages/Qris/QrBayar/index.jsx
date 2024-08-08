@@ -1,8 +1,8 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
-import BreadcrumbsComponent from '../../../assets/components/breadCrumbs/Breadcrumbs';
+import BreadcrumbsComponent from '../../../assets/components/Breadcrumbs/Breadcrumbs';
 import { useTransferRupiahContext } from '../../../context/TransferRupiahContext';
-import { BreadcrumbsQrBayar } from '../../../assets/components/breadCrumbs/BreadCrumbsQrBayar';
+import { BreadcrumbsQrBayar } from '../../../assets/components/Breadcrumbs/BreadCrumbsQrBayar';
 import { InputNominalBayarForm } from './InputNominalBayarForm';
 import { KonfirmasiBayarForm } from './KonfirmasiBayarForm';
 import { InputPinForm } from './InputPinForm';

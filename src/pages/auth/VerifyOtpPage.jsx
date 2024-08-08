@@ -5,10 +5,10 @@ import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";
 import { useVerifyOtp } from "../../services/auth/verify";
 import { useNavigate } from "react-router-dom";
-import SuccesAlert from "../../assets/components/AlertComponents/SuccesAlert";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 import { useVerifyOtpResend } from "../../services/auth/verify-resend";
 import { useAuthContext } from "../../context/AuthContext";
-import FailAlert from "../../assets/components/AlertComponents/FailAlert";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
 
 export const VerifyOtpPage = () => {
 	const inputRefs = useRef([]);
@@ -79,25 +79,24 @@ export const VerifyOtpPage = () => {
 	return (
 		<AuthLayout>
 			<Paper
+				// component={Paper}
 				elevation={5}
+				square={false}
 				sx={{
 					display: "flex",
-					justifyContent: "flex-start",
-					gap: 2,
-					alignItems: "center",
+					justifyContent: "center",
 					flexDirection: "column",
-					height: 617,
 					my: "auto",
-					pt: 8,
+					py: 8, 
 					px: 4,
 				}}
 			>
-				<Typography variant="h5" sx={{ fontWeight: "bold", mx: "auto", mt: 2 }}>
+				<Typography variant="h5" sx={{ fontWeight: "bold", mx: "auto" }}>
 					Masukkan Kode Verifikasi
 				</Typography>
 				<Typography
 					variant="body1"
-					sx={{ mx: "auto", mt: 4, textAlign: "center" }}
+					sx={{ mx: "auto", mt: 7, textAlign: "center" }}
 				>
 					Kami telah mengirimkan kode verifikasi 6 digit melalui WhatsApp ke
 					nomor yang terdaftar
@@ -108,9 +107,11 @@ export const VerifyOtpPage = () => {
 						justifyContent="center"
 						display="flex"
 						flexDirection="column"
+						justifyItems="center"
+						alignItems="center"
 						gap={4}
 					>
-						<Typography variant="body1" fontWeight="bold">
+						<Typography variant="body1" fontWeight="bold" mr="auto">
 							Kode OTP
 						</Typography>
 						<Box display="flex" gap={3}>
@@ -158,12 +159,11 @@ export const VerifyOtpPage = () => {
 							role="button"
 							aria-label="Button Kirim kode otp baru"
 						>Kirim Kode Baru </Typography>
-						{/* <h1>Welcome, {user ? user.username : "Guest"}</h1> */}
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
-							sx={{ mt: 4, mb: 5, py: 1.5, borderRadius: "8px" }}
+							sx={{ py: 1.5, borderRadius: "8px" }}
 							disabled={formik.isSubmitting || !formik.isValid}
 							role="button"
 							aria-label="Button Lanjutkan verify kode OTP"

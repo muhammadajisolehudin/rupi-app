@@ -62,14 +62,14 @@ export const SetPinPage = () => {
           gap: 10,
           alignItems: "center",
           flexDirection: "column",
-          height: 617,
+          py:8,
           my: "auto",
         }}
       >
         <Typography
           id="buat-pin-baru"
           variant="h4"
-          sx={{ fontWeight: 600, mx: "auto", mt: 10 }}
+          sx={{ fontWeight: 600, mx: "auto" }}
         >
           Buat PIN Baru
         </Typography>
@@ -107,6 +107,7 @@ export const SetPinPage = () => {
           sx={{
             py: 1.5,
             px: 18,
+            mb: 4,
             borderRadius: "8px",
             textTransform: "capitalize",
           }}

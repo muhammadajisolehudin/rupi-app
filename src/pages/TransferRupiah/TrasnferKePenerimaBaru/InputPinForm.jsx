@@ -1,7 +1,7 @@
 import { Grid, Button, Typography } from "@mui/material";
 import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
-import PinInput from "../../../assets/components/inputComponnet/PinInput";
+import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from 'prop-types';
 import { useAddTransaksiIntrabank } from "../../../services/transfer-rupiah/add-transaksi-intrabank";
 import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";

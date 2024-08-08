@@ -1,10 +1,10 @@
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 
-import buttonEnter from "../../../icons/button enter.svg";
-import arrowDownIcon from "../../../icons/arrow down.png";
-import copyIcon from "../../../icons/copy.png";
-import showIcon from "../../../icons/show.png";
-import creditCardBlack from "../../../images/credit card black.png";
+import buttonEnter from "../../img/icons/button enter.svg";
+import arrowDownIcon from "../../img/icons/arrow down.png";
+import copyIcon from "../../img/icons/copy.png";
+import showIcon from "../../img/icons/show.png";
+import creditCardBlack from "../../img/credit card black.png";
 
 const formatAccountNumber = (number) => {
   // Menghapus karakter non-digit dari nomor rekening

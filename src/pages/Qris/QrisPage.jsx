@@ -9,8 +9,9 @@ import IconScan from "../../assets/img/icons/scan-netral.svg"
 import IconScanPrimary from "../../assets/img/icons/scan-primary.svg"
 import IconQrCode from "../../assets/img/icons/qr-code-netral.svg"
 import IconQrCodePrimary from "../../assets/img/icons/qr-code-primary.svg"
+import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
 
-import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
+// import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
 
 export const QrisPage = () => {
 

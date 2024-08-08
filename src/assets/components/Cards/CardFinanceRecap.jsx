@@ -1,7 +1,7 @@
 import { Box, Card, Typography, Button } from "@mui/material";
-import buttonEnter from "../../../icons/button enter.svg";
-import pemasukanIcon from "../../../icons/pemasukan.png";
-import pengeluaranIcon from "../../../icons/pengeluaran.png";
+import buttonEnter from "../../img/icons/button enter.svg";
+import pemasukanIcon from "../../img/icons/pemasukan.png";
+import pengeluaranIcon from "../../img/icons/pengeluaran.png";
 
 export const CardFinanceRecap = () => {
   const neutral = "#FFFFFF";

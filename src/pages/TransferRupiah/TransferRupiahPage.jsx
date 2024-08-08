@@ -2,39 +2,13 @@
 import { useEffect, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { Layout } from "../layout";
-import { CardTransaksi } from "../../assets/components/cardComponents/CardTransaksi";
+import { CardTransaksi } from "../../assets/components/Cards/CardTransaksi";
 import { TransferSearch } from "../../assets/components/transferComponents/TransferSearch";
 import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
-// import SyncAltRoundedIcon from '@mui/icons-material/SyncAltRounded';
-import profileIcon from '../../assets/img/icons/placeholder-profile.png'; // pastikan import profileIcon
-import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
 import { useGetDataTransaksi } from '../../services/transfer-rupiah/get-data-transaksi';
 import { useAddFavorite } from '../../services/transfer-rupiah/add-favorite-transaksi';
-// import { BreadcrumbsTranferRupiah } from '../../assets/components/layoutsComponents/BreadcrumbsTransferRupiah';
+import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
 
-// const initialCardData = [
-//     {
-//         id: 1,
-//         image: profileIcon,
-//         name: 'Sandy Wilyo',
-//         noRekening: '1222998866',
-//         favorite: true,
-//     },
-//     {
-//         id: 2,
-//         image: profileIcon,
-//         name: 'Username',
-//         noRekening: '1222998866',
-//         favorite: false,
-//     },
-//     {
-//         id: 3,
-//         image: profileIcon,
-//         name: 'Username',
-//         noRekening: '1222998866',
-//         favorite: false,
-//     },
-// ];
 
 export const TransferRupiahPage = () => {
     // const [destinationData, setDestinationData] = useState(null);

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import { TarikTunai } from "./TarikTunai";
 import { Layout } from "../layout";
-import BreadcrumbsComponent from "../../assets/components/breadCrumbs/Breadcrumbs";
 import { SetorTunai } from "./SetorTunai";
+import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
 
 
 export const TarikSetorTunaiPage = () => {

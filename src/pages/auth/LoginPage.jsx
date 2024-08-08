@@ -15,14 +15,14 @@ import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import SuccesAlert from "../../assets/components/AlertComponents/SuccesAlert";
-import FailAlert from "../../assets/components/AlertComponents/FailAlert";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
 import { useAuthContext } from "../../context/AuthContext";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login, isLoading, isError, isSuccess, error } = useAuthContext();
+  const { login, isLoading, isSuccess, error } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -52,8 +52,7 @@ export const LoginPage = () => {
 
   return (
     <AuthLayout>
-      <Box
-        component={Paper}
+      <Paper
         elevation={5}
         square={false}
         sx={{
@@ -61,19 +60,20 @@ export const LoginPage = () => {
           justifyContent: "center",
           flexDirection: "column",
           my: "auto",
-          height: 617,
+          py: 5, 
           px: 4,
         }}
       >
         <Typography
-          component="h1"
+          // component="h1"
           variant="h4"
           sx={{
             fontWeight: "bold",
+            // fontSize: "32px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            my: 5,
+            mb: 5,
           }}
         >
           Login
@@ -112,7 +112,7 @@ export const LoginPage = () => {
             aria-label="Masukkan username"
           />
           {formik.touched.username && formik.errors.username ? (
-            <Typography id="username-error" sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="username-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.username}
             </Typography>
           ) : null}
@@ -150,7 +150,7 @@ export const LoginPage = () => {
             }}
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography id="password-error" sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="password-error" variant="body2" sx={{color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
@@ -169,14 +169,14 @@ export const LoginPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 5, py: 1.5, borderRadius: "8px" }}
+            sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
             disabled={isLoading}
             aria-label="Button Masuk"
           >
             {isLoading ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
-      </Box>
+      </Paper>
       {error && (
         <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
       )}

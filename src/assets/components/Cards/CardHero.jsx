@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
-import bannerImage from "../../../images/banner.png";
-import calendarIcon from "../../../icons/calendar.png";
-import avatarWaveImage from "../../../images/avatar and wave.png";
+import bannerImage from "../../img/banner.png";
+import calendarIcon from "../../img/icons/calendar.png";
+import avatarWaveImage from "../../img/avatar and wave.png";
 
 export const CardHero = ({ user }) => {
   const lightBlue = "#EDF4FF";

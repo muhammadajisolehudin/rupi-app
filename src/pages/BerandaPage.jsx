@@ -3,13 +3,13 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
 import { Layout } from "./layout";
 
-import { CardHero } from "../assets/components/cardComponents/CardHero";
-import { CardBalance } from "../assets/components/cardComponents/CardBalance";
-import { CardFinanceRecap } from "../assets/components/cardComponents/CardFinanceRecap";
-import { CardList } from "../assets/components/cardComponents/CardList";
-import { Menu } from "../assets/components/dashboard/Menu";
+import { CardHero } from "../assets/components/Cards/CardHero";
+import { CardBalance } from "../assets/components/Cards/CardBalance";
+import { CardFinanceRecap } from "../assets/components/Cards/CardFinanceRecap";
+import { CardList } from "../assets/components/Cards/CardList";
+import { Menu } from "../assets/components/dashboardComponents/Menu";
 
-import backgroundWave from "../images/wave background.png";
+import backgroundWave from "../assets/img/wave background.png";
 import { useAuthContext } from "../context/AuthContext";
 
 export const BerandaPage = () => {

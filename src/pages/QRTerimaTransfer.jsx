@@ -1,13 +1,14 @@
 import React from 'react';
 import { Box, Button, Card, Container, Typography } from "@mui/material";
 import { Layout } from "./layout";
-import BreadcrumbsComponent from '../assets/components/breadCrumbs/Breadcrumbs';
+// import BreadcrumbsComponent from '../assets/components/breadCrumbs/Breadcrumbs';
 import QRISIcon from '../assets/img/icons/QRIS-Icon.png'; 
 import LogoIcon from '../assets/img/icons/3.png'; 
 import QRImage from '../assets/img/Rupi App QR.png'; 
 import ScanIcon from '../assets/img/icons/mage_scan.png'; 
 import ShareIcon from '../assets/img/icons/mdi_share.png'; 
 import RiayatIcon from '../assets/img/icons/Document.png'; 
+import BreadcrumbsComponent from '../assets/components/Breadcrumbs/Breadcrumbs';
 
 export const QRTerimaTransfer = () => {
 
