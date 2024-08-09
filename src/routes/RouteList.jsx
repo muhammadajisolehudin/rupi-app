@@ -9,7 +9,6 @@ import { ProtectedUser } from '../assets/components/Protected/protected';
 import { BerandaPage } from "../pages/BerandaPage";
 import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
 import { QRTerimaTransfer } from '../pages/QrTerimaTransfer/QRTerimaTransfer';
-// import { QRRiwayatTransfer } from '../pages/QrTerimaTransfer/QRRiwayatTransfer';
 import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPage";
 import { TransferRupiahProvider } from '../context/TransferRupiahContext';
 import { QrisPage } from '../pages/Qris/QrisPage';

@@ -13,7 +13,7 @@ import NoRiwayat from "../../assets/img/no-riwayat.png";
 import FilterIcon from "../../assets/img/icons/Filter.png";
 import { Layout } from "../layout";
 import FilterModal from "../../assets/components/Modals/ModalFilter";
-import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
+// import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
 export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
@@ -137,7 +137,7 @@ export const RiwayatTransfer = () => {
     <Layout>
       {/* <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}> */}
       <Box sx={{ mx: 6, paddingTop: "1.5rem", pb: "4rem" }}>
-        <BreadcrumbsComponent />
+        {/* <BreadcrumbsComponent /> */}
         {/* <Box sx={{  }}> */}
         <Card
           sx={{mx:2, mt:6 }}
