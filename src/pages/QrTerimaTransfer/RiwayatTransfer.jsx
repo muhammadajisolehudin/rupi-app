@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Card,
   Paper,
   Button,
   IconButton,
-  Container,
   Typography,
   Divider,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import QRIcon from "../../assets/img/icons/qr-code-Icon.png";
 import NoRiwayat from "../../assets/img/no-riwayat.png";
 import FilterIcon from "../../assets/img/icons/Filter.png";
@@ -17,10 +15,9 @@ import { Layout } from "../layout";
 import FilterModal from "../../assets/components/Modals/ModalFilter";
 import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
 
-export const QrRiwayatTransfer = () => {
+export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   const transactions = {
     diterima: [

@@ -17,7 +17,7 @@ import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBa
 import QrBayar from '../pages/Qris/QrBayar';
 import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
-import { QrRiwayatTransfer } from '../pages/QrTerimaTransfer/QrRiwayatTransfer';
+import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
 
 
 
@@ -52,7 +52,7 @@ export const RouteList = () => {
                               element={<TransferKePenerimaBaru />}
                             />
                             <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
-                            <Route path="/qr-terima-transfer/riwayat" element={<QrRiwayatTransfer />} />
+                            <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
 
                             <Route path="/qris" element={<QrisPage />} />
                             <Route path="/qris/qr-bayar" element={<QrBayar />} />

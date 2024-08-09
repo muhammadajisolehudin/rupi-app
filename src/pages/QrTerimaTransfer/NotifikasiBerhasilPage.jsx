@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Layout } from "../layout";
 import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
@@ -26,7 +26,7 @@ export const NotifikasiBerhasilPage = () => {
         return `${stars}${number.slice(-visibleDigits)}`;
     };
 
-    const accountNumber = '992192925554';
+    // const accountNumber = '992192925554';
 
     return (
         <Layout>
