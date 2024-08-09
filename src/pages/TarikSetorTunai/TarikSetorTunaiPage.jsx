@@ -5,6 +5,7 @@ import { TarikTunai } from "./TarikTunai";
 import { Layout } from "../layout";
 import { SetorTunai } from "./SetorTunai";
 import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
+// import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
 
 export const TarikSetorTunaiPage = () => {
