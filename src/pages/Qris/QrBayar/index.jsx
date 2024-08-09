@@ -6,7 +6,7 @@ import { InputNominalBayarForm } from './InputNominalBayarForm';
 import { KonfirmasiBayarForm } from './KonfirmasiBayarForm';
 import { InputPinForm } from './InputPinForm';
 import { SuccesInfoBayar } from './SuccesInfoBayar';
-import { BreadcrumbsComponent } from '../../../assets/components/Breadcrumbs/Breadcrumb';
+import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
 
 const QrBayar = () => {
     const { step, handleNext, handleSubmit } = useTransferRupiahContext();
@@ -14,7 +14,7 @@ const QrBayar = () => {
     return (
         <Layout>
             <Box sx={{ px: 6, paddingTop: '1.5rem', paddingBottom: '2rem' }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <Card sx={{ mt: 6, mb: 4 }}>
                     <BreadcrumbsQrBayar />
                     <Container>

@@ -7,7 +7,7 @@ import { TransferSearch } from "../../assets/components/transferComponents/Trans
 import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
 import { useGetDataTransaksi } from '../../services/transfer-rupiah/get-data-transaksi';
 import { useAddFavorite } from '../../services/transfer-rupiah/add-favorite-transaksi';
-import { BreadcrumbsComponent } from '../../assets/components/Breadcrumbs/Breadcrumb';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
 
 export const TransferRupiahPage = () => {
@@ -63,7 +63,7 @@ export const TransferRupiahPage = () => {
     return (
         <Layout>
             <Box sx={{ mx:6 ,paddingTop: "1.5rem", paddingBottom: "2rem" }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <TransferSearch />
                 <TambahRekening />
                 <Box

@@ -7,7 +7,7 @@ import ScanIcon from '../../assets/img/icons/mage_scan.png';
 import ShareIcon from '../../assets/img/icons/mdi_share.png'; 
 import RiayatIcon from '../../assets/img/icons/Document.png'; 
 import { useNavigate } from 'react-router-dom';
-import { BreadcrumbsComponent } from '../../assets/components/Breadcrumbs/Breadcrumb';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
 
 export const QRTerimaTransfer = () => {
@@ -37,7 +37,7 @@ export const QRTerimaTransfer = () => {
         <Layout>
             {/* <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}> */}
             <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 {/* <Card sx={{ mt: 6, mb: 4 }}>
                     
                 </Card> */}

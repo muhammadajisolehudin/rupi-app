@@ -9,10 +9,10 @@ import IconScan from "../../assets/img/icons/scan-netral.svg"
 import IconScanPrimary from "../../assets/img/icons/scan-primary.svg"
 import IconQrCode from "../../assets/img/icons/qr-code-netral.svg"
 import IconQrCodePrimary from "../../assets/img/icons/qr-code-primary.svg"
-import { BreadcrumbsComponent } from '../../assets/components/Breadcrumbs/Breadcrumb';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
 
-// import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
+// import Breadcrumb from '../../assets/components/breadCrumbs/Breadcrumbs';
 
 export const QrisPage = () => {
 
@@ -21,7 +21,7 @@ export const QrisPage = () => {
     return (
         <Layout>
             <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <Box sx={{ display: "flex", mt: 10, gap: 5, flexDirection: "column" }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <img src={QrisIcon} height={60} />

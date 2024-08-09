@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { Box, Button, Container, Typography } from "@mui/material";
 import { Layout } from "../layout";
-import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
+// import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
 import ilustrasi from '../assets/img/complete ilustrasi.png'; 
 import SuccessNotificationModal from '../../assets/components/Modals/ModalNotifBerhasil';
 import SuccessTransferModal from '../../assets/components/Modal/ModalTransferBerhasil';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
 export const NotifikasiBerhasilPage = () => {
     const [openSuccess, setOpenSuccess] = useState(false);
@@ -31,7 +32,7 @@ export const NotifikasiBerhasilPage = () => {
     return (
         <Layout>
             <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', marginTop: '2rem' }}>
                     <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
                         Transaksi Berhasil
