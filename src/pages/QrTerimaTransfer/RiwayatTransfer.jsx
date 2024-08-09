@@ -13,7 +13,7 @@ import NoRiwayat from "../../assets/img/no-riwayat.png";
 import FilterIcon from "../../assets/img/icons/Filter.png";
 import { Layout } from "../layout";
 import FilterModal from "../../assets/components/Modals/ModalFilter";
-import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
+import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
 export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");

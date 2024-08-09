@@ -4,7 +4,7 @@ import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import { TarikTunai } from "./TarikTunai";
 import { Layout } from "../layout";
 import { SetorTunai } from "./SetorTunai";
-import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
+import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
 
 export const TarikSetorTunaiPage = () => {
