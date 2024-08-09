@@ -18,6 +18,7 @@ import QrBayar from '../pages/Qris/QrBayar';
 import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
 import { QrRiwayatTransfer } from '../pages/QrTerimaTransfer/QrRiwayatTransfer';
+import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
 
 
 
@@ -46,6 +47,7 @@ export const RouteList = () => {
                         <ProtectedAccount>
                           <Routes>
                             <Route path="/beranda" element={<BerandaPage />} />
+                            <Route path="/info-saldo" element={<InfoSaldoPage />} />
                             <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
                             <Route
                               path="/transfer-rupiah/transfer-ke-penerima-baru"
