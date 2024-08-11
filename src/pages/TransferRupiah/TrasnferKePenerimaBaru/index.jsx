@@ -1,7 +1,7 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
-import { BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { RekeningBaruForm } from './RekeningBaruFrom';
+// import {BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { InputNominalTransferForm } from './InputNominalTransferForm';
 import { KonfirmasiTransferForm } from './KonfirmasiTransferForm';
 import { SuccesTransferInfo } from './SuccesTransferInfo';
@@ -17,7 +17,7 @@ const TransferKePenerimaBaru = () => {
             <Box sx={{ px: 6, paddingTop: '1.5rem', paddingBottom: '2rem' }}>
                 <Breadcrumb />
                 <Card sx={{ mt: 6, mb: 4 }}>
-                    <BreadcrumbsTranferRupiah />
+                    {/* <BreadcrumbsTranferRupiah /> */}
                     <Container>
                         <>
                             {step === 1 && <RekeningBaruForm onNext={handleNext} />}

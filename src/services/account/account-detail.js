@@ -16,12 +16,12 @@ const getAccountDetail = async ({ queryKey }) => {
   }
 };
 
-const useGetAccountBank = (options) => {
+const useGetAccountDetail = (options) => {
   return useQuery({
     queryKey: [API_ENDPOINT.ACCOUNT_DETAIL, options],
     queryFn: getAccountDetail,
   });
 };
 
-export { getAccountDetail, useGetAccountBank };
+export { getAccountDetail, useGetAccountDetail };
 

@@ -24,7 +24,6 @@ export const ProtectedAccount = ({ children }) => {
                     navigate("/set-password");
                 }
                 if (error.response.status === 401) {
-
                     CookiesStorage.remove(CookiesKey.AuthToken);
                     CookiesStorage.remove(CookiesKey.User);
                     logout();
