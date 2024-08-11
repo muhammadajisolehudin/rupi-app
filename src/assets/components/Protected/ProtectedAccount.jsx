@@ -1,29 +1,51 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useGetAccountBank } from '../../../services/account/account-detail'; // Sesuaikan path ini
+import { useGetAccountDetail } from '../../../services/account/account-detail'; // Sesuaikan path ini
 import { useAuthContext } from '../../../context/AuthContext';
 import { Box, CircularProgress } from '@mui/material';
+import { CookiesKey, CookiesStorage } from '../../../utils/cookies';
 
 export const ProtectedAccount = ({ children }) => {
-    const { account, setAccount } = useAuthContext()
-    const { data: Account, isLoading, error } = useGetAccountBank();
+    // const { logout } = useAuthContext()
+    const { account, setAccount, logout } = useAuthContext();
+    const { data: Account, isLoading, error } = useGetAccountDetail();
     const navigate = useNavigate();
-    
     // if (error) {
     //     navigate("/set-password");
     // }
     useEffect(() => {
-        if (isLoading) return; // Jangan lakukan apapun saat loading
 
-        if (error) {
-            navigate("/set-password");
-            return;
-        }
+        const handleError= async()=>{
+            if (isLoading) return;
 
-        if (Account) {
-            setAccount(Account);
-        }
-    }, [isLoading, error, Account, setAccount, navigate]);
+            if (error) {
+                console.log("ini error : ", error.response.status)
+                if (error.response.status === 403) {
+                    navigate("/set-password");
+                }
+                if (error.response.status === 401) {
+                    
+                    CookiesStorage.remove(CookiesKey.AuthToken);
+                    CookiesStorage.remove(CookiesKey.User);
+                    logout();
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 1000); 
+                }
+                
+               
+                return;
+            }
+
+
+            if (Account) {
+                setAccount(Account);
+            }
+        } 
+        
+        handleError()
+        console.log("ini akun :", account)
+    }, [isLoading, error, Account, setAccount, logout ]);
 
 
     if (isLoading) {
@@ -43,3 +65,5 @@ export const ProtectedAccount = ({ children }) => {
 
     return children;
 };
+
+

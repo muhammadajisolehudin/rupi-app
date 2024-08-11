@@ -31,12 +31,13 @@ export const RouteList = () => {
 
           <Routes>
             {/* auth */}
-            <Route path="/login" element={<LoginPage />} />
+            
             <Route
               path="/*"
               element={
                 <ProtectedUser>
                   <Routes>
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/verify" element={<VerifyOtpPage />} />
                     <Route path="/set-pin" element={<SetPinPage />} />
                     <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
@@ -68,7 +69,7 @@ export const RouteList = () => {
                 </ProtectedUser>
               }
             />
-            <Route path="*" element={<Navigate to="/login" />} />
+            {/* <Route path="*" element={<Navigate to="/login" />} /> */}
           </Routes>
         </TransferRupiahProvider>
       </AuthProvider>

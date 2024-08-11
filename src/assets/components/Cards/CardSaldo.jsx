@@ -5,7 +5,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useState } from 'react';
 
-const CardSaldo = () => {
+const CardSaldo = ({ account }) => {
   const darkBlue = '#0A3967';
   const blue = '#0066AE';
   const [isNominalVisible, setIsNominalVisible] = useState(true);
@@ -69,7 +69,7 @@ const CardSaldo = () => {
                     marginBottom: 0,
                   }}
                 >
-                  Rekening 123-456-7890
+                  Rekening { account.account_number }
                 </Typography>
                 <img
                   src={arrowDownIcon}
@@ -102,7 +102,7 @@ const CardSaldo = () => {
               >
                 IDR{' '}
                 <span style={{ fontWeight: 800 }}>
-                  {isNominalVisible ? '5.000.000' : '*****'}
+                  {isNominalVisible ?  account.balance : '*****'}
                 </span>
               </Typography>
               <Button

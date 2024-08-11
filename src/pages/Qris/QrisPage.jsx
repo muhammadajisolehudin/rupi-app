@@ -1,6 +1,6 @@
 // TransferRupiahPage.js
-import { useState } from 'react';
-import { Box, Button, Card, Grid, Typography } from "@mui/material";
+import { useEffect, useRef, useState } from 'react';
+import { Box, Button, Card, Grid, IconButton, Typography } from "@mui/material";
 import { Layout } from "../layout";
 import QrisIcon from "../../assets/img/icons/QRIS-Icon.svg"
 import ImgPlaceHolder from "../../assets/img/icons/Image placeholder 1.svg"
@@ -10,12 +10,50 @@ import IconScanPrimary from "../../assets/img/icons/scan-primary.svg"
 import IconQrCode from "../../assets/img/icons/qr-code-netral.svg"
 import IconQrCodePrimary from "../../assets/img/icons/qr-code-primary.svg"
 import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
+import { Html5QrcodeScanner  } from 'html5-qrcode';
 
 // import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
 
 export const QrisPage = () => {
 
     const [currentView, setCurrentView] = useState("scan");
+
+    const [ scanResult, setScanResult ] = useState(null)
+    const [flashlightOn, setFlashlightOn] = useState(false);
+
+    const readerRef = useRef(null);
+
+
+    useEffect(()=>{
+        // Initialize and start scanning
+        const scanner = new Html5QrcodeScanner('reader', {
+            qrbox: { width: 250, height: 250 },
+            fps: 10
+        });
+
+        const success = (result) => {
+            scanner.clear(); // Clear scanner to stop further scanning
+            setScanResult(result);
+        };
+
+        const error = (error) => {
+            console.warn(error);
+        };
+
+        // Render scanner and start scanning
+        scanner.render(success, error);
+
+        // Cleanup on component unmount
+        return () => {
+            scanner.clear();
+        };
+    },[])
+
+    const toggleFlashlight = () => {
+        setFlashlightOn(!flashlightOn);
+        // Implement flashlight toggle if the library supports it
+    };
+   
 
     return (
         <Layout>
@@ -25,15 +63,31 @@ export const QrisPage = () => {
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <img src={QrisIcon} height={60} />
                     </Box>
+{/* 
+                    {scanResult ?
+                    <div>Success: {scanResult}</div> :
+                    <div id="reader"></div>
+                    } */}
                     <Box sx={{ display: 'flex', gap: 3, flexDirection: "column", justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)' }}>
                         <Card
                             sx={{
-                                width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px', height: "623px", display: "flex",
+                                width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px', display: "flex",
                                 flexDirection: "column", border:"1px solid #B3B3B3 "
                             }}>
+                            {scanResult ? (
+                                <Typography variant="h6" align="center">
+                                    Success: {scanResult}
+                                </Typography>
+                            ) : (
+                                <div id="reader" ref={readerRef} style={{ width: '100%', height: '100%' }}></div>
+                            )}
+
                             <Box sx={{ display: "flex", justifyContent: "space-between", mt:"auto" }}>
                                 <img src={ImgPlaceHolder} />
-                                <img src={Flashlight} />
+                                <IconButton onClick={toggleFlashlight} aria-label="Toggle Flashlight">
+                                    <img src={Flashlight} />
+                                </IconButton>
+                               
                             </Box>
                         </Card>
                         <Grid container sx={{ width: '450px' }}>

@@ -22,9 +22,11 @@ function Navbar() {
     navigate(path);
   };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login')
+  const handleLogout = async () => {
+    await logout();
+    setTimeout(() => {
+      navigate('/login');
+    }, 1000); 
   };
 
   return (

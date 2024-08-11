@@ -1,49 +1,73 @@
 import PropTypes from 'prop-types';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { useDrawingArea } from '@mui/x-charts/hooks';
-import { styled } from '@mui/material/styles';
-
-const StyledText = styled('text')(({ theme, color }) => ({
-  fill: color || theme.palette.text.primary,
-  textAnchor: 'middle',
-  dominantBaseline: 'central',
-  fontSize: 20,
-}));
-
-const PieCenterLabel = ({ children, color }) => {
-  const { width, height, left, top } = useDrawingArea();
-  return (
-    <StyledText x={left + width / 2} y={top + height / 2} color={color}>
-      {children}
-    </StyledText>
-  );
-};
-
-PieCenterLabel.propTypes = {
-  children: PropTypes.node.isRequired,
-  color: PropTypes.string,
-};
+// import { useDrawingArea } from '@mui/x-charts/hooks';
+// import { styled } from '@mui/material/styles';
+// import { Typography } from '@mui/material';
 
 const DynamicPieChart = ({
   data = [],
-  centerLabel = 'Total',
+  centerLabel = '',
   width = 400,
   height = 200,
 }) => {
-  const series = data.map((item) => ({
+  const series = data?.activeSection.map((item) => ({
     ...item,
     itemStyle: {
       color: item.color,
     },
   }));
 
+  // Fungsi untuk menghitung total transaksi dari semua kategori
+  const getTotalNumberOfTransactions = () => {
+    const total = data?.data?.categories?.reduce((total, category) =>
+      total + category.mutations.length, 0) || 0;
+    // Log total number of transactions for debugging
+    console.log('Total Number of Transactions:', total);
+    return total;
+  };
   return (
     <PieChart
-      series={[{ data: series, innerRadius: 80 }]}
+      series={[{ data: series, innerRadius: 120 }]}
       width={width}
       height={height}
     >
-      <PieCenterLabel>{centerLabel}</PieCenterLabel>
+      
+     
+      <g transform={`translate(${width / 2.5}, ${height / 2})`}>
+        <text
+          x={0}
+          y={-30}
+          textAnchor="middle"
+          dominantBaseline="central"
+          fontSize={14}
+          fill="textSecondary"
+        >
+          {centerLabel}
+        </text>
+        <text
+          x={0}
+          y={0}
+          textAnchor="middle"
+          dominantBaseline="central"
+          // fontSize={16}
+          fill="textPrimary"
+          style={{ fontWeight: "bold", fontSize: 16 }}
+        >
+          {data?.data?.total_income || data?.data?.total_expense}
+        </text>
+        <text
+          x={0}
+          y={30}
+          textAnchor="middle"
+          dominantBaseline="central"
+          style={{ fontWeight: "bold", fontSize: 12 }}
+          fill="textSecondary"
+        >
+          {`${getTotalNumberOfTransactions()} kategori`}
+        </text>
+      </g>
+      {/* <PieCenterLabel>{getTotalNumberOfTransactions()}</PieCenterLabel> */}
+      
     </PieChart>
   );
 };

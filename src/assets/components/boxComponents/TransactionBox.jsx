@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { ButtonBase } from '@mui/material';
+import { ButtonBase, Grid } from '@mui/material';
 
 const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
   return (
@@ -22,20 +22,28 @@ const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
           justifyContent: 'space-between',
         }}
       >
-        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2, width: "100%", }}>
           <img src={icon} alt="icon" />
-          <Box
+          <Grid
+            container
             sx={{
               display: 'flex',
-              flexDirection: 'column',
-              gap: 1,
+              width:"100%",
+              bgcolor:"red"
             }}
           >
-            <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-              {title}
-            </Typography>
-            <Typography variant="body1">{amount}</Typography>
-          </Box>
+            <Grid item xs={8}>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                {title}
+              </Typography>
+                <Typography variant="body1">{amount}</Typography>
+              </Grid>
+            <Grid item xs={4} sx={{ bgcolor:"green", display:"flex", ju }}>
+              <Typography variant="body1">{amount}</Typography>
+            </Grid>
+            
+           
+          </Grid>
         </Box>
 
         <ButtonBase onClick={onClick}>

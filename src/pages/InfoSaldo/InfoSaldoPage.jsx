@@ -11,8 +11,6 @@ import {
   Typography,
 } from '@mui/material';
 import CardSaldo from '../../assets/components/Cards/CardSaldo';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShareIcon from '@mui/icons-material/Share';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -33,6 +31,9 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import WalletIcon from '@mui/icons-material/Wallet';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import { useAuthContext } from '../../context/AuthContext';
+import { MonthNavigator } from '../../assets/components/navigators/MonthNavigator';
+import { useGetMutationsSummary } from '../../services/account/account-mutations-summary';
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
@@ -40,6 +41,12 @@ export const InfoSaldoPage = () => {
   const [activeSection, setActiveSection] = useState('Pemasukan');
   const [type, setType] = useState('debit');
   const [icon, setIcon] = useState('');
+
+  //feching api
+  const { account } = useAuthContext();
+  const options = { params: { id: 123 } }; 
+  const { data, error, isLoading } = useGetMutationsSummary(options);
+  console.log("ini data mutasi summary : ", data?.income?.categories[0]?.total_balance_percentage)
 
   const handleOpen = (transactionData, title, type, icon) => {
     setSelectedTransaction(transactionData);
@@ -178,9 +185,9 @@ export const InfoSaldoPage = () => {
   ];
 
   const chartDataPemasukan = [
-    { value: 5, label: 'A', color: '#0ed79c' },
-    { value: 10, label: 'B', color: '#0065ae' },
-    { value: 15, label: 'C', color: '#feb831' },
+    { value: parseFloat(data?.income?.categories[0]?.total_balance_percentage?.toFixed(2)) || 0, color: '#0ed79c' },
+    { value: parseFloat(data?.income?.categories[1]?.total_balance_percentage?.toFixed(2)) || 0, color: '#0065ae' },
+    { value: parseFloat(data?.income?.categories[2]?.total_balance_percentage?.toFixed(2)) || 0, color: '#feb831' },
   ];
 
   const chartDataPengeluaran = [
@@ -214,7 +221,7 @@ export const InfoSaldoPage = () => {
                 alignItems: 'center',
               }}
             >
-              <CardSaldo />
+              <CardSaldo account={account} />
             </Box>
           </Grid>
           <Container maxWidth="lg" sx={{ mx: 'auto', my: 5 }}>
@@ -232,24 +239,7 @@ export const InfoSaldoPage = () => {
                     boxSizing: 'border-box',
                   }}
                 >
-                  <IconButton size="small" sx={{ color: 'white' }}>
-                    <ChevronLeftIcon />
-                  </IconButton>
-                  <Typography
-                    variant="h6"
-                    component="div"
-                    sx={{
-                      fontWeight: 'bold',
-                      color: 'white',
-                      textAlign: 'center',
-                      lineHeight: '24px',
-                    }}
-                  >
-                    Juli 2024
-                  </Typography>
-                  <IconButton size="small" sx={{ color: 'white' }}>
-                    <ChevronRightIcon />
-                  </IconButton>
+                  <MonthNavigator />
                 </Box>
 
                 <Box sx={{ bgcolor: 'neutral.01', boxShadow: 3 }}>
@@ -453,14 +443,23 @@ export const InfoSaldoPage = () => {
                 }}
               >
                 <DynamicPieChart
-                  data={
+                  // data={
+                  //   activeSection === 'Pemasukan'
+                  //     ? chartDataPemasukan
+                  //     : chartDataPengeluaran
+                  // }
+                  data={{
+                    activeSection: activeSection === 'Pemasukan' ? chartDataPemasukan : chartDataPengeluaran,
+                    data: activeSection === 'Pemasukan' ? data?.income : data?.expense
+                  }}
+                  centerLabel={
                     activeSection === 'Pemasukan'
-                      ? chartDataPemasukan
-                      : chartDataPengeluaran
+                      ? "Total Pemasukan"
+                      : "Total Pengeluaran"
                   }
-                  centerLabel="Total"
-                  width={400}
-                  height={400}
+                  // dataCart={data.income}
+                  width={500}
+                  height={500}
                 />
               </Grid>
             </Grid>
