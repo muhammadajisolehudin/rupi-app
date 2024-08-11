@@ -42,7 +42,7 @@ export const RouteList = () => {
                     <Route
                       path="/*"
                       element={
-                        <ProtectedAccount>
+                        // <ProtectedAccount>
                           <Routes>
                             <Route path="/beranda" element={<BerandaPage />} />
                             <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
@@ -57,7 +57,7 @@ export const RouteList = () => {
                             <Route path="/qris/qr-bayar" element={<QrBayar />} />
                             <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
                           </Routes>
-                        </ProtectedAccount>
+                        // </ProtectedAccount>
                       }
                     />
                   </Routes>

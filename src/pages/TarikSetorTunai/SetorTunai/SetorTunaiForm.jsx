@@ -23,10 +23,11 @@ export const SetorTunaiForm = ({ onNext }) => {
                     px: 4,
                 }}>
                     <Grid item xs={12}>
-                        <Typography>Rekening Tujuan</Typography>
+                        <Typography id="rekeningTujuanLabel">Rekening Tujuan</Typography>
                         <CardAccountInfo
                             accountNumber={"5667 2323 1444 5554"}
                             balance={5000000}
+                            aria-labelledby="rekeningTujuanLabel"
                         />
                     </Grid>
                     <Grid
@@ -38,13 +39,14 @@ export const SetorTunaiForm = ({ onNext }) => {
                             gap: 2,
                         }}
                     >
-                        <Typography mt={0} pt={0}>Metode</Typography>
+                        <Typography id="metodeLabel" mt={0} pt={0}>Metode</Typography>
                         <TextField
-                            aria-label="tambahkan nama token tarik tunai"
+                            aria-labelledby="metodeLabel"
+                            aria-label="tambahkan metode setor tunai"
                             name="metode"
                             type="text"
                             id="metode"
-                            placeholder="Tambahkan nama token tarik tunai"
+                            placeholder="Tambahkan metode setor tunai"
                             autoComplete="current-nominal"
                             fullWidth
                             onChange={formik.handleChange}
@@ -52,7 +54,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                             value={formik.values.metode}
                         />
                         {formik.touched.metode && formik.errors.metode ? (
-                            <Typography sx={{ fontSize: 10, color: "red" }}>
+                            <Typography sx={{ fontSize: 10, color: "red" }} aria-live="assertive">
                                 {formik.errors.metode}
                             </Typography>
                         ) : null}
@@ -65,6 +67,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                             fullWidth
                             variant="contained"
                             sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+                            aria-label="Lanjutkan ke langkah berikutnya"
                         // disabled={mutation.isLoading}
                         >
                             Lanjutkan

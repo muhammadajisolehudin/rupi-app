@@ -71,6 +71,7 @@ export const TarikSetorTunaiPage = () => {
                 textTransform: "none",
               }}
               onClick={() => setCurrentView("tarik")}
+              aria-label="tarik tunai"
             >
               Tarik
             </Button>
@@ -85,6 +86,7 @@ export const TarikSetorTunaiPage = () => {
                 textTransform: "none",
               }}
               onClick={() => setCurrentView("setor")}
+              aria-label="setor tunai"
             >
               Setor
             </Button>
@@ -99,6 +101,7 @@ export const TarikSetorTunaiPage = () => {
                 textTransform: "none",
               }}
               onClick={() => setCurrentView("token")}
+              aria-label="token"
             >
               Token
             </Button>

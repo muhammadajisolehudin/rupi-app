@@ -22,23 +22,27 @@ export const SuccesInfo= () => {
                 <Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
                     Uang Siap Ditarik
                 </Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }} aria-live="polite" aria-label="Tanggal dan waktu transaksi">
+                    12 Jul 2024 . 11:35 WIB
+                </Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }} aria-live="polite" aria-label="Nomor referensi">
+                    No. Ref 12736192837636
+                </Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
-                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+                            <Typography id="nominalLabel" sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
+                            <Typography aria-labelledby="nominalLabel" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
                                 Rp 100.000
                             </Typography>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+                            <Typography id="expiryLabel" sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
+                            <Typography aria-labelledby="expiryLabel" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
                                 12.35
                             </Typography>
                         </Box>
@@ -61,8 +65,8 @@ export const SuccesInfo= () => {
                                 width: "415px",
                             }}
                         >
-                            <Typography>Kode Penarikan</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
+                            <Typography id="kodeTarik">Kode Penarikan</Typography>
+                            <Typography aria-labelledby="kodeTarik" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
                                 654888
                             </Typography>
                         </Box>
@@ -76,7 +80,7 @@ export const SuccesInfo= () => {
                             color: "#0066AE",
                         }}
                     >
-                        <ShareIcon />
+                        <ShareIcon aria-label="Ikon Bagikan kode" />
                         <Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
                     </Box>
                 </Card>
@@ -93,7 +97,7 @@ export const SuccesInfo= () => {
                         textTransform: "capitalize",
                         mt: 4,
                     }}
-                    aria-label="button make new token"
+                    aria-label="buat token baru"
                     variant="contained"
                 >
                     Buat Token Baru

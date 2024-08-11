@@ -63,10 +63,13 @@ export const InputPinForm = ({ onNext }) => {
                             gap: 5,
                         }}
                     >
-                        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                        <Typography id="pinLabel" variant="h5" sx={{ fontWeight: 600 }}>
                             Masukkan PIN
                         </Typography>
-                        <PinInput />
+                        <PinInput
+                            aria-labelledby="pinLabel"
+                            aria-required="true"
+                        />
                         {formik.touched.pin && formik.errors.pin && (
                             <Typography color="error" sx={{ my: 2 }}>
                                 {formik.errors.pin}
@@ -83,6 +86,7 @@ export const InputPinForm = ({ onNext }) => {
                                 mt: 4,
                             }}
                             variant="contained"
+                            aria-label="Lanjutkan ke langkah berikutnya"
                         >
                             Lanjutkan
                         </Button>
