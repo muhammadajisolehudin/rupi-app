@@ -45,26 +45,28 @@ export const RouteList = () => {
         />
         {/* auth */}
         <Route path="/QR-terima-transfer" element={<QRTerimaTransfer />} />
-        <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
-        <Route path="/verify" element={<VerifyOtpPage />} />
-        <Route path="/beranda" element={<BerandaPage />} />
         <Route path="/set-pin" element={<SetPin />} />
         <Route path="/pin" element={<PinPage />} />
         <Route path="/set-password" element={<SetPasswordPage />} />
-        {/* <Route
+        <Route
           path="*"
           element={
             <ProtectedUser>
               <Routes>
                 <Route path="/verify" element={<VerifyOtpPage />} />
                 <Route path="/beranda" element={<BerandaPage />} />
+                <Route
+                  path="/tarik-setor-tunai"
+                  element={<TarikSetorTunaiPage />}
+                />
+
                 <Route path="/set-pin" element={<SetPin />} />
                 <Route path="/pin" element={<PinPage />} />
                 <Route path="/set-password" element={<SetPasswordPage />} />
               </Routes>
             </ProtectedUser>
           }
-        /> */}
+        />
       </Routes>
     </BrowserRouter>
   );

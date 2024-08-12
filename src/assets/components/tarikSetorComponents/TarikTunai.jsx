@@ -1,17 +1,15 @@
-// import React from "react";
-
 import { Box, Card, Container, Paper, TextField, Typography } from "@mui/material";
 import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
-import { Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../img/checklist-icon.png";
 import logoIcon from "/logo.png";
-import { Link } from "react-router-dom";
+import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
 
 const RequestNominalForm = ({ onNext }) => {
-	const formik = useFormik({
+	const formikRequest = useFormik({
 		initialValues: {
 			nominal: "",
 			namaToken: "",
@@ -23,14 +21,14 @@ const RequestNominalForm = ({ onNext }) => {
 			namaToken: Yup.string().min(6, "Must be at least 6 characters"),
 		}),
 		onSubmit: (values) => {
-			onNext(values);
+			onNext({ nominal: values.nominal, namaToken: values.namaToken });
 		},
 	});
 
 	return (
 		<>
 			<Container>
-				<form onSubmit={formik.handleSubmit}>
+				<form onSubmit={formikRequest.handleSubmit}>
 					<Typography variant="h6" sx={{ mt: 5 }}>
 						Rekening Tujuan
 					</Typography>
@@ -48,13 +46,15 @@ const RequestNominalForm = ({ onNext }) => {
 							autoComplete="current-nominal"
 							fullWidth
 							required
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							value={formik.values.nominal}
+							onChange={formikRequest.handleChange}
+							onBlur={formikRequest.handleBlur}
+							value={formikRequest.values.nominal}
+							error={formikRequest.touched.nominal && Boolean(formikRequest.errors.nominal)}
+							helperText={formikRequest.touched.nominal && formikRequest.errors.nominal}
 						/>
 					</Box>
-					{formik.touched.nominal && formik.errors.nominal ? (
-						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formik.errors.nominal}</Typography>
+					{formikRequest.touched.nominal && formikRequest.errors.nominal ? (
+						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formikRequest.errors.nominal}</Typography>
 					) : (
 						<Typography sx={{ fontSize: 12, color: "grey", mt: 2 }}>
 							Nominal Tarik Tunai minimal IDR 50.000
@@ -71,12 +71,12 @@ const RequestNominalForm = ({ onNext }) => {
 						placeholder="Tambahkan nama token tarik tunai"
 						autoComplete="current-nominal"
 						fullWidth
-						onChange={formik.handleChange}
-						onBlur={formik.handleBlur}
-						value={formik.values.namaToken}
+						onChange={formikRequest.handleChange}
+						onBlur={formikRequest.handleBlur}
+						value={formikRequest.values.namaToken}
 					/>
-					{formik.touched.namaToken && formik.errors.namaToken ? (
-						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formik.errors.namaToken}</Typography>
+					{formikRequest.touched.namaToken && formikRequest.errors.namaToken ? (
+						<Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>{formikRequest.errors.namaToken}</Typography>
 					) : null}
 
 					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
@@ -101,11 +101,15 @@ const RequestNominalForm = ({ onNext }) => {
 	);
 };
 
-const KonfirmasiForm = ({ onNext }) => {
-	const formik = useFormik({
-		initialValues: {},
+
+const KonfirmasiForm = ({ formData, onNext }) => {
+	const formikKonfirmasi = useFormik({
+		initialValues: {
+			nominal: formData.nominal,
+			namaToken: formData.namaToken || "",
+		},
 		onSubmit: (values) => {
-			onNext(values);
+			onNext({ ...formData, ...values });
 		},
 	});
 
@@ -128,14 +132,11 @@ const KonfirmasiForm = ({ onNext }) => {
 					<hr />
 					<Box sx={{ display: "flex", justifyContent: "space-between" }} aria-label="nominal penarikan">
 						<Typography>Nominal Penarikan</Typography>
-						<Typography sx={{ fontWeight: "bold" }}>Rp.100.000</Typography>
+						<Typography sx={{ fontWeight: "bold" }}>Rp. {formikKonfirmasi.values.nominal}</Typography>
 					</Box>
-					<Box
-						sx={{ display: "flex", justifyContent: "space-between" }}
-						aria-label="nama token penarikan"
-					>
+					<Box sx={{ display: "flex", justifyContent: "space-between" }} aria-label="nama token penarikan">
 						<Typography>Nama Token</Typography>
-						<Typography sx={{ fontWeight: "bold" }}>Tarik Senin</Typography>
+						<Typography sx={{ fontWeight: "bold" }}>{formikKonfirmasi.values.namaToken} </Typography>
 					</Box>
 				</Box>
 				<hr />
@@ -147,7 +148,7 @@ const KonfirmasiForm = ({ onNext }) => {
 				</Box>
 				<hr />
 
-				<form onSubmit={formik.handleSubmit}>
+				<form onSubmit={formikKonfirmasi.handleSubmit}>
 					<Box
 						sx={{
 							display: "flex",
@@ -179,9 +180,53 @@ const KonfirmasiForm = ({ onNext }) => {
 	);
 };
 
-const InputPinForm = ({ onSubmit }) => {
+const InputPinForm = ({ formData, onNext }) => {
+	const { mutate: generateToken, isLoading } = useGenerateTransactionToken();
+
 	const [pin, setPin] = useState(["", "", "", "", "", ""]);
-	const [error, setError] = useState("");
+	const [pinError, setPinError] = useState("");
+
+	console.log("formData in InputPinForm: ", formData);
+
+	const nominal = formData.nominal;
+	console.log("Nominal INputPinForm: ", nominal);
+
+	const formik = useFormik({
+		initialValues: {
+			nominal: nominal,
+		},
+		onSubmit: () => {
+			const pinValue = pin.join("");
+			console.log("Pin Value: ", pinValue);
+			try {
+				pinSchema.validateSync(pinValue);
+				setPinError("");
+				generateToken(
+					{
+						amount: nominal,
+						type: "WITHDRAW",
+						pin: pinValue,
+					},
+					{
+						onSuccess: (response) => {
+							const token = response.data.data.code;
+							const expiredAt = response.data.data.expired_at;
+							const amount = response.data.data.amount;
+							console.log("Token, ExpiredAt, Ammount: ", token, expiredAt, amount);
+
+							onNext({ tokenResponse: { token, expiredAt, amount } });
+							console.log("Token generated successfully: ", response);
+						},
+						onError: (err) => {
+							console.error("Error generating token:", err);
+						},
+					}
+				);
+			} catch (validationError) {
+				setPinError(validationError.message);
+			}
+		},
+	});
 
 	useEffect(() => {
 		const handleKeyDown = (event) => {
@@ -193,9 +238,9 @@ const InputPinForm = ({ onSubmit }) => {
 			if (key >= "0" && key <= "9") {
 				const index = pin.findIndex((entry) => entry === "");
 				if (index !== -1) {
-					const newpin = [...pin];
-					newpin[index] = key;
-					setPin(newpin);
+					const newPin = [...pin];
+					newPin[index] = key;
+					setPin(newPin);
 				}
 			} else if (key === "Backspace") {
 				const index = pin
@@ -203,10 +248,10 @@ const InputPinForm = ({ onSubmit }) => {
 					.reverse()
 					.findIndex((entry) => entry !== "");
 				if (index !== -1) {
-					const newpin = [...pin];
+					const newPin = [...pin];
 					const originalIndex = pin.length - 1 - index;
-					newpin[originalIndex] = "";
-					setPin(newpin);
+					newPin[originalIndex] = "";
+					setPin(newPin);
 				}
 			}
 		};
@@ -223,14 +268,7 @@ const InputPinForm = ({ onSubmit }) => {
 		.required("PIN diperlukan");
 
 	const handleButtonClick = () => {
-		const pinValue = pin.join("");
-		try {
-			pinSchema.validateSync(pinValue);
-			setError("");
-			onSubmit({ pin: String(pinValue, 10) });
-		} catch (validationError) {
-			setError(validationError.message);
-		}
+		formik.handleSubmit();
 	};
 
 	return (
@@ -268,9 +306,9 @@ const InputPinForm = ({ onSubmit }) => {
 					/>
 				))}
 			</Box>
-			{error && (
+			{pinError && (
 				<Typography color="error" sx={{ mt: 3, fontSize: "14px" }}>
-					{error}
+					{pinError}
 				</Typography>
 			)}
 			<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
@@ -286,6 +324,7 @@ const InputPinForm = ({ onSubmit }) => {
 						color: "white",
 					}}
 					aria-label="submit pin"
+					disabled={isLoading}
 				>
 					Lanjutkan
 				</button>
@@ -294,7 +333,9 @@ const InputPinForm = ({ onSubmit }) => {
 	);
 };
 
-const TokenTarik = () => {
+const TokenTarik = ({ tokenData }) => {
+	const { token, expiredAt, amount } = tokenData;
+
 	return (
 		<>
 			<Box
@@ -314,7 +355,9 @@ const TokenTarik = () => {
 				<Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
 					Uang Siap Ditarik
 				</Typography>
-				<Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
+				<Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>
+					{new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })} . {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+				</Typography>
 				<Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
 			</Box>
 
@@ -324,14 +367,14 @@ const TokenTarik = () => {
 						<Box>
 							<Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
 							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-								Rp 100.000
+								Rp {amount.toLocaleString('id-ID')}
 							</Typography>
 						</Box>
 
 						<Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
 							<Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
 							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-								12.35
+								{new Date(expiredAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
 							</Typography>
 						</Box>
 					</Box>
@@ -355,7 +398,7 @@ const TokenTarik = () => {
 						>
 							<Typography>Kode Penarikan</Typography>
 							<Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-								654888
+								{token}
 							</Typography>
 						</Box>
 					</Box>
@@ -397,24 +440,25 @@ const TokenTarik = () => {
 export const TarikTunai = () => {
 	const [step, setStep] = useState(1);
 	const [formData, setFormData] = useState({});
+	const [tokenData, setTokenData] = useState(null);
 
 	const handleNext = (values) => {
 		console.log("handleNext called with values:", values);
-		setFormData((prevData) => ({ ...prevData, ...values }));
-		setStep((prevStep) => prevStep + 1);
-	};
-
-	const handleSubmit = (values) => {
-		console.log("Final Submission", { ...formData, ...values });
-		setStep((prevStep) => prevStep + 1);
+		if (values.tokenResponse) {
+			setTokenData(values.tokenResponse);
+			setStep((prevStep) => prevStep + 1);
+		} else {
+			setFormData((prevData) => ({ ...prevData, ...values }));
+			setStep((prevStep) => prevStep + 1);
+		}
 	};
 
 	return (
 		<>
 			{step === 1 && <RequestNominalForm onNext={handleNext} />}
-			{step === 2 && <KonfirmasiForm onNext={handleNext} />}
-			{step === 3 && <InputPinForm onSubmit={handleSubmit} />}
-			{step === 4 && <TokenTarik />}
+			{step === 2 && <KonfirmasiForm formData={formData} onNext={handleNext} />}
+			{step === 3 && <InputPinForm formData={formData} onNext={handleNext} />}
+			{step === 4 && <TokenTarik tokenData={tokenData} />}
 		</>
 	);
 };

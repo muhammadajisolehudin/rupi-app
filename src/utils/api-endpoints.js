@@ -7,8 +7,9 @@ export const API_ENDPOINT = {
   AUTH_FORGOT_PASSWORD: "/auth/forgot-password",
   AUTH_SET_PASSWORD: "/auth/set-password",
   AUTH_SET_PIN: "/auth/set-pin",
-//   AUTH_CHANGE_PASSWORD: "",
-//   AUTH_RESEND_OTP_PASSWORD: "",
-//   AUTH_ACTIVATE_ACCOUNT: "",
- 
+  //   AUTH_CHANGE_PASSWORD: "",
+  //   AUTH_RESEND_OTP_PASSWORD: "",
+  //   AUTH_ACTIVATE_ACCOUNT: "",
+
+  TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",
 };
