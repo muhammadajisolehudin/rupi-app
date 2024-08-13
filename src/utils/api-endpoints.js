@@ -10,6 +10,9 @@ export const API_ENDPOINT = {
   //   AUTH_CHANGE_PASSWORD: "",
   //   AUTH_RESEND_OTP_PASSWORD: "",
   //   AUTH_ACTIVATE_ACCOUNT: "",
+  
+  // Account
+  ACCOUNT_DETAIL: "/account/detail",
 
   // Transaction Tarik Setor Tunai
   TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",

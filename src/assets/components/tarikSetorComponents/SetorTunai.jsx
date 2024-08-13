@@ -2,10 +2,13 @@ import * as Yup from "yup";
 import { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Box, Container, Card, Paper, Typography } from "@mui/material";
-
 import ShareIcon from "@mui/icons-material/Share";
+
+import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
+
 import checklistIcon from "../../img/checklist-icon.png";
 
+import { useAuthContext } from "../../../context/AuthContext";
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
 
 const SetorTunaiAwal = ({ onNext }) => {
@@ -26,16 +29,7 @@ const SetorTunaiAwal = ({ onNext }) => {
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Sumber Rupiah
 				</Typography>
-				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }} role="region" aria-labelledby="account-info-label">
-					<div id="account-info-label">
-						<Typography>
-							<span style={{ color: "grey" }}>No. Rekening:</span> <span>5667 2323 1444 5554</span>
-						</Typography>
-						<Typography>
-							<span style={{ color: "grey" }}>Saldo:</span> <span>Rp {"5300000".toLocaleString("id-ID")}</span>
-						</Typography>
-					</div>
-				</Card>
+				<CardAccountInfo role="region" aria-labelledby="account-info-label" />
 
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Metode
@@ -106,16 +100,7 @@ const KonfirmasiSetor = ({ onNext }) => {
 				<Typography variant="h6" sx={{ mt: 5 }}>
 					Rekening Tujuan
 				</Typography>
-				<Card variant="outlined" sx={{ borderRadius: 2, p: 2, my: 2 }} role="region" aria-labelledby="destination-account">
-					<div id="destination-account">
-						<Typography>
-							<span style={{ color: "grey" }}>No. Rekening:</span> <span>5667 2323 1444 5554</span>
-						</Typography>
-						<Typography>
-							<span style={{ color: "grey" }}>Saldo:</span> <span>Rp {"5300000".toLocaleString("id-ID")}</span>
-						</Typography>
-					</div>
-				</Card>
+				<CardAccountInfo role="region" aria-labelledby="destination-account" />
 			</Box>
 			<hr />
 			<form onSubmit={formikKonfirmasi.handleSubmit}>
@@ -302,6 +287,12 @@ const InputPinForm = ({ onNext }) => {
 };
 
 const TokenSetor = ({ tokenData }) => {
+	const { account } = useAuthContext();
+	const fullName = account.full_name;
+	const accountNumber = account.account_number;
+
+	const formatedAccountNumber = accountNumber ? accountNumber.replace(/(\d{4})(?=\d)/g, "$1 ") : "";
+
 	const { token, expiredAt, amount } = tokenData;
 
 	return (
@@ -396,11 +387,11 @@ const TokenSetor = ({ tokenData }) => {
 						}}
 					>
 						<Typography variant='h6' sx={{ fontWeight: "bold" }} aria-label="Nama pemegang akun rekening">
-							Samsul
+							{fullName}
 						</Typography>
 						<Typography variant='h6'> - </Typography>
 						<Typography variant='h6' aria-label="Nomor rekening">
-							5667 2323 1444 5554
+							{formatedAccountNumber}
 						</Typography>
 					</Box>
 
@@ -421,7 +412,7 @@ const TokenSetor = ({ tokenData }) => {
 
 			<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
 				<button
-					type="submit"
+					type="button"
 					style={{
 						borderRadius: "10px",
 						border: 0,
@@ -430,6 +421,7 @@ const TokenSetor = ({ tokenData }) => {
 						backgroundColor: "#0066AE",
 						color: "white",
 					}}
+					onClick={() => window.location.reload()}
 					aria-label="Buat token baru"
 				>
 					Buat Token Baru

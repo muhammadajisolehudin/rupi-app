@@ -2,9 +2,10 @@ import * as Yup from "yup";
 import { useState, useEffect } from "react"; 
 import { useFormik } from "formik";
 import { Box, Card, Container, Paper, TextField, Typography } from "@mui/material";
+import ShareIcon from "@mui/icons-material/Share";
 
 import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
-import ShareIcon from "@mui/icons-material/Share";
+
 import checklistIcon from "../../img/checklist-icon.png";
 import logoIcon from "/logo.png";
 
@@ -15,8 +16,6 @@ const RequestNominalForm = ({ onNext }) => {
 		initialValues: {
 			nominal: "",
 			namaToken: "",
-			accountNumber: "5667 2323 1444 5554",
-			balance: 5000000,
 		},
 		validationSchema: Yup.object({
 			nominal: Yup.number().min(50000, "Nominal Tarik Tunai minimal IDR 50.000").required("Required"),
@@ -34,7 +33,7 @@ const RequestNominalForm = ({ onNext }) => {
 					<Typography variant="h6" sx={{ mt: 5 }}>
 						Rekening Tujuan
 					</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
+					<CardAccountInfo role="region" aria-labelledby="account-info-label" />
 
 					<Box sx={{ bgcolor: "#EFEFEF", borderRadius: 1, p: 1, mt: 4 }}>
 						<Typography>Nominal Bayar</Typography>
@@ -146,7 +145,7 @@ const KonfirmasiForm = ({ formData, onNext }) => {
 					<Typography variant="h6" sx={{ mt: 5 }} aria-label="sumber dana rupiah">
 						Sumber Rupiah
 					</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
+					<CardAccountInfo role="region" aria-labelledby="account-info-label" />
 				</Box>
 				<hr />
 
@@ -421,7 +420,7 @@ const TokenTarik = ({ tokenData }) => {
 
 			<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
 				<button
-					type="submit"
+					type="button"
 					style={{
 						borderRadius: "10px",
 						border: 0,
@@ -430,6 +429,7 @@ const TokenTarik = ({ tokenData }) => {
 						backgroundColor: "#0066AE",
 						color: "white",
 					}}
+					onClick={() => window.location.reload()}
 					aria-label="button make new token"
 				>
 					Buat Token Baru
