@@ -135,7 +135,7 @@ const KonfirmasiSetor = ({ onNext }) => {
 };
 
 const InputPinForm = ({ onNext }) => {
-	const { mutate: generateToken, isLoading } = useGenerateTransactionToken();
+	const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();
 
 	const [pin, setPin] = useState(["", "", "", "", "", ""]);
 	const [pinError, setPinError] = useState("");
@@ -259,6 +259,11 @@ const InputPinForm = ({ onNext }) => {
 					/>
 				))}
 			</Box>
+			{error && (
+				<Typography color="error" sx={{ mt: 3, fontSize: "14px" }}>
+					{error.message}
+				</Typography>
+			)}
 			{pinError && (
 				<Typography color="error" sx={{ mt: 3, fontSize: "14px" }}>
 					{pinError}
