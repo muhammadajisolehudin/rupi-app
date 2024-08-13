@@ -1,11 +1,13 @@
-import { Box, Card, Container, Paper, TextField, Typography } from "@mui/material";
-import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
-import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react"; 
+import { useFormik } from "formik";
+import { Box, Card, Container, Paper, TextField, Typography } from "@mui/material";
+
+import { CardAccountInfo } from "../cardComponents/CardAccountInfo";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../img/checklist-icon.png";
 import logoIcon from "/logo.png";
+
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
 
 const RequestNominalForm = ({ onNext }) => {
