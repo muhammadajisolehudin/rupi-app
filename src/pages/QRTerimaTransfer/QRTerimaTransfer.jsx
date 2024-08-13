@@ -12,8 +12,11 @@ import ScanIcon from '../../assets/img/icons/mage_scan.png';
 import ShareIcon from '../../assets/img/icons/mdi_share.png'; 
 import RiayatIcon from '../../assets/img/icons/Document.png';
 
+import { useAuthContext } from "../../context/AuthContext";
+
 export const QRTerimaTransfer = () => {
     const navigate = useNavigate(); 
+    const { account } = useAuthContext();
 
     const formatAccountNumber = (number) => {
         const visibleDigits = 4; 
@@ -22,7 +25,7 @@ export const QRTerimaTransfer = () => {
         return `${stars}${number.slice(-visibleDigits)}`;
     };
 
-    const accountNumber = '62340989';
+    const accountNumber = account.account_number;
     const currentDate = new Date();
     const expiryDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 hari
 
@@ -61,7 +64,7 @@ export const QRTerimaTransfer = () => {
                             <img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
                         </Box>
                         <Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-                            Samsul
+                            {account.full_name}
                         </Typography>
                         <Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
                             RupiApp by BCA - {formatAccountNumber(accountNumber)}

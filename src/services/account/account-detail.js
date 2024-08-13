@@ -1,11 +1,8 @@
-
 import { useQuery } from "@tanstack/react-query";
-// import { API_ENDPOINT } from "../../utils/api-endpoints";
 import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const getAccountDetail = async ({ queryKey }) => {
-  
   const [_key] = queryKey;
   try {
     const result = await http.get(_key);
@@ -24,4 +21,3 @@ const useGetAccountDetail = (options) => {
 };
 
 export { getAccountDetail, useGetAccountDetail };
-

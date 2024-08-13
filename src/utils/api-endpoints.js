@@ -11,5 +11,9 @@ export const API_ENDPOINT = {
   //   AUTH_RESEND_OTP_PASSWORD: "",
   //   AUTH_ACTIVATE_ACCOUNT: "",
 
+  // Account
+  ACCOUNT_DETAIL: "/account/detail",
+
+  // Transaction QR
   QR_TRANSACTION_GENERATEQR: "/api/v1/transactions/generate-qr",
 };
