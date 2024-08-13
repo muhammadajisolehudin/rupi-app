@@ -1,31 +1,41 @@
-import { useEffect } from "react";
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useSetPin } from "../../services/auth/set-pin";
+import { useEffect } from "react";
 
-export const SetPinPage = () => {
+export const KonfirmasiPinPage = () => {
+  const { state } = useLocation();
+  console.log("state : ", state);
+  const pinData = state?.pin;
+
+  const pinMutation = useSetPin();
   const navigate = useNavigate();
 
-  // Initialize Formik
   const formik = useFormik({
     initialValues: {
-      pin: "",
+      pin:pinData,
+      confirm_pin: "",
     },
     validationSchema: Yup.object({
-      pin: Yup.string()
+      confirm_pin: Yup.string()
         .length(6, "PIN harus terdiri dari 6 digit")
         .matches(/^\d+$/, "PIN harus berisi angka saja")
         .required("PIN diperlukan"),
     }),
     onSubmit: async (values) => {
+      if (values.confirm_pin !== pinData) {
+        formik.setFieldError('confirm_pin', 'PIN tidak sesuai');
+        return;
+      }
 
       try {
-        console.log("data pin: ", values);
-        navigate("/konfirm-pin", { state: { pin: values.pin } });
+        await pinMutation.mutateAsync(values);
+        navigate("/beranda");
       } catch (error) {
-        console.error("Login failed, error:", error);
+        console.error("PIN confirmation failed, error:", error);
       }
     },
   });
@@ -36,11 +46,11 @@ export const SetPinPage = () => {
       if (key === "Enter") {
         formik.handleSubmit();
       } else if (key >= "0" && key <= "9") {
-        if (formik.values.pin.length < 6) {
-          formik.setFieldValue("pin", formik.values.pin + key);
+        if (formik.values.confirm_pin.length < 6) {
+          formik.setFieldValue("confirm_pin", formik.values.confirm_pin + key);
         }
       } else if (key === "Backspace") {
-        formik.setFieldValue("pin", formik.values.pin.slice(0, -1));
+        formik.setFieldValue("confirm_pin", formik.values.confirm_pin.slice(0, -1));
       }
     };
 
@@ -49,8 +59,7 @@ export const SetPinPage = () => {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [formik.values.pin]);
-
+  }, [formik.values.confirm_pin]);
 
   return (
     <AuthLayout>
@@ -62,16 +71,12 @@ export const SetPinPage = () => {
           gap: 10,
           alignItems: "center",
           flexDirection: "column",
-          py:8,
+          height: 617,
           my: "auto",
         }}
       >
-        <Typography
-          id="buat-pin-baru"
-          variant="h4"
-          sx={{ fontWeight: 600, mx: "auto" }}
-        >
-          Buat PIN Baru
+        <Typography id="konfirmasi-pin"  variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 10 }}>
+          Konfirmasi PIN
         </Typography>
         <Box
           sx={{
@@ -82,24 +87,24 @@ export const SetPinPage = () => {
             mt: 5,
           }}
           aria-required="true"
-          aria-describedby="buat-pin-baru"
           aria-label="masukkan 6 digit pin"
+          aria-labelledby="masukkan-pin"
         >
           {Array.from({ length: 6 }, (_, index) => (
             <Box
               key={index}
               sx={{
                 borderRadius: "50%",
-                bgcolor: formik.values.pin[index] ? "#0066AE" : "#B3B3B3",
+                bgcolor: formik.values.confirm_pin[index] ? "#0066AE" : "#B3B3B3",
                 width: 30,
                 height: 30,
               }}
             />
           ))}
         </Box>
-        {formik.touched.pin && formik.errors.pin && (
+        {formik.touched.confirm_pin && formik.errors.confirm_pin && (
           <Typography color="error" sx={{ my: 2 }}>
-            {formik.errors.pin}
+            {formik.errors.confirm_pin}
           </Typography>
         )}
         <Button
@@ -107,13 +112,12 @@ export const SetPinPage = () => {
           sx={{
             py: 1.5,
             px: 18,
-            mb: 4,
             borderRadius: "8px",
             textTransform: "capitalize",
           }}
           variant="contained"
           role="button"
-          aria-label="lanjutkan pembuatan pin baru"
+          aria-label="lanjutkan mengirim pin"
         >
           Lanjutkan
         </Button>
@@ -121,7 +125,3 @@ export const SetPinPage = () => {
     </AuthLayout>
   );
 };
-
-
-
-

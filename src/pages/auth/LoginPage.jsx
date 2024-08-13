@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -15,12 +15,14 @@ import { useFormik } from "formik";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../../services/auth/signin";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const mutation = useLogin(); // Gunakan useLoginMutation dari authService
+  const { login, isLoading, isSuccess, error } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -30,34 +32,27 @@ export const LoginPage = () => {
       password: "",
     },
     validationSchema: Yup.object({
-      username: Yup.string().required("Required"),
+      username: Yup.string().required("Username harus diisi"),
       password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
-        .matches(
-          /[@$!%*?&#]/,
-          "Password must contain at least one special character"
-        )
-        .required("Required"),
+        .min(6, "password minimal 8 karakter")
+        .required("Password harus diisi"),
     }),
     onSubmit: async (values) => {
       console.log("Form Submitted", values); // Debug log
       try {
-        await mutation.mutateAsync(values); // Panggil mutateAsync dari useLoginMutation
-        navigate("/verify"); // Navigasi ke halaman beranda setelah login sukses
+        await login(values);
+        navigate("/verify");
       } catch (error) {
-        console.error("Login failed, error:", error); // Debug log
-        // Error handling sudah diatur di dalam useLoginMutation
+        console.error("Login failed, error:", error);
+        // setErrorMessage(error.response ? error.response.data.message : error.message);
+        
       }
     },
   });
 
   return (
     <AuthLayout>
-      <Box
-        component={Paper}
+      <Paper
         elevation={5}
         square={false}
         sx={{
@@ -65,19 +60,20 @@ export const LoginPage = () => {
           justifyContent: "center",
           flexDirection: "column",
           my: "auto",
-          height: 617,
+          py: 5, 
           px: 4,
         }}
       >
         <Typography
-          component="h1"
+          // component="h1"
           variant="h4"
           sx={{
             fontWeight: "bold",
+            // fontSize: "32px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            my: 5,
+            mb: 5,
           }}
         >
           Login
@@ -102,7 +98,7 @@ export const LoginPage = () => {
             name="username"
             type="text"
             autoComplete="username"
-            placeholder="Masukkan Rupiah Id"
+            placeholder="Masukkan Username"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.username}
@@ -110,9 +106,13 @@ export const LoginPage = () => {
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
+            aria-required="true"
+            aria-invalid={formik.touched.username && formik.errors.username ? "true" : "false"}
+            aria-describedby="username-error"
+            aria-label="Masukkan username"
           />
           {formik.touched.username && formik.errors.username ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="username-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.username}
             </Typography>
           ) : null}
@@ -131,12 +131,16 @@ export const LoginPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
+            aria-required="true"
+            aria-invalid={formik.touched.password && formik.errors.password ? "true" : "false"}
+            aria-describedby="password-error"
+            aria-label="Masukkan password"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    aria-label="toggle password visibility"
+                    aria-label="Button tampilkan password"
                     onClick={handleClickShowPassword}
                   >
                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -146,14 +150,18 @@ export const LoginPage = () => {
             }}
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="password-error" variant="body2" sx={{color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
           <Grid container>
             <Grid item xs sx={{ mt: 1, mb: 2 }}>
-              <Link href="#" variant="body2" style={{ textDecoration: "none" }}>
-                Lupa ID/Password?
+              <Link href="#"
+                variant="body2"
+                style={{ textDecoration: "none" }}
+                role="button"
+                aria-label="Button Lupa Username atau Password">
+                Lupa Username/Password? 
               </Link>
             </Grid>
           </Grid>
@@ -161,13 +169,20 @@ export const LoginPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 2, mb: 5, py: 1.5, borderRadius: "8px" }}
-            disabled={mutation.isLoading}
+            sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
+            disabled={isLoading}
+            aria-label="Button Masuk"
           >
-            {mutation.isLoading ? "Logging in..." : "Masuk"}
+            {isLoading ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
-      </Box>
+      </Paper>
+      {error && (
+        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
+      )}
+      {isSuccess && (
+        <SuccesAlert message="" title="Login Berhasil" />
+      )}
     </AuthLayout>
   );
 };

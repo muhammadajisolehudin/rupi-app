@@ -6,15 +6,11 @@ import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSetPassword } from "../../services/auth/set-password";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const SetPasswordPage = () => {
-  // const [password, setPassword] = useState("");
-  // const [confirm_password, setconfirm_password] = useState("");
-  // const [isPasswordCompleted, setIsPasswordCompleted] = useState(false);
-  // const [passwordError, setPasswordError] = useState("");
-  // const navigate = useNavigate();
 
+  const navigate = useNavigate()
   const password = useSetPassword();
 
   const formik = useFormik({
@@ -24,23 +20,23 @@ export const SetPasswordPage = () => {
     },
     validationSchema: Yup.object({
       password: Yup.string()
-        .min(6, "Password must be at least 6 characters")
-        .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+        .min(8, "Minimal harus 8 karakter")
+        .matches(/[a-z]/, "Kata sandi harus mengandung setidaknya satu huruf kecil")
         .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[0-9]/, "Password must contain at least one number")
+        .matches(/[0-9]/, "Kata sandi harus mengandung setidaknya satu huruf besar")
         .matches(
           /[@$!%*?&#]/,
-          "Password must contain at least one special character"
+          "Kata sandi harus mengandung setidaknya satu karakter khusus"
         )
         .required("Required"),
       confirm_password: Yup.string()
-        .oneOf([Yup.ref("password"), null], "Passwords must match")
+        .oneOf([Yup.ref("password"), null], "Passwords harus cocok")
         .required("Required"),
     }),
     onSubmit: async (values) => {
       try {
         await password.mutateAsync(values);
-        Navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
+        navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
       } catch (error) {
         console.error("Login failed, error:", error); // Debug log
         // Error handling sudah diatur di dalam useLoginMutation
@@ -49,19 +45,6 @@ export const SetPasswordPage = () => {
     },
   });
 
-  // const handleButtonClick = () => {
-  //   if (password && confirm_password && password === confirm_password) {
-  //     setIsPasswordCompleted(true);
-  //     setPasswordError("");
-  //     console.log("Password successfully set");
-  //     setTimeout(() => {
-  //       navigate("/masuk-pin");
-  //     }, 1500);
-  //   } else {
-  //     setPasswordError("Kedua password harus cocok");
-  //     console.log("Passwords do not match or are empty");
-  //   }
-  // };
 
   return (
     <AuthLayout>
@@ -73,16 +56,14 @@ export const SetPasswordPage = () => {
           gap: 2,
           alignItems: "center",
           flexDirection: "column",
-          // width: 452,
-          height: 617,
           my: "auto",
-          pt: 8,
+          py: 6,
           px: 4,
         }}
       >
         {/* {!isPasswordCompleted ? ( */}
         {/* <> */}
-        <Typography variant="h4" sx={{ fontWeight: 600, mx: "auto", mt: 2 }}>
+        <Typography variant="h4" sx={{ fontWeight: 600, mx: "auto" }}>
           Buat Password Baru
         </Typography>
         <Typography
@@ -117,13 +98,17 @@ export const SetPasswordPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}
+            aria-label="Masukkan password baru"
+            aria-required="true"
+            aria-invalid={formik.touched.password && formik.errors.password ? "true" : "false"}
+            aria-describedby="password-error"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="password-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
@@ -146,13 +131,17 @@ export const SetPasswordPage = () => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.confirm_password}
+            aria-label="Masukkan ulang password baru"
+            aria-required="true"
+            aria-invalid={formik.touched.confirm_password && formik.errors.confirm_password ? "true" : "false"}
+            aria-describedby="confirm_password-error"
             InputProps={{
               style: { borderRadius: "8px", height: "3rem" },
             }}
             autoFocus
           />
           {formik.touched.confirm_password && formik.errors.confirm_password ? (
-            <Typography sx={{ fontSize: 10, color: "red" }}>
+            <Typography id="confirm_password-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.confirm_password}
             </Typography>
           ) : null}
@@ -161,8 +150,9 @@ export const SetPasswordPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 4, mb: 5, py: 1.5, borderRadius: "8px" }}
+            sx={{ mt: 4, py: 1.5, borderRadius: "8px" }}
             // disabled={mutation.isLoading}
+            aria-label="Button Lanjutkan"
           >
             Lanjutkan
           </Button>

@@ -52,7 +52,7 @@ export const Menu = () => {
 					<ReuseCard imgSrc={imgTransactions} title="Transfer Rupiah" targetLink="/transfer-rupi" />
 					<ReuseCard imgSrc={imgQR} title="QR Terima Transfer" targetLink="/qrcode" />
 					<ReuseCard imgSrc={imgTopUp} title="Top-Up" targetLink="/topup" />
-					<ReuseCard imgSrc={imgMoney} title="Tarik Tunai" targetLink="/tarik-tunai" />
+					<ReuseCard imgSrc={imgMoney} title="Tarik Tunai" targetLink="/tarik-setor-tunai" />
 				</Grid>
 				{/* </Container> */}
 			</CssBaseline>
