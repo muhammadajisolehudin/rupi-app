@@ -34,15 +34,15 @@ export const SuccesInfo = () => {
                 <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
-                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+                            <Typography id="metodeLabel" sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
+                            <Typography aria-labelledby="metodeLabel" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
                                 ATM BCA
                             </Typography>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
-                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
+                            <Typography id="expiryLabel" sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
+                            <Typography aria-labelledby="expiryLabel" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
                                 12.35
                             </Typography>
                         </Box>
@@ -65,8 +65,8 @@ export const SuccesInfo = () => {
                                 width: "415px",
                             }}
                         >
-                            <Typography>Kode Penyetoran</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
+                            <Typography id="kodeSetor">Kode Penyetoran</Typography>
+                            <Typography aria-labelledby="kodeSetor" sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
                                 222488
                             </Typography>
                         </Box>
@@ -104,7 +104,7 @@ export const SuccesInfo = () => {
                             color: "#0066AE",
                         }}
                     >
-                        <ShareIcon aria-label="Share code icon" />
+                        <ShareIcon aria-label="Ikon Bagikan kode" />
                         <Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
                     </Box>
                     

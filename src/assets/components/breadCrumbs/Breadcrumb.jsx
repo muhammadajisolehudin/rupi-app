@@ -5,8 +5,8 @@ const formatBreadcrumbText = (text) => {
 	return text.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const BreadcrumbsComponent = () => {
-	const location = useLocation();
+export const Breadcrumb = () => {
+  const location = useLocation();
 
 	const getPathNames = () => {
 		const pathnames = location.pathname.split("/").filter((x) => x);
@@ -77,4 +77,4 @@ const BreadcrumbsComponent = () => {
 	);
 };
 
-export default BreadcrumbsComponent;
+// export default BreadcrumbsComponent;

@@ -31,10 +31,11 @@ export const TarikTunaiForm = ({ onNext }) => {
                         px: 4,
                     }}>
                         <Grid item xs={12}>
-                            <Typography>Rekening Tujuan</Typography>
+                            <Typography id="rekeningTujuanLabel">Rekening Tujuan</Typography>
                             <CardAccountInfo
                                 accountNumber={"5667 2323 1444 5554"}
                                 balance={5000000}
+                                aria-labelledby="rekeningTujuanLabel"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -45,7 +46,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 onBlur={formik.handleBlur}
                             />
                             {formik.touched.amount && formik.errors.amount ? (
-                                <Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>
+                                <Typography sx={{ fontSize: 10, color: "red", mt: 2 }} aria-live="assertive">
                                     {formik.errors.amount}
                                 </Typography>
                             ) : (
@@ -63,9 +64,11 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 gap: 2,
                             }}
                         >
-                            <Typography mt={0} pt={0}>Beri Nama Token</Typography>
+                            <Typography id="tokenLabel" mt={0} pt={0}>Beri Nama Token</Typography>
                             <TextField
+                                aria-labelledby="tokenLabel"
                                 aria-label="tambahkan nama token tarik tunai"
+                                aria-required="true"
                                 name="namaToken"
                                 type="text"
                                 id="namaToken"
@@ -77,7 +80,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 value={formik.values.namaToken}
                             />
                             {formik.touched.namaToken && formik.errors.namaToken ? (
-                                <Typography sx={{ fontSize: 10, color: "red" }}>
+                                <Typography sx={{ fontSize: 10, color: "red" }} aria-live="assertive">
                                     {formik.errors.namaToken}
                                 </Typography>
                             ) : null}
@@ -89,6 +92,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+                                aria-label="Lanjutkan ke langkah berikutnya"
                             // disabled={mutation.isLoading}
                             >
                                 Lanjutkan

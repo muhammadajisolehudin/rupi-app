@@ -5,9 +5,16 @@ import { Layout } from "../layout";
 import { CardTransaksi } from "../../assets/components/Cards/CardTransaksi";
 import { TransferSearch } from "../../assets/components/transferComponents/TransferSearch";
 import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
+<<<<<<< HEAD
 import { useGetDataTransaksi } from "../../services/transfer-rupiah/get-data-transaksi";
 import { useAddFavorite } from "../../services/transfer-rupiah/add-favorite-transaksi";
 import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
+=======
+import { useGetDataTransaksi } from '../../services/transfer-rupiah/get-data-transaksi';
+import { useAddFavorite } from '../../services/transfer-rupiah/add-favorite-transaksi';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
+
+>>>>>>> bdd4ab2b76c76108da3d3a89cb309d18f3175e77
 
 export const TransferRupiahPage = () => {
 	// const [destinationData, setDestinationData] = useState(null);
@@ -57,6 +64,7 @@ export const TransferRupiahPage = () => {
 		}
 	}, [dataTransaksi, updateFavorite]);
 
+<<<<<<< HEAD
 	return (
 		<Layout>
 			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
@@ -106,4 +114,57 @@ export const TransferRupiahPage = () => {
 			</Box>
 		</Layout>
 	);
+=======
+    useEffect(() => {
+        if (dataTransaksi) {
+            // Pisahkan data menjadi favorit dan bukan favorit
+            const favorites = dataTransaksi.filter(item => item.favorites);
+            const others = dataTransaksi.filter(item => !item.favorites);
+
+            setDestinationData({ favorites, others });
+        }
+    }, [dataTransaksi, updateFavorite]);
+
+    return (
+        <Layout>
+            <Box sx={{ mx:6 ,paddingTop: "1.5rem", paddingBottom: "2rem" }}>
+                <Breadcrumb />
+                <TransferSearch />
+                <TambahRekening />
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginTop: "2rem",
+                        marginBottom: "1rem"
+                    }}
+                >
+                    <Typography>Transaksi Favorit</Typography>
+                </Box>
+                {destinationData.favorites.length > 0 ? (
+                    <CardTransaksi data={destinationData.favorites} handleToggleFavorite={handleToggleFavorite} />
+                ) : (
+                    <Typography variant="caption">Tidak ada transaksi favorit.</Typography>
+                )}
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        marginTop: "2rem",
+                        marginBottom: "1rem"
+                    }}
+                >
+                    <Typography>Daftar Transfer</Typography>
+                </Box>
+                {destinationData.others.length > 0 ? (
+                    <CardTransaksi data={destinationData.others} handleToggleFavorite={handleToggleFavorite}/>
+                ) : (
+                    <p></p>
+                )}
+            </Box>
+        </Layout>
+    );
+>>>>>>> bdd4ab2b76c76108da3d3a89cb309d18f3175e77
 };

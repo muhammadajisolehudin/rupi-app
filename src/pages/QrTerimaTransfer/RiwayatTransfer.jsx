@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Card,
@@ -8,18 +8,16 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import QRIcon from "../../assets/img/icons/qr-code-Icon.png";
 import NoRiwayat from "../../assets/img/no-riwayat.png";
 import FilterIcon from "../../assets/img/icons/Filter.png";
 import { Layout } from "../layout";
 import FilterModal from "../../assets/components/Modals/ModalFilter";
-import BreadcrumbsComponent from "../../assets/components/Breadcrumbs/Breadcrumbs";
+import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
-export const QrRiwayatTransfer = () => {
+export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   const transactions = {
     diterima: [
@@ -139,7 +137,7 @@ export const QrRiwayatTransfer = () => {
     <Layout>
       {/* <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}> */}
       <Box sx={{ mx: 6, paddingTop: "1.5rem", pb: "4rem" }}>
-        <BreadcrumbsComponent />
+        <Breadcrumb />
         {/* <Box sx={{  }}> */}
         <Card
           sx={{mx:2, mt:6 }}
