@@ -178,8 +178,11 @@ export const VerifyOtpPage = () => {
 					title={otp.isError ? "Verifikasi Gagal" : "Resend OTP Gagal"}
 				/>
 			)}
-			{otp.isSuccess && (
-				<SuccesAlert message="" title="Verifikasi Berhasil" />
+			{otp.isSuccess || resendOtp.isSuccess && (
+				<SuccesAlert 
+					message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
+					title={ otp.isSuccess? "Verifikasi Berhasil" : "Resend OTP" }
+				/>
 			)}
 			{/* <SuccesAlert message="" title="Login Berhasil"/> */}
 		</AuthLayout>

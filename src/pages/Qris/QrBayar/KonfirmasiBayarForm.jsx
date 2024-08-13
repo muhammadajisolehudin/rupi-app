@@ -59,8 +59,8 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 							></img>
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
-							<Typography sx={{ fontWeight: "bold" }}>Nama Penerima</Typography>
-							<Typography variant="caption">Nama Bank - No rekenig 12345678</Typography>
+							<Typography sx={{ fontWeight: "bold" }}>{formData.detailQris.merchant}</Typography>
+							<Typography variant="caption"> Id Transaksi - {formData.detailQris.transaction_id}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>

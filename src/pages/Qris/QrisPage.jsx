@@ -30,7 +30,6 @@ export const QrisPage = () => {
 
         const success = (result) => {
             scanner.clear(); 
-            console.log("data hasil sacnne :", result)
             navigate("/qris/qr-bayar", { state: { qris: result } })
         };
 

@@ -5,17 +5,24 @@ import ImgPenerima from "../../../assets/img/user-rectangle.png";
 import NominalInput from "../../../assets/components/Inputs/NominalInput";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types"
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/AuthContext";
+import { useGetQrisDetail } from "../../../services/qris/get-qris-detail";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
+import { useEffect } from "react";
 
 
 export const InputNominalBayarForm = ({ onNext }) => {
     const { account } = useAuthContext()
     const { state } = useLocation();
     const qris = state.qris || {}; 
+	const navigate = useNavigate()
+
+	const { data: detailQris, error, isError } = useGetQrisDetail(qris)
 
     const formik = useFormik({
         initialValues: {
+			detailQris: detailQris,
             qris: qris,
             amount: "",
             description: "",
@@ -29,6 +36,13 @@ export const InputNominalBayarForm = ({ onNext }) => {
             onNext(values);
         },
     });
+	useEffect(() => {
+		if (isError) {
+			setTimeout(() => {
+				navigate(-1); 
+			}, 5000); 
+		}
+	}, [isError, navigate]);
 
 	return (
 		<form onSubmit={formik.handleSubmit}>
@@ -62,8 +76,8 @@ export const InputNominalBayarForm = ({ onNext }) => {
 							></img>
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
-							<Typography sx={{ fontWeight: "bold" }}>Nama Penerima</Typography>
-							<Typography variant="caption">Nama Bank - No rekenig 12345678</Typography>
+							<Typography sx={{ fontWeight: "bold" }}>{detailQris?.merchant}</Typography>
+							<Typography variant="caption">Id Transaksi - {detailQris?.transaction_id}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -115,6 +129,9 @@ export const InputNominalBayarForm = ({ onNext }) => {
 					</Button>
 				</Grid>
 			</Grid>
+			{isError && (
+				<FailAlert message="Lakukan scan ulang" title="QR Tidak Valid" />
+			)}
 		</form>
 	);
 };
