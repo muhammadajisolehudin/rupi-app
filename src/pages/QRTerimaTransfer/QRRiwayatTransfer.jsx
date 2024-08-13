@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import { Box, Card, Paper, Button, IconButton,  Container, Typography, Divider } from '@mui/material';
-import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import QRIcon from '../assets/img/icons/qr-code-Icon.png'
-import NoRiwayat from '../assets/img/no-riwayat.png'
-import FilterIcon from '../assets/img/icons/Filter.png'
-import { Layout } from './layout';
-import FilterModal from '../assets/components/Modal/ModalFilter'
+import { Box, Card, Paper, Button, IconButton, Container, Typography, Divider } from '@mui/material';
+
+import BreadcrumbsComponent from '../../assets/components/layoutsComponents/Breadcrumbs';
+
+import QRIcon from '../../assets/img/icons/qr-code-Icon.png'
+import NoRiwayat from '../../assets/img/no-riwayat.png'
+import FilterIcon from '../../assets/img/icons/Filter.png'
+import { Layout } from '../layout';
+import FilterModal from '../../assets/components/Modal/ModalFilter';
 
 const QRRiwayatTransfer = () => {
     const [currentView, setCurrentView] = useState("diterima");
@@ -43,7 +45,7 @@ const QRRiwayatTransfer = () => {
             return (
                 <Box sx={{ textAlign: 'center', p: 4 }}>
                     <Typography variant="body2" style={{ fontWeight: 'bold', fontSize: '18pt' }}>
-                       Riwayat QR Terima Transfer
+                        Riwayat QR Terima Transfer
                     </Typography>
                     <img src={NoRiwayat} alt="No Data" style={{ width: '300px', height: '300px', margin: 'auto' }} />
                     <Typography variant="subtitle1" sx={{ mt: 2 }}>
@@ -113,9 +115,9 @@ const QRRiwayatTransfer = () => {
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
                         <IconButton color="primary" aria-label="filter list" sx={{ display: 'flex', alignItems: 'center' }} onClick={handleOpenModal}>
-                           <img src={FilterIcon} alt="QR Icon" style={{ width: '15px', marginRight: '8px' }} />
-                           <Typography variant="body1" sx={{ cursor: 'pointer', color: '#0066AE', fontWeight: 'bold' }}>
-                               Filter
+                            <img src={FilterIcon} alt="QR Icon" style={{ width: '15px', marginRight: '8px' }} />
+                            <Typography variant="body1" sx={{ cursor: 'pointer', color: '#0066AE', fontWeight: 'bold' }}>
+                                Filter
                             </Typography>
                         </IconButton>
                     </Box>

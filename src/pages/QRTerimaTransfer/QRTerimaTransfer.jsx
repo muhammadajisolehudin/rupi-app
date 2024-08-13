@@ -1,14 +1,16 @@
-import React from 'react';
 import { Box, Button, Card, Container, Typography } from "@mui/material";
-import { Layout } from "./layout";
-import BreadcrumbsComponent from '../assets/components/layoutsComponents/Breadcrumbs';
-import QRISIcon from '../assets/img/icons/QRIS-Icon.png'; 
-import LogoIcon from '../assets/img/icons/3.png'; 
-import QRImage from '../assets/img/Rupi App QR.png'; 
-import ScanIcon from '../assets/img/icons/mage_scan.png'; 
-import ShareIcon from '../assets/img/icons/mdi_share.png'; 
-import RiayatIcon from '../assets/img/icons/Document.png'; 
 import { useNavigate } from 'react-router-dom';
+
+import { Layout } from "../layout";
+
+import { QRTerimaTransferCode } from "../../assets/components/QRTransferComponents/QRTerimaTransferCode";
+import BreadcrumbsComponent from '../../assets/components/layoutsComponents/Breadcrumbs';
+
+import QRISIcon from '../../assets/img/icons/QRIS-Icon.png'; 
+import LogoIcon from '../../assets/img/icons/3.png'; 
+import ScanIcon from '../../assets/img/icons/mage_scan.png'; 
+import ShareIcon from '../../assets/img/icons/mdi_share.png'; 
+import RiayatIcon from '../../assets/img/icons/Document.png';
 
 export const QRTerimaTransfer = () => {
     const navigate = useNavigate(); 
@@ -65,7 +67,7 @@ export const QRTerimaTransfer = () => {
                             RupiApp by BCA - {formatAccountNumber(accountNumber)}
                         </Typography>
                         <Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
-                            <img src={QRImage} alt="QR Code" style={{ width: '200px', height: 'auto' }} />
+                            <QRTerimaTransferCode />
                         </Box>
                         <Button 
                             variant="outlined" 

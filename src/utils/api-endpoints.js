@@ -11,5 +11,5 @@ export const API_ENDPOINT = {
   //   AUTH_RESEND_OTP_PASSWORD: "",
   //   AUTH_ACTIVATE_ACCOUNT: "",
 
-  TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",
+  QR_TRANSACTION_GENERATEQR: "/api/v1/transactions/generate-qr",
 };
