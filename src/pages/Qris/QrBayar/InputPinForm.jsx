@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
@@ -57,25 +56,26 @@ export const InputPinForm = ({ onNext }) => {
                         {formik.errors.pin}
                     </Typography>
                 )}
-                <Button
-                    onClick={formik.handleSubmit}
-                    fullWidth
-                    sx={{
-                        py: 1.5,
-                        px: 18,
-                        borderRadius: 3,
-                        textTransform: "capitalize",
-                        mt: 4,
-                    }}
-                    variant="contained"
-                >
-                    Lanjutkan
-                </Button>
+				<Button
+					onClick={formik.handleSubmit}
+					fullWidth
+					sx={{
+						py: 1.5,
+						px: 18,
+						borderRadius: 3,
+						textTransform: "capitalize",
+						mt: 4,
+					}}
+					variant="contained"
+					aria-label="Lanjutkan Transfer"
+				>
+					Lanjutkan
+				</Button>
             </Grid>
         </FormikProvider>
     );
 };
 
 InputPinForm.propTypes = {
-    onNext : PropTypes.any
-}
+	onNext: PropTypes.any,
+};

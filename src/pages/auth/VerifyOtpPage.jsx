@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Box, Button, Paper, TextField, Typography, Link } from "@mui/material";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";

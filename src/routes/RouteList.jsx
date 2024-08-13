@@ -19,6 +19,7 @@ import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
 import { QrRiwayatTransfer } from '../pages/QrTerimaTransfer/QrRiwayatTransfer';
 import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
+import { PengaturanPage } from '../pages/Pengaturan';
 
 
 
@@ -31,7 +32,7 @@ export const RouteList = () => {
 
           <Routes>
             {/* auth */}
-            
+            <Route path="/pengaturan" element={<PengaturanPage />} />
             <Route
               path="/*"
               element={
@@ -50,6 +51,8 @@ export const RouteList = () => {
                           <Routes>
                             <Route path="/beranda" element={<BerandaPage />} />
                             <Route path="/info-saldo" element={<InfoSaldoPage />} />
+
+                            {/* transfer */}
                             <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
                             <Route
                               path="/transfer-rupiah/transfer-ke-penerima-baru"
@@ -57,10 +60,12 @@ export const RouteList = () => {
                             />
                             <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
                             <Route path="/qr-terima-transfer/riwayat" element={<QrRiwayatTransfer />} />
-
                             <Route path="/qris" element={<QrisPage />} />
                             <Route path="/qris/qr-bayar" element={<QrBayar />} />
                             <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
+
+                            {/* pengaturan */}
+                            
                           </Routes>
                         </ProtectedAccount>
                       }
