@@ -11,18 +11,20 @@ import IconQrCode from "../../assets/img/icons/qr-code-netral.svg"
 import IconQrCodePrimary from "../../assets/img/icons/qr-code-primary.svg"
 import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
 import { Html5QrcodeScanner  } from 'html5-qrcode';
+import { useFormik } from 'formik';
+import { useAddTransferQris } from '../../services/qris/add-transfer-qris';
+import { Sync } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 // import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
 
 export const QrisPage = () => {
 
     const [currentView, setCurrentView] = useState("scan");
-
-    const [ scanResult, setScanResult ] = useState(null)
+    const navigate = useNavigate()
+    // const [ scanResult, setScanResult ] = useState(null)
     const [flashlightOn, setFlashlightOn] = useState(false);
-
     const readerRef = useRef(null);
-
 
     useEffect(()=>{
         // Initialize and start scanning
@@ -32,17 +34,16 @@ export const QrisPage = () => {
         });
 
         const success = (result) => {
-            scanner.clear(); // Clear scanner to stop further scanning
-            setScanResult(result);
+            scanner.clear(); 
+            console.log("data hasil sacnne :", result)
+            navigate("/qris/qr-bayar", { state: { qris: result } })
         };
 
         const error = (error) => {
             console.warn(error);
         };
-
         // Render scanner and start scanning
         scanner.render(success, error);
-
         // Cleanup on component unmount
         return () => {
             scanner.clear();
@@ -63,24 +64,20 @@ export const QrisPage = () => {
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <img src={QrisIcon} height={60} />
                     </Box>
-{/* 
-                    {scanResult ?
-                    <div>Success: {scanResult}</div> :
-                    <div id="reader"></div>
-                    } */}
+
                     <Box sx={{ display: 'flex', gap: 3, flexDirection: "column", justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)' }}>
                         <Card
                             sx={{
                                 width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px', display: "flex",
                                 flexDirection: "column", border:"1px solid #B3B3B3 "
                             }}>
-                            {scanResult ? (
+                            {/* {scanResult ? (
                                 <Typography variant="h6" align="center">
                                     Success: {scanResult}
                                 </Typography>
-                            ) : (
+                            ) : ( */}
                                 <div id="reader" ref={readerRef} style={{ width: '100%', height: '100%' }}></div>
-                            )}
+                            {/* )} */}
 
                             <Box sx={{ display: "flex", justifyContent: "space-between", mt:"auto" }}>
                                 <img src={ImgPlaceHolder} />

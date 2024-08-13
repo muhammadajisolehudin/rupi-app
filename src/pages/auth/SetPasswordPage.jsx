@@ -36,10 +36,9 @@ export const SetPasswordPage = () => {
     onSubmit: async (values) => {
       try {
         await password.mutateAsync(values);
-        navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
+        navigate("/set-pin");
       } catch (error) {
         console.error("Login failed, error:", error); // Debug log
-        // Error handling sudah diatur di dalam useLoginMutation
       }
 
     },

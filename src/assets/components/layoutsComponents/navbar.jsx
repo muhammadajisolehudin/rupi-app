@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-// import InputBase from '@mui/material/InputBase';
 import { Box, Button } from '@mui/material';
 import NotificationIcon from '../../img/icons/Notification.svg';
-// import SearchIcon from '../../img/icons/Search.svg';
 import SettingIcon from '../../img/icons/Setting.svg';
 import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
 import LogoutIcon from '../../img/icons/Logout.svg';
@@ -35,7 +33,7 @@ function Navbar() {
       sx={{
         backgroundColor: "#ffffff",
         color: "#0066AE",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)", // Bayangan dengan intensitas dan opacity yang ditingkatkan
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
         paddingX: "1rem",
         zIndex: 9999,
       }}
@@ -77,46 +75,37 @@ function Navbar() {
             >
               Beranda
             </Typography>
-
-            <Typography
-              id="aktivitas"
-              variant="h6"
-              fontWeight={activePage === "aktivitas" ? 700 : 400}
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange()}
-            >
-              Aktivitas
-            </Typography>
           </Box>
 
           {/* Icons */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
             <img
               src={NotificationIcon}
               alt="notifications"
-              style={{ cursor: "pointer", padding: "10px" }}
+              style={{ cursor: "pointer" }}
               onClick={() => handlePageChange("notifications", "/")}
             />
             <img
               src={CustomerServiceIcon}
               alt="customer service"
-              style={{ cursor: "pointer", padding: "0 20px 0 10px" }}
+              style={{ cursor: "pointer" }}
               onClick={() => handlePageChange("customerService", "/")}
             />
             <img
               src={SettingIcon}
               alt="account settings"
-              style={{ cursor: "pointer", padding: "10px" }}
+              style={{ cursor: "pointer" }}
               onClick={() => handlePageChange("accountSettings", "/")}
             />
-            <Button>
+            {/* <Button> */}
               <img
+              itemType='button'
                 src={LogoutIcon}
                 alt="logout"
-                style={{ cursor: "pointer", padding: "10px" }}
+                style={{ cursor: "pointer" }}
                 onClick={() => handleLogout()}
               />
-            </Button>
+            {/* </Button> */}
           </Box>
         </Box>
       </Toolbar>

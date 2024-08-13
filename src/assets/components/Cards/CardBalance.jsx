@@ -5,16 +5,8 @@ import arrowDownIcon from "../../img/icons/arrow down.png";
 import copyIcon from "../../img/icons/copy.png";
 import showIcon from "../../img/icons/show.png";
 import creditCardBlack from "../../img/credit card black.png";
-
-const formatAccountNumber = (number) => {
-  // Menghapus karakter non-digit dari nomor rekening
-  const cleaned = ('' + number).replace(/\D/g, '');
-
-  // Membagi nomor rekening setiap 4 digit dan menyatukan dengan strip
-  const formatted = cleaned.replace(/(.{4})/g, '$1-').slice(0, -1);
-
-  return formatted;
-};
+import { useState } from "react";
+import { formatAccountNumber, formatBalance } from "../../../utils/utilities";
 
 export const CardBalance = ({ user }) => {
   const lightBlue = "#EDF4FF";
@@ -22,19 +14,34 @@ export const CardBalance = ({ user }) => {
   const blue = "#0066AE";
   const neutral = "#FFF";
 
-  
+  const [isNominalVisible, setIsNominalVisible] = useState(true);
 
-  const formattedAccountNumber = formatAccountNumber(user.account_number);
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(user.account_number)
+      .then(() => {
+        alert('Rekening number copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy:', err);
+      });
+  };
+
+  const toggleNominalVisibility = () => {
+    setIsNominalVisible(!isNominalVisible);
+  };
+
 
   return (
-    <>
+    <Card sx={{ borderRadius:3 }}>
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '9px 30px',
+          padding: '9px 25px',
           backgroundColor: lightBlue,
+          // mt: "4px",
           marginBottom: '24px',
           borderRadius: '10px',
         }}
@@ -57,6 +64,7 @@ export const CardBalance = ({ user }) => {
           position: 'relative',
           borderRadius: '10px',
           boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
+          mr:"25px"
         }}
       >
         <CardContent
@@ -65,7 +73,7 @@ export const CardBalance = ({ user }) => {
             margin: 0,
             zIndex: 1,
             overflow: 'hidden',
-            padding: '26px 35px',
+            p: '3rem 2rem',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -93,7 +101,7 @@ export const CardBalance = ({ user }) => {
                   marginRight: '8px',
                 }}
               >
-                Rekening 1{ formattedAccountNumber }
+                Rekening 1{formatAccountNumber(user?.account_number) }
               </Typography>
               <img
                 src={arrowDownIcon}
@@ -104,6 +112,7 @@ export const CardBalance = ({ user }) => {
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
               aria-label="Tombol Salin, ini akan menyalin nomor rekening pengguna"
+              onClick={handleCopy}
             >
               <img src={copyIcon} alt="" style={{ width: "24px" }} />
             </Button>
@@ -118,19 +127,24 @@ export const CardBalance = ({ user }) => {
             aria-label="Informasi saldo pengguna saat ini dan tombol tampilkan"
           >
             <Typography
+            variant="h5"
               sx={{
                 color: darkBlue,
-                fontSize: '32px',
+                // fontSize: '32px',
                 fontWeight: 500,
                 marginBottom: 0,
               }}
               aria-label="Saldo pengguna saat ini"
             >
-              IDR <span style={{ fontWeight: 700 }}>{ user.balance }</span>
+              IDR{' '}
+              <span style={{ fontWeight: "bold" }}>
+                {isNominalVisible ? formatBalance(user?.balance) : '*****'}
+              </span>
             </Typography>
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
               aria-label="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
+              onClick={toggleNominalVisibility}
             >
               <img
                 src={showIcon}
@@ -151,6 +165,6 @@ export const CardBalance = ({ user }) => {
           <img src={creditCardBlack} alt="" style={{ borderRadius: '10px' }} />
         </Box>
       </Card>
-    </>
+    </Card>
   );
 };

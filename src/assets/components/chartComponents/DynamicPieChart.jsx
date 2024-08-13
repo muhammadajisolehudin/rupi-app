@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { PieChart } from '@mui/x-charts/PieChart';
+import { getTotalTransaction } from '../../../utils/utilities';
 // import { useDrawingArea } from '@mui/x-charts/hooks';
 // import { styled } from '@mui/material/styles';
 // import { Typography } from '@mui/material';
@@ -17,14 +18,6 @@ const DynamicPieChart = ({
     },
   }));
 
-  // Fungsi untuk menghitung total transaksi dari semua kategori
-  const getTotalNumberOfTransactions = () => {
-    const total = data?.data?.categories?.reduce((total, category) =>
-      total + category.mutations.length, 0) || 0;
-    // Log total number of transactions for debugging
-    console.log('Total Number of Transactions:', total);
-    return total;
-  };
   return (
     <PieChart
       series={[{ data: series, innerRadius: 120 }]}
@@ -63,7 +56,7 @@ const DynamicPieChart = ({
           style={{ fontWeight: "bold", fontSize: 12 }}
           fill="textSecondary"
         >
-          {`${getTotalNumberOfTransactions()} kategori`}
+          {`${getTotalTransaction(data?.data?.categories)} kategori`}
         </text>
       </g>
       {/* <PieCenterLabel>{getTotalNumberOfTransactions()}</PieCenterLabel> */}

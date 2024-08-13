@@ -20,9 +20,7 @@ export const SetPinPage = () => {
         .required("PIN diperlukan"),
     }),
     onSubmit: async (values) => {
-
       try {
-        console.log("data pin: ", values);
         navigate("/konfirm-pin", { state: { pin: values.pin } });
       } catch (error) {
         console.error("Login failed, error:", error);

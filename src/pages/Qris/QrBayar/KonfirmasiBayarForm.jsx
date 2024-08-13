@@ -9,25 +9,27 @@ import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types"
+import { useAuthContext } from "../../../context/AuthContext";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useAddTransferQris } from "../../../services/qris/add-transfer-qris";
 
 export const KonfirmasiBayarForm = ({ onNext }) => {
+    const { account } = useAuthContext()
+    const { formData } = useTransferRupiahContext()
+
     const formik = useFormik({
         initialValues: {
-            destination_id: "",
-            amount: "100000",
-            description: "ini hanya bisa dibaca",
-            type: "TRANSFER",
+            qris: formData.qris,
+            amount: formData.amount,
+            description: formData.description,
             pin: "",
-            transaction_purpose: "",
         },
         validationSchema: Yup.object({
             amount: Yup.string().required("Required"),
             description: Yup.string().required("Required"),
         }),
         onSubmit: async (values) => {
-            console.log("Form Submitted", values);
-            onNext(values);
-            // Panggil fungsi mutate di sini jika menggunakan useMutation
+            onNext(values)
         },
     });
 
@@ -74,13 +76,10 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
                         }}
                     />
                     <Grid
-
                         container
                         sx={{
                             display: "flex",
                             gap: 1,
-                            //   px: 3,
-                            // py: 2,
                             mt: 3,
                         }}
                     // spacing={2}
@@ -122,8 +121,8 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
                     />
                     <Typography sx={{ mt: 3 }}>Sumber Rupiah</Typography>
                     <CardAccountInfo
-                        accountNumber={"5667 2323 1444 5554"}
-                        balance={5000000}
+                        accountNumber={account.account_number}
+                        balance={account.balance}
                     />
                 </Grid>
                 <Grid

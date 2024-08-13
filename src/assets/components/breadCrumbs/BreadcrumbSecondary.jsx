@@ -29,19 +29,25 @@ const BreadcrumbSecondary = () => {
         backgroundRepeat: 'no-repeat',
         p: 2,
         boxSizing: 'border-box',
+        position: 'relative', // Ensure it doesn't overlap
+        // zIndex: 1, // Ensure it's on top
       }}
     >
       <Breadcrumbs
         aria-label="breadcrumb"
         separator={<span style={{ color: '#B3B3B3' }}> / </span>}
+        sx={{ zIndex: 1 }}
       >
         <Link
           component={RouterLink}
-          to="/"
+          to="/beranda"
           sx={{
             color: '#B3B3B3',
             fontWeight: 'bold',
             textDecoration: 'none',
+            '&:hover': {
+              color: '#0065ae', // Warna saat hover
+            },
           }}
         >
           Beranda
@@ -62,6 +68,9 @@ const BreadcrumbSecondary = () => {
                 color: '#B3B3B3',
                 fontWeight: 'bold',
                 textDecoration: 'none',
+                '&:hover': {
+                  color: '#0065ae', // Warna saat hover
+                },
               }}
               key={to}
             >

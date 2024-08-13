@@ -5,27 +5,28 @@ import ImgPenerima from "../../../assets/img/user-rectangle.png"
 import NominalInput from "../../../assets/components/Inputs/NominalInput";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types"
+import { useLocation } from "react-router-dom";
 
 
 export const InputNominalBayarForm = ({ onNext }) => {
     
+    const { state } = useLocation();
+    const qris = state.qris || {}; 
+
+    console.log("data qeis", qris)
     const formik = useFormik({
         initialValues: {
-            destination_id: "",
+            qris: qris,
             amount: "",
             description: "",
-            type: "TRANSFER",
             pin: "",
-            transaction_purpose: "",
         },
         validationSchema: Yup.object({
             amount: Yup.string().required("Required"),
             description: Yup.string().required("Required"),
         }),
         onSubmit: async (values) => {
-            console.log("Form Submitted", values);
             onNext(values);
-            // Panggil fungsi mutate di sini jika menggunakan useMutation
         },
     });
 

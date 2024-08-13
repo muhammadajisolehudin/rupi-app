@@ -9,9 +9,9 @@ const getAccountDetail = async ({ queryKey }) => {
   return result.data.data;
 };
 
-const useGetAccountDetail = (options) => {
+const useGetAccountDetail = () => {
   return useQuery({
-    queryKey: [API_ENDPOINT.ACCOUNT_DETAIL, options],
+    queryKey: [API_ENDPOINT.ACCOUNT_DETAIL],
     queryFn: getAccountDetail,
   });
 };

@@ -68,8 +68,7 @@ export const VerifyOtpPage = () => {
 	const handleResendOtp = async () => {
 		try {
 			console.log("ini data user dari use : ", user)
-			await resendOtp.mutateAsync(user.username);
-			// await otp.mutateAsync(payload);
+			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
 			// Tangani error jika resend OTP gagal
@@ -173,8 +172,11 @@ export const VerifyOtpPage = () => {
 					</Box>
 				</form>
 			</Paper>
-			{otp.isError && (
-				<FailAlert message={otp.error?.response?.data?.message || otp.error?.message} title="Verifikasi Gagal" />
+			{(otp.isError || resendOtp.isError) && (
+				<FailAlert
+					message={otp.isError ? otp.error?.response?.data?.message || otp.error?.message : resendOtp.error?.response?.data?.message || resendOtp.error?.message}
+					title={otp.isError ? "Verifikasi Gagal" : "Resend OTP Gagal"}
+				/>
 			)}
 			{otp.isSuccess && (
 				<SuccesAlert message="" title="Verifikasi Berhasil" />

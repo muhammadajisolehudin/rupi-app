@@ -3,8 +3,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ButtonBase, Grid } from '@mui/material';
+import { parsePercentage } from '../../../utils/utilities';
 
-const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
+const TransactionBox = ({ icon, title, data, onClick }) => {
   return (
     <Box
       sx={{
@@ -29,17 +30,16 @@ const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
             sx={{
               display: 'flex',
               width:"100%",
-              bgcolor:"red"
             }}
           >
-            <Grid item xs={8}>
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+            <Grid item xs={8} sx={{ display:"flex", flexDirection: "column", justifyContent:"space-between" }}>
+              <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                 {title}
               </Typography>
-                <Typography variant="body1">{amount}</Typography>
+              <Typography variant="body1"> { data?.number_of_transactions || 0 } transaksi ({ parsePercentage(data?.total_balance_percentage) }%)</Typography>
               </Grid>
-            <Grid item xs={4} sx={{ bgcolor:"green", display:"flex", ju }}>
-              <Typography variant="body1">{amount}</Typography>
+            <Grid item xs={4} sx={{ display:"flex", alignItems: "center" }}>
+              <Typography variant="body1">{data?.total_balance || 0}</Typography>
             </Grid>
             
            
@@ -54,9 +54,6 @@ const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
               gap: 2,
             }}
           >
-            <Typography variant="body1" sx={{ color: '#0066AE' }}>
-              {amountDetail}
-            </Typography>
             <ChevronRightIcon sx={{ color: '#0066AE' }} />
           </Box>
         </ButtonBase>
@@ -68,7 +65,7 @@ const TransactionBox = ({ icon, title, amount, amountDetail, onClick }) => {
 TransactionBox.propTypes = {
   icon: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  amount: PropTypes.string.isRequired,
+  data: PropTypes.string.isRequired,
   amountDetail: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };

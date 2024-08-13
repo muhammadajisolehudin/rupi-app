@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
+  Box,
   Button,
-  Container,
   CssBaseline,
   Grid,
   Typography,
@@ -25,26 +25,25 @@ const ReuseButton = ({ imgSrc, title, targetLink, ariaLabel }) => {
         bgcolor: "#0066AE",
         display: "flex",
         alignItems: "center",
-        mb: 2,
+        mb: 1.5,
         justifyContent: "center",
         flexDirection: "column",
-        gap: "24px",
+        gap: 2,
         width: "auto",
         borderRadius: "10px",
         padding: "25px 20px",
-        backgroundColor: "#0066AE",
         minHeight: "150px",
         p: 2,
         "&:hover": {
-          backgroundColor: "#0066AE",
+          backgroundColor: "#0A3967",
         },
       }}
     >
       <img src={imgSrc} alt={title} />
       <Typography
-        variant="h5"
+        // variant="h7"
         component="div"
-        style={{ fontSize: "24px", color: "white" }}
+        style={{ fontSize:"16px",color: "white" }}
       >
         {title}
       </Typography>
@@ -63,20 +62,18 @@ export const Menu = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container sx={{ my: 2 }}>
+      <Box sx={{ my: 2 }}>
         <Typography
-          variant="h4"
+          variant="h6"
           component="div"
           sx={{
             my: 3,
             color: "#1C1C1E",
-            fontSize: "28px",
             fontWeight: "400",
-            lineHeight: "24px",
             letterSpacing: "0.15px",
           }}
         >
-          {" "}
+          {/* {" "} */}
           Mau Transaksi Apa Hari Ini?
         </Typography>
         <Grid container spacing={3}>
@@ -125,7 +122,7 @@ export const Menu = () => {
             />
           </Grid>
         </Grid>
-      </Container>
+      </Box>
     </React.Fragment>
   );
 };

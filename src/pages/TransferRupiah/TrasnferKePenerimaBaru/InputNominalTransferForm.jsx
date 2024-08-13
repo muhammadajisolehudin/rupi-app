@@ -34,7 +34,6 @@ export const InputNominalTransferForm = ({ onNext }) => {
     }),
     onSubmit: async (values) => {
       try {
-        console.log("Form Submitted", values);
         onNext(values);
       } catch (error) {
         console.log("message error: ",error)

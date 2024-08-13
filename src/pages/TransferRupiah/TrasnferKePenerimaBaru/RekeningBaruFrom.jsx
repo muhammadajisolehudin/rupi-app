@@ -19,15 +19,9 @@ export const RekeningBaruForm = ({ onNext }) => {
     }),
     onSubmit: async (values) => {
       try {
-        console.log("Form Submitted", values);
-        // await addRekening.mutateAsync(values);
         const response = await addRekening.mutateAsync(values);
-
-        console.log("data ini : ",response.data.data)
-        // setFormData(response.data.data)
-        // Mengirimkan data respons ke langkah berikutnya
         onNext(response.data.data);
-        // onNext(values);
+
       } catch (error) {
         console.error("Login failed, error:", error); 
       }   

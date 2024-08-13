@@ -120,12 +120,6 @@ const NavbarSecondary = () => {
                 >
                   <ListItemText primary="Beranda" />
                 </ListItem>
-                <ListItem
-                  button
-                  onClick={() => handlePageChange('aktivitas', '/aktivitas')}
-                >
-                  <ListItemText primary="Aktivitas" />
-                </ListItem>
               </List>
               <Box
                 sx={{ width: '100%', borderBottom: 1, borderColor: 'divider' }}
@@ -172,7 +166,7 @@ const NavbarSecondary = () => {
             sx={{
               display: { xs: 'none', sm: 'flex' },
               alignItems: 'center',
-              gap: '40px',
+              gap: 8,
               justifyContent: 'space-between',
             }}
           >
@@ -180,33 +174,21 @@ const NavbarSecondary = () => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '20px',
-                flexGrow: 1,
-                justifyContent: 'center',
-                mr: { xs: '0', sm: '80px' },
+                justifyContent: 'center'
               }}
             >
               <Typography
                 id="beranda"
                 variant="h6"
                 fontWeight={activePage === 'beranda' ? 700 : 400}
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', mb:1 }}
                 onClick={() => handlePageChange('beranda', '/beranda')}
               >
                 Beranda
               </Typography>
-              <Typography
-                id="aktivitas"
-                variant="h6"
-                fontWeight={activePage === 'aktivitas' ? 700 : 400}
-                sx={{ cursor: 'pointer' }}
-                onClick={() => handlePageChange('aktivitas', '/aktivitas')}
-              >
-                Aktivitas
-              </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '30px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
               <Box sx={{ textAlign: 'center' }}>
                 <NotificationsIcon
                   sx={{

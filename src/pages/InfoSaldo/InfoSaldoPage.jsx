@@ -1,20 +1,18 @@
 import BreadcrumbSecondary from '../../assets/components/Breadcrumbs/BreadcrumbSecondary';
 import NavbarSecondary from '../../assets/components/layoutsComponents/navbarSecondary';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   ButtonBase,
   Container,
   CssBaseline,
   Grid,
-  IconButton,
   Typography,
 } from '@mui/material';
 import CardSaldo from '../../assets/components/Cards/CardSaldo';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShareIcon from '@mui/icons-material/Share';
 import DownloadIcon from '@mui/icons-material/Download';
-
 import BarcodeIcon from '../../assets/img/icons/barcode-icon.png';
 import QrisIcon from '../../assets/img/icons/qris-pengeluaran-icon.png';
 import TarikTunaiIcon from '../../assets/img/icons/tarik-tunai-icon.png';
@@ -34,6 +32,9 @@ import QrCode2Icon from '@mui/icons-material/QrCode2';
 import { useAuthContext } from '../../context/AuthContext';
 import { MonthNavigator } from '../../assets/components/navigators/MonthNavigator';
 import { useGetMutationsSummary } from '../../services/account/account-mutations-summary';
+import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/utilities';
+import FailAlert from '../../assets/components/Alerts/FailAlert';
+import { useTransferRupiahContext } from '../../context/TransferRupiahContext';
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
@@ -41,12 +42,17 @@ export const InfoSaldoPage = () => {
   const [activeSection, setActiveSection] = useState('Pemasukan');
   const [type, setType] = useState('debit');
   const [icon, setIcon] = useState('');
-
-  //feching api
+  const [selectedMonth, setSelectedMonth] = useState({
+    month: ('0' + (new Date().getMonth() + 1)).slice(-2),
+    year: new Date().getFullYear()})
   const { account } = useAuthContext();
-  const options = { params: { id: 123 } }; 
-  const { data, error, isLoading } = useGetMutationsSummary(options);
-  console.log("ini data mutasi summary : ", data?.income?.categories[0]?.total_balance_percentage)
+  const { dataExpense, dataIncome, errorMutationSummary, setOptions } = useTransferRupiahContext();
+  
+  // setOptions({ month: selectedMonth.month, year: selectedMonth.year });
+  useEffect(() => {
+    console.log("Setting options with:", { month: selectedMonth.month, year: selectedMonth.year });
+    setOptions({ month: selectedMonth.month, year: selectedMonth.year });
+  }, [selectedMonth]); // Dependensi diperbaiki di sini
 
   const handleOpen = (transactionData, title, type, icon) => {
     setSelectedTransaction(transactionData);
@@ -61,140 +67,29 @@ export const InfoSaldoPage = () => {
     setSelectedTransaction([]);
   };
 
-  const dataTransfer = [
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Transfer dari BCA ke BNI',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-        {
-          title: 'Transfer dari BCA ke BNI',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Transfer dari BCA ke BNI',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '123456789',
-        },
-        {
-          title: 'Transfer dari BCA ke BNI',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-  ];
+  const transferIncomeCategory = dataIncome?.categories.find(category => category.type === 'TRANSFER');
+  const qrCategory = dataIncome?.categories.find(category => category.type === 'QRIS');
+  const setorCategory = dataIncome?.categories.find(category => category.type === 'SETOR');
 
-  const dataPembayaran = [
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Pembayaran Listrik',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-        {
-          title: 'Pembayaran Listrik',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Pembayaran Listrik',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-        {
-          title: 'Pembayaran Listrik',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-  ];
+  const transferExpenseCategory = dataExpense?.categories.find(category => category.type === 'TRANSFER');
+  const qrisCategory = dataExpense?.categories.find(category => category.type === 'QRIS');
+  const tarikCategory = dataExpense?.categories.find(category => category.type === 'SETOR');
 
-  const dataSetorTunai = [
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Setor Tunai',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-        {
-          title: 'Setor Tunai',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-    {
-      date: '12 Juli 2024',
-      details: [
-        {
-          title: 'Setor Tunai',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-        {
-          title: 'Setor Tunai',
-          amount: '1.000.000',
-          from: 'BCA',
-          name: 'BNI',
-          account: '1234567890',
-        },
-      ],
-    },
-  ];
+  const chartDataPemasukan = (dataIncome?.categories || []).map((category, index) => ({
+    value: parsePercentage(category.total_balance_percentage),
+    color: ['#0ed79c', '#0065ae', '#feb831'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
+  }));
 
-  const chartDataPemasukan = [
-    { value: parseFloat(data?.income?.categories[0]?.total_balance_percentage?.toFixed(2)) || 0, color: '#0ed79c' },
-    { value: parseFloat(data?.income?.categories[1]?.total_balance_percentage?.toFixed(2)) || 0, color: '#0065ae' },
-    { value: parseFloat(data?.income?.categories[2]?.total_balance_percentage?.toFixed(2)) || 0, color: '#feb831' },
-  ];
+  const chartDataPengeluaran = (dataExpense?.categories || []).map((category, index) => ({
+    value: parsePercentage(category.total_balance_percentage),
+    color: ['#ca3a31', '#0a3967', '#926001'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
+  }));
+  
+  const groupedDataTransferExpense = groupByDate(transferExpenseCategory?.mutations);
+  const groupedDataTransferIncome = groupByDate(transferIncomeCategory?.mutations);
 
-  const chartDataPengeluaran = [
-    { value: 8, label: 'E', color: '#ca3a31' },
-    { value: 12, label: 'F', color: '#0a3967' },
-    { value: 6, label: 'G', color: '#926001' },
-  ];
+  const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
+  const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
 
   return (
     <React.Fragment>
@@ -212,7 +107,7 @@ export const InfoSaldoPage = () => {
             <Box
               sx={{
                 position: 'absolute',
-                top: '170px',
+                top: '200px',
                 left: '0',
                 right: '0',
                 bottom: '0',
@@ -239,17 +134,24 @@ export const InfoSaldoPage = () => {
                     boxSizing: 'border-box',
                   }}
                 >
-                  <MonthNavigator />
+                  {/* <MonthNavigator /> */}
+                  <MonthNavigator onMonthChange={(date) => {
+                    const formattedDate = {
+                      month: ('0' + (date.getMonth() + 1)).slice(-2),
+                      year: date.getFullYear()
+                    };
+                    setSelectedMonth(formattedDate);
+                  }} />
                 </Box>
 
-                <Box sx={{ bgcolor: 'neutral.01', boxShadow: 3 }}>
+                <Box sx={{ bgcolor: 'neutral.01', boxShadow: 3}}>
                   <Grid
                     container
-                    justifyContent="center"
-                    spacing={2}
-                    sx={{ px: 2, pt: 2 }}
+                    // justifyContent="center"
+                    spacing={1}
+                    sx={{ px: 2, pt: 5, mb:0, pb:0 }}
                   >
-                    <Grid item xs={6} sm={6} md={4}>
+                    <Grid item xs={6} sm={6} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <ButtonBase onClick={() => setActiveSection('Pemasukan')}>
                         <Typography
                           variant="h6"
@@ -261,7 +163,6 @@ export const InfoSaldoPage = () => {
                               activeSection === 'Pemasukan'
                                 ? '#0066AE'
                                 : '#dedede',
-                            textAlign: 'center',
                             cursor: 'pointer',
                           }}
                         >
@@ -269,7 +170,7 @@ export const InfoSaldoPage = () => {
                         </Typography>
                       </ButtonBase>
                     </Grid>
-                    <Grid item xs={6} sm={6} md={4}>
+                    <Grid item xs={6} sm={6} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                       <ButtonBase
                         onClick={() => setActiveSection('Pengeluaran')}
                       >
@@ -285,7 +186,6 @@ export const InfoSaldoPage = () => {
                               activeSection === 'Pengeluaran'
                                 ? '#0066AE'
                                 : '#dedede',
-                            textAlign: 'center',
                             cursor: 'pointer',
                           }}
                         >
@@ -306,7 +206,7 @@ export const InfoSaldoPage = () => {
                       sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        borderBottom: 4,
+                        borderTop: 4,
                         borderColor:
                           activeSection === 'Pemasukan' ? '#0066AE' : '#dedede',
                         py: 1,
@@ -316,7 +216,7 @@ export const InfoSaldoPage = () => {
                       sx={{
                         display: 'flex',
                         justifyContent: 'center',
-                        borderBottom: 4,
+                        borderTop: 4,
                         borderColor:
                           activeSection === 'Pengeluaran'
                             ? '#0066AE'
@@ -331,7 +231,7 @@ export const InfoSaldoPage = () => {
                     sx={{
                       display: 'flex',
                       flexDirection: 'column',
-                      gap: 2,
+                      gap: 1,
                       p: 2,
                     }}
                   >
@@ -340,11 +240,10 @@ export const InfoSaldoPage = () => {
                         <TransactionBox
                           icon={TransferIcon}
                           title="Transfer"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          data={transferIncomeCategory}
                           onClick={() =>
                             handleOpen(
-                              dataTransfer,
+                              dataTransferIncome,
                               'Transfer',
                               'credit',
                               <WalletIcon />
@@ -353,13 +252,12 @@ export const InfoSaldoPage = () => {
                         />
                         <TransactionBox
                           icon={BarcodeIcon}
-                          title="Pembayaran"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          title="QR Terima Transfer"
+                          data={qrCategory}
                           onClick={() =>
                             handleOpen(
-                              dataPembayaran,
-                              'Pembayaran',
+                              dataQrTerimaTransfer,
+                              'QR Terima Transfer',
                               'credit',
                               <QrCodeIcon />
                             )
@@ -368,8 +266,7 @@ export const InfoSaldoPage = () => {
                         <TransactionBox
                           icon={SetorTunaiIcon}
                           title="Setor Tunai"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          data={setorCategory}
                           onClick={() =>
                             handleOpen(
                               dataSetorTunai,
@@ -385,11 +282,10 @@ export const InfoSaldoPage = () => {
                         <TransactionBox
                           icon={TransferPengeuaranIcon}
                           title="Transfer"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          data={transferExpenseCategory}
                           onClick={() =>
                             handleOpen(
-                              dataTransfer,
+                              dataTransferExpense,
                               'Transfer Pengeluaran',
                               'debit',
                               <WalletIcon />
@@ -399,11 +295,10 @@ export const InfoSaldoPage = () => {
                         <TransactionBox
                           icon={QrisIcon}
                           title="QRIS"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          data={qrisCategory}
                           onClick={() =>
                             handleOpen(
-                              dataPembayaran,
+                              datQris,
                               'QRIS Pembayaran',
                               'debit',
                               <QrCode2Icon />
@@ -413,11 +308,10 @@ export const InfoSaldoPage = () => {
                         <TransactionBox
                           icon={TarikTunaiIcon}
                           title="Tarik Tunai"
-                          amount="Rp 1.000.000"
-                          amountDetail="Detail"
+                          data={tarikCategory}
                           onClick={() =>
                             handleOpen(
-                              dataSetorTunai,
+                              dataTarikTunai,
                               'Tarik Tunai',
                               'debit',
                               <CreditCardIcon />
@@ -443,14 +337,9 @@ export const InfoSaldoPage = () => {
                 }}
               >
                 <DynamicPieChart
-                  // data={
-                  //   activeSection === 'Pemasukan'
-                  //     ? chartDataPemasukan
-                  //     : chartDataPengeluaran
-                  // }
                   data={{
                     activeSection: activeSection === 'Pemasukan' ? chartDataPemasukan : chartDataPengeluaran,
-                    data: activeSection === 'Pemasukan' ? data?.income : data?.expense
+                    data: activeSection === 'Pemasukan' ? dataIncome : dataExpense
                   }}
                   centerLabel={
                     activeSection === 'Pemasukan'
@@ -480,19 +369,22 @@ export const InfoSaldoPage = () => {
               >
                 <TablePrimary
                   title="Aktivitas Terakhir"
-                  rows={['Tanggal', 'Keterangan', 'Nominal']}
+                  rows={['Transaksi','Tanggal', 'Keterangan', 'Nominal']}
                   data={[
                     {
+                      Transaksi: '',
                       Tanggal: '12 Juli 2024',
                       Keterangan: 'Transfer',
                       Nominal: 'Rp 1.000.000',
                     },
                     {
+                      Transaksi: '',
                       Tanggal: '12 Juli 2024',
                       Keterangan: 'Pembayaran',
                       Nominal: 'Rp 1.000.000',
                     },
                     {
+                      Transaksi: '',
                       Tanggal: '12 Juli 2024',
                       Keterangan: 'Setor Tunai',
                       Nominal: 'Rp 1.000.000',
@@ -529,6 +421,9 @@ export const InfoSaldoPage = () => {
           />
           <Footer />
         </Grid>
+        {errorMutationSummary && (
+          <FailAlert message={errorMutationSummary?.response?.data?.message || errorMutationSummary?.message} title="Gagal mengambil data" />
+        )}
       </CssBaseline>
     </React.Fragment>
   );

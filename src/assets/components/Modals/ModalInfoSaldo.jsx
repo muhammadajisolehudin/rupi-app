@@ -23,7 +23,7 @@ export const ModalInfoSaldo = ({
 }) => {
   const error = red[500];
   const success = green[500];
-
+  console.log("ini data : ", transactions)
   return (
     <Modal open={open} onClose={onClose}>
       <Box
@@ -62,7 +62,7 @@ export const ModalInfoSaldo = ({
           }}
         >
           <List>
-            {transactions.map((transaction, index) => (
+            {transactions?.map((transaction, index) => (
               <Box key={index}>
                 <Typography
                   variant="subtitle1"
@@ -72,19 +72,19 @@ export const ModalInfoSaldo = ({
                   {transaction.date}
                 </Typography>
                 <Divider />
-                {transaction.details.map((detail, idx) => (
+                {transaction?.transactions.map((detail, idx) => (
                   <ListItem key={idx} sx={{ py: 1 }}>
                     <ListItemIcon>{icon}</ListItemIcon>
                     <ListItemText
-                      primary={detail.title}
+                      // primary={detail.title}
                       secondary={
                         <>
                           <Typography variant="body2" color="textSecondary">
-                            {detail.from}
+                            {/* {detail.from} */}BCA
                             <br />
-                            {detail.name}
+                            {detail.full_name}
                             <br />
-                            {detail.account}
+                            {detail.account_number}
                           </Typography>
                         </>
                       }
@@ -94,7 +94,7 @@ export const ModalInfoSaldo = ({
                       color={type === 'debit' ? error : success}
                       fontWeight="bold"
                     >
-                      {type === 'debit' ? '-' : '+'} Rp {detail.amount}
+                      {type === 'debit' ? '-' : '+'}{detail.amount}
                     </Typography>
                   </ListItem>
                 ))}

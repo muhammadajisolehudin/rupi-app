@@ -27,7 +27,6 @@ export const InputPinForm = ({ onNext }) => {
     }),
     onSubmit: async (values) => {
       try {
-        console.log("Form Submitted", values);
         await transaksiIntrabank.mutateAsync(values);
         onNext(values);
       } catch (error) {

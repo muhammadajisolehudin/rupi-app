@@ -27,7 +27,7 @@ export const RouteList = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <TransferRupiahProvider>
+        {/* <TransferRupiahProvider> */}
 
           <Routes>
             {/* auth */}
@@ -36,7 +36,8 @@ export const RouteList = () => {
               path="/*"
               element={
                 <ProtectedUser>
-                  <Routes>
+                  <TransferRupiahProvider>
+                    <Routes>
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/verify" element={<VerifyOtpPage />} />
                     <Route path="/set-pin" element={<SetPinPage />} />
@@ -65,13 +66,15 @@ export const RouteList = () => {
                       }
                     />
                   </Routes>
+                  </TransferRupiahProvider>
+                  
 
                 </ProtectedUser>
               }
             />
             {/* <Route path="*" element={<Navigate to="/login" />} /> */}
           </Routes>
-        </TransferRupiahProvider>
+        {/* </TransferRupiahProvider> */}
       </AuthProvider>
     </BrowserRouter>
   );
