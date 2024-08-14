@@ -3,8 +3,11 @@ import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect } from "react";
 import PinInput from "../../../assets/components/Inputs/PinInput";
+import { useAuthContext } from "../../../context/AuthContext";
 
 export const InputPinForm = ({ onNext }) => {
+
+    
     const formik = useFormik({
         initialValues: {
             destination_id: "",
@@ -63,13 +66,10 @@ export const InputPinForm = ({ onNext }) => {
                             gap: 5,
                         }}
                     >
-                        <Typography id="pinLabel" variant="h5" sx={{ fontWeight: 600 }}>
+                        <Typography variant="h5" sx={{ fontWeight: 600 }}>
                             Masukkan PIN
                         </Typography>
-                        <PinInput
-                            aria-labelledby="pinLabel"
-                            aria-required="true"
-                        />
+                        <PinInput />
                         {formik.touched.pin && formik.errors.pin && (
                             <Typography color="error" sx={{ my: 2 }}>
                                 {formik.errors.pin}
@@ -86,7 +86,6 @@ export const InputPinForm = ({ onNext }) => {
                                 mt: 4,
                             }}
                             variant="contained"
-                            aria-label="Lanjutkan ke langkah berikutnya"
                         >
                             Lanjutkan
                         </Button>

@@ -59,8 +59,10 @@ export const PengaturanPage = () => {
 
 	return (
 		<LayoutSecondary>
-			<Box>
-				<Grid xs={12}>
+			{/* <Box> */}
+				<Grid xs={12} sx={{
+					display: 'relative',
+				}}>
 					<BreadcrumbSecondary />
 				</Grid>
 				<Grid
@@ -322,7 +324,7 @@ export const PengaturanPage = () => {
 						</Grid>
 					</Grid>
 				</Grid>
-			</Box>
+			{/* </Box> */}
 		</LayoutSecondary>
 	);
 };

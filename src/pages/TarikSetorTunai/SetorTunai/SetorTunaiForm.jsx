@@ -1,8 +1,10 @@
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
+import { useAuthContext } from "../../../context/AuthContext";
 
 export const SetorTunaiForm = ({ onNext }) => {
+    const { account } = useAuthContext() 
     const formik = useFormik({
         initialValues: {},
         onSubmit: () => {
@@ -23,11 +25,10 @@ export const SetorTunaiForm = ({ onNext }) => {
                     px: 4,
                 }}>
                     <Grid item xs={12}>
-                        <Typography id="rekeningTujuanLabel">Rekening Tujuan</Typography>
+                        <Typography>Rekening Tujuan</Typography>
                         <CardAccountInfo
-                            accountNumber={"5667 2323 1444 5554"}
-                            balance={5000000}
-                            aria-labelledby="rekeningTujuanLabel"
+                            accountNumber={account.account_number}
+                            balance={account.balance}
                         />
                     </Grid>
                     <Grid
@@ -39,14 +40,13 @@ export const SetorTunaiForm = ({ onNext }) => {
                             gap: 2,
                         }}
                     >
-                        <Typography id="metodeLabel" mt={0} pt={0}>Metode</Typography>
+                        <Typography mt={0} pt={0}>Metode</Typography>
                         <TextField
-                            aria-labelledby="metodeLabel"
-                            aria-label="tambahkan metode setor tunai"
+                            aria-label="tambahkan nama token tarik tunai"
                             name="metode"
                             type="text"
                             id="metode"
-                            placeholder="Tambahkan metode setor tunai"
+                            placeholder="Tambahkan nama token tarik tunai"
                             autoComplete="current-nominal"
                             fullWidth
                             onChange={formik.handleChange}
@@ -54,7 +54,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                             value={formik.values.metode}
                         />
                         {formik.touched.metode && formik.errors.metode ? (
-                            <Typography sx={{ fontSize: 10, color: "red" }} aria-live="assertive">
+                            <Typography sx={{ fontSize: 10, color: "red" }}>
                                 {formik.errors.metode}
                             </Typography>
                         ) : null}
@@ -67,7 +67,6 @@ export const SetorTunaiForm = ({ onNext }) => {
                             fullWidth
                             variant="contained"
                             sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
-                            aria-label="Lanjutkan ke langkah berikutnya"
                         // disabled={mutation.isLoading}
                         >
                             Lanjutkan
