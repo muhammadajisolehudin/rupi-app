@@ -2,8 +2,10 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import logoIcon from "/logo.png";
+import { useAuthContext } from "../../../context/AuthContext";
 
 export const KonfirmasiForm = ({ onNext }) => {
+    const { account } = useAuthContext() 
     const formik = useFormik({
         initialValues: {},
         onSubmit: (values) => {
@@ -61,7 +63,7 @@ export const KonfirmasiForm = ({ onNext }) => {
                     <Typography variant="h6" sx={{ mt: 5 }} aria-label="sumber dana rupiah">
                         Sumber Rupiah
                     </Typography>
-                    <CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000}/>
+                    <CardAccountInfo accountNumber={account.account_number} balance={account.balance}/>
                     <hr
                         style={{
                             border: "1px solid #B3B3B3", marginTop:"5rem"

@@ -46,7 +46,6 @@ export const ProtectedAccount = ({ children }) => {
         console.log("ini akun :", account)
     }, [isLoading, error, Account, setAccount, logout]);
 
-
     if (isLoading) {
         return (
             <Box

@@ -3,8 +3,10 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import NominalInput from "../../../assets/components/Inputs/NominalInput";
+import { useAuthContext } from "../../../context/AuthContext";
 
 export const TarikTunaiForm = ({ onNext }) => {
+    const { account } = useAuthContext() 
     const formik = useFormik({
         initialValues: {
             amount: "",
@@ -33,8 +35,8 @@ export const TarikTunaiForm = ({ onNext }) => {
                         <Grid item xs={12}>
                             <Typography>Rekening Tujuan</Typography>
                             <CardAccountInfo
-                                accountNumber={"5667 2323 1444 5554"}
-                                balance={5000000}
+                                accountNumber={account.account_number}
+                                balance={account.balance}
                             />
                         </Grid>
                         <Grid item xs={12}>

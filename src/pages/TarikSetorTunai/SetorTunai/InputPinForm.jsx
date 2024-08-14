@@ -3,8 +3,11 @@ import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect } from "react";
 import PinInput from "../../../assets/components/Inputs/PinInput";
+import { useAuthContext } from "../../../context/AuthContext";
 
 export const InputPinForm = ({ onNext }) => {
+
+    
     const formik = useFormik({
         initialValues: {
             destination_id: "",

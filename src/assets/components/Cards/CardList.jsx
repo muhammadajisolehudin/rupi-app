@@ -1,35 +1,30 @@
-import { Box, Card, CardContent, Button, Typography } from "@mui/material";
+import { Box, Card, CardContent, Button, Typography, Divider } from "@mui/material";
 
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import bcaIcon from "../../img/icons/bcaIcon.png";
+import bcaWhiteIcon from "../../img/icons/bca-white-icon.svg";
+import { styled } from '@mui/system';
 
-const cardData = [
-  {
-    id: 1,
-    image: bcaIcon,
-    title: "Transfer ke BCA",
-    description: "Virtual Account",
-  },
-  {
-    id: 2,
-    image: bcaIcon,
-    title: "Transfer ke BCA",
-    description: "Virtual Account",
-  },
-  {
-    id: 3,
-    image: bcaIcon,
-    title: "Transfer ke BCA",
-    description: "Virtual Account",
-  },
-];
 
-export const CardList = () => {
+const Dots = styled('div')(({ theme }) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'radial-gradient(circle, rgba(255,255,255,0.5) 20%, transparent 20%)',
+  backgroundSize: '20px 20px', // Ukuran bintik-bintik
+  transform: 'scale(0)', // Awalnya tidak terlihat
+  transition: 'transform 0.5s ease', // Transisi halus untuk transformasi bintik-bintik
+  pointerEvents: 'none', // Tidak memblokir interaksi dengan elemen lain
+}));
+
+export const CardList = ({ cardData }) => {
   return (
     <Box sx={{ minWidth: 275, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)" }}>
       <Card sx={{ borderRadius: "10px" }}>
-        <CardContent sx={{ backgroundColor: "white" }}>
-          {cardData.map((card) => (
+        <CardContent sx={{ backgroundColor: "white", pt:3 }}>
+          {cardData?.map((card) => (
             <>
               <Box
                 key={card.id}
@@ -37,6 +32,15 @@ export const CardList = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   padding: "18px 50px",
+                  transition: 'background-color 0.5s ease', // Transisi halus untuk perubahan warna latar belakang
+                  overflow: 'hidden', // Menghindari bintik-bintik meluas ke luar elemen
+                  '&:hover': {
+                    backgroundColor: '#0A3967',
+                    color: 'white',
+                  },
+                  '&:hover .dots': {
+                    transform: 'scale(1)', // Tampilkan bintik-bintik saat hover
+                  },
                 }}
               >
                 <Box
@@ -48,7 +52,7 @@ export const CardList = () => {
                   }}
                 >
                   <img
-                    src={card.image}
+                    src={bcaWhiteIcon}
                     alt=""
                     style={{
                       width: "130px",
@@ -56,39 +60,43 @@ export const CardList = () => {
                   />
                   <Box>
                     <Typography
+                    variant="h6"
                       sx={{
-                        fontSize: "28px",
+                        // fontSize: "16px"
                         fontWeight: 400,
-                        color: "#1C1C1E",
+                        // color: "#1C1C1E",
                         lineHeight: "24px",
                         letterSpacing: "-0.15px",
                         marginBottom: "8px",
+                        
                       }}
                     >
-                      {card.title}
+                      Transfer ke BCA
                     </Typography>
                     <Typography
-                      variant="caption"
+                      variant="body"
                       sx={{
-                        fontSize: "18px",
+                        // fontSize: "18px",
                         fontWeight: 300,
-                        color: "#1C1C1E",
+                        // color: "#1C1C1E",
                         lineHeight: "24px",
                         letterSpacing: "-0.15px",
                       }}
                     >
-                      {card.description}
+                      Virtual Account
+                      {/* {card.description} */}
                     </Typography>
                   </Box>
                 </Box>
                 <Button
-                  aria-label={`Tombol Detail Transaksi ${card.title}, ini akan membawa Anda ke halaman detail transaksi ini`}
+                  aria-label={`Tombol Detail Transaksi Transfer ke BCA, ini akan membawa Anda ke halaman detail transaksi ini`}
                   role="button"
                 >
                   <ChevronRightRoundedIcon fontSize="large" />
                 </Button>
+                
               </Box>
-              <hr />
+              <Divider/>
             </>
           ))}
         </CardContent>

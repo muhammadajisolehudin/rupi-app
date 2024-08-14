@@ -16,7 +16,6 @@ export const AuthProvider = ({ children }) => {
 
     const loginMutation = useLogin();
 
-
     const { mutate: logoutMutation, isLoading: isLoadingSignout, IsError: isErrorSignout, error:errorSignout  } = useSignout();
 
     const login = async (input) => {

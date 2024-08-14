@@ -16,8 +16,17 @@ export const API_ENDPOINT = {
   TRANSFER_DESTINATIONS: "/transfer/destinations",
   TRANSFER_INTRABANK: "/transfer/intrabank",
   TRANSFER_FAVORITE: "/transfer/destinations",
+
+  //Qris
+  TRANSFER_QRIS: "/transfer/qris",
   // ADD_DATA_REKENING: ""
 
   // Account
   ACCOUNT_DETAIL: "/account/detail",
+  ACCOUNT_MUTATIONS_SUMMARY: "/account/mutations/summary",
+
+  // Transaction Tarik Setor Tunai
+  TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",
+  // Transaction QR
+  QR_TRANSACTION_GENERATEQR: "/api/v1/transactions/generate-qr",
 };
