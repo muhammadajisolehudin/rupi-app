@@ -26,10 +26,10 @@ export const CardHero = ({ user }) => {
         backgroundPosition: "center",
         display: "flex",
         flexDirection: "row",
-        padding: { xs: "20px 36px", lg: "40px 72px" },
+        p: { xs: "20px 36px", lg:"3rem 4rem " },
         height: "auto",
         position: "relative",
-        borderRadius: "20px",
+        borderRadius: 4,
         overflow: "hidden",
       }}
       aria-label="Banner utama dengan informasi waktu dan sapaan"
@@ -42,7 +42,11 @@ export const CardHero = ({ user }) => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
+<<<<<<< HEAD
             width: { xs: "100%", lg: "90%" },
+=======
+            width: { xs:"100%", md:"80%", lg:"70%" },
+>>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",
@@ -76,14 +80,18 @@ export const CardHero = ({ user }) => {
           </Typography>
         </Box>
         <Typography
-          variant="h1"
-          component="h1"
+          variant="h5"
           sx={{
             color: darkBlue,
-            fontSize: { xs: "24px", lg: "32px" },
+            // fontSize: { xs: "24px", lg: "28px" },
             fontWeight: 700,
+<<<<<<< HEAD
             marginBottom: "16px",  // Ganti dengan nilai yang sesuai
             maxWidth: "70%",  // Ganti dengan nilai yang sesuai
+=======
+            marginBottom: "16px",  
+            maxWidth: "80%", 
+>>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             
           }}
           aria-label="Ucapan selamat datang kepada anda"
@@ -97,7 +105,7 @@ export const CardHero = ({ user }) => {
             color: blue,
             fontSize: { xs: "14px", lg: "18px" },
             fontWeight: 500,
-            marginBottom: "40px",
+            // marginBottom: "40px",
           }}
           aria-label="Ucapan semoga harimu menyenangkan"
         >
@@ -113,6 +121,7 @@ export const CardHero = ({ user }) => {
           left: "auto",
           width: { xs: "100%", lg: "calc(100% - 430px)" },
           overflow: "hidden",
+          p:20
         }}
       >
         <img
@@ -121,12 +130,12 @@ export const CardHero = ({ user }) => {
           style={{
             position: "absolute",
             right: 0,
-            top: "50%",
+            top: "42%",
             left: "50%",
-            width: "auto",
-            height: "100%",
+            // bottom: "50%",
+            width: "100%",
+            height: "80%",
             transform: "translate(-50%, -50%)",
-            objectFit: "cover",
           }}
         />
       </Box>

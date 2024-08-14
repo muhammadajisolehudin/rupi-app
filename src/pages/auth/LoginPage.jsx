@@ -22,7 +22,7 @@ import { useAuthContext } from "../../context/AuthContext";
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login, isLoading, isSuccess, error } = useAuthContext();
+  const { login, isLoading: isLoadingLogin, isSuccess: isSuccessLogin, error: errorLogin } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -38,13 +38,11 @@ export const LoginPage = () => {
         .required("Password harus diisi"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values); // Debug log
       try {
         await login(values);
         navigate("/verify");
       } catch (error) {
         console.error("Login failed, error:", error);
-        // setErrorMessage(error.response ? error.response.data.message : error.message);
         
       }
     },
@@ -170,17 +168,17 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
-            disabled={isLoading}
+            disabled={isLoadingLogin}
             aria-label="Button Masuk"
           >
-            {isLoading ? "Logging in..." : "Masuk"}
+            {isLoadingLogin ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
       </Paper>
-      {error && (
-        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
+      {errorLogin && (
+        <FailAlert message={errorLogin?.response?.data?.message || errorLogin?.message} title="Login Gagal" />
       )}
-      {isSuccess && (
+      {isSuccessLogin && (
         <SuccesAlert message="" title="Login Berhasil" />
       )}
     </AuthLayout>

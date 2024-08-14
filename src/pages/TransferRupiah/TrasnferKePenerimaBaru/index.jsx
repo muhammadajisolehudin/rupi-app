@@ -1,5 +1,6 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
+import { BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { RekeningBaruForm } from './RekeningBaruFrom';
 // import {BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { InputNominalTransferForm } from './InputNominalTransferForm';

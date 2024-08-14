@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Box, Button, Paper, TextField, Typography, Link } from "@mui/material";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";
@@ -68,8 +68,7 @@ export const VerifyOtpPage = () => {
 	const handleResendOtp = async () => {
 		try {
 			console.log("ini data user dari use : ", user)
-			await resendOtp.mutateAsync(user.username);
-			// await otp.mutateAsync(payload);
+			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
 			// Tangani error jika resend OTP gagal
@@ -173,11 +172,17 @@ export const VerifyOtpPage = () => {
 					</Box>
 				</form>
 			</Paper>
-			{otp.isError && (
-				<FailAlert message={otp.error?.response?.data?.message || otp.error?.message} title="Verifikasi Gagal" />
+			{(otp.isError || resendOtp.isError) && (
+				<FailAlert
+					message={otp.isError ? otp.error?.response?.data?.message || otp.error?.message : resendOtp.error?.response?.data?.message || resendOtp.error?.message}
+					title={otp.isError ? "Verifikasi Gagal" : "Resend OTP Gagal"}
+				/>
 			)}
-			{otp.isSuccess && (
-				<SuccesAlert message="" title="Verifikasi Berhasil" />
+			{otp.isSuccess || resendOtp.isSuccess && (
+				<SuccesAlert 
+					message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
+					title={ otp.isSuccess? "Verifikasi Berhasil" : "Resend OTP" }
+				/>
 			)}
 			{/* <SuccesAlert message="" title="Login Berhasil"/> */}
 		</AuthLayout>

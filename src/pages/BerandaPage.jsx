@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 
 import { Layout } from "./layout";
@@ -11,46 +11,49 @@ import { Menu } from "../assets/components/dashboardComponents/Menu";
 
 import backgroundWave from "../assets/img/wave background.png";
 import { useAuthContext } from "../context/AuthContext";
+import { useTransferRupiahContext } from "../context/TransferRupiahContext";
 
 export const BerandaPage = () => {
   const { account } = useAuthContext();
+  const { dataExpense, dataIncome } = useTransferRupiahContext();
   return (
     <Layout>
-      <Container
-        maxWidth={false}
-        sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}
+      <Box
+        // maxWidth={false}
+        sx={{ paddingTop: "2rem", paddingBottom: "2rem", mx:6 }}
       >
-        <Grid container sx={{ marginBottom: "40px" }}>
-          <Grid item xs={12} lg={8}>
+        <Grid container sx={{ mb: 4 }} spacing={3.5}>
+          <Grid item xs={12} md={12} lg={7.5}>
             <CardHero user={account} />
           </Grid>
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} lg={4.5}>
             <CardBalance user={account} />
           </Grid>
         </Grid>
 
         <Grid
           container
+          spacing={3.5}
           sx={{
-            paddingTop: "2rem",
-            paddingBottom: "2rem",
-            paddingLeft: "1rem",
-            paddingRight: "1rem",
+            mt: "2rem",
+            pb: "2rem",
+            paddingLeft: 5,
+            paddingRight: 6,
             position: "relative",
-            marginLeft: "-25px",
-            marginRight: "-25px",
-            width: "calc(100% + 50px)",
+            marginLeft: "-4rem",  
+            // marginRight: "-2rem", 
+            width: "calc(100% + 7rem)", // Total lebar termasuk padding kiri dan kanan
             backgroundImage: `url(${backgroundWave})`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
           }}
         >
-          <Grid item xs={12} lg={8}>
+          <Grid item xs={12} lg={7.5}>
             <Menu />
           </Grid>
-          <Grid item xs={12} lg={4}>
-            <CardFinanceRecap />
+          <Grid item xs={12} lg={4.5}>
+            <CardFinanceRecap income={dataIncome} expense={dataExpense}/>
           </Grid>
         </Grid>
 
@@ -106,7 +109,7 @@ export const BerandaPage = () => {
           </Button>
         </Box>
         <CardList />
-      </Container>
+      </Box>
     </Layout>
   );
 };

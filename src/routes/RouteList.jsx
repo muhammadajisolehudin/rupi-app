@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { VerifyOtpPage } from '../pages/auth/VerifyOtpPage';
 import { SetPinPage } from '../pages/auth/SetPinPage';
@@ -16,6 +16,9 @@ import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBa
 import QrBayar from '../pages/Qris/QrBayar';
 import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
+
+import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
+import { PengaturanPage } from '../pages/Pengaturan';
 import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
 
 
@@ -25,16 +28,17 @@ export const RouteList = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <TransferRupiahProvider>
-
+      
           <Routes>
-            {/* auth */}
-            <Route path="/login" element={<LoginPage />} />
+            {/* pengaturan */}
+            <Route path="/pengaturan" element={<PengaturanPage />} />
             <Route
               path="/*"
               element={
                 <ProtectedUser>
-                  <Routes>
+                  <TransferRupiahProvider>
+                    <Routes>
+                    <Route path="/login" element={<LoginPage />} />
                     <Route path="/verify" element={<VerifyOtpPage />} />
                     <Route path="/set-pin" element={<SetPinPage />} />
                     <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
@@ -45,6 +49,9 @@ export const RouteList = () => {
                         <ProtectedAccount>
                           <Routes>
                             <Route path="/beranda" element={<BerandaPage />} />
+                            <Route path="/info-saldo" element={<InfoSaldoPage />} />
+
+                            {/* transfer */}
                             <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
                             <Route
                               path="/transfer-rupiah/transfer-ke-penerima-baru"
@@ -52,22 +59,26 @@ export const RouteList = () => {
                             />
                             <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
                             <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
-
                             <Route path="/qris" element={<QrisPage />} />
                             <Route path="/qris/qr-bayar" element={<QrBayar />} />
                             <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
+
+                            {/* pengaturan */}
+                            
                           </Routes>
                         </ProtectedAccount>
                       }
                     />
                   </Routes>
+                  </TransferRupiahProvider>
+                  
 
                 </ProtectedUser>
               }
             />
-            <Route path="*" element={<Navigate to="/login" />} />
+            {/* <Route path="*" element={<Navigate to="/login" />} /> */}
           </Routes>
-        </TransferRupiahProvider>
+        {/* </TransferRupiahProvider> */}
       </AuthProvider>
     </BrowserRouter>
   );

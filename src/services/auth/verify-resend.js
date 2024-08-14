@@ -3,10 +3,12 @@ import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const verifyOtpResend = async (input) => {
-  return await http.post(API_ENDPOINT.AUTH_VERIFY_RESEND, input);
+  console.log("ini data : ", input)
+  return await http.post(API_ENDPOINT.AUTH_VERIFY_RESEND, { username: input });
 };
 
 const useVerifyOtpResend = () => {
+   console.log("masuk resend ");
   return useMutation({
     mutationFn: verifyOtpResend
   });
