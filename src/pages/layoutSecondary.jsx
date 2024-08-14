@@ -10,12 +10,14 @@ export const LayoutSecondary = ({ children }) => {
             <CssBaseline>
                 <Box style={{ width: '100%', height: '150vh' }}>
                     <NavbarSecondary />
-                    <Box >
+                    {/* <Box > */}
                         {children}
-                    </Box>
+                        <Footer />
+                    {/* </Box> */}
                 </Box>
-                <Footer />
+                
             </CssBaseline>
+            
         </React.Fragment>
     );
 };

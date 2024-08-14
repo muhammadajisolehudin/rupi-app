@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, Box, Typography, Card, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import IconSuccess from '../../img/sukses-notif.png'; 

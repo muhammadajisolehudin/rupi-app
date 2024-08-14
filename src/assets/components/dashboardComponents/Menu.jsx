@@ -1,13 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-<<<<<<< HEAD
-  Button,
-  Container,
-=======
   Box,
   Button,
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
   CssBaseline,
   Grid,
   Typography,
@@ -30,20 +25,6 @@ const ReuseButton = ({ imgSrc, title, targetLink, ariaLabel }) => {
         bgcolor: "#0066AE",
         display: "flex",
         alignItems: "center",
-<<<<<<< HEAD
-        mb: 2,
-        justifyContent: "center",
-        flexDirection: "column",
-        gap: "24px",
-        width: "auto",
-        borderRadius: "10px",
-        padding: "25px 20px",
-        backgroundColor: "#0066AE",
-        minHeight: "150px",
-        p: 2,
-        "&:hover": {
-          backgroundColor: "#0066AE",
-=======
         mb: 1.5,
         justifyContent: "center",
         flexDirection: "column",
@@ -55,21 +36,14 @@ const ReuseButton = ({ imgSrc, title, targetLink, ariaLabel }) => {
         p: 2,
         "&:hover": {
           backgroundColor: "#0A3967",
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
         },
       }}
     >
       <img src={imgSrc} alt={title} />
       <Typography
-<<<<<<< HEAD
-        variant="h5"
-        component="div"
-        style={{ fontSize: "24px", color: "white" }}
-=======
         // variant="h7"
         component="div"
         style={{ fontSize:"16px",color: "white" }}
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
       >
         {title}
       </Typography>

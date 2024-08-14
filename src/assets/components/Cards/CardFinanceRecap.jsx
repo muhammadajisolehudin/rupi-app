@@ -2,10 +2,7 @@ import { Box, Card, Typography, Button } from "@mui/material";
 import buttonEnter from "../../img/icons/button enter.svg";
 import pemasukanIcon from "../../img/icons/pemasukan.png";
 import pengeluaranIcon from "../../img/icons/pengeluaran.png";
-<<<<<<< HEAD
-=======
 import { formatBalance, getTotalTransaction } from "../../../utils/utilities";
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
 
 export const CardFinanceRecap = ({income, expense}) => {
   const neutral = "#FFFFFF";
@@ -54,23 +51,12 @@ export const CardFinanceRecap = ({income, expense}) => {
               Periode 1 Jul 2024 - 21 Jul 2024
             </Typography>
           </Box>
-<<<<<<< HEAD
-          <Box
-            component="a"
-            href="/saldo"
-            aria-label="Tombol Saldo, ini akan membawa Anda ke halaman Saldo"
-            role="button"
-          >
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
-              <img src={buttonEnter} alt="" style={{ width: "36px" }} />
-=======
           <Box component="a" href="/info-saldo">
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
               aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Info Saldo"
             >
               <img src={buttonEnter} alt="" style={{ width: "28px" }} />
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             </Button>
           </Box>
         </Box>

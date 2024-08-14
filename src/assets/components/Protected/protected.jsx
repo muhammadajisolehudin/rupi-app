@@ -10,12 +10,6 @@ export const ProtectedUser = ({ children }) => {
   const TokenUser = CookiesStorage.get(CookiesKey.AuthToken);
 
   useEffect(() => {
-<<<<<<< HEAD
-    if (TokenUser == undefined) {
-      setFirstLoad(true);
-    }
-  }, []);
-=======
     const checkAuth = () => {
       // Jika token tidak ada, arahkan ke halaman login
       if (!TokenUser) {
@@ -30,7 +24,6 @@ export const ProtectedUser = ({ children }) => {
       }
       setLoading(false);
     };
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
 
     checkAuth();
   }, [TokenUser, navigate, location.pathname]);

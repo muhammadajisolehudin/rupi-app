@@ -4,7 +4,7 @@ import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const verifyOtpResend = async (input) => {
   console.log("ini data : ", input)
-  return await http.post(API_ENDPOINT.AUTH_VERIFY_RESEND, { username: input });
+  return await http.post(API_ENDPOINT.AUTH_VERIFY_RESEND, { username: input.username });
 };
 
 const useVerifyOtpResend = () => {

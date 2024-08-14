@@ -10,12 +10,12 @@ const login = async (input) => {
   
   const result = await http.post(API_ENDPOINT.AUTH_SIGNIN, input);
   CookiesStorage.set(CookiesKey.AuthToken, result.data.data.access_token);
-  CookiesStorage.set(
-    CookiesKey.User,
-    result.data.data.username,
-    result.data.data.email,
-    result.data.data.refresh_token
-  );
+  // CookiesStorage.set(
+  //   CookiesKey.User,
+  //   result.data.data.username,
+  //   result.data.data.email,
+  //   result.data.data.refresh_token
+  // );
   return result.data;
 };
 

@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import SearchIcon from "../../img/icons/Search.svg";

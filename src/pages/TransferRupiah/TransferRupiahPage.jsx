@@ -8,6 +8,7 @@ import { TambahRekening } from "../../assets/components/transferComponents/Tamba
 import { useGetDataTransaksi } from "../../services/transfer-rupiah/get-data-transaksi";
 import { useAddFavorite } from "../../services/transfer-rupiah/add-favorite-transaksi";
 import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
+import { useTransferRupiahContext } from "../../context/TransferRupiahContext";
 
 
 export const TransferRupiahPage = () => {
@@ -17,8 +18,9 @@ export const TransferRupiahPage = () => {
 		others: [],
 	});
 
+	const { dataTransaksi } = useTransferRupiahContext() 
 	//fetching api
-	const { data: dataTransaksi } = useGetDataTransaksi();
+	
 
 	const { mutate: updateFavorite } = useAddFavorite();
 

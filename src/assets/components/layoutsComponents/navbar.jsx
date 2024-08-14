@@ -72,6 +72,12 @@ function Navbar() {
               fontWeight={activePage === "beranda" ? 700 : 400}
               style={{ cursor: "pointer" }}
               onClick={() => handlePageChange("beranda", "/beranda")}
+              sx={{
+                transition: 'transform 0.3s ease', // Transisi halus untuk pergeseran
+                '&:hover': {
+                  transform: 'translateX(-8px)', // Geser elemen 10px ke kiri saat hover
+                },
+              }}
             >
               Beranda
             </Typography>

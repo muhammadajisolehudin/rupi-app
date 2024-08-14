@@ -12,10 +12,21 @@ import { Menu } from "../assets/components/dashboardComponents/Menu";
 import backgroundWave from "../assets/img/wave background.png";
 import { useAuthContext } from "../context/AuthContext";
 import { useTransferRupiahContext } from "../context/TransferRupiahContext";
+import { useEffect, useState } from "react";
+
+
 
 export const BerandaPage = () => {
   const { account } = useAuthContext();
-  const { dataExpense, dataIncome } = useTransferRupiahContext();
+  const { dataExpense, dataIncome, dataTransaksi } = useTransferRupiahContext();
+  const [ dataTransaksiFavorite, setDataFavorite ] = useState(null)
+
+  useEffect(() => {
+    if (dataTransaksi) {
+        setDataFavorite(dataTransaksi.filter((item) => item.favorites))
+    }
+  }, [dataTransaksi]);
+
   return (
     <Layout>
       <Box
@@ -67,10 +78,10 @@ export const BerandaPage = () => {
           }}
         >
           <Typography
+          variant="h4"
             sx={{
               color: "#1C1C1E",
               fontFamily: "Calibri",
-              fontSize: "32px",
               fontWeight: 400,
               lineHeight: "40px",
               letterSpacing: "-0.75px",
@@ -84,9 +95,8 @@ export const BerandaPage = () => {
               color: "white",
               padding: "10px 20px",
               borderRadius: "10px",
-              "&:hover": {
-                backgroundColor: "#0066AE",
-                color: "white",
+              '&:hover': {
+                backgroundColor: '#0A3967',
               },
             }}
             aria-label="Tombol Lihat Semua Transaksi, ini akan membawa Anda ke halaman transaksi"
@@ -108,7 +118,7 @@ export const BerandaPage = () => {
             <ChevronRightRoundedIcon />
           </Button>
         </Box>
-        <CardList />
+        <CardList cardData={dataTransaksiFavorite} />
       </Box>
     </Layout>
   );

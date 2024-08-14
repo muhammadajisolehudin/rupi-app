@@ -42,11 +42,7 @@ export const CardHero = ({ user }) => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
-<<<<<<< HEAD
-            width: { xs: "100%", lg: "90%" },
-=======
             width: { xs:"100%", md:"80%", lg:"70%" },
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",
@@ -85,13 +81,8 @@ export const CardHero = ({ user }) => {
             color: darkBlue,
             // fontSize: { xs: "24px", lg: "28px" },
             fontWeight: 700,
-<<<<<<< HEAD
-            marginBottom: "16px",  // Ganti dengan nilai yang sesuai
-            maxWidth: "70%",  // Ganti dengan nilai yang sesuai
-=======
             marginBottom: "16px",  
             maxWidth: "80%", 
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             
           }}
           aria-label="Ucapan selamat datang kepada anda"

@@ -1,7 +1,8 @@
 // src/context/transferRupiahContext.js
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useGetMutationsSummary } from '../services/account/account-mutations-summary';
-import { useAuthContext } from './AuthContext';
+// import { useAuthContext } from './AuthContext';
+import { useGetDataTransaksi } from '../services/transfer-rupiah/get-data-transaksi';
 
 const TransferRupiahContext = createContext();
 
@@ -34,7 +35,7 @@ export const TransferRupiahProvider = ({ children }) => {
         year: currentYear
     });
 
-    // const { data: mutationSummary, error: errorMutationSummary } = useGetMutationsSummary(options);
+    const { data: dataTransaksi } = useGetDataTransaksi();
     const { data: useMutationsSummary, error: errorMutationSummary } = useGetMutationsSummary(options)
     
     useEffect(() => {
@@ -49,7 +50,7 @@ export const TransferRupiahProvider = ({ children }) => {
 
 
     return (
-        <TransferRupiahContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData, dataIncome, dataExpense, errorMutationSummary, setOptions }}>
+        <TransferRupiahContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData, dataIncome, dataExpense, errorMutationSummary, setOptions, dataTransaksi }}>
             {children}
         </TransferRupiahContext.Provider>
     );

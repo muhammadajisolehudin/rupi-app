@@ -6,20 +6,13 @@ import { Box, CircularProgress } from '@mui/material';
 import { CookiesKey, CookiesStorage } from '../../../utils/cookies';
 
 export const ProtectedAccount = ({ children }) => {
-    // const { logout } = useAuthContext()
     const { account, setAccount, logout } = useAuthContext();
     const { data: Account, isLoading, error } = useGetAccountDetail();
     const navigate = useNavigate();
-    // if (error) {
-    //     navigate("/set-password");
-    // }
+ 
     useEffect(() => {
 
-<<<<<<< HEAD
-        const handleError = async () => {
-=======
         const handleError= async()=>{
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
             if (isLoading) return;
 
             if (error) {
@@ -27,27 +20,31 @@ export const ProtectedAccount = ({ children }) => {
                 if (error.response.status === 403) {
                     navigate("/set-password");
                 }
-                if (error.response.status === 401) {
-<<<<<<< HEAD
-=======
+                // if (error.response.status === 401) {
                     
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
-                    CookiesStorage.remove(CookiesKey.AuthToken);
-                    CookiesStorage.remove(CookiesKey.User);
-                    logout();
-                    setTimeout(() => {
+                //     CookiesStorage.remove(CookiesKey.AuthToken);
+                //     CookiesStorage.remove(CookiesKey.User);
+                //     logout();
+                //     setTimeout(() => {
+                //         navigate('/login');
+                //     }, 1000); 
+                // }
+
+                setTimeout(() => {
+                    if (error.response.status === 401) {
+                        // Hapus token dan informasi pengguna dari cookies
+                        CookiesStorage.remove(CookiesKey.AuthToken);
+                        CookiesStorage.remove(CookiesKey.User);
+
+                        // Panggil fungsi logout
+                        logout();
+
+                        // Navigasi ke halaman login setelah delay
                         navigate('/login');
-<<<<<<< HEAD
-                    }, 1000);
-                }
-
-
-=======
-                    }, 1000); 
-                }
+                    }
+                }, 5000);
                 
                
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
                 return;
             }
 
@@ -55,19 +52,11 @@ export const ProtectedAccount = ({ children }) => {
             if (Account) {
                 setAccount(Account);
             }
-<<<<<<< HEAD
-        }
-
-        handleError()
-        console.log("ini akun :", account)
-    }, [isLoading, error, Account, setAccount, logout]);
-=======
         } 
         
         handleError()
         console.log("ini akun :", account)
     }, [isLoading, error, Account, setAccount, logout ]);
->>>>>>> 09a9de3b91a65ddb1bd41bd438b173d148465c55
 
 
     if (isLoading) {
