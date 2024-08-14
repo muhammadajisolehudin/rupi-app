@@ -7,18 +7,22 @@ import {
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from 'prop-types';
+import { useAuthContext } from "../../../context/AuthContext";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 export const KonfirmasiTransferForm = ({ onNext }) => {
+  const { account } = useAuthContext()
+  const { formData } = useTransferRupiahContext();
   const formik = useFormik({
     initialValues: {
-      destination_id: onNext.destination_id,
-      amount: onNext.amount,
-      description: onNext.description,
-      type: onNext.type,
+      destination_id: formData.destination_id,
+      amount: formData.amount,
+      description: formData.description,
+      type: formData.type,
       pin: "",
-      transaction_purpose: onNext.transaction_purpose,
+      transaction_purpose: formData.transaction_purpose,
     },
     validationSchema: Yup.object({
       amount: Yup.string().required("Required"),
@@ -59,10 +63,10 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
             </Grid>
             <Grid item xs={11} sx={{ pl: 3 }}>
               <Typography sx={{ fontWeight: "bold" }}>
-                Nama Penerima
+                {formData.fullname}
               </Typography>
               <Typography variant="caption">
-                Nama Bank - No rekenig 12345678
+                Nama Bank - No rekenig {formData.account_number}
               </Typography>
             </Grid>
           </Grid>
@@ -122,8 +126,8 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
           />
           <Typography sx={{ mt:3 }}>Sumber Rupiah</Typography>
           <CardAccountInfo
-            accountNumber={"5667 2323 1444 5554"}
-            balance={5000000}
+            accountNumber={account.account_number}
+            balance={account.balance}
           />
         </Grid>
         <Grid

@@ -23,8 +23,8 @@ export const TarikTunai = () => {
         <>
             {step === 1 && <TarikTunaiForm onNext={handleNext} />}
             {step === 2 && <KonfirmasiForm onNext={handleNext} />}
-            {step === 3 && <InputPinForm onSubmit={handleSubmit} />}
-            {step === 4 && <SuccesInfo/>}
+            {step === 3 && <InputPinForm onNext={handleNext}  />}
+            {step === 4 && <SuccesInfo onSubmit={handleSubmit}  />}
         </>
     );
 };

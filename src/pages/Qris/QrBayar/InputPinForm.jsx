@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button, Grid, Typography } from "@mui/material";
 import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
-import PinInput from "../../../assets/components/inputComponnet/PinInput";
+import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from "prop-types"
 
 export const InputPinForm = ({ onNext }) => {

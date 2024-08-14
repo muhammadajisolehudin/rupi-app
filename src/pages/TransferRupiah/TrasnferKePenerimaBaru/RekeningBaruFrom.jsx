@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import BcaIcon from "../../../assets/img/icons/bcaIcon.png";
 import PropTypes from 'prop-types';
 import { useAddDataRekening } from "../../../services/transfer-rupiah/add-rekening-baru";
+// import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 export const RekeningBaruForm = ({ onNext }) => {
 
@@ -17,11 +18,16 @@ export const RekeningBaruForm = ({ onNext }) => {
       account_number: Yup.string().required("Required"),
     }),
     onSubmit: async (values) => {
-
       try {
         console.log("Form Submitted", values);
-        await addRekening.mutateAsync(values);
-        onNext(values);
+        // await addRekening.mutateAsync(values);
+        const response = await addRekening.mutateAsync(values);
+
+        console.log("data ini : ",response.data.data)
+        // setFormData(response.data.data)
+        // Mengirimkan data respons ke langkah berikutnya
+        onNext(response.data.data);
+        // onNext(values);
       } catch (error) {
         console.error("Login failed, error:", error); 
       }   

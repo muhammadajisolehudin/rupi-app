@@ -2,30 +2,27 @@ import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
 import { useEffect } from "react";
-import PinInput from "../../../assets/components/inputComponnet/PinInput";
+import PinInput from "../../../assets/components/Inputs/PinInput";
 
-export const InputPinForm = () => {
+export const InputPinForm = ({ onNext }) => {
     const formik = useFormik({
         initialValues: {
             destination_id: "",
             amount: "",
             description: "",
             type: "TRANSFER",
-            pin: ["", "", "", "", "", ""],
+            pin: "",
             transaction_purpose: "",
         },
         validationSchema: Yup.object({
-            pin: Yup.array()
-                .of(
-                    Yup.string()
-                        .matches(/^[0-9]+$/, "Must be a digit")
-                        .length(1, "Must be 1 digit")
-                )
-                .required("PIN is required"),
+            pin: Yup.string()
+                .length(6, "PIN harus terdiri dari 6 digit")
+                .matches(/^\d+$/, "PIN harus berisi angka saja")
+                .required("PIN diperlukan"),
         }),
         onSubmit: async (values) => {
             console.log("Form Submitted", values);
-            // onNext(values);
+            onNext(values);
             // Call mutation function here if using useMutation
         },
     });
@@ -46,22 +43,6 @@ export const InputPinForm = () => {
     }, [formik]);
 
 
-
-
-    // const pinSchema = Yup.string()
-    //     .length(6, "PIN harus terdiri dari 6 digit")
-    //     .required("PIN diperlukan");
-
-    // const handleButtonClick = () => {
-    //     const pinValue = pin.join("");
-    //     try {
-    //         pinSchema.validateSync(pinValue);
-    //         setError("");
-    //         onSubmit({ pin: String(pinValue, 10) });
-    //     } catch (validationError) {
-    //         setError(validationError.message);
-    //     }
-    // };
 
     return (
 
@@ -86,6 +67,11 @@ export const InputPinForm = () => {
                             Masukkan PIN
                         </Typography>
                         <PinInput />
+                        {formik.touched.pin && formik.errors.pin && (
+                            <Typography color="error" sx={{ my: 2 }}>
+                                {formik.errors.pin}
+                            </Typography>
+                        )}
                         <Button
                             onClick={formik.handleSubmit}
                             fullWidth

@@ -2,22 +2,31 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ImgPenerima from "../../../assets/img/user-rectangle.png"
-import NominalInput from "../../../assets/components/inputComponnet/NominalInput";
-import { CardAccountInfo } from "../../../assets/components/cardComponents/CardAccountInfo";
+import NominalInput from "../../../assets/components/Inputs/NominalInput";
+import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from 'prop-types';
+import { useAuthContext } from "../../../context/AuthContext";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 
 export const InputNominalTransferForm = ({ onNext }) => {
-
+  const { account } = useAuthContext()
+  const { formData } = useTransferRupiahContext();
+  
+  console.log("lihat saja disini form data: ", formData)
+  console.log("lihat saja disini masku tidak : ", formData.destination_id)
   const formik = useFormik({
     initialValues: {
       //butuh satu endpoint get detination id by name
-      destination_id: "",
+      destination_id: formData.destination_id ,
+      fullname: formData.fullname,
+      account_number: formData.account_number,
       amount: "",
       description: "",
       type: "TRANSFER",
       pin: "",
       transaction_purpose: "OTHER",
+
     },
     validationSchema: Yup.object({
       amount: Yup.string().required("Required"),
@@ -64,10 +73,10 @@ export const InputNominalTransferForm = ({ onNext }) => {
             </Grid>
             <Grid item xs={11} sx={{ pl: 3 }}>
               <Typography sx={{ fontWeight: "bold" }}>
-                Nama Penerima
+                {formData.fullname}
               </Typography>
               <Typography variant="caption">
-                Nama Bank - No rekenig 12345678
+                Nama Bank - No rekenig {formData.account_number}
               </Typography>
             </Grid>
           </Grid>
@@ -75,8 +84,8 @@ export const InputNominalTransferForm = ({ onNext }) => {
         <Grid item xs={12}>
           <Typography>Sumber Rupiah</Typography>
           <CardAccountInfo
-            accountNumber={"5667 2323 1444 5554"}
-            balance={5000000}
+            accountNumber={account.account_number}
+            balance={account.balance}
           />
         </Grid>
         <Grid item xs={12}>

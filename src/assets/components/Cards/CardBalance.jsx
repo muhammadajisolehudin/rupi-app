@@ -1,15 +1,30 @@
 import { Box, Card, CardContent, Typography, Button } from "@mui/material";
-import buttonEnter from "../../../icons/button enter.png";
-import arrowDownIcon from "../../../icons/arrow down.png";
-import copyIcon from "../../../icons/copy.png";
-import showIcon from "../../../icons/show.png";
-import creditCardBlack from "../../../images/credit card black.png";
 
-export const CardBalance = () => {
+import buttonEnter from "../../img/icons/button enter.svg";
+import arrowDownIcon from "../../img/icons/arrow down.png";
+import copyIcon from "../../img/icons/copy.png";
+import showIcon from "../../img/icons/show.png";
+import creditCardBlack from "../../img/credit card black.png";
+
+const formatAccountNumber = (number) => {
+  // Menghapus karakter non-digit dari nomor rekening
+  const cleaned = ('' + number).replace(/\D/g, '');
+
+  // Membagi nomor rekening setiap 4 digit dan menyatukan dengan strip
+  const formatted = cleaned.replace(/(.{4})/g, '$1-').slice(0, -1);
+
+  return formatted;
+};
+
+export const CardBalance = ({ user }) => {
   const lightBlue = "#EDF4FF";
   const darkBlue = "#0A3967";
   const blue = "#0066AE";
   const neutral = "#FFF";
+
+  
+
+  const formattedAccountNumber = formatAccountNumber(user.account_number);
 
   return (
     <>
@@ -23,12 +38,16 @@ export const CardBalance = () => {
           marginBottom: "24px",
           borderRadius: "10px",
         }}
+        aria-label="Informasi saldo pengguna"
       >
         <Typography sx={{ color: darkBlue, fontSize: "20px", fontWeight: 700 }}>
           Info Saldo
         </Typography>
         <Box component="a" href="/saldo">
-          <Button sx={{ minWidth: "auto", padding: 0 }}>
+          <Button
+            sx={{ minWidth: "auto", padding: 0 }}
+            aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Saldo"
+          >
             <img src={buttonEnter} alt="" style={{ width: "28px" }} />
           </Button>
         </Box>
@@ -62,6 +81,7 @@ export const CardBalance = () => {
               justifyContent: "space-between",
               alignItems: "center",
             }}
+            aria-label="Informasi rekening pengguna dan tombol salin"
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography
@@ -73,7 +93,7 @@ export const CardBalance = () => {
                   marginRight: "8px",
                 }}
               >
-                Rekening 123-456-7890
+                Rekening 1{ formattedAccountNumber }
               </Typography>
               <img
                 src={arrowDownIcon}
@@ -81,8 +101,10 @@ export const CardBalance = () => {
                 style={{ width: "24px", height: "24px" }}
               />
             </Box>
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
-              {" "}
+            <Button
+              sx={{ minWidth: "auto", padding: 0 }}
+              aria-label="Tombol Salin, ini akan menyalin nomor rekening pengguna"
+            >
               <img src={copyIcon} alt="" style={{ width: "24px" }} />
             </Button>
           </Box>
@@ -93,6 +115,7 @@ export const CardBalance = () => {
               justifyContent: "space-between",
               alignItems: "center",
             }}
+            aria-label="Informasi saldo pengguna saat ini dan tombol tampilkan"
           >
             <Typography
               sx={{
@@ -101,10 +124,14 @@ export const CardBalance = () => {
                 fontWeight: 500,
                 marginBottom: 0,
               }}
+              aria-label="Saldo pengguna saat ini"
             >
-              IDR <span style={{ fontWeight: 700 }}>5.000.000</span>
+              IDR <span style={{ fontWeight: 700 }}>{ user.balance }</span>
             </Typography>
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
+            <Button
+              sx={{ minWidth: "auto", padding: 0 }}
+              aria-label="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
+            >
               <img
                 src={showIcon}
                 alt=""

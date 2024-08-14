@@ -1,32 +1,29 @@
-import { useEffect } from "react";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Button, Typography } from "@mui/material";
 import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
-import PinInput from "../../../assets/components/inputComponnet/PinInput";
+import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from 'prop-types';
 import { useAddTransaksiIntrabank } from "../../../services/transfer-rupiah/add-transaksi-intrabank";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 
 export const InputPinForm = ({ onNext }) => {
-
+  const { formData } = useTransferRupiahContext();
   const transaksiIntrabank = useAddTransaksiIntrabank();
 
   const formik = useFormik({
     initialValues: {
-      destination_id: onNext.destination_id,
-      amount: onNext.amount,
-      description: onNext.description,
-      type: onNext.type,
-      pin: ["", "", "", "", "", ""],
-      transaction_purpose: onNext.transaction_purpose,
+      destination_id: formData.destination_id,
+      amount: formData.amount,
+      description: formData.description,
+      type: formData.type,
+      pin: "",
+      transaction_purpose: formData.transaction_purpose,
     },
     validationSchema: Yup.object({
-      pin: Yup.array()
-        .of(
-          Yup.string()
-            .matches(/^[0-9]+$/, "Must be a digit")
-            .length(1, "Must be 1 digit")
-        )
-        .required("PIN is required"),
+      pin: Yup.string()
+        .length(6, "PIN harus terdiri dari 6 digit")
+        .matches(/^\d+$/, "PIN harus berisi angka saja")
+        .required("PIN diperlukan"),
     }),
     onSubmit: async (values) => {
       try {
@@ -34,66 +31,52 @@ export const InputPinForm = ({ onNext }) => {
         await transaksiIntrabank.mutateAsync(values);
         onNext(values);
       } catch (error) {
-        console.log("ini error nya :", error);
+        console.error("Error:", error);
       }
-     
-      
-      // Call mutation function here if using useMutation
     },
   });
 
-  useEffect(() => {
-    const handleKeyDown = (event) => {
-      const key = event.key;
-      if (key === "Enter") {
-        formik.handleSubmit();
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [formik]);
-
   return (
-
-      <FormikProvider value={formik}>
-        <Grid
-          container
-          sx={{
-            py: 8,
-            px: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 5,
-          }}
-        >
-          <Typography variant="h5" sx={{ fontWeight: 600 }}>
-            Masukkan PIN
+    <FormikProvider value={formik}>
+      <Grid
+        container
+        sx={{
+          py: 8,
+          px: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 5,
+        }}
+      >
+        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+          Masukkan PIN
+        </Typography>
+        <PinInput />
+        {formik.touched.pin && formik.errors.pin && (
+          <Typography color="error" sx={{ my: 2 }}>
+            {formik.errors.pin}
           </Typography>
-          <PinInput />
-          <Button
-            onClick={formik.handleSubmit}
-            fullWidth
-            sx={{
-              py: 1.5,
-              px: 18,
-              borderRadius: 3,
-              textTransform: "capitalize",
-              mt: 4,
-            }}
-            variant="contained"
-          >
-            Lanjutkan
-          </Button>
-        </Grid>
-      </FormikProvider>
+        )}
+        <Button
+          onClick={formik.handleSubmit}
+          fullWidth
+          sx={{
+            py: 1.5,
+            px: 18,
+            borderRadius: 3,
+            textTransform: "capitalize",
+            mt: 4,
+          }}
+          variant="contained"
+        >
+          Lanjutkan
+        </Button>
+      </Grid>
+    </FormikProvider>
   );
 };
 
 InputPinForm.propTypes = {
-  onNext: PropTypes.any,
+  onNext: PropTypes.func.isRequired,
 };

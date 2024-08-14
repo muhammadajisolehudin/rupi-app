@@ -1,6 +1,6 @@
 // TransferRupiahPage.js
 import { useState } from 'react';
-import { Box, Button, Card, Grid, Typography } from "@mui/material";
+import { Box, Button, Card, Grid } from "@mui/material";
 import { Layout } from "../layout";
 import QrisIcon from "../../assets/img/icons/QRIS-Icon.svg"
 import ImgPlaceHolder from "../../assets/img/icons/Image placeholder 1.svg"
@@ -9,8 +9,10 @@ import IconScan from "../../assets/img/icons/scan-netral.svg"
 import IconScanPrimary from "../../assets/img/icons/scan-primary.svg"
 import IconQrCode from "../../assets/img/icons/qr-code-netral.svg"
 import IconQrCodePrimary from "../../assets/img/icons/qr-code-primary.svg"
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
-import BreadcrumbsComponent from '../../assets/components/breadCrumbs/Breadcrumbs';
+
+// import Breadcrumb from '../../assets/components/breadCrumbs/Breadcrumbs';
 
 export const QrisPage = () => {
 
@@ -19,7 +21,7 @@ export const QrisPage = () => {
     return (
         <Layout>
             <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <Box sx={{ display: "flex", mt: 10, gap: 5, flexDirection: "column" }}>
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                         <img src={QrisIcon} height={60} />

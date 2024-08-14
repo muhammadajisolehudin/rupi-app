@@ -5,7 +5,7 @@ const formatBreadcrumbText = (text) => {
   return text.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 };
 
-const BreadcrumbsComponent = () => {
+export const Breadcrumb = () => {
   const location = useLocation();
 
   const getPathNames = () => {
@@ -32,7 +32,7 @@ const BreadcrumbsComponent = () => {
         >
           <Link
             component={RouterLink}
-            to="/"
+            to="/beranda"
             sx={{
               color: "#B3B3B3",
               fontWeight: "bold",
@@ -74,4 +74,4 @@ const BreadcrumbsComponent = () => {
   );
 };
 
-export default BreadcrumbsComponent;
+// export default BreadcrumbsComponent;

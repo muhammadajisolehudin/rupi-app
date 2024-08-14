@@ -1,12 +1,12 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
-import BreadcrumbsComponent from '../../../assets/components/breadCrumbs/Breadcrumbs';
 import { useTransferRupiahContext } from '../../../context/TransferRupiahContext';
-import { BreadcrumbsQrBayar } from '../../../assets/components/breadCrumbs/BreadCrumbsQrBayar';
+import { BreadcrumbsQrBayar } from '../../../assets/components/Breadcrumbs/BreadCrumbsQrBayar';
 import { InputNominalBayarForm } from './InputNominalBayarForm';
 import { KonfirmasiBayarForm } from './KonfirmasiBayarForm';
 import { InputPinForm } from './InputPinForm';
 import { SuccesInfoBayar } from './SuccesInfoBayar';
+import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
 
 const QrBayar = () => {
     const { step, handleNext, handleSubmit } = useTransferRupiahContext();
@@ -14,7 +14,7 @@ const QrBayar = () => {
     return (
         <Layout>
             <Box sx={{ px: 6, paddingTop: '1.5rem', paddingBottom: '2rem' }}>
-                <BreadcrumbsComponent />
+                <Breadcrumb />
                 <Card sx={{ mt: 6, mb: 4 }}>
                     <BreadcrumbsQrBayar />
                     <Container>

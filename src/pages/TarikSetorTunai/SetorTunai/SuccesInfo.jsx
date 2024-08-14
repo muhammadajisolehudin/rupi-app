@@ -2,7 +2,7 @@ import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
 
-export const SuccesInfo= () => {
+export const SuccesInfo = () => {
     return (
         <>
             <Box
@@ -16,23 +16,27 @@ export const SuccesInfo= () => {
             >
                 <img
                     src={checklistIcon}
-                    alt="checklist icon"
+                    alt="Icon Checklist"
                     style={{ margin: "10px", width: "136px", height: "136px" }}
                 />
                 <Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
-                    Uang Siap Ditarik
+                    Uang Siap Disetor
                 </Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }} aria-live="polite" aria-label="Tanggal dan waktu transaksi">
+                    12 Jul 2024 . 11:35 WIB
+                </Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }} aria-live="polite" aria-label="Nomor referensi">
+                    No. Ref 12736192837636
+                </Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
-                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
+                            <Typography sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                Rp 100.000
+                                ATM BCA
                             </Typography>
                         </Box>
 
@@ -48,7 +52,7 @@ export const SuccesInfo= () => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            my: 1,
+                            my: 2,
                         }}
                     >
                         <Box
@@ -61,9 +65,9 @@ export const SuccesInfo= () => {
                                 width: "415px",
                             }}
                         >
-                            <Typography>Kode Penarikan</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-                                654888
+                            <Typography>Kode Penyetoran</Typography>
+                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
+                                222488
                             </Typography>
                         </Box>
                     </Box>
@@ -73,16 +77,41 @@ export const SuccesInfo= () => {
                             alignItems: "center",
                             justifyContent: "center",
                             mt: 2,
+                            color: "#B3B3B3",
+                        }}
+                    >
+                        <Typography>Rekening Tujuan</Typography>
+                    </Box>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            mt: 1,
+                            color: "#0A3967",
+                            gap: 1,
+                        }}
+                    >
+                    </Box>
+                    <Typography>Rekening Tujuan</Typography>
+                    <Typography>Nama - No rekening 12345</Typography>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            mt: 2,
                             color: "#0066AE",
                         }}
                     >
-                        <ShareIcon />
+                        <ShareIcon aria-label="Share code icon" />
                         <Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
                     </Box>
+                    
                 </Card>
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5, px:10 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
                 <Button
                     onClick=""
                     fullWidth
@@ -93,7 +122,7 @@ export const SuccesInfo= () => {
                         textTransform: "capitalize",
                         mt: 4,
                     }}
-                    aria-label="button make new token"
+                    aria-label="tombol buat token baru"
                     variant="contained"
                 >
                     Buat Token Baru

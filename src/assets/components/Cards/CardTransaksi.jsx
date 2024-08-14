@@ -5,32 +5,33 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import StarRoundedIcon from '@mui/icons-material/StarRounded';
+import profileIcon from '../../img/icons/placeholder-profile.png';
 
-export const CardTransaksi = ({ cardData, handleToggleFavorite }) => {
+export const CardTransaksi = ({ data, handleToggleFavorite }) => {
     return (
         <Box sx={{ minWidth: 275 }}>
-            {cardData.map(card => (
+            {data?.map(card => (
                 <Card key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }}>
                     <CardContent sx={{ backgroundColor: "white", padding: 1, paddingBottom: '8px !important' }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginX: "3rem" }}>
                             <Box sx={{ display: "flex", gap: 4, width: "100%", alignItems: "center" }}>
                                 <img 
-                                    src={card.image} 
-                                    alt={card.name}
+                                    src={profileIcon} 
+                                    alt={card.fullname}
                                     style={{ height: 40 }} 
                                 />
                                 <Box>
-                                    <Typography>{card.name}</Typography>
-                                    <Typography variant="caption">{card.noRekening}</Typography>
+                                    <Typography>{card.fullname}</Typography>
+                                    <Typography variant="caption">{card.account_number}</Typography>
                                 </Box>
                             </Box>
-                            <StarRoundedIcon 
-                                fontSize='large' 
-                                sx={{ 
-                                    color: card.favorite ? '#FFB831' : '#B3B3B3', 
-                                    cursor: "pointer" 
-                                }} 
-                                onClick={() => handleToggleFavorite(card.id)}
+                            <StarRoundedIcon
+                                fontSize='large'
+                                sx={{
+                                    color: card.favorites ? '#FFB831' : '#B3B3B3', // Pastikan penggunaan `card.favorite`
+                                    cursor: "pointer"
+                                }}
+                                onClick={() => handleToggleFavorite(card.id, card.favorites)} // Menambahkan `card.favorite`
                             />
                         </Box>
                     </CardContent>
@@ -41,6 +42,6 @@ export const CardTransaksi = ({ cardData, handleToggleFavorite }) => {
 };
 
 CardTransaksi.propTypes = {
-    cardData: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
     handleToggleFavorite: PropTypes.func.isRequired
 };
