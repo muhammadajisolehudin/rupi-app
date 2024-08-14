@@ -43,10 +43,9 @@ export const LoginPage = () => {
         navigate("/verify");
       } catch (error) {
         console.error("Login failed, error:", error);
-        
       }
-    },
-  });
+    }
+  })
 
   return (
     <AuthLayout>
@@ -58,7 +57,7 @@ export const LoginPage = () => {
           justifyContent: "center",
           flexDirection: "column",
           my: "auto",
-          py: 5, 
+          py: 5,
           px: 4,
         }}
       >
@@ -148,7 +147,7 @@ export const LoginPage = () => {
             }}
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography id="password-error" variant="body2" sx={{color: "red" }}>
+            <Typography id="password-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
@@ -159,7 +158,7 @@ export const LoginPage = () => {
                 style={{ textDecoration: "none" }}
                 role="button"
                 aria-label="Button Lupa Username atau Password">
-                Lupa Username/Password? 
+                Lupa Username/Password?
               </Link>
             </Grid>
           </Grid>
@@ -184,5 +183,4 @@ export const LoginPage = () => {
     </AuthLayout>
   );
 };
-
 
