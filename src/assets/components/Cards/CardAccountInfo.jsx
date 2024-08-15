@@ -3,6 +3,8 @@ import { Grid, Typography } from "@mui/material";
 import { PropTypes } from "prop-types";
 
 export const CardAccountInfo = ({ accountNumber, balance }) => {
+	const formatedAccountNumber = accountNumber ? accountNumber.replace(/(\d{4})(?=\d)/g, "$1 ") : "";
+	const formatedBalance = balance ? balance.replace(/Rp|\,00/g, "").replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1 ") : "";
 	return (
 		<Grid
 			container
@@ -15,7 +17,7 @@ export const CardAccountInfo = ({ accountNumber, balance }) => {
 				py: 2,
 				mt: 2,
 			}}
-			// spacing={2}
+		// spacing={2}
 		>
 			<Grid
 				//   item
@@ -27,21 +29,25 @@ export const CardAccountInfo = ({ accountNumber, balance }) => {
 					alignItems: "flex-end", // Horizontal kanan
 				}}
 			>
-				<Typography variant="caption" id="my-no-rekening">
+				<Typography variant="caption" id="my-no-rekening" sx={{
+					color: "grey"
+				}}>
 					No. Rekening{" "}
 				</Typography>
-				<Typography variant="caption" id="my-saldo">
+				<Typography variant="caption" id="my-no-rekening" sx={{
+					color: "grey"
+				}}>
 					{" "}
 					Saldo{" "}
 				</Typography>
 			</Grid>
 			<Grid xs={10}>
 				<Typography variant="body2" aria-labelledby="my-no-rekening">
-					{accountNumber}
+					{formatedAccountNumber}
 				</Typography>
 				<Typography variant="body2" aria-labelledby="my-saldo">
-					{" "}
-					{balance}{" "}
+					Rp{" "}
+					{formatedBalance}{" "}
 				</Typography>
 			</Grid>
 		</Grid>

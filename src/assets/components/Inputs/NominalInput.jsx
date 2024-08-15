@@ -11,10 +11,12 @@ const NominalInput = ({ text, value, onChange, onBlur }) => {
 				py: 2,
 			}}
 		>
-			<Typography variant="caption">{text}</Typography>
-			<Box display="flex">
-				<Typography variant="caption" sx={{ mt: 2 }}>
-					Rp.
+			<Typography variant="caption" sx={{ fontSize: "18px" }}>{text}</Typography>
+			<Box display="flex" sx={{
+				alignItems: "center",
+			}}>
+				<Typography variant="caption" sx={{fontSize: "18px" }}>
+					Rp
 				</Typography>
 				<TextField
 					id="amount"
@@ -24,7 +26,7 @@ const NominalInput = ({ text, value, onChange, onBlur }) => {
 					onChange={onChange}
 					value={value}
 					onBlur={onBlur}
-					autoFocus
+					placeholder="0"
 					sx={{
 						height: "3rem",
 						pl: 0,
@@ -37,11 +39,11 @@ const NominalInput = ({ text, value, onChange, onBlur }) => {
 					InputProps={{
 						style: {
 							height: "3rem",
-							fontSize: "18px",
+							fontSize: "24px",
 							ml: 0,
 							pl: 0,
-							color: "#B3B3B3",
 						},
+						onWheel: (e) => e.target.blur(),
 					}}
 					aria-label="Input Nominal"
 				></TextField>
