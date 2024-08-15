@@ -2,6 +2,7 @@ import BreadcrumbSecondary from '../../assets/components/Breadcrumbs/BreadcrumbS
 import { useEffect, useState } from 'react';
 import {
   Box,
+  Button,
   ButtonBase,
   Container,
   Grid,
@@ -32,11 +33,12 @@ import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/uti
 import FailAlert from '../../assets/components/Alerts/FailAlert';
 import { useTransferRupiahContext } from '../../context/TransferRupiahContext';
 import { LayoutSecondary } from '../layoutSecondary';
-import Footer from '../../assets/components/layoutsComponents/Footer';
 export const InfoSaldoPage = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({
+    modalInfoSaldo: false,
+    modalBuktiTransfer: false,
+  });
   const [selectedTransaction, setSelectedTransaction] = useState([]);
-  const [title, setTitle] = useState('');
   const [activeSection, setActiveSection] = useState('Pemasukan');
   const [type, setType] = useState('debit');
   const [icon, setIcon] = useState('');
@@ -53,16 +55,20 @@ export const InfoSaldoPage = () => {
     setOptions({ month: selectedMonth.month, year: selectedMonth.year });
   }, [selectedMonth]); // Dependensi diperbaiki di sini
 
-  const handleOpen = (transactionData, title, type, icon) => {
+  const handleOpenInfoSaldo = (transactionData, infoSaldo) => {
     setSelectedTransaction(transactionData);
-    setTitle(title);
-    setType(type);
-    setOpen(true);
-    setIcon(icon);
+    setOpen({
+      modalInfoSaldo: true,
+      modalBuktiTransfer: false,
+    });
+    setInfoSaldo(infoSaldo);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseInfoSaldo = () => {
+    setOpen({
+      modalInfoSaldo: false,
+      modalBuktiTransfer: false,
+    });
     setSelectedTransaction([]);
   };
 
@@ -89,6 +95,27 @@ export const InfoSaldoPage = () => {
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
+
+  const dataTable = [
+    {
+      id: 1,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
+    {
+      id: 2,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
+    {
+      id: 3,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
+  ];
 
   return (
     <LayoutSecondary>
@@ -424,5 +451,3 @@ export const InfoSaldoPage = () => {
 
   );
 };
-
-// export default InfoSaldoPage;

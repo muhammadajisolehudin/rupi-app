@@ -1,13 +1,12 @@
-
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { LoginPage } from '../pages/auth/LoginPage';
 import { VerifyOtpPage } from '../pages/auth/VerifyOtpPage';
 import { SetPinPage } from '../pages/auth/SetPinPage';
 import { SetPasswordPage } from '../pages/auth/SetPasswordPage';
 import { KonfirmasiPinPage } from '../pages/auth/KonfirmasiPinPage';
 import { ProtectedUser } from '../assets/components/Protected/protected';
-import { BerandaPage } from "../pages/BerandaPage";
-import { TransferRupiahPage } from "../pages/TransferRupiah/TransferRupiahPage";
+import { BerandaPage } from '../pages/BerandaPage';
+import { TransferRupiahPage } from '../pages/TransferRupiah/TransferRupiahPage';
 import { QRTerimaTransfer } from '../pages/QrTerimaTransfer/QRTerimaTransfer';
 import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPage";
 import { TransferRupiahProvider } from '../context/TransferRupiahContext';
@@ -20,8 +19,7 @@ import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccoun
 import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
 import { PengaturanPage } from '../pages/Pengaturan';
 import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
-
-
+import { MutasiPage } from '../pages/Mutasi/MutasiPage';
 
 export const RouteList = () => {
   // const navigate = useNavigate()
@@ -29,6 +27,7 @@ export const RouteList = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
+          <Route path="/mutasi" element={<MutasiPage />} />
           <Route
             path="/*"
             element={
@@ -39,7 +38,10 @@ export const RouteList = () => {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/verify" element={<VerifyOtpPage />} />
                     <Route path="/set-pin" element={<SetPinPage />} />
-                    <Route path="/konfirm-pin" element={<KonfirmasiPinPage />} />
+                    <Route
+                      path="/konfirm-pin"
+                      element={<KonfirmasiPinPage />}
+                    />
                     <Route path="/set-password" element={<SetPasswordPage />} />
                     <Route
                       path="/*"
@@ -77,7 +79,4 @@ export const RouteList = () => {
       </AuthProvider>
     </BrowserRouter>
   );
-
 };
-
-

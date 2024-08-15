@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Table,
@@ -9,7 +8,6 @@ import {
   TableRow,
   Paper,
   Typography,
-  Button,
 } from '@mui/material';
 
 // Import ikon
@@ -93,14 +91,7 @@ const TablePrimary = ({ title, rows, data, actions }) => {
 TablePrimary.propTypes = {
   title: PropTypes.string.isRequired,
   rows: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      icon: PropTypes.node.isRequired,
-      handler: PropTypes.func.isRequired,
-    })
-  ),
+  children: PropTypes.node.isRequired,
 };
 
 export default TablePrimary;
