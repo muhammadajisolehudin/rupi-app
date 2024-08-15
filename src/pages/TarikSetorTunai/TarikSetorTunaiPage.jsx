@@ -6,6 +6,7 @@ import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
 import { Layout } from "../layout";
 import { TarikTunai } from "./TarikTunai";
 import { SetorTunai } from "./SetorTunai";
+import { RiwayatTransaksiToken } from "./RiwayatTransaksiToken";
 
 export const TarikSetorTunaiPage = () => {
   const [currentView, setCurrentView] = useState("tarik");
@@ -25,7 +26,11 @@ export const TarikSetorTunaiPage = () => {
         </>
       );
     } else if (currentView === "token") {
-      return console.log("token");
+      return (
+        <>
+          <RiwayatTransaksiToken />
+        </>
+      );
     }
   };
 
