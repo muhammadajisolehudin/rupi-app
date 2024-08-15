@@ -3,11 +3,14 @@ import NavbarSecondary from '../../assets/components/layoutsComponents/navbarSec
 import React, { useState } from 'react';
 import {
   Box,
+  Button,
   ButtonBase,
   Container,
   CssBaseline,
   Grid,
   IconButton,
+  TableCell,
+  TableRow,
   Typography,
 } from '@mui/material';
 import CardSaldo from '../../assets/components/Cards/CardSaldo';
@@ -33,25 +36,71 @@ import CreditCardIcon from '@mui/icons-material/CreditCard';
 import QrCodeIcon from '@mui/icons-material/QrCode';
 import WalletIcon from '@mui/icons-material/Wallet';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import ModalBuktiTransfer from '../../assets/components/Modals/ModalBuktiTransfer';
 export const InfoSaldoPage = () => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState({
+    modalInfoSaldo: false,
+    modalBuktiTransfer: false,
+  });
   const [selectedTransaction, setSelectedTransaction] = useState([]);
-  const [title, setTitle] = useState('');
   const [activeSection, setActiveSection] = useState('Pemasukan');
-  const [type, setType] = useState('debit');
-  const [icon, setIcon] = useState('');
+  const [transferData, setTransferData] = useState({
+    recipientName: 'John Doe',
+    bankName: 'Bank ABC',
+    accountNumber: '1234567890',
+    transferAmount: 'Rp 1.000.000',
+    transferMethod: 'Online Banking',
+    transferFee: 'Rp 5.000',
+    totalTransaction: 'Rp 1.005.000',
+    senderName: 'SAMSUL',
+    senderBankName: 'Bank XYZ',
+    senderAccountSuffix: '7890',
+  });
+  const [infoSaldo, setInfoSaldo] = useState({
+    title: '',
+    type: '',
+    icon: '',
+  });
 
-  const handleOpen = (transactionData, title, type, icon) => {
+  const handleOpenInfoSaldo = (transactionData, infoSaldo) => {
     setSelectedTransaction(transactionData);
-    setTitle(title);
-    setType(type);
-    setOpen(true);
-    setIcon(icon);
+    setOpen({
+      modalInfoSaldo: true,
+      modalBuktiTransfer: false,
+    });
+    setInfoSaldo(infoSaldo);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseInfoSaldo = () => {
+    setOpen({
+      modalInfoSaldo: false,
+      modalBuktiTransfer: false,
+    });
     setSelectedTransaction([]);
+  };
+
+  const handleOpenBuktiTransfer = (buktiTransfer) => {
+    setOpen({
+      modalInfoSaldo: false,
+      modalBuktiTransfer: true,
+    });
+
+    setTransferData(buktiTransfer);
+  };
+
+  const handleCloseBuktiTransfer = () => {
+    setOpen({
+      modalInfoSaldo: false,
+      modalBuktiTransfer: false,
+    });
+  };
+
+  const handleShare = () => {
+    console.log('Share');
+  };
+
+  const handleDownload = () => {
+    console.log('Download');
   };
 
   const dataTransfer = [
@@ -187,6 +236,27 @@ export const InfoSaldoPage = () => {
     { value: 8, label: 'E', color: '#ca3a31' },
     { value: 12, label: 'F', color: '#0a3967' },
     { value: 6, label: 'G', color: '#926001' },
+  ];
+
+  const dataTable = [
+    {
+      id: 1,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
+    {
+      id: 2,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
+    {
+      id: 3,
+      tanggal: '12 Juli 2024',
+      keterangan: 'Transfer dari BCA ke BNI',
+      nominal: 'Rp 1.000.000',
+    },
   ];
 
   return (
@@ -353,12 +423,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataTransfer,
-                              'Transfer',
-                              'credit',
-                              <WalletIcon />
-                            )
+                            handleOpenInfoSaldo(dataTransfer, {
+                              title: 'Transfer',
+                              type: 'credit',
+                              icon: <WalletIcon />,
+                            })
                           }
                         />
                         <TransactionBox
@@ -367,12 +436,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataPembayaran,
-                              'Pembayaran',
-                              'credit',
-                              <QrCodeIcon />
-                            )
+                            handleOpenInfoSaldo(dataPembayaran, {
+                              title: 'Pembayaran',
+                              type: 'credit',
+                              icon: <QrCodeIcon />,
+                            })
                           }
                         />
                         <TransactionBox
@@ -381,12 +449,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataSetorTunai,
-                              'Setor Tunai',
-                              'credit',
-                              <CreditCardIcon />
-                            )
+                            handleOpenInfoSaldo(dataSetorTunai, {
+                              title: 'Setor Tunai',
+                              type: 'credit',
+                              icon: <CreditCardIcon />,
+                            })
                           }
                         />
                       </>
@@ -398,12 +465,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataTransfer,
-                              'Transfer Pengeluaran',
-                              'debit',
-                              <WalletIcon />
-                            )
+                            handleOpenInfoSaldo(dataTransfer, {
+                              title: 'Transfer',
+                              type: 'debit',
+                              icon: <WalletIcon />,
+                            })
                           }
                         />
                         <TransactionBox
@@ -412,12 +478,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataPembayaran,
-                              'QRIS Pembayaran',
-                              'debit',
-                              <QrCode2Icon />
-                            )
+                            handleOpenInfoSaldo(dataPembayaran, {
+                              title: 'QRIS',
+                              type: 'debit',
+                              icon: <QrCode2Icon />,
+                            })
                           }
                         />
                         <TransactionBox
@@ -426,12 +491,11 @@ export const InfoSaldoPage = () => {
                           amount="Rp 1.000.000"
                           amountDetail="Detail"
                           onClick={() =>
-                            handleOpen(
-                              dataSetorTunai,
-                              'Tarik Tunai',
-                              'debit',
-                              <CreditCardIcon />
-                            )
+                            handleOpenInfoSaldo(dataSetorTunai, {
+                              title: 'Tarik Tunai',
+                              type: 'debit',
+                              icon: <CreditCardIcon />,
+                            })
                           }
                         />
                       </>
@@ -481,58 +545,91 @@ export const InfoSaldoPage = () => {
               >
                 <TablePrimary
                   title="Aktivitas Terakhir"
-                  rows={['Tanggal', 'Keterangan', 'Nominal']}
-                  data={[
-                    {
-                      Tanggal: '12 Juli 2024',
-                      Keterangan: 'Transfer',
-                      Nominal: 'Rp 1.000.000',
-                    },
-                    {
-                      Tanggal: '12 Juli 2024',
-                      Keterangan: 'Pembayaran',
-                      Nominal: 'Rp 1.000.000',
-                    },
-                    {
-                      Tanggal: '12 Juli 2024',
-                      Keterangan: 'Setor Tunai',
-                      Nominal: 'Rp 1.000.000',
-                    },
-                  ]}
-                  actions={[
-                    {
-                      handler: () => {},
-                      label: 'Lihat Bukti',
-                      icon: <ReceiptIcon />,
-                    },
-                    {
-                      handler: () => {},
-                      label: 'Bagikan Resi',
-                      icon: <ShareIcon />,
-                    },
-                    {
-                      handler: () => {},
-                      label: 'Unduh Resi',
-                      icon: <DownloadIcon />,
-                    },
-                  ]}
-                />
+                  rows={['Tanggal', 'Keterangan', 'Nominal', 'Aksi']}
+                >
+                  {dataTable.map((data) => (
+                    <TableRow key={data.id}>
+                      <TableCell>{data.tanggal}</TableCell>
+                      <TableCell>{data.keterangan}</TableCell>
+                      <TableCell>{data.nominal}</TableCell>
+                      <TableCell>
+                        <Button
+                          key={data.id}
+                          variant="outlined"
+                          startIcon={<ReceiptIcon />}
+                          onClick={() => {
+                            handleOpenBuktiTransfer({
+                              recipientName: 'John Doe',
+                              bankName: 'Bank ABC',
+                              accountNumber: '1234567890',
+                              transferAmount: 'Rp 1.000.000',
+                              transferMethod: 'Online Banking',
+                              transferFee: 'Rp 5.000',
+                              totalTransaction: 'Rp 1.005.000',
+                              senderName: 'SAMSUL',
+                              senderBankName: 'Bank XYZ',
+                              senderAccountSuffix: '7890',
+                            });
+                          }}
+                          style={{ margin: '0 4px' }}
+                        >
+                          Lihat Bukti
+                        </Button>
+                        <Button
+                          key={data.id}
+                          variant="outlined"
+                          startIcon={<DownloadIcon />}
+                          onClick={() => {}}
+                          style={{ margin: '0 4px' }}
+                        >
+                          Download
+                        </Button>
+                        <Button
+                          key={data.id}
+                          variant="outlined"
+                          startIcon={<ShareIcon />}
+                          onClick={() => {}}
+                          style={{ margin: '0 4px' }}
+                        >
+                          Bagikan
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TablePrimary>
               </Box>
             </Box>
           </Container>
           <ModalInfoSaldo
-            open={open}
-            onClose={handleClose}
+            open={open.modalInfoSaldo}
+            onClose={handleCloseInfoSaldo}
             transactions={selectedTransaction}
-            title={title}
-            type={type}
-            icon={icon}
+            title={infoSaldo.title}
+            type={infoSaldo.type}
+            icon={infoSaldo.icon}
           />
+          <ModalBuktiTransfer
+            open={open.modalBuktiTransfer}
+            onClose={handleCloseBuktiTransfer}
+            appName={transferData.appName}
+            status={transferData.status}
+            recipientName={transferData.recipientName}
+            bankName={transferData.bankName}
+            accountNumber={transferData.accountNumber}
+            transferAmount={transferData.transferAmount}
+            transferMethod={transferData.transferMethod}
+            transferFee={transferData.transferFee}
+            totalTransaction={transferData.totalTransaction}
+            senderName={transferData.senderName}
+            senderBankName={transferData.senderBankName}
+            senderAccountSuffix={transferData.senderAccountSuffix}
+            onShare={handleShare}
+            onDownload={handleDownload}
+          />
+
           <Footer />
         </Grid>
       </CssBaseline>
     </React.Fragment>
   );
 };
-
-// export default InfoSaldoPage;
