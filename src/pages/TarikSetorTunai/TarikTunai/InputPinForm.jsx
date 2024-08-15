@@ -1,17 +1,20 @@
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import * as Yup from "yup";
+
 import PinInput from "../../../assets/components/Inputs/PinInput";
 
-export const InputPinForm = ({ onNext }) => {
+import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
+
+export const InputPinForm = ({ formData, onNext }) => {
+    const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();
+
+    console.log("formData in InputPinForm: ", formData);
+
     const formik = useFormik({
         initialValues: {
-            destination_id: "",
-            amount: "",
-            description: "",
-            type: "TRANSFER",
+            amount: formData.amount,
             pin: "",
-            transaction_purpose: "",
         },
         validationSchema: Yup.object({
             pin: Yup.string()
@@ -21,20 +24,39 @@ export const InputPinForm = ({ onNext }) => {
         }),
         onSubmit: async (values) => {
             console.log("Form Submitted", values);
-            onNext(values);
-            // Call mutation function here if using useMutation
+            try {
+                generateToken(
+                    {
+                        amount: values.amount,
+                        type: "WITHDRAW",
+                        pin: values.pin,
+                    },
+                    {
+                        onSuccess: (response) => {
+                            const token = response.data.data.code;
+                            const expiredAt = response.data.data.expired_at;
+                            const amount = response.data.data.amount;
+                            console.log("Token, ExpiredAt, Amount: ", token, expiredAt, amount);
+                            onNext({ tokenResponse: { token, expiredAt, amount } });
+                            console.log("Token generated successfully: ", response);
+                        },
+                        onError: (err) => {
+                            console.error("Error generating token:", err);
+                        },
+                    }
+                );
+            } catch (err) {
+                console.error("Error in onSubmit:", err);
+            }
         },
     });
 
-    
-
     return (
-
         <Container>
             <Grid container spacing={5} sx={{
-                    py: 6,
-                    px: 4,
-                }}>
+                py: 6,
+                px: 4,
+            }}>
                 <FormikProvider value={formik}>
                     <Grid
                         container
@@ -56,6 +78,11 @@ export const InputPinForm = ({ onNext }) => {
                                 {formik.errors.pin}
                             </Typography>
                         )}
+                        {error && (
+                            <Typography color="error" sx={{ my: 2 }}>
+                                {error.message}
+                            </Typography>
+                        )}
                         <Button
                             onClick={formik.handleSubmit}
                             fullWidth
@@ -67,6 +94,8 @@ export const InputPinForm = ({ onNext }) => {
                                 mt: 4,
                             }}
                             variant="contained"
+                            aria-label="submit pin"
+                            disabled={isLoading}
                         >
                             Lanjutkan
                         </Button>
@@ -74,8 +103,5 @@ export const InputPinForm = ({ onNext }) => {
                 </FormikProvider>
             </Grid>
         </Container>
-            // <form onSubmit={formik.handleSubmit}>
-                
-
     );
 };
