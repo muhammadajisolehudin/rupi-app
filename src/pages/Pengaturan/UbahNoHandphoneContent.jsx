@@ -1,25 +1,39 @@
 import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useGetUserProfile } from "../../services/user/get-user-profile";
+import { useState } from "react";
+import { ModalOtp } from "../../assets/components/Modals/ModalOtp";
+import { useChangeUserPhone } from "../../services/user/change-user-phone";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 
 export const UbahNoHandphoneContent = () => {
+	const { data: dataProfile } = useGetUserProfile() 
+	const [modalOpen, setModalOpen] = useState(false);
+	const {mutate:mutateChangePhone, isError, error, isSuccess }= useChangeUserPhone()
+	
+
 	const formik = useFormik({
 		initialValues: {
-			nomorLama: "081273823766",
-			nomorBaru: "",
+			phone: "",
 		},
 		validationSchema: Yup.object({
-			nomorBaru: Yup.number()
+			phone: Yup.number()
 				.required("No Handphone Baru Diperlukan")
 				.notOneOf(
-					[Yup.ref("nomorLama")],
+					[Yup.ref(dataProfile?.phone)],
 					"No Handphone Baru tidak boleh sama dengan No Handphone Saat Ini"
 				),
 		}),
 		onSubmit: async (values) => {
-			const updatedValues = {};
-			updatedValues.nomorBaru = values.nomorBaru;
-			console.log("submitted ", updatedValues);
+			try {
+				await mutateChangePhone.mutateAsync(values)
+				setModalOpen(true);
+			} catch (error) {
+				return error
+			}
+			
 		},
 	});
 
@@ -27,6 +41,21 @@ export const UbahNoHandphoneContent = () => {
 	const handleReset = () => {
 		formik.resetForm({ values: formik.initialValues });
 	};
+
+	const handleCloseModal = () => {
+		setModalOpen(false);
+	};
+
+	const handleOtpVerified = async (values) => {
+		console.log("OTP verified successfully");
+		// try {
+			
+		// } catch (error) {
+		// 	return error
+		// }
+		
+	};
+
 
 	return (
 		<Container>
@@ -38,38 +67,38 @@ export const UbahNoHandphoneContent = () => {
 				<form onSubmit={formik.handleSubmit}>
 					<Grid item xs={12} sx={{ my: 4 }}>
 						<Box sx={{ display: "flex", alignItems: "center" }}>
-							<Typography id="nomorLama" variant="body1" sx={{ width: "230px", mr: 2, fontSize: "15px" }}>
+							<Typography id="" variant="body1" sx={{ width: "230px", mr: 2, fontSize: "15px" }}>
 								No. Handphone Saat Ini
 							</Typography>
 							<TextField
 								type="text"
 								sx={{ bgcolor: "#EFEFEF" }}
-								value={formik.values.nomorLama}
+								value={dataProfile?.phone}
 								fullWidth
 								disabled
-								aria-labelledby="nomorLama"
+								aria-labelledby=""
 							></TextField>
 						</Box>
 					</Grid>
 					<Grid item xs={12} sx={{ my: 4 }}>
 						<Box sx={{ display: "flex", alignItems: "center" }}>
-							<Typography id="nomorBaru" variant="body1" sx={{ width: "230px", mr: 2, fontSize: "15px" }}>
+							<Typography id="phone" variant="body1" sx={{ width: "230px", mr: 2, fontSize: "15px" }}>
 								No. Handphone Baru
 							</Typography>
 							<TextField
 								type="text"
 								placeholder="Masukkan Nomor Baru Anda"
 								fullWidth
-								name="nomorBaru"
-								value={formik.values.nomorBaru}
+								name="phone"
+								value={formik.values.phone}
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
-								error={formik.touched.nomorBaru && Boolean(formik.errors.nomorBaru)}
-								helperText={formik.touched.nomorBaru && formik.errors.nomorBaru}
-								aria-labelledby="nomorBaru"
-								aria-describedby="nomorBaru-helper-text"
+								error={formik.touched.phone && Boolean(formik.errors.phone)}
+								helperText={formik.touched.phone && formik.errors.phone}
+								aria-labelledby="phone"
+								aria-describedby="phone-helper-text"
 								FormHelperTextProps={{
-									id: "nomorBaru-helper-text",
+									id: "phone-helper-text",
 								}}
 							></TextField>
 						</Box>
@@ -106,6 +135,17 @@ export const UbahNoHandphoneContent = () => {
 					</Box>
 				</form>
 			</Box>
+			<ModalOtp
+				open={modalOpen}
+				onClose={handleCloseModal}
+				onOtpVerified={handleOtpVerified(formik.values)}
+			/>
+			{isError && (
+				<FailAlert message={error?.response?.data?.message || error?.message} title="Verifikasi Pin Gagal" />
+			)}
+			{isSuccess && (
+				<SuccesAlert message="silahkan masukan pin baru" title="Ferivikasi Berhasil" />
+			)}
 		</Container>
 	);
 };

@@ -11,16 +11,16 @@ const PinKonfirmasi = () => {
 
 		if (/^\d?$/.test(value)) {
 			// Convert the PIN string to an array to update specific digit
-			const newPinArray = values.pinKonfirmasi.split("");
+			const newPinArray = values.confirmPin.split("");
 			newPinArray[index] = value;
 
 			// Join array to form a new PIN string
 			const newPinString = newPinArray.join("");
-			setFieldValue("pinKonfirmasi", newPinString);
+			setFieldValue("confirmPin", newPinString);
 
 			// Focus on the next input field if needed
 			if (value && index < 5) {
-				document.getElementById(`pinKonfirmasi-input-${index + 1}`).focus();
+				document.getElementById(`confirmPin-input-${index + 1}`).focus();
 			}
 		}
 	};
@@ -28,9 +28,9 @@ const PinKonfirmasi = () => {
 	// Handle keydown events for backspace functionality
 	const handleKeyDown = (index, event) => {
 		if (event.key === "Backspace") {
-			if (!values.pinKonfirmasi[index]) {
+			if (!values.confirmPin[index]) {
 				if (index > 0) {
-					document.getElementById(`pinKonfirmasi-input-${index - 1}`).focus();
+					document.getElementById(`confirmPin-input-${index - 1}`).focus();
 				}
 			}
 		}
@@ -38,7 +38,7 @@ const PinKonfirmasi = () => {
 
 	// Set focus on the first input when the component mounts
 	useEffect(() => {
-		document.getElementById("pinKonfirmasi-input-0")?.focus();
+		document.getElementById("confirmPin-input-0")?.focus();
 	}, []);
 
 	return (
@@ -46,8 +46,8 @@ const PinKonfirmasi = () => {
 			{Array.from({ length: 6 }, (_, index) => (
 				<TextField
 					key={index}
-					id={`pinKonfirmasi-input-${index}`}
-					value={values.pinKonfirmasi[index] || ""}
+					id={`confirmPin-input-${index}`}
+					value={values.confirmPin[index] || ""}
 					onChange={(event) => handleChange(index, event)}
 					onKeyDown={(event) => handleKeyDown(index, event)}
 					inputProps={{ maxLength: 1, style: { textAlign: "center" } }}
@@ -56,7 +56,7 @@ const PinKonfirmasi = () => {
 					aria-label={"Masukkan 6 Digit Pin"}
 					sx={{
 						borderRadius: "50%",
-						bgcolor: values.pinKonfirmasi[index] ? "#0066AE" : "#B3B3B3",
+						bgcolor: values.confirmPin[index] ? "#0066AE" : "#B3B3B3",
 						width: 30,
 						height: 30,
 						"& .MuiOutlinedInput-root": {

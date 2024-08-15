@@ -8,14 +8,14 @@ export const LayoutSecondary = ({ children }) => {
     return (
         <React.Fragment>
             <CssBaseline>
-                <Box style={{ width: '100%', height: '150vh' }}>
+                <Box style={{ width: '100%', height: 'auto' }}>
                     <NavbarSecondary />
                     {/* <Box > */}
                         {children}
-                        <Footer />
+                        
                     {/* </Box> */}
                 </Box>
-                
+                <Footer />
             </CssBaseline>
             
         </React.Fragment>

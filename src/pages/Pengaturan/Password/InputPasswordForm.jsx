@@ -12,9 +12,13 @@ import {
 import { FormikProvider, useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
+import { useVerifyUserPassword } from "../../../services/user/verify-user-password";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
+import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
 
 export const InputPasswordForm = ({ onNext }) => {
 	const [showPassword, setShowPassword] = useState(false);
+	const mutateVerifyPassword = useVerifyUserPassword()
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -26,8 +30,14 @@ export const InputPasswordForm = ({ onNext }) => {
 			password: Yup.string().required("Password Diperlukan"),
 		}),
 		onSubmit: async (values) => {
-			console.log("Form Submitted", values);
-			onNext(values);
+			try {
+				const result = await mutateVerifyPassword.mutateAsync(values)
+				console.log("tes lah :", result.data.data)
+				onNext(result.data.data);
+			} catch (error) {
+				return error
+			}
+			
 		},
 	});
 
@@ -130,6 +140,12 @@ export const InputPasswordForm = ({ onNext }) => {
 					</Grid>
 				</FormikProvider>
 			</Grid>
+			{mutateVerifyPassword.isError && (
+				<FailAlert message={mutateVerifyPassword?.response?.data?.message || mutateVerifyPassword?.message} title="Verifikasi Password Gagal" />
+			)}
+			{mutateVerifyPassword.isSuccess && (
+				<SuccesAlert message="silahkan masukan password baru" title="Ferivikasi Password Berhasil" />
+			)}
 		</Container>
 	);
 };

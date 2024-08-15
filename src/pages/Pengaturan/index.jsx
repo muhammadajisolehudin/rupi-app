@@ -10,14 +10,16 @@ import { useState } from "react";
 import { AkunContent } from "./AkunContent";
 import { UbahNoHandphoneContent } from "./UbahNoHandphoneContent";
 import { InformasiRupiAppContent } from "./InformasiRupiAppContent";
-import { UbahPinIndex } from "./UbahPinIndex";
-import { UbahPasswordIndex } from "./UbahPasswordIndex";
+import { UbahPin } from "./Pin";
+import { UbahPassword } from "./Password";
+import { useGetUserProfile } from "../../services/user/get-user-profile";
 
 export const PengaturanPage = () => {
 	const [activeSection, setActiveSection] = useState("Akun");
-
+	const { data: getUserProfile } = useGetUserProfile()
 	const [profilePic, setProfilePic] = useState(null);
 
+	console.log("avatar ini : ",getUserProfile)
 	const handleImageChange = (image) => {
 		setProfilePic(image);
 	};
@@ -45,9 +47,9 @@ export const PengaturanPage = () => {
 			case "Akun":
 				return <AkunContent />;
 			case "Ubah Pin":
-				return <UbahPinIndex />;
+				return <UbahPin />;
 			case "Ubah Password":
-				return <UbahPasswordIndex />;
+				return <UbahPassword />;
 			case "Ubah No Handphone":
 				return <UbahNoHandphoneContent />;
 			case "Informasi Rupi App":
@@ -59,12 +61,12 @@ export const PengaturanPage = () => {
 
 	return (
 		<LayoutSecondary>
-			{/* <Box> */}
-				<Grid xs={12} sx={{
-					display: 'relative',
-				}}>
-					<BreadcrumbSecondary />
-				</Grid>
+			
+			<Grid xs={12} sx={{
+				height: "130vh"
+			}}>
+				<BreadcrumbSecondary />
+
 				<Grid
 					sx={{
 						position: "absolute",
@@ -114,7 +116,7 @@ export const PengaturanPage = () => {
 											}}
 										>
 											<img
-												src={profilePic}
+												src={getUserProfile?.avatar}
 												alt="Profile"
 												style={{ width: "9rem", height: "9rem", borderRadius: "50%" }}
 											/>
@@ -132,7 +134,7 @@ export const PengaturanPage = () => {
 
 								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 									<IconButton
-										onClick={() => {}}
+										onClick={() => { }}
 										aria-label="Tambahkan Foto"
 										sx={{
 											display: "flex",
@@ -205,7 +207,7 @@ export const PengaturanPage = () => {
 							</Paper>
 						</Grid>
 						<Grid item xs={8.5}>
-							<Paper elevation={5} sx={{ height: "150%", display: "box" }}>
+							<Paper elevation={5} sx={{ height: "100vh", display: "box" }}>
 								<Box
 									sx={{ display: "flex", justifyContent: "space-between", pt: 3, px: 5, zIndex: 1 }}
 									role="region"
@@ -322,9 +324,10 @@ export const PengaturanPage = () => {
 								<Box sx={{ bgcolor: "white" }}>{renderContent()}</Box>
 							</Paper>
 						</Grid>
+
 					</Grid>
 				</Grid>
-			{/* </Box> */}
+			</Grid>
 		</LayoutSecondary>
 	);
 };

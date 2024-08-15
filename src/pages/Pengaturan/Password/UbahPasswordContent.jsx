@@ -12,26 +12,43 @@ import {
 import { FormikProvider, useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
+import { useChangeUserPassword } from "../../../services/user/change-user-password";
+import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
+import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
 
 export const UbahPasswordContent = ({ onSubmit }) => {
-	const [showPasswordBaru, setShowPasswordBaru] = useState(false);
-	const [showPasswordKonfirmasi, setShowPasswordKonfirmasi] = useState(false);
+	const [showPassword, setShowPassword] = useState(false);
+	const [showConfirmPassword, setshowConfirmPassword] = useState(false);
 
-	const handleClickShowPasswordBaru = () => setShowPasswordBaru(!showPasswordBaru);
-	const handleClickShowPasswordKonfirmasi = () => setShowPasswordKonfirmasi(!showPasswordKonfirmasi);
+	const mutateChangePassword = useChangeUserPassword()
+	const { formData } = useTransferRupiahContext()
+	const headers = {
+		"X-SIGNATURE": formData.signature,
+	};
+
+	console.log("data baru ini lihat :", formData.signature)
+
+	const handleClickShowPassword = () => setShowPassword(!showPassword);
+	const handleClickShowConfirmPassword = () => setshowConfirmPassword(!showConfirmPassword);
 
 	const formik = useFormik({
 		initialValues: {
-			passwordBaru: "",
-			passwordKonfirmasi: "",
+			Password: "",
+			confirmPassword: "",
 		},
 		validationSchema: Yup.object({
-			passwordBaru: Yup.string().required("Password Diperlukan").min(8, "Minimal harus 8 karakter"),
-			passwordKonfirmasi: Yup.string()
+			Password: Yup.string().required("Password Diperlukan").min(8, "Minimal harus 8 karakter"),
+			confirmPassword: Yup.string()
 				.required("Password Konfirmasi Diperlukan")
-				.oneOf([Yup.ref("passwordBaru"), null], "Kedua Password Harus Cocok"),
+				.oneOf([Yup.ref("Password"), null], "Kedua Password Harus Cocok"),
 		}),
 		onSubmit: async (values) => {
+			try {
+				await mutateChangePassword.mutateAsync({ input: values, headers: headers })
+			} catch (error) {
+				return error
+			}
 			console.log("Form Submitted", values);
 			onSubmit(values);
 		},
@@ -60,23 +77,23 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 						</Typography>
 						<Grid item xs={12} sx={{ my: 4 }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
-								<Typography id="passwordBaru" variant="body1" sx={{ width: "230px", fontSize: "15px" }}>
+								<Typography id="Password" variant="body1" sx={{ width: "230px", fontSize: "15px" }}>
 									Password Baru
 								</Typography>
 								<TextField
-									type={showPasswordBaru ? "text" : "password"}
+									type={showPassword ? "text" : "password"}
 									placeholder="Masukkan Password Baru Anda"
 									fullWidth
-									name="passwordBaru"
-									value={formik.values.passwordBaru}
+									name="Password"
+									value={formik.values.Password}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
-									error={formik.touched.passwordBaru && Boolean(formik.errors.passwordBaru)}
-									helperText={formik.touched.passwordBaru && formik.errors.passwordBaru}
-									aria-labelledby="passwordBaru"
-									aria-describedby="passwordBaru-helper-text"
+									error={formik.touched.Password && Boolean(formik.errors.Password)}
+									helperText={formik.touched.Password && formik.errors.Password}
+									aria-labelledby="Password"
+									aria-describedby="Password-helper-text"
 									FormHelperTextProps={{
-										id: "passwordBaru-helper-text",
+										id: "Password-helper-text",
 									}}
 									InputProps={{
 										style: { borderRadius: "8px", height: "3rem" },
@@ -84,9 +101,9 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 											<InputAdornment position="end">
 												<IconButton
 													aria-label="Button tampilkan password"
-													onClick={handleClickShowPasswordBaru}
+													onClick={handleClickShowPassword}
 												>
-													{showPasswordBaru ? <VisibilityOff /> : <Visibility />}
+													{showPassword ? <VisibilityOff /> : <Visibility />}
 												</IconButton>
 											</InputAdornment>
 										),
@@ -98,26 +115,26 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 						<Grid item xs={12} sx={{ my: 4 }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
 								<Typography
-									id="passwordKonfirmasi"
+									id="confirmPassword"
 									variant="body1"
 									sx={{ width: "230px", fontSize: "15px" }}
 								>
 									Konfirmasi Password
 								</Typography>
 								<TextField
-									type={showPasswordKonfirmasi ? "text" : "password"}
+									type={showConfirmPassword ? "text" : "password"}
 									placeholder="Masukkan Konfirmasi Password"
 									fullWidth
-									name="passwordKonfirmasi"
-									value={formik.values.passwordKonfirmasi}
+									name="confirmPassword"
+									value={formik.values.confirmPassword}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
-									error={formik.touched.passwordKonfirmasi && Boolean(formik.errors.passwordKonfirmasi)}
-									helperText={formik.touched.passwordKonfirmasi && formik.errors.passwordKonfirmasi}
-									aria-labelledby="passwordKonfirmasi"
-									aria-describedby="passwordKonfirmasi-helper-text"
+									error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+									helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+									aria-labelledby="confirmPassword"
+									aria-describedby="confirmPassword-helper-text"
 									FormHelperTextProps={{
-										id: "passwordKonfirmasi-helper-text",
+										id: "confirmPassword-helper-text",
 									}}
 									InputProps={{
 										style: { borderRadius: "8px", height: "3rem" },
@@ -125,9 +142,9 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 											<InputAdornment position="end">
 												<IconButton
 													aria-label="Button tampilkan password"
-													onClick={handleClickShowPasswordKonfirmasi}
+													onClick={handleClickShowConfirmPassword}
 												>
-													{showPasswordKonfirmasi ? <VisibilityOff /> : <Visibility />}
+													{showConfirmPassword ? <VisibilityOff /> : <Visibility />}
 												</IconButton>
 											</InputAdornment>
 										),
@@ -170,6 +187,12 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 					</Box>
 				</FormikProvider>
 			</Grid>
+			{mutateChangePassword.isError && (
+				<FailAlert message={mutateChangePassword?.response?.data?.message || mutateChangePassword?.message} title="Password Gagal Diubah" />
+			)}
+			{mutateChangePassword.isSuccess && (
+				<SuccesAlert message="silahkan gunakan password baru" title="Password Baru Berhasil Dibuat" />
+			)}
 		</Container>
 	);
 };

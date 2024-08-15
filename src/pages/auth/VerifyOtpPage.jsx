@@ -42,7 +42,7 @@ export const VerifyOtpPage = () => {
 
 			try {
 				await otp.mutateAsync(payload);
-				navigate("/beranda")
+				navigate("/")
 			} catch (error) {
 				console.error("Login failed, error:", error);
 

@@ -71,7 +71,7 @@ function Navbar() {
               variant="h6"
               fontWeight={activePage === "beranda" ? 700 : 400}
               style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("beranda", "/beranda")}
+              onClick={() => handlePageChange("beranda", "/")}
               sx={{
                 transition: 'transform 0.3s ease', // Transisi halus untuk pergeseran
                 '&:hover': {
@@ -101,7 +101,7 @@ function Navbar() {
               src={SettingIcon}
               alt="account settings"
               style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("accountSettings", "/")}
+              onClick={() => handlePageChange("accountSettings", "/pengaturan")}
             />
             {/* <Button> */}
               <img

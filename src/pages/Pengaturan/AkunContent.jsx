@@ -1,24 +1,30 @@
 import { Box, Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useGetUserProfile } from "../../services/user/get-user-profile";
+import { useEffect } from "react";
 
 export const AkunContent = ({ onNext }) => {
+
+	const { data: dataProfile } = useGetUserProfile() 
+	console.log("pengaturan data:", dataProfile?.email)
+
 	const formik = useFormik({
 		initialValues: {
-			username: "232334S",
-			namaPanggilan: "Samsul",
-			email: "samsul@gmail.com",
+			username: "",
+			name: "",
+			email: "",
 		},
 		validationSchema: Yup.object({
-			namaPanggilan: Yup.string().required("Nama Panggilan diperlukan").max(15, "Max 15 Karakter"),
+			name: Yup.string().required("Nama Panggilan diperlukan").max(15, "Max 15 Karakter"),
 			email: Yup.string().email("Email tidak valid").required("Email diperlukan"),
 		}),
 		onSubmit: async (values) => {
 			const updatedValues = {};
 
 			// Membandingkan nilai saat ini dengan nilai awal, dan hanya menyimpan nilai yang berubah
-			if (values.namaPanggilan !== formik.initialValues.namaPanggilan) {
-				updatedValues.namaPanggilan = values.namaPanggilan;
+			if (values.name !== formik.initialValues.name) {
+				updatedValues.name = values.name;
 			}
 			if (values.email !== formik.initialValues.email) {
 				updatedValues.email = values.email;
@@ -26,6 +32,18 @@ export const AkunContent = ({ onNext }) => {
 			console.log("submitted ", updatedValues);
 		},
 	});
+
+	useEffect(() => {
+		if (dataProfile ) {
+			formik.setValues({
+				username: dataProfile?.username || "",
+				name: dataProfile?.name || "",
+				email: dataProfile?.email || "",
+			});
+		}
+	}, [dataProfile]);
+
+	console.log("Initial Values:", formik.initialValues);
 
 	// Reset form values to initial values
 	const handleReset = () => {
@@ -57,23 +75,23 @@ export const AkunContent = ({ onNext }) => {
 					</Grid>
 					<Grid item xs={12} sx={{ my: 4 }}>
 						<Box sx={{ display: "flex", alignItems: "center" }}>
-							<Typography id="namaPanggilan" variant="body1" sx={{ width: "230px" }}>
+							<Typography id="name" variant="body1" sx={{ width: "230px" }}>
 								Nama Panggilan
 							</Typography>
 							<TextField
 								type="text"
 								placeholder="Masukkan Nama Panggilan"
 								fullWidth
-								name="namaPanggilan"
-								value={formik.values.namaPanggilan}
+								name="name"
+								value={formik.values.name}
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}
-								error={formik.touched.namaPanggilan && Boolean(formik.errors.namaPanggilan)}
-								helperText={formik.touched.namaPanggilan && formik.errors.namaPanggilan}
-								aria-labelledby="namaPanggilan"
-								aria-describedby="namaPanggilan-helper-text"
+								error={formik.touched.name && Boolean(formik.errors.name)}
+								helperText={formik.touched.name && formik.errors.name}
+								aria-labelledby="name"
+								aria-describedby="name-helper-text"
 								FormHelperTextProps={{
-									id: "namaPanggilan-helper-text",
+									id: "name-helper-text",
 								}}
 							></TextField>
 						</Box>

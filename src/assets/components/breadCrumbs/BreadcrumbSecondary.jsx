@@ -40,7 +40,7 @@ const BreadcrumbSecondary = () => {
       >
         <Link
           component={RouterLink}
-          to="/beranda"
+          to="/"
           sx={{
             color: '#B3B3B3',
             fontWeight: 'bold',

@@ -19,7 +19,7 @@ export const ProtectedUser = ({ children }) => {
         }
       } else {
         if (location.pathname === "/login") {
-          navigate("/beranda");
+          navigate("/");
         }
       }
       setLoading(false);

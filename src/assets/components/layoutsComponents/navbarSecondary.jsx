@@ -182,7 +182,7 @@ const NavbarSecondary = () => {
                 variant="h6"
                 fontWeight={activePage === 'beranda' ? 700 : 400}
                 sx={{ cursor: 'pointer', mb:1 }}
-                onClick={() => handlePageChange('beranda', '/beranda')}
+                onClick={() => handlePageChange('beranda', '/')}
               >
                 Beranda
               </Typography>

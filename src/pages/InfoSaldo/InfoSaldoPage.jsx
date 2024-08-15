@@ -32,6 +32,7 @@ import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/uti
 import FailAlert from '../../assets/components/Alerts/FailAlert';
 import { useTransferRupiahContext } from '../../context/TransferRupiahContext';
 import { LayoutSecondary } from '../layoutSecondary';
+import Footer from '../../assets/components/layoutsComponents/Footer';
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);

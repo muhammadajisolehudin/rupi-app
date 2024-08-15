@@ -90,6 +90,7 @@ export const BerandaPage = () => {
             Transaksi Favorit
           </Typography>
           <Button
+            href="/transfer-rupiah"
             sx={{
               backgroundColor: "#0066AE",
               color: "white",

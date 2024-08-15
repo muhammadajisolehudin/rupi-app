@@ -28,16 +28,14 @@ export const RouteList = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-      
-          <Routes>
-            {/* pengaturan */}
-            <Route path="/pengaturan" element={<PengaturanPage />} />
-            <Route
-              path="/*"
-              element={
-                <ProtectedUser>
-                  <TransferRupiahProvider>
-                    <Routes>
+        <Routes>
+          <Route
+            path="/*"
+            element={
+              <ProtectedUser>
+                <TransferRupiahProvider>
+                  <Routes>
+                    {/* auth */}
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/verify" element={<VerifyOtpPage />} />
                     <Route path="/set-pin" element={<SetPinPage />} />
@@ -48,7 +46,7 @@ export const RouteList = () => {
                       element={
                         <ProtectedAccount>
                           <Routes>
-                            <Route path="/beranda" element={<BerandaPage />} />
+                            <Route path="/" element={<BerandaPage />} />
                             <Route path="/info-saldo" element={<InfoSaldoPage />} />
 
                             {/* transfer */}
@@ -64,20 +62,17 @@ export const RouteList = () => {
                             <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
 
                             {/* pengaturan */}
-                            
+                            <Route path="/pengaturan" element={<PengaturanPage />} />
                           </Routes>
                         </ProtectedAccount>
                       }
                     />
                   </Routes>
-                  </TransferRupiahProvider>
-                  
-
-                </ProtectedUser>
-              }
-            />
-            {/* <Route path="*" element={<Navigate to="/login" />} /> */}
-          </Routes>
+                </TransferRupiahProvider>
+              </ProtectedUser>
+            }
+          />
+        </Routes>
         {/* </TransferRupiahProvider> */}
       </AuthProvider>
     </BrowserRouter>

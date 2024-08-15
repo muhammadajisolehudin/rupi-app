@@ -42,7 +42,7 @@ export const ProtectedAccount = ({ children }) => {
                         // Navigasi ke halaman login setelah delay
                         navigate('/login');
                     }
-                }, 5000);
+                }, 1000);
                 
                
                 return;
