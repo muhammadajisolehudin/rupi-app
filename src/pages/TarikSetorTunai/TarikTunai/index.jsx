@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { TarikTunaiForm } from "./TarikTunaiForm";
 import { KonfirmasiForm } from "./KonfirmasiForm";
 import { InputPinForm } from "./InputPinForm";
 import { SuccesInfo } from "./SuccesInfo";
 
-export const TarikTunai = () => {
+export const TarikTunai = ({ onStepChange }) => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({});
+
+    useEffect(() => {
+        onStepChange(step);
+    }, [step, onStepChange]);
 
     const handleNext = (values) => {
         console.log("handleNext called with values:", values);
