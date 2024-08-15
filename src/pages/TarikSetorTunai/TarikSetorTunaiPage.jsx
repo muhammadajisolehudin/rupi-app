@@ -21,7 +21,7 @@ export const TarikSetorTunaiPage = () => {
     } else if (currentView === "setor") {
       return (
         <>
-          <SetorTunai />
+          <SetorTunai onStepChange={setCurrentStep} />
         </>
       );
     } else if (currentView === "token") {
@@ -49,7 +49,9 @@ export const TarikSetorTunaiPage = () => {
         </Typography>
 
         <Card sx={{ p: 1 }} component={Paper} elevation={4}>
-          {(currentView !== "tarik" || currentStep === 1) && (
+          {(currentView !== "tarik" || currentStep === 1) &&
+          (currentView !== "setor" || currentStep === 1) &&
+          (
             <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 2, boxShadow: 1 }}>
               <button
                 style={{
@@ -92,7 +94,6 @@ export const TarikSetorTunaiPage = () => {
               </button>
             </Box>
           )}
-
           {renderContent()}
         </Card>
       </Box>

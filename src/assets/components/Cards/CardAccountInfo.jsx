@@ -13,7 +13,7 @@ export const CardAccountInfo = ({ accountNumber, balance }) => {
 				gap: 1,
 				border: "#B3B3B3 solid 1px",
 				borderRadius: 2,
-				//   px: 3,
+				px: 1,
 				py: 2,
 				mt: 2,
 			}}
@@ -21,7 +21,7 @@ export const CardAccountInfo = ({ accountNumber, balance }) => {
 		>
 			<Grid
 				//   item
-				xs={1.5}
+				xs={1}
 				sx={{
 					display: "flex",
 					flexDirection: "column",

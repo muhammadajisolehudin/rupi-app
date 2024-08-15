@@ -2,7 +2,17 @@ import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
 
-export const SuccesInfo = () => {
+import { useAuthContext } from "../../../context/AuthContext";
+
+export const SuccesInfo = ({ tokenData }) => {
+    const { account } = useAuthContext();
+    const fullName = account.full_name;
+    const accountNumber = account.account_number;
+
+    const formatedAccountNumber = accountNumber ? accountNumber.replace(/(\d{4})(?=\d)/g, "$1 ") : "";
+
+    const { token, expiredAt } = tokenData;
+
     return (
         <>
             <Box
@@ -23,7 +33,7 @@ export const SuccesInfo = () => {
                     Uang Siap Disetor
                 </Typography>
                 <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }} aria-live="polite" aria-label="Tanggal dan waktu transaksi">
-                    12 Jul 2024 . 11:35 WIB
+                    {new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })} . {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
                 </Typography>
                 <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }} aria-live="polite" aria-label="Nomor referensi">
                     No. Ref 12736192837636
@@ -43,7 +53,7 @@ export const SuccesInfo = () => {
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                12.35
+                                {new Date(expiredAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                         </Box>
                     </Box>
@@ -67,7 +77,7 @@ export const SuccesInfo = () => {
                         >
                             <Typography>Kode Penyetoran</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
-                                222488
+                                {token}
                             </Typography>
                         </Box>
                     </Box>
@@ -92,9 +102,18 @@ export const SuccesInfo = () => {
                             gap: 1,
                         }}
                     >
+                        <Typography sx={{
+                            fontWeight: "bold",
+                            fontSize: "20px",
+                            color: "#0A3967",
+                        }}>{fullName}{" "}-{" "}
+                            <span style={{
+                                fontWeight: "400",
+                            }}>
+                                {formatedAccountNumber}
+                            </span>
+                        </Typography>
                     </Box>
-                    <Typography>Rekening Tujuan</Typography>
-                    <Typography>Nama - No rekening 12345</Typography>
                     <Box
                         sx={{
                             display: "flex",
@@ -107,13 +126,12 @@ export const SuccesInfo = () => {
                         <ShareIcon aria-label="Share code icon" />
                         <Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
                     </Box>
-                    
+
                 </Card>
             </Box>
 
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
                 <Button
-                    onClick=""
                     fullWidth
                     sx={{
                         py: 1.5,
@@ -122,6 +140,7 @@ export const SuccesInfo = () => {
                         textTransform: "capitalize",
                         mt: 4,
                     }}
+                    onClick={() => window.location.reload()}
                     aria-label="tombol buat token baru"
                     variant="contained"
                 >

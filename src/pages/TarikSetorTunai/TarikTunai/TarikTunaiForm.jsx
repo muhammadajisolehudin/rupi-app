@@ -92,7 +92,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
-                                disabled={!formik.isValid}
+                                disabled={!formik.isValid || (formik.values.amount === "" && formik.values.namaToken === "" && formik.values.amount % 50000 !== 0)}
                                 aria-label="submit request tarik tunai form"
                             >
                                 Lanjutkan

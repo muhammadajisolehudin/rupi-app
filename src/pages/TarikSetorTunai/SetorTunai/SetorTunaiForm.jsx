@@ -1,17 +1,15 @@
-import { Button, Container, Grid, TextField, Typography } from "@mui/material";
+import { Button, Card, Container, Grid, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import { useAuthContext } from "../../../context/AuthContext";
 
 export const SetorTunaiForm = ({ onNext }) => {
-    const { account } = useAuthContext() 
+    const { account } = useAuthContext()
     const formik = useFormik({
         initialValues: {},
         onSubmit: () => {
-            const values = {
-                accountNumber: "5667 2323 1444 5554",
-                balance: 5000000,
-                metode: ""
+            const values = { 
+                metode: "ATM BCA"
             };
             onNext(values);
         },
@@ -21,11 +19,11 @@ export const SetorTunaiForm = ({ onNext }) => {
         <Container>
             <form onSubmit={formik.handleSubmit}>
                 <Grid container spacing={5} sx={{
-                    py: 6,
-                    px: 4,
+                    py: 2,
+                    px: 2,
                 }}>
                     <Grid item xs={12}>
-                        <Typography>Rekening Tujuan</Typography>
+                        <Typography variant="h6" sx={{ mt: 5, fontSize: "18px"}}>Rekening Tujuan</Typography>
                         <CardAccountInfo
                             accountNumber={account.account_number}
                             balance={account.balance}
@@ -40,19 +38,12 @@ export const SetorTunaiForm = ({ onNext }) => {
                             gap: 2,
                         }}
                     >
-                        <Typography mt={0} pt={0}>Metode</Typography>
-                        <TextField
-                            aria-label="tambahkan nama token tarik tunai"
-                            name="metode"
-                            type="text"
-                            id="metode"
-                            placeholder="Tambahkan nama token tarik tunai"
-                            autoComplete="current-nominal"
-                            fullWidth
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            value={formik.values.metode}
-                        />
+                        <Typography mt={0} pt={0} variant="h6" sx={{ fontSize: "18px"}}>Metode</Typography>
+                        <Card variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }} role="region" aria-labelledby="method-info">
+                            <Typography id="method-info" sx={{ backgroundColor: "white", padding: 2, borderColor: "#B3B3B3" }}>
+                                ATM BCA
+                            </Typography>
+                        </Card>
                         {formik.touched.metode && formik.errors.metode ? (
                             <Typography sx={{ fontSize: 10, color: "red" }}>
                                 {formik.errors.metode}
@@ -60,7 +51,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                         ) : null}
                     </Grid>
 
-                    
+
                     <Grid item xs={12}>
                         <Button
                             type="submit"

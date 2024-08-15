@@ -1,6 +1,6 @@
+import * as Yup from "yup";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
-import * as Yup from "yup";
 
 import PinInput from "../../../assets/components/Inputs/PinInput";
 
