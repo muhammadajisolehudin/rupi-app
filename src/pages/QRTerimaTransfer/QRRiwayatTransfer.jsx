@@ -13,7 +13,6 @@ import FilterModal from '../../assets/components/Modal/ModalFilter';
 const QRRiwayatTransfer = () => {
     const [currentView, setCurrentView] = useState("diterima");
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate();
 
     const transactions = {
         diterima: [

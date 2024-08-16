@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
 import ModalTransferBerhasil from "../../../assets/components/Modals/ModalTransferBerhasil";
-// import PropTypes from 'prop-types';
 
 export const SuccesTransferInfo = () => {
 	const [open, setOpen] = useState(false);

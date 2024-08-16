@@ -1,17 +1,15 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
-import { BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { RekeningBaruForm } from './RekeningBaruFrom';
-// import {BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 import { InputNominalTransferForm } from './InputNominalTransferForm';
 import { KonfirmasiTransferForm } from './KonfirmasiTransferForm';
 import { SuccesTransferInfo } from './SuccesTransferInfo';
 import { InputPinForm } from './InputPinForm';
-import { useTransferRupiahContext } from '../../../context/TransferRupiahContext';
+import { useTransferContext } from '../../../context/TransferContext';
 import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
 
 const TransferKePenerimaBaru = () => {
-    const { step, handleNext, handleSubmit } = useTransferRupiahContext();
+    const { step, handleNext, handleSubmit } = useTransferContext();
 
     return (
         <Layout>

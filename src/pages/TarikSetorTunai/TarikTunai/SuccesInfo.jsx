@@ -1,9 +1,11 @@
 import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
+import { useQrContext } from "../../../context/QrContext";
 
-export const SuccesInfo = ({ tokenData }) => {
-    const { token, expiredAt, amount } = tokenData;
+export const SuccesInfo = () => {
+    // const { token, expiredAt, amount } = tokenData;
+    const { formDataTarik } = useQrContext()
 
     return (
         <>
@@ -31,19 +33,19 @@ export const SuccesInfo = ({ tokenData }) => {
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
+                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3, borderRadius: 2 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                Rp {amount.toLocaleString('id-ID')}
+                                Rp {formDataTarik?.amount.toLocaleString('id-ID')}
                             </Typography>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                {new Date(expiredAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                                {new Date(formDataTarik?.expired_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                         </Box>
                     </Box>
@@ -59,14 +61,18 @@ export const SuccesInfo = ({ tokenData }) => {
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "space-evenly",
+                                justifyContent: "space",
                                 bgcolor: "#E4EDFF",
-                                p: 1,
-                                width: "415px",
+                                py: 1,
+                                px: 3,
+                                width: "100%",
                             }}
                         >
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-                                {token}
+                            <Typography sx={{ width:"500%" }}>
+                                Kode Penarikan
+                            </Typography>
+                            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#0066AE", width: "500%", pl:3}}>
+                                {formDataTarik?.code}
                             </Typography>
                         </Box>
                     </Box>

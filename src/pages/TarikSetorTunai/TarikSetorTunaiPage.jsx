@@ -36,7 +36,7 @@ export const TarikSetorTunaiPage = () => {
 
   return (
     <Layout>
-      <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
+      <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "4rem" }}>
         <Breadcrumb />
 
         <Typography
@@ -53,11 +53,11 @@ export const TarikSetorTunaiPage = () => {
           Tarik & Setor Tunai
         </Typography>
 
-        <Card sx={{ p: 1 }} component={Paper} elevation={4}>
+        <Card component={Paper} elevation={4} >
           {(currentView !== "tarik" || currentStep === 1) &&
           (currentView !== "setor" || currentStep === 1) &&
           (
-            <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 2, boxShadow: 1 }}>
+            <Card elevation={4} sx={{ display: "flex", justifyContent: "space-evenly", p: 2, borderRadius: '4px 4px 0 0' }}>
               <button
                 style={{
                   backgroundColor: currentView === "tarik" ? "#0066AE" : "transparent",
@@ -97,7 +97,7 @@ export const TarikSetorTunaiPage = () => {
               >
                 Token
               </button>
-            </Box>
+            </Card>
           )}
           {renderContent()}
         </Card>

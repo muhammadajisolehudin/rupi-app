@@ -1,4 +1,3 @@
-// TransferRupiahPage.js
 import { useEffect, useRef, useState } from 'react';
 import { Box, Button, Card, Grid, Typography } from "@mui/material";
 import { Layout } from "../layout";

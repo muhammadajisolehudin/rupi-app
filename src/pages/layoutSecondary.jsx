@@ -1,4 +1,4 @@
-import { Box, CssBaseline, Grid } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import PropTypes from "prop-types"; // Import PropTypes
 import React from "react";
 import { Footer } from "../assets/components/layoutsComponents/Footer";

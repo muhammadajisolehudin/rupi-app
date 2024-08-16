@@ -4,10 +4,10 @@ import * as Yup from "yup";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from "prop-types";
 import { useAddTransaksiIntrabank } from "../../../services/transfer-rupiah/add-transaksi-intrabank";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const InputPinForm = ({ onNext }) => {
-	const { formData } = useTransferRupiahContext();
+	const { formData } = useTransferContext();
 	const transaksiIntrabank = useAddTransaksiIntrabank();
 
   const formik = useFormik({

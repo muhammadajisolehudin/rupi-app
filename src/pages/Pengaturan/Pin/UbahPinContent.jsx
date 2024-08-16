@@ -6,11 +6,11 @@ import PinKonfirmasi from "../../../assets/components/Inputs/PinKonfirmasi";
 import { useChangeUserPin } from "../../../services/user/change-user-pin";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";
 import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
-import { useTransferRupiahContext , } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const UbahPinContent = (onSubmit) => {
 	const mutateChangePin = useChangeUserPin()
-	const { formData } = useTransferRupiahContext()
+	const { formData } = useTransferContext()
 	const headers = {
 		"X-SIGNATURE": formData.signature,
 	};

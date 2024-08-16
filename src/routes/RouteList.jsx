@@ -9,17 +9,17 @@ import { BerandaPage } from '../pages/BerandaPage';
 import { TransferRupiahPage } from '../pages/TransferRupiah/TransferRupiahPage';
 import { QRTerimaTransfer } from '../pages/QrTerimaTransfer/QRTerimaTransfer';
 import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPage";
-import { TransferRupiahProvider } from '../context/TransferRupiahContext';
 import { QrisPage } from '../pages/Qris/QrisPage';
 import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBaru';
 import QrBayar from '../pages/Qris/QrBayar';
 import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
-
 import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
 import { PengaturanPage } from '../pages/Pengaturan';
 import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
 import { MutasiPage } from '../pages/Mutasi/MutasiPage';
+import { TransferProvider } from '../context/TransferContext';
+import { QrProvider } from '../context/QrContext';
 
 export const RouteList = () => {
   // const navigate = useNavigate()
@@ -32,7 +32,10 @@ export const RouteList = () => {
             path="/*"
             element={
               <ProtectedUser>
-                <TransferRupiahProvider>
+                <TransferProvider>
+                  <QrProvider>
+
+                  
                   <Routes>
                     {/* auth */}
                     <Route path="/login" element={<LoginPage />} />
@@ -71,7 +74,8 @@ export const RouteList = () => {
                       }
                     />
                   </Routes>
-                </TransferRupiahProvider>
+                  </QrProvider>
+                </TransferProvider>
               </ProtectedUser>
             }
           />

@@ -5,11 +5,11 @@ import ImgPenerima from "../../../assets/img/user-rectangle.png";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types";
 import { useAuthContext } from "../../../context/AuthContext";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const KonfirmasiTransferForm = ({ onNext }) => {
 	const { account } = useAuthContext();
-	const { formData } = useTransferRupiahContext();
+	const { formData } = useTransferContext();
 	const formik = useFormik({
 		initialValues: {
 			destination_id: formData.destination_id,

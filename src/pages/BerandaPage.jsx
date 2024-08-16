@@ -8,17 +8,16 @@ import { CardBalance } from "../assets/components/Cards/CardBalance";
 import { CardFinanceRecap } from "../assets/components/Cards/CardFinanceRecap";
 import { CardList } from "../assets/components/Cards/CardList";
 import { Menu } from "../assets/components/dashboardComponents/Menu";
-
 import backgroundWave from "../assets/img/wave background.png";
 import { useAuthContext } from "../context/AuthContext";
-import { useTransferRupiahContext } from "../context/TransferRupiahContext";
 import { useEffect, useState } from "react";
+import { useTransferContext } from "../context/TransferContext";
 
 
 
 export const BerandaPage = () => {
   const { account } = useAuthContext();
-  const { dataExpense, dataIncome, dataTransaksi } = useTransferRupiahContext();
+  const { dataExpense, dataIncome, dataTransaksi } = useTransferContext();
   const [ dataTransaksiFavorite, setDataFavorite ] = useState(null)
 
   useEffect(() => {

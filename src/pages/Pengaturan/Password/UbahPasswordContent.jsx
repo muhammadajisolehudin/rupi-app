@@ -13,16 +13,16 @@ import { FormikProvider, useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { useChangeUserPassword } from "../../../services/user/change-user-password";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";
 import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const UbahPasswordContent = ({ onSubmit }) => {
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setshowConfirmPassword] = useState(false);
 
 	const mutateChangePassword = useChangeUserPassword()
-	const { formData } = useTransferRupiahContext()
+	const { formData } = useTransferContext()
 	const headers = {
 		"X-SIGNATURE": formData.signature,
 	};

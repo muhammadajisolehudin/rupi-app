@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { UbahPasswordContent } from "./UbahPasswordContent";
 import { InputPasswordForm } from "./InputPasswordForm";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const UbahPassword = () => {
-	const { step, handleNext, handleSubmit } = useTransferRupiahContext();
+	const { step, handleNext, handleSubmit } = useTransferContext();
 
 	return (
 		<>

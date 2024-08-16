@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { InputPinForm } from "./InputPinForm";
 import { UbahPinContent } from "./UbahPinContent";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const UbahPin = () => {
-	const { step, handleNext, handleSubmit } = useTransferRupiahContext();
+	const { step, handleNext, handleSubmit } = useTransferContext();
 
 	return (
 		<>

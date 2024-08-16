@@ -5,10 +5,9 @@ import { Layout } from "../layout";
 import { CardTransaksi } from "../../assets/components/Cards/CardTransaksi";
 import { TransferSearch } from "../../assets/components/transferComponents/TransferSearch";
 import { TambahRekening } from "../../assets/components/transferComponents/TambahRekening";
-import { useGetDataTransaksi } from "../../services/transfer-rupiah/get-data-transaksi";
 import { useAddFavorite } from "../../services/transfer-rupiah/add-favorite-transaksi";
 import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
-import { useTransferRupiahContext } from "../../context/TransferRupiahContext";
+import { useTransferContext } from "../../context/TransferContext";
 
 
 export const TransferRupiahPage = () => {
@@ -18,7 +17,7 @@ export const TransferRupiahPage = () => {
 		others: [],
 	});
 
-	const { dataTransaksi } = useTransferRupiahContext() 
+	const { dataTransaksi } = useTransferContext() 
 	//fetching api
 	
 

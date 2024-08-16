@@ -3,11 +3,11 @@ import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from "prop-types"
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
 import { useAddTransferQris } from "../../../services/qris/add-transfer-qris";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const InputPinForm = ({ onNext }) => {
-    const { formData } = useTransferRupiahContext()
+    const { formData } = useTransferContext()
     const addTransferQris = useAddTransferQris()
     const formik = useFormik({
         initialValues: {

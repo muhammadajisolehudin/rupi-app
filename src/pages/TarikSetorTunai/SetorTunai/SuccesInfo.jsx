@@ -1,17 +1,13 @@
 import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
-
 import { useAuthContext } from "../../../context/AuthContext";
+import { useQrContext } from "../../../context/QrContext";
 
-export const SuccesInfo = ({ tokenData }) => {
+export const SuccesInfo = () => {
     const { account } = useAuthContext();
-    const fullName = account.full_name;
-    const accountNumber = account.account_number;
-
-    const formatedAccountNumber = accountNumber ? accountNumber.replace(/(\d{4})(?=\d)/g, "$1 ") : "";
-
-    const { token, expiredAt } = tokenData;
+    const { formDataSetor } = useQrContext()
+    const formatedAccountNumber = account?.account_number ? account?.account_number.replace(/(\d{4})(?=\d)/g, "$1 ") : "";
 
     return (
         <>
@@ -40,8 +36,8 @@ export const SuccesInfo = ({ tokenData }) => {
                 </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
+                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3, borderRadius: 2 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Metode</Typography>
@@ -53,7 +49,7 @@ export const SuccesInfo = ({ tokenData }) => {
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                {new Date(expiredAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
+                                {new Date(formDataSetor?.expired_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                         </Box>
                     </Box>
@@ -62,22 +58,25 @@ export const SuccesInfo = ({ tokenData }) => {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "center",
-                            my: 2,
+                            my: 1,
                         }}
                     >
                         <Box
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "space-evenly",
+                                justifyContent: "space",
                                 bgcolor: "#E4EDFF",
-                                p: 1,
-                                width: "415px",
+                                py: 1,
+                                px: 3,
+                                width: "100%",
                             }}
                         >
-                            <Typography>Kode Penyetoran</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }} aria-live="polite">
-                                {token}
+                            <Typography sx={{ width: "500%" }}>
+                                Kode Penyetoran
+                            </Typography>
+                            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#0066AE", width: "500%", pl: 3 }}>
+                                {formDataSetor?.code}
                             </Typography>
                         </Box>
                     </Box>
@@ -106,7 +105,7 @@ export const SuccesInfo = ({ tokenData }) => {
                             fontWeight: "bold",
                             fontSize: "20px",
                             color: "#0A3967",
-                        }}>{fullName}{" "}-{" "}
+                        }}>{account?.full_name}{" "}-{" "}
                             <span style={{
                                 fontWeight: "400",
                             }}>
@@ -130,7 +129,7 @@ export const SuccesInfo = ({ tokenData }) => {
                 </Card>
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5, px: 10 }}>
                 <Button
                     fullWidth
                     sx={{
@@ -141,7 +140,7 @@ export const SuccesInfo = ({ tokenData }) => {
                         mt: 4,
                     }}
                     onClick={() => window.location.reload()}
-                    aria-label="tombol buat token baru"
+                    aria-label="button make new token"
                     variant="contained"
                 >
                     Buat Token Baru

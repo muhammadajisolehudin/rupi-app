@@ -6,11 +6,10 @@ import { useAuthContext } from "../../../context/AuthContext";
 export const SetorTunaiForm = ({ onNext }) => {
     const { account } = useAuthContext()
     const formik = useFormik({
-        initialValues: {},
-        onSubmit: () => {
-            const values = { 
-                metode: "ATM BCA"
-            };
+        initialValues: {
+            metode: "ATM BCA"
+        },
+        onSubmit: (values) => {
             onNext(values);
         },
     });

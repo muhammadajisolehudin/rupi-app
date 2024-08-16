@@ -1,20 +1,21 @@
 import * as Yup from "yup";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
-
 import PinInput from "../../../assets/components/Inputs/PinInput";
-
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
+import { useQrContext } from "../../../context/QrContext";
 
-export const InputPinForm = ({ formData, onNext }) => {
+export const InputPinForm = ({ onNext }) => {
     const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();
+    const { formDataTarik } = useQrContext()
 
-    console.log("formData in InputPinForm: ", formData);
+    console.log("formData in InputPinForm: ", formDataTarik);
 
     const formik = useFormik({
         initialValues: {
-            amount: formData.amount,
+            amount: formDataTarik?.amount,
             pin: "",
+            type: "WITHDRAW",
         },
         validationSchema: Yup.object({
             pin: Yup.string()
@@ -23,7 +24,6 @@ export const InputPinForm = ({ formData, onNext }) => {
                 .required("PIN diperlukan"),
         }),
         onSubmit: async (values) => {
-            console.log("Form Submitted", values);
             try {
                 generateToken(
                     {
@@ -33,12 +33,7 @@ export const InputPinForm = ({ formData, onNext }) => {
                     },
                     {
                         onSuccess: (response) => {
-                            const token = response.data.data.code;
-                            const expiredAt = response.data.data.expired_at;
-                            const amount = response.data.data.amount;
-                            console.log("Token, ExpiredAt, Amount: ", token, expiredAt, amount);
-                            onNext({ tokenResponse: { token, expiredAt, amount } });
-                            console.log("Token generated successfully: ", response);
+                            onNext(response);
                         },
                         onError: (err) => {
                             console.error("Error generating token:", err);

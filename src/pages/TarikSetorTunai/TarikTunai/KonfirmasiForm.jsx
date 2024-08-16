@@ -3,16 +3,18 @@ import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import logoIcon from "/logo.png";
 import { useAuthContext } from "../../../context/AuthContext";
+import { useQrContext } from "../../../context/QrContext";
 
-export const KonfirmasiForm = ({ formData, onNext }) => {
+export const KonfirmasiForm = ({ onNext }) => {
     const { account } = useAuthContext()
+    const { formDataTarik } = useQrContext()
     const formik = useFormik({
         initialValues: {
-            amount: formData.nominal,
-            namaToken: formData.namaToken || "",
+            amount: formDataTarik?.amount,
+            namaToken: formDataTarik?.namaToken || "",
         },
         onSubmit: (values) => {
-            onNext({ ...formData, ...values });
+            onNext(values);
         },
     });
 
@@ -35,7 +37,7 @@ export const KonfirmasiForm = ({ formData, onNext }) => {
                     </Typography>
                 </Grid>
 
-                <Grid item xs={12} mt={8}>
+                <Grid item xs={12} mt={8} >
                     <hr
                         style={{
                             border: "1px solid #B3B3B3", marginBottom: "2rem"
@@ -46,7 +48,7 @@ export const KonfirmasiForm = ({ formData, onNext }) => {
                         <Typography sx={{ fontWeight: "bold" }}>Rp {formik.values.amount.toLocaleString('id-ID')}</Typography>
                     </Box>
                     <Box
-                        sx={{ display: "flex", justifyContent: "space-between" }}
+                        sx={{ display: "flex", justifyContent: "space-between", mt:1 }}
                         aria-label="nama token penarikan"
                     >
                         <Typography>Nama Token</Typography>

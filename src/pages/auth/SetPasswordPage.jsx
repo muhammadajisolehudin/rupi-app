@@ -1,7 +1,4 @@
-// import { useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import checklistIcon from "../../assets/img/checklist-icon.png";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";

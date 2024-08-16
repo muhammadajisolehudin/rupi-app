@@ -3,11 +3,15 @@ import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import logoIcon from "/logo.png";
 import { useAuthContext } from "../../../context/AuthContext";
+import { useQrContext } from "../../../context/QrContext";
 
 export const KonfirmasiForm = ({ onNext }) => {
     const { account } = useAuthContext()
+    const { formDataSetor } = useQrContext()
     const formik = useFormik({
-        initialValues: {},
+        initialValues: {
+
+        },
         onSubmit: (values) => {
             onNext(values);
         },
@@ -41,7 +45,7 @@ export const KonfirmasiForm = ({ onNext }) => {
                             fontWeight: "400",
                             fontSize: "18px",
                         }}>Metode</Typography>
-                        <Typography sx={{ fontWeight: "bold" }}>ATM BCA</Typography>
+                        <Typography sx={{ fontWeight: "bold" }}>{formDataSetor?.metode}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12}>

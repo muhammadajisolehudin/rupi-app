@@ -10,14 +10,20 @@ export const TarikTunaiForm = ({ onNext }) => {
     const formik = useFormik({
         initialValues: {
             amount: "",
+            namaToken: ""
         },
         validationSchema: Yup.object({
-            amount: Yup.number().min(50000, "Nominal Tarik Tunai minimal IDR 50.000").required("Required"),
+            amount: Yup.number()
+                .min(50000, "Nominal Tarik Tunai minimal IDR 50.000")
+                .test('is-multiple-of-50000', 'Nominal harus kelipatan IDR 50.000', value => {
+                    return value % 50000 === 0;
+                })
+                .required("Nominal harus diisi"),
+            
             namaToken: Yup.string().min(6, "Must be at least 6 characters"),
         }),
         onSubmit: (values) => {
-            console.log(values)
-            onNext({ nominal: values.amount, namaToken: values.namaToken });
+            onNext(values);
         },
     });
 
@@ -40,7 +46,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <NominalInput
-                                text={"Nominal Bayar"}
+                                text={"Nominal Penarikan"}
                                 value={formik.values.amount}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}

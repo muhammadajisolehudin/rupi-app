@@ -1,9 +1,7 @@
 import * as Yup from "yup";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
-
 import PinInput from "../../../assets/components/Inputs/PinInput";
-
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
 
 export const InputPinForm = ({ onNext }) => {
@@ -31,12 +29,7 @@ export const InputPinForm = ({ onNext }) => {
                     },
                     {
                         onSuccess: (response) => {
-                            const token = response.data.data.code;
-                            const expiredAt = response.data.data.expired_at;
-                            const amount = response.data.data.amount;
-                            console.log("Token, ExpiredAt, Amount: ", token, expiredAt, amount);
-                            onNext({ tokenResponse: { token, expiredAt, amount } });
-                            console.log("Token generated successfully: ", response);
+                            onNext(response);
                         },
                         onError: (err) => {
                             console.error("Error generating token:", err);

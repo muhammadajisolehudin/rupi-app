@@ -5,17 +5,17 @@ import ImgPenerima from "../../../assets/img/user-rectangle.png";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import PropTypes from "prop-types"
 import { useAuthContext } from "../../../context/AuthContext";
-import { useTransferRupiahContext } from "../../../context/TransferRupiahContext";
+import { useTransferContext } from "../../../context/TransferContext";
 
 export const KonfirmasiBayarForm = ({ onNext }) => {
     const { account } = useAuthContext()
-    const { formData } = useTransferRupiahContext()
+    const { formData } = useTransferContext()
 
     const formik = useFormik({
         initialValues: {
-            qris: formData.qris,
-            amount: formData.amount,
-            description: formData.description,
+            qris: formData?.qris,
+            amount: formData?.amount,
+            description: formData?.description,
             pin: "",
         },
         validationSchema: Yup.object({
@@ -59,14 +59,14 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 							></img>
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
-							<Typography sx={{ fontWeight: "bold" }}>{formData.detailQris.merchant}</Typography>
-							<Typography variant="caption"> Id Transaksi - {formData.detailQris.transaction_id}</Typography>
+							<Typography sx={{ fontWeight: "bold" }}>{formData?.detailQris?.merchant || ""}</Typography>
+							<Typography variant="caption"> Id Transaksi - {formData?.detailQris?.transaction_id || ""}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
 				<Grid item xs={12}>
 					<Typography>Sumber Rupiah</Typography>
-					<CardAccountInfo accountNumber={account.account_number} balance={account.balance} />
+					<CardAccountInfo accountNumber={account?.account_number} balance={account?.balance} />
 				</Grid>
 				<Grid item xs={12} m={0}>
 					<hr
@@ -117,7 +117,7 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 						aria-hidden="true"
 					/>
 					<Typography sx={{ mt: 3 }}>Sumber Rupiah</Typography>
-					<CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
+					<CardAccountInfo accountNumber={account.account_number} balance={account.balance} />
 				</Grid>
 				<Grid
 					item

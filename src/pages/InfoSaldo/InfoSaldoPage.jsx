@@ -30,8 +30,8 @@ import { useAuthContext } from '../../context/AuthContext';
 import { MonthNavigator } from '../../assets/components/navigators/MonthNavigator';
 import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/utilities';
 import FailAlert from '../../assets/components/Alerts/FailAlert';
-import { useTransferRupiahContext } from '../../context/TransferRupiahContext';
 import { LayoutSecondary } from '../layoutSecondary';
+import { useTransferContext } from '../../context/TransferContext';
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
@@ -44,7 +44,7 @@ export const InfoSaldoPage = () => {
     year: new Date().getFullYear()
   })
   const { account } = useAuthContext();
-  const { dataExpense, dataIncome, errorMutationSummary, setOptions } = useTransferRupiahContext();
+  const { dataExpense, dataIncome, errorMutationSummary, setOptions } = useTransferContext();
 
   // setOptions({ month: selectedMonth.month, year: selectedMonth.year });
   useEffect(() => {
