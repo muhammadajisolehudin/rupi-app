@@ -16,12 +16,12 @@ export const QRTerimaTransfer = () => {
 	const navigate = useNavigate();
 	const { account } = useAuthContext();
 
-	// const formatAccountNumber = (number) => {
-	// 	const visibleDigits = 4;
-	// 	const hiddenDigits = number.length - visibleDigits;
-	// 	const stars = '*'.repeat(hiddenDigits);
-	// 	return `${stars}${number.slice(-visibleDigits)}`;
-	// };
+	const formatAccountNumber = (number) => {
+		const visibleDigits = 4;
+		const hiddenDigits = number?.length - visibleDigits;
+		const stars = '*'.repeat(hiddenDigits);
+		return `${stars}${number?.slice(-visibleDigits)}`;
+	};
 
 	const fullName = account.full_name;
 	const accountNumber = account.account_number;
@@ -72,7 +72,7 @@ export const QRTerimaTransfer = () => {
 								{fullName}
 							</Typography>
 							<Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
-								RupiApp by BCA - {accountNumber}
+								RupiApp by BCA - {formatAccountNumber(accountNumber)}
 							</Typography>
 							<Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
 								<QRTerimaTransferCode />
