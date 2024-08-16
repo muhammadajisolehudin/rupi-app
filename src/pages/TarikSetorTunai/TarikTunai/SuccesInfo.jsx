@@ -2,7 +2,9 @@ import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
 
-export const SuccesInfo= () => {
+export const SuccesInfo = ({ tokenData }) => {
+    const { token, expiredAt, amount } = tokenData;
+
     return (
         <>
             <Box
@@ -22,7 +24,9 @@ export const SuccesInfo= () => {
                 <Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
                     Uang Siap Ditarik
                 </Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>
+                    {new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })} . {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+                </Typography>
                 <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
             </Box>
 
@@ -32,14 +36,14 @@ export const SuccesInfo= () => {
                         <Box>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                Rp 100.000
+                                Rp {amount.toLocaleString('id-ID')}
                             </Typography>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                12.35
+                                {new Date(expiredAt).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                         </Box>
                     </Box>
@@ -61,9 +65,8 @@ export const SuccesInfo= () => {
                                 width: "415px",
                             }}
                         >
-                            <Typography>Kode Penarikan</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-                                654888
+                                {token}
                             </Typography>
                         </Box>
                     </Box>
@@ -84,7 +87,6 @@ export const SuccesInfo= () => {
 
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5, px:10 }}>
                 <Button
-                    onClick=""
                     fullWidth
                     sx={{
                         py: 1.5,
@@ -93,6 +95,7 @@ export const SuccesInfo= () => {
                         textTransform: "capitalize",
                         mt: 4,
                     }}
+                    onClick={() => window.location.reload()}
                     aria-label="button make new token"
                     variant="contained"
                 >

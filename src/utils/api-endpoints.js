@@ -28,6 +28,8 @@ export const API_ENDPOINT = {
 
   // Transaction Tarik Setor Tunai
   TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",
+  TRKSTR_TRANSACTION_TOKENHISTORY: "/api/v1/transactions/token-history",
+
   // Transaction QR
   QR_TRANSACTION_GENERATEQR: "/api/v1/transactions/generate-qr",
 

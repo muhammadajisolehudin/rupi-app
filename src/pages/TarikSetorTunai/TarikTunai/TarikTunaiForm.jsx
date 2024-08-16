@@ -10,9 +10,6 @@ export const TarikTunaiForm = ({ onNext }) => {
     const formik = useFormik({
         initialValues: {
             amount: "",
-            namaToken: "",
-            accountNumber: "5667 2323 1444 5554",
-            balance: 5000000,
         },
         validationSchema: Yup.object({
             amount: Yup.number().min(50000, "Nominal Tarik Tunai minimal IDR 50.000").required("Required"),
@@ -20,7 +17,7 @@ export const TarikTunaiForm = ({ onNext }) => {
         }),
         onSubmit: (values) => {
             console.log(values)
-            onNext(values);
+            onNext({ nominal: values.amount, namaToken: values.namaToken });
         },
     });
 
@@ -29,11 +26,13 @@ export const TarikTunaiForm = ({ onNext }) => {
             <Container>
                 <form onSubmit={formik.handleSubmit}>
                     <Grid container spacing={5} sx={{
-                        py: 6,
-                        px: 4,
+                        py: 2,
+                        px: 2,
                     }}>
                         <Grid item xs={12}>
-                            <Typography>Rekening Tujuan</Typography>
+                            <Typography variant="h6" sx={{ mt: 5, fontSize: "18px" }}>
+                                Rekening Tujuan
+                            </Typography>
                             <CardAccountInfo
                                 accountNumber={account.account_number}
                                 balance={account.balance}
@@ -45,13 +44,15 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 value={formik.values.amount}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
+                                type="number"
+                                onWheel={event => { event.preventDefault(); }}
                             />
                             {formik.touched.amount && formik.errors.amount ? (
                                 <Typography sx={{ fontSize: 10, color: "red", mt: 2 }}>
                                     {formik.errors.amount}
                                 </Typography>
                             ) : (
-                                <Typography sx={{ fontSize: 12, color: "grey", mt: 2 }}>
+                                <Typography sx={{ fontSize: 12, color: "grey", mt: 2, fontStyle: "italic" }}>
                                     Nominal Tarik Tunai minimal IDR 50.000
                                 </Typography>
                             )}
@@ -65,7 +66,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 gap: 2,
                             }}
                         >
-                            <Typography mt={0} pt={0}>Beri Nama Token</Typography>
+                            <Typography mt={0} pt={0} sx={{ fontSize: "18px" }}>Beri Nama Token</Typography>
                             <TextField
                                 aria-label="tambahkan nama token tarik tunai"
                                 name="namaToken"
@@ -91,7 +92,8 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 fullWidth
                                 variant="contained"
                                 sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
-                            // disabled={mutation.isLoading}
+                                disabled={!formik.isValid || (formik.values.amount === "" && formik.values.namaToken === "" && formik.values.amount % 50000 !== 0)}
+                                aria-label="submit request tarik tunai form"
                             >
                                 Lanjutkan
                             </Button>

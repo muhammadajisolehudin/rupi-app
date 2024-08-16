@@ -2,25 +2,30 @@ import { Box, Button, Card, Typography } from "@mui/material";
 import { Layout } from "../layout";
 import QRISIcon from '../../assets/img/icons/QRIS-Icon.png';
 import LogoIcon from '../../assets/img/icons/3.png';
-import QRImage from '../../assets/img/Rupi App QR.png';
 import ScanIcon from '../../assets/img/icons/mage_scan.png';
 import ShareIcon from '../../assets/img/icons/mdi_share.png';
 import RiayatIcon from '../../assets/img/icons/Document.png';
 import { useNavigate } from 'react-router-dom';
 import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
+import { QRTerimaTransferCode } from "../../assets/components/QRTransferComponents/QRTerimaTransferCode";
+
+import { useAuthContext } from "../../context/AuthContext";
 
 export const QRTerimaTransfer = () => {
 	const navigate = useNavigate();
+	const { account } = useAuthContext();
 
 	const formatAccountNumber = (number) => {
 		const visibleDigits = 4;
-		const hiddenDigits = number.length - visibleDigits;
+		const hiddenDigits = number?.length - visibleDigits;
 		const stars = '*'.repeat(hiddenDigits);
-		return `${stars}${number.slice(-visibleDigits)}`;
+		return `${stars}${number?.slice(-visibleDigits)}`;
 	};
 
-	const accountNumber = '62340989';
+	const fullName = account.full_name;
+	const accountNumber = account.account_number;
+
 	const currentDate = new Date();
 	const expiryDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 hari
 
@@ -64,13 +69,13 @@ export const QRTerimaTransfer = () => {
 								<img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
 							</Box>
 							<Typography variant="h6" sx={{ fontWeight: 'bold', textAlign: 'center' }}>
-								Samsul
+								{fullName}
 							</Typography>
 							<Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
 								RupiApp by BCA - {formatAccountNumber(accountNumber)}
 							</Typography>
 							<Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
-								<img src={QRImage} alt="QR Code" style={{ width: '200px', height: 'auto' }} />
+								<QRTerimaTransferCode />
 							</Box>
 							<Button
 								variant="outlined"

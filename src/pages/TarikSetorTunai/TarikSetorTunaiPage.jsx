@@ -1,38 +1,43 @@
 import { useState } from "react";
 
-import { Box, Button, Card, Paper, Typography } from "@mui/material";
-import { TarikTunai } from "./TarikTunai";
-import { Layout } from "../layout";
-import { SetorTunai } from "./SetorTunai";
-// import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
-// import { BreadcrumbsComponent } from "../../assets/components/Breadcrumbs/Breadcrumb";
+import { Box, Card, Paper, Typography } from "@mui/material";
+import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
+import { Layout } from "../layout";
+import { TarikTunai } from "./TarikTunai";
+import { SetorTunai } from "./SetorTunai";
+import { RiwayatTransaksiToken } from "./RiwayatTransaksiToken";
 
 export const TarikSetorTunaiPage = () => {
-	const [currentView, setCurrentView] = useState("tarik");
+  const [currentView, setCurrentView] = useState("tarik");
+  const [currentStep, setCurrentStep] = useState(1);
 
-	const renderContent = () => {
-		if (currentView === "tarik") {
-			return (
-				<>
-					<TarikTunai />
-				</>
-			);
-		} else if (currentView === "setor") {
-			return (
-				<>
-					<SetorTunai />
-				</>
-			);
-		} else if (currentView === "token") {
-			return console.log("token");
-		}
-	};
+  const renderContent = () => {
+    if (currentView === "tarik") {
+      return (
+        <>
+          <TarikTunai onStepChange={setCurrentStep} />
+        </>
+      );
+    } else if (currentView === "setor") {
+      return (
+        <>
+          <SetorTunai onStepChange={setCurrentStep} />
+        </>
+      );
+    } else if (currentView === "token") {
+      return (
+        <>
+          <RiwayatTransaksiToken />
+        </>
+      );
+    }
+  };
 
-	return (
+  return (
     <Layout>
-      <Box sx={{ px: 6 ,paddingTop: "2rem", paddingBottom: "2rem" }}>
-        {/* <Breadcrumb /> */}
+      <Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
+        <Breadcrumb />
 
         <Typography
           sx={{
@@ -41,8 +46,6 @@ export const TarikSetorTunaiPage = () => {
             alignItems: "center",
             mx: 0,
             my: 6,
-            py: 1,
-            // height:"50px",
             fontWeight: "bold",
           }}
           variant="h5"
@@ -50,60 +53,52 @@ export const TarikSetorTunaiPage = () => {
           Tarik & Setor Tunai
         </Typography>
 
-        <Card component={Paper} elevation={4}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              p: 2,
-              boxShadow: 1,
-              //   bgcolor: "red",
-            }}
-          >
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: currentView === "tarik" ? "" : "transparent",
-                color: currentView === "tarik" ? "#fff" : "grey",
-                width: "350px",
-                borderRadius: "20px",
-                boxShadow: currentView === "tarik" ? "" : "none",
-                textTransform: "none",
-              }}
-              onClick={() => setCurrentView("tarik")}
-            >
-              Tarik
-            </Button>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: currentView === "setor" ? "" : "transparent",
-                color: currentView === "setor" ? "#fff" : "grey",
-                width: "350px",
-                borderRadius: "20px",
-                boxShadow: currentView === "setor" ? "" : "none",
-                textTransform: "none",
-              }}
-              onClick={() => setCurrentView("setor")}
-            >
-              Setor
-            </Button>
-            <Button
-              variant="contained"
-              style={{
-                backgroundColor: currentView === "token" ? "" : "transparent",
-                color: currentView === "token" ? "#fff" : "grey",
-                width: "350px",
-                borderRadius: "20px",
-                boxShadow: currentView === "token" ? "" : "none",
-                textTransform: "none",
-              }}
-              onClick={() => setCurrentView("token")}
-            >
-              Token
-            </Button>
-          </Box>
-
+        <Card sx={{ p: 1 }} component={Paper} elevation={4}>
+          {(currentView !== "tarik" || currentStep === 1) &&
+          (currentView !== "setor" || currentStep === 1) &&
+          (
+            <Box sx={{ display: "flex", justifyContent: "space-evenly", p: 2, boxShadow: 1 }}>
+              <button
+                style={{
+                  backgroundColor: currentView === "tarik" ? "#0066AE" : "transparent",
+                  color: currentView === "tarik" ? "#fff" : "grey",
+                  width: "350px",
+                  borderRadius: "20px",
+                  padding: "10px",
+                  border: 0,
+                }}
+                onClick={() => setCurrentView("tarik")}
+              >
+                Tarik
+              </button>
+              <button
+                style={{
+                  backgroundColor: currentView === "setor" ? "#0066AE" : "transparent",
+                  color: currentView === "setor" ? "#fff" : "grey",
+                  width: "350px",
+                  borderRadius: "20px",
+                  padding: "10px",
+                  border: 0,
+                }}
+                onClick={() => setCurrentView("setor")}
+              >
+                Setor
+              </button>
+              <button
+                style={{
+                  backgroundColor: currentView === "token" ? "#0066AE" : "transparent",
+                  color: currentView === "token" ? "#fff" : "grey",
+                  width: "350px",
+                  borderRadius: "20px",
+                  padding: "10px",
+                  border: 0,
+                }}
+                onClick={() => setCurrentView("token")}
+              >
+                Token
+              </button>
+            </Box>
+          )}
           {renderContent()}
         </Card>
       </Box>
