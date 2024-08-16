@@ -1,122 +1,119 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Box, Button } from '@mui/material';
-import NotificationIcon from '../../img/icons/Notification.svg';
-import SettingIcon from '../../img/icons/Setting.svg';
-import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
-import LogoutIcon from '../../img/icons/Logout.svg';
-import { useAuthContext } from '../../../context/AuthContext';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Box } from "@mui/material";
+import NotificationIcon from "../../img/icons/Notification.svg";
+import SettingIcon from "../../img/icons/Setting.svg";
+import CustomerServiceIcon from "../../img/icons/CustomerService.svg";
+import LogoutIcon from "../../img/icons/Logout.svg";
+import { useAuthContext } from "../../../context/AuthContext";
+import { ModalNotifikasiAktivitas } from "../Modals/ModalNotifikasiAktivitas";
 
 function Navbar() {
-  const [activePage, setActivePage] = useState("beranda");
-  const navigate = useNavigate();
-  const { logout } = useAuthContext()
+	const [activePage, setActivePage] = useState("beranda");
+	const navigate = useNavigate();
+	const { logout } = useAuthContext();
 
-  const handlePageChange = (pageName, path) => {
-    setActivePage(pageName);
-    navigate(path);
-  };
+	const handlePageChange = (pageName, path) => {
+		setActivePage(pageName);
+		navigate(path);
+	};
 
-  const handleLogout = async () => {
-    await logout();
-    setTimeout(() => {
-      navigate('/login');
-    }, 1000); 
-  };
+	const handleLogout = async () => {
+		await logout();
+		setTimeout(() => {
+			navigate("/login");
+		}, 1000);
+	};
 
-  return (
-    <AppBar
-      position="fixed"
-      sx={{
-        backgroundColor: "#ffffff",
-        color: "#0066AE",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-        paddingX: "1rem",
-        zIndex: 9999,
-      }}
-    >
-      <Toolbar sx={{ justifyContent: "space-between", height: "85px" }}>
-        {/* Logo and App Title */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <img
-            id="logo"
-            src="/logo.png"
-            aria-label="Logo Rupi App"
-            alt="Logo Rupi App"
-          />
-          <Typography
-            id="logoText"
-            variant="h6"
-            fontWeight={700}
-            aria-label="Nama Aplikasi, Rupi App"
-          >
-            Rupi App
-          </Typography>
-        </Box>
+	const [open, setOpen] = useState();
+	const handleOpenNotifDropdown = () => setOpen(true);
+	const handleCloseNotifDropdown = () => setOpen(false);
 
-        <Box sx={{  display:"flex", gap:8  }}>
-          {/* Navigation Menu */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: "32px" }}>
-            <Typography
-              id="beranda"
-              variant="h6"
-              fontWeight={activePage === "beranda" ? 700 : 400}
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("beranda", "/")}
-              sx={{
-                transition: 'transform 0.3s ease', // Transisi halus untuk pergeseran
-                '&:hover': {
-                  transform: 'translateX(-8px)', // Geser elemen 10px ke kiri saat hover
-                },
-              }}
-            >
-              Beranda
-            </Typography>
-          </Box>
+	return (
+		<AppBar
+			position="fixed"
+			sx={{
+				backgroundColor: "#ffffff",
+				color: "#0066AE",
+				boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+				paddingX: "1rem",
+				zIndex: 9999,
+			}}
+		>
+			<Toolbar sx={{ justifyContent: "space-between", height: "85px" }}>
+				{/* Logo and App Title */}
+				<Box
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						gap: "8px",
+					}}
+				>
+					<img id="logo" src="/logo.png" aria-label="Logo Rupi App" alt="Logo Rupi App" />
+					<Typography id="logoText" variant="h6" fontWeight={700} aria-label="Nama Aplikasi, Rupi App">
+						Rupi App
+					</Typography>
+				</Box>
 
-          {/* Icons */}
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <img
-              src={NotificationIcon}
-              alt="notifications"
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("notifications", "/")}
-            />
-            <img
-              src={CustomerServiceIcon}
-              alt="customer service"
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("customerService", "/")}
-            />
-            <img
-              src={SettingIcon}
-              alt="account settings"
-              style={{ cursor: "pointer" }}
-              onClick={() => handlePageChange("accountSettings", "/pengaturan")}
-            />
-            {/* <Button> */}
-              <img
-              itemType='button'
-                src={LogoutIcon}
-                alt="logout"
-                style={{ cursor: "pointer" }}
-                onClick={() => handleLogout()}
-              />
-            {/* </Button> */}
-          </Box>
-        </Box>
-      </Toolbar>
-    </AppBar>
-  );
+				<Box sx={{ display: "flex", gap: 8 }}>
+					{/* Navigation Menu */}
+					<Box sx={{ display: "flex", alignItems: "center", gap: "32px" }}>
+						<Typography
+							id="beranda"
+							variant="h6"
+							fontWeight={activePage === "beranda" ? 700 : 400}
+							style={{ cursor: "pointer" }}
+							onClick={() => handlePageChange("beranda", "/")}
+							sx={{
+								transition: "transform 0.3s ease", // Transisi halus untuk pergeseran
+								"&:hover": {
+									transform: "translateX(-8px)", // Geser elemen 10px ke kiri saat hover
+								},
+							}}
+						>
+							Beranda
+						</Typography>
+					</Box>
+
+					{/* Icons */}
+					<Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
+						<img
+							src={NotificationIcon}
+							alt="notifications"
+							style={{ cursor: "pointer" }}
+							onClick={() => handleOpenNotifDropdown()}
+						/>
+						<img
+							src={CustomerServiceIcon}
+							alt="customer service"
+							style={{ cursor: "pointer" }}
+							onClick={() => handlePageChange("customerService", "/")}
+						/>
+						<img
+							src={SettingIcon}
+							alt="account settings"
+							style={{ cursor: "pointer" }}
+							onClick={() => handlePageChange("accountSettings", "/pengaturan")}
+						/>
+						{/* <Button> */}
+						<img
+							itemType="button"
+							src={LogoutIcon}
+							alt="logout"
+							style={{ cursor: "pointer" }}
+							onClick={() => handleLogout()}
+						/>
+						{/* </Button> */}
+					</Box>
+				</Box>
+			</Toolbar>
+			{/* Modal Notifikasi Aktivitas */}
+			<ModalNotifikasiAktivitas open={open} onClose={handleCloseNotifDropdown} />
+		</AppBar>
+	);
 }
 
 export default Navbar;
