@@ -2,7 +2,6 @@ import BreadcrumbSecondary from '../../assets/components/Breadcrumbs/BreadcrumbS
 import { useEffect, useState } from 'react';
 import {
   Box,
-  Button,
   ButtonBase,
   Container,
   Grid,
@@ -34,11 +33,9 @@ import FailAlert from '../../assets/components/Alerts/FailAlert';
 import { useTransferRupiahContext } from '../../context/TransferRupiahContext';
 import { LayoutSecondary } from '../layoutSecondary';
 export const InfoSaldoPage = () => {
-  const [open, setOpen] = useState({
-    modalInfoSaldo: false,
-    modalBuktiTransfer: false,
-  });
+  const [open, setOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
+  const [title, setTitle] = useState('');
   const [activeSection, setActiveSection] = useState('Pemasukan');
   const [type, setType] = useState('debit');
   const [icon, setIcon] = useState('');
@@ -55,20 +52,16 @@ export const InfoSaldoPage = () => {
     setOptions({ month: selectedMonth.month, year: selectedMonth.year });
   }, [selectedMonth]); // Dependensi diperbaiki di sini
 
-  const handleOpenInfoSaldo = (transactionData, infoSaldo) => {
+  const handleOpen = (transactionData, title, type, icon) => {
     setSelectedTransaction(transactionData);
-    setOpen({
-      modalInfoSaldo: true,
-      modalBuktiTransfer: false,
-    });
-    setInfoSaldo(infoSaldo);
+    setTitle(title);
+    setType(type);
+    setOpen(true);
+    setIcon(icon);
   };
 
-  const handleCloseInfoSaldo = () => {
-    setOpen({
-      modalInfoSaldo: false,
-      modalBuktiTransfer: false,
-    });
+  const handleClose = () => {
+    setOpen(false);
     setSelectedTransaction([]);
   };
 
@@ -95,27 +88,6 @@ export const InfoSaldoPage = () => {
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
-
-  const dataTable = [
-    {
-      id: 1,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-    },
-    {
-      id: 2,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-    },
-    {
-      id: 3,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-    },
-  ];
 
   return (
     <LayoutSecondary>
@@ -451,3 +423,5 @@ export const InfoSaldoPage = () => {
 
   );
 };
+
+// export default InfoSaldoPage;

@@ -27,7 +27,7 @@ export const RouteList = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          <Route path="/mutasi" element={<MutasiPage />} />
+          
           <Route
             path="/*"
             element={
@@ -50,6 +50,7 @@ export const RouteList = () => {
                           <Routes>
                             <Route path="/" element={<BerandaPage />} />
                             <Route path="/info-saldo" element={<InfoSaldoPage />} />
+                            <Route path="/mutasi" element={<MutasiPage />} />
 
                             {/* transfer */}
                             <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -15,18 +15,56 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import SearchIcon from '@mui/icons-material/Search';
 import { Layout } from '../layout';
-import BreadcrumbsComponent from '../../assets/components/Breadcrumbs/Breadcrumbs';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import ShareIcon from '@mui/icons-material/Share';
 import TablePrimary from '../../assets/components/tableComponents/TablePrimary';
 import ModalBuktiTransfer from '../../assets/components/Modals/ModalBuktiTransfer';
+import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
+import { useGetMutations } from '../../services/account/account-mutasi';
 
 export const MutasiPage = () => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [category, setCategory] = useState('');
   const [open, setOpen] = useState();
+
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const rowsPerPage = 10; // Number of rows per page
+  
+  const [params, setParams] = useState({
+    page: "",
+    size: "",
+    year:"",
+    month: "",
+    // transactionPurpose: "",
+    // transactionType: "",
+    // mutationType: ""
+  });
+  const { data: dataMutasi } = useGetMutations(params)
+
+  useEffect( () => {
+    
+    setParams(prevParams => {
+      const newParams = {
+        ...prevParams,
+        page: page - 1, // Adjust page number as needed
+        size: rowsPerPage, // Ensure rowsPerPage is defined somewhere
+        year: selectedDate ? selectedDate.year() : '',
+        month: selectedDate ? selectedDate.month() + 1 : '',
+      };
+
+      if (category) {
+        newParams.mutationType = category;
+      }
+
+      return newParams;
+    });
+
+  }, [page, category, selectedDate ])
+
+  console.log("data mutasi",dataMutasi)
   const [transferData, setTransferData] = useState({
     recipientName: 'John Doe',
     bankName: 'Bank ABC',
@@ -40,38 +78,11 @@ export const MutasiPage = () => {
     senderAccountSuffix: '7890',
   });
 
-  // Pagination state
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 2; // Number of rows per page
-
-  // Sample data
-  const dataTable = [
-    {
-      id: 1,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-      status: 'Debit',
-    },
-    {
-      id: 2,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-      status: 'Credit',
-    },
-    {
-      id: 3,
-      tanggal: '12 Juli 2024',
-      keterangan: 'Transfer dari BCA ke BNI',
-      nominal: 'Rp 1.000.000',
-      status: 'Debit',
-    },
-  ];
-
   // Calculate pagination details
-  const totalPages = Math.ceil(dataTable.length / rowsPerPage);
-  const paginatedData = dataTable.slice(
+  // const totalPages = Math.ceil(dataMutasi?.length / rowsPerPage);
+  const totalPages = Math.ceil((dataMutasi?.length || 0) / rowsPerPage);
+  const dataMutasiArray = Array.isArray(dataMutasi) ? dataMutasi : [];
+  const paginatedData = dataMutasiArray?.slice(
     (page - 1) * rowsPerPage,
     page * rowsPerPage
   );
@@ -104,7 +115,7 @@ export const MutasiPage = () => {
   return (
     <Layout>
       <Box sx={{ mx: 6, paddingTop: '1.5rem', paddingBottom: '2rem' }}>
-        <BreadcrumbsComponent />
+        <Breadcrumb />
         <Grid container spacing={2} marginTop={2}>
           <Grid item xs={12} sm={4} md={6}>
             <TextField
@@ -172,8 +183,8 @@ export const MutasiPage = () => {
                 <MenuItem value="" disabled>
                   <em>Kategori Transaksi</em>
                 </MenuItem>
-                <MenuItem value="category1">Category 1</MenuItem>
-                <MenuItem value="category2">Category 2</MenuItem>
+                <MenuItem value="TRANSFER">Transfer</MenuItem>
+                <MenuItem value="QRIS">Qris</MenuItem>
                 <MenuItem value="category3">Category 3</MenuItem>
               </Select>
             </FormControl>
@@ -204,20 +215,21 @@ export const MutasiPage = () => {
         <Box sx={{ display: 'flex', justifyContent: 'flex-start', mt: 5 }}>
           <TablePrimary
             title="Mutasi Rekening"
-            rows={['Tanggal', 'Keterangan', 'Nominal', 'Aksi']}
+            rows={['Transaksi','Tanggal', 'Nominal', 'Aksi']}
           >
-            {paginatedData.map((data) => (
-              <TableRow key={data.id}>
-                <TableCell>{data.tanggal}</TableCell>
-                <TableCell>{data.keterangan}</TableCell>
-                <TableCell
+            {paginatedData?.map((data) => (
+              <TableRow key={data?.id}>
+                <TableCell>pag</TableCell>
+                <TableCell>{data?.date}</TableCell>
+                <TableCell>{data?.amount}</TableCell>
+                {/* <TableCell
                   sx={{
                     color:
                       data.status === 'Debit' ? 'error.main' : 'success.main',
                   }}
                 >
                   {data.status === 'Debit' ? '-' : ''} {data.nominal}
-                </TableCell>
+                </TableCell> */}
                 <TableCell>
                   <Button
                     key={data.id}
@@ -242,7 +254,7 @@ export const MutasiPage = () => {
                     Lihat Bukti
                   </Button>
                   <Button
-                    key={data.id}
+                    key={data?.id}
                     variant="outlined"
                     startIcon={<DownloadIcon />}
                     onClick={() => {}}
@@ -251,7 +263,7 @@ export const MutasiPage = () => {
                     Download
                   </Button>
                   <Button
-                    key={data.id}
+                    key={data?.id}
                     variant="outlined"
                     startIcon={<ShareIcon />}
                     onClick={() => {}}

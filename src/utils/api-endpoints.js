@@ -24,6 +24,7 @@ export const API_ENDPOINT = {
   // Account
   ACCOUNT_DETAIL: "/account/detail",
   ACCOUNT_MUTATIONS_SUMMARY: "/account/mutations/summary",
+  ACCOUNT_MUTATIONS: "/account/mutations",
 
   // Transaction Tarik Setor Tunai
   TRKSTR_TRANSACTION_GENERATETOKEN: "/api/v1/transactions/generate-token",
