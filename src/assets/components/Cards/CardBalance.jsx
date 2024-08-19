@@ -6,7 +6,7 @@ import copyIcon from "../../img/icons/copy.png";
 import showIcon from "../../img/icons/show.png";
 import creditCardBlack from "../../img/credit card black.png";
 import { useState } from "react";
-import { formatAccountNumber, formatBalance } from "../../../utils/utilities";
+import { formatAccountNumber, formatRupiah } from "../../../utils/utilities";
 
 export const CardBalance = ({ user }) => {
   const lightBlue = "#EDF4FF";
@@ -138,7 +138,7 @@ export const CardBalance = ({ user }) => {
             >
               IDR{' '}
               <span style={{ fontWeight: "bold" }}>
-                {isNominalVisible ? formatBalance(user?.balance) : '*****'}
+                {isNominalVisible ? formatRupiah(user?.balance) : '*****'}
               </span>
             </Typography>
             <Button

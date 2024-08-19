@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { ButtonBase, Grid } from '@mui/material';
-import { parsePercentage } from '../../../utils/utilities';
+import { formatRupiah, parsePercentage } from '../../../utils/utilities';
 
 const TransactionBox = ({ icon, title, data, onClick }) => {
   return (
@@ -39,7 +39,7 @@ const TransactionBox = ({ icon, title, data, onClick }) => {
               <Typography variant="body1"> { data?.number_of_transactions || 0 } transaksi ({ parsePercentage(data?.total_balance_percentage) }%)</Typography>
               </Grid>
             <Grid item xs={4} sx={{ display:"flex", alignItems: "center" }}>
-              <Typography variant="body1">{data?.total_balance || 0}</Typography>
+              <Typography variant="body1">Rp {formatRupiah(data?.total_balance || 0)}</Typography>
             </Grid>
             
            

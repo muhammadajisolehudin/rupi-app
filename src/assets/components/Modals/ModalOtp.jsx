@@ -13,6 +13,7 @@ import { useRef } from 'react';
 import { useFormik } from 'formik';
 import { useAuthContext } from '../../../context/AuthContext';
 import { useVerifyUserPhone } from '../../../services/user/verify-phone-otp';
+import FailAlert from '../Alerts/FailAlert';
 
 export const ModalOtp = ({
     open,
@@ -21,7 +22,7 @@ export const ModalOtp = ({
 }) => {
     const inputRefs = useRef([]);
     const { user } = useAuthContext();
-    const mutateVerifiedPhone = useVerifyUserPhone()
+    const mutateVerifiedPhone = useVerifyUserPhone();
 
     const formik = useFormik({
         initialValues: {
@@ -44,14 +45,10 @@ export const ModalOtp = ({
             };
 
             try {
-                console.log(payload);
-                await mutateVerifiedPhone.mutateAsync(payload)
-                if (onOtpVerified) {
-                    onOtpVerified();
-                }
+                await mutateVerifiedPhone.mutateAsync(payload);
                 onClose();
             } catch (error) {
-                console.error("OTP verification failed, error:", error);
+                return error
             }
         },
     });
@@ -83,8 +80,8 @@ export const ModalOtp = ({
     };
 
     return (
-        <Modal open={open} onClose={onClose} style={{ marginTop:"10rem" }}>
-            <Box sx={{ display: "flex", justifyContent: "center"  }}>
+        <Modal open={open} onClose={onClose} style={{ marginTop: "10rem" }}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Paper
                     elevation={5}
                     square={false}
@@ -93,14 +90,13 @@ export const ModalOtp = ({
                         justifyContent: "center",
                         flexDirection: "column",
                         width: "30%",
-                        
                         py: 5,
                         px: 4,
                     }}
                 >
-                        <IconButton onClick={onClose} sx={{ ml:"auto", mb:2 }}>
-                            <CloseIcon />
-                        </IconButton>
+                    <IconButton onClick={onClose} sx={{ ml: "auto", mb: 2 }}>
+                        <CloseIcon />
+                    </IconButton>
                     <Typography variant="h5" sx={{ fontWeight: "bold", mx: "auto" }}>
                         Masukkan Kode Verifikasi
                     </Typography>
@@ -122,7 +118,6 @@ export const ModalOtp = ({
                             alignItems="center"
                             gap={4}
                         >
-                            
                             <Box display="flex" gap={3}>
                                 {formik.values.otp.map((digit, index) => (
                                     <TextField
@@ -172,7 +167,12 @@ export const ModalOtp = ({
                     </form>
                 </Paper>
             </Box>
-
+            {/* {mutateVerifiedPhone.isError && (
+                <FailAlert message={mutateVerifiedPhone.error?.response?.data?.message || mutateVerifiedPhone.error?.message} title="Ferivikasi No Handphone Gagal" />
+            )}
+            {mutateChangePhone.isSuccess && (
+                <SuccesAlert message="silahkan masukan kode OTP untuk ferivikasi" title="No Baru Sedang Didaftarkan" />
+            )} */}
         </Modal>
     );
 };

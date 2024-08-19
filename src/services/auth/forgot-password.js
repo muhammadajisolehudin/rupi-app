@@ -10,7 +10,9 @@ const ForgotPassword = async (input) => {
 };
 
 const useForgotPassword = () => {
-  return useMutation(ForgotPassword);
+  return useMutation({
+    mutationFn: ForgotPassword
+  });
 };
 
 export { ForgotPassword, useForgotPassword };

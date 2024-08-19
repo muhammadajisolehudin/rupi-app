@@ -5,7 +5,7 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import creditCardBlack from "../../img/credit card black.png";
 import { useState } from 'react';
-import { formatAccountNumber, formatBalance } from '../../../utils/utilities';
+import { formatAccountNumber, formatRupiah } from '../../../utils/utilities';
 
 const CardSaldo = ({ account }) => {
   const darkBlue = '#0A3967';
@@ -115,7 +115,7 @@ const CardSaldo = ({ account }) => {
               >
                 IDR{' '}
                 <span style={{ fontWeight: "bold" }}>
-                  {isNominalVisible ? formatBalance(account?.balance) : '*****'}
+                  {isNominalVisible ? formatRupiah(account?.balance) : '*****'}
                 </span>
               </Typography>
               <Button

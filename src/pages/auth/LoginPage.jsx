@@ -153,11 +153,12 @@ export const LoginPage = () => {
           ) : null}
           <Grid container>
             <Grid item xs sx={{ mt: 1, mb: 2 }}>
-              <Link href="#"
+              <Link 
+                to="/forgot-password"
                 variant="body2"
                 style={{ textDecoration: "none" }}
                 role="button"
-                aria-label="Button Lupa Username atau Password">
+                aria-label="Link lupa Username atau Password">
                 Lupa Username/Password?
               </Link>
             </Grid>

@@ -19,6 +19,7 @@ export const API_ENDPOINT = {
 
   //Qris
   TRANSFER_QRIS: "/transfer/qris",
+  GENERATE_QRIS_CPM_TRANSACTION: "/transfer/qris/generate/cpm",
   // ADD_DATA_REKENING: ""
 
   // Account

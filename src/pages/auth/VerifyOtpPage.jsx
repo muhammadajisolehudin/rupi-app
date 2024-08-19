@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { AuthLayout } from "../authLayout";
 import { useVerifyOtp } from "../../services/auth/verify";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 import { useVerifyOtpResend } from "../../services/auth/verify-resend";
 import { useAuthContext } from "../../context/AuthContext";
@@ -13,7 +13,7 @@ import FailAlert from "../../assets/components/Alerts/FailAlert";
 export const VerifyOtpPage = () => {
 	const inputRefs = useRef([]);
 	const { user } = useAuthContext()
-	// const [ verifyStatus, setVerifyStatus ] = useState()
+	const location = useLocation();
 	const otp = useVerifyOtp();
 	const resendOtp = useVerifyOtpResend();
 	const navigate = useNavigate()
@@ -42,7 +42,9 @@ export const VerifyOtpPage = () => {
 
 			try {
 				await otp.mutateAsync(payload);
-				navigate("/")
+				const previousPath = location.state?.from?.pathname || '/login';
+				navigate(previousPath === '/forgot-password' ? '/set-password' : '/');
+				// navigate("/")
 			} catch (error) {
 				console.error("Login failed, error:", error);
 

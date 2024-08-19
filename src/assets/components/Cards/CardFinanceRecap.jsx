@@ -2,7 +2,7 @@ import { Box, Card, Typography, Button } from "@mui/material";
 import buttonEnter from "../../img/icons/button enter.svg";
 import pemasukanIcon from "../../img/icons/pemasukan.png";
 import pengeluaranIcon from "../../img/icons/pengeluaran.png";
-import { formatBalance, getTotalTransaction } from "../../../utils/utilities";
+import { formatRupiah, getTotalTransaction } from "../../../utils/utilities";
 
 export const CardFinanceRecap = ({income, expense}) => {
   const neutral = "#FFFFFF";
@@ -95,7 +95,7 @@ export const CardFinanceRecap = ({income, expense}) => {
                 letterSpacing: "0.15px",
               }}
             >
-              { formatBalance(income?.total_income) }
+              Rp {formatRupiah(income?.total_income) } 
             </Typography>
             <Typography
               sx={{
@@ -144,7 +144,7 @@ export const CardFinanceRecap = ({income, expense}) => {
                 letterSpacing: "0.15px",
               }}
             >
-              { formatBalance(expense?.total_expense) }
+              Rp {formatRupiah(expense?.total_expense) }
             </Typography>
             <Typography
               variant="h6"

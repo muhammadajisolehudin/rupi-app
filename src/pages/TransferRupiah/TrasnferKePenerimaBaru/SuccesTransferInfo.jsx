@@ -1,16 +1,20 @@
 // TransferBerhasilPage.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
-import ModalTransferBerhasil from "../../../assets/components/Modals/ModalTransferBerhasil";
+import ModalBuktiTransfer from "../../../assets/components/Modals/ModalBuktiTransfer";
+import { useGetTransaksiDetail } from "../../../services/transfer-rupiah/get-detail-transaksi";
 
 export const SuccesTransferInfo = () => {
 	const [open, setOpen] = useState(false);
 
+
+	const { data : detailTransaksi } = useGetTransaksiDetail()
+
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	const accountNumber = "992192925554";
+	
 
 	return (
 		<Box
@@ -48,7 +52,25 @@ export const SuccesTransferInfo = () => {
 				Lihat Bukti Transfer
 			</Button>
 
-			<ModalTransferBerhasil open={open} handleClose={handleClose} accountNumber={accountNumber} />
+			{/* <ModalTransferBerhasil open={open} handleClose={handleClose} accountNumber={accountNumber} /> */}
+			{/* <ModalBuktiTransfer
+				open={open}
+				onClose={handleClose}
+				appName={transferData.appName}
+				status={transferData.status}
+				recipientName={transferData.recipientName}
+				bankName={transferData.bankName}
+				accountNumber={transferData.accountNumber}
+				transferAmount={transferData.transferAmount}
+				transferMethod={transferData.transferMethod}
+				transferFee={transferData.transferFee}
+				totalTransaction={transferData.totalTransaction}
+				senderName={transferData.senderName}
+				senderBankName={transferData.senderBankName}
+				senderAccountSuffix={transferData.senderAccountSuffix}
+				onShare={handleShare}
+				onDownload={handleDownload}
+			/> */}
 		</Box>
 	);
 };

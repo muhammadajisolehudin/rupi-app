@@ -2,9 +2,12 @@ import BreadcrumbSecondary from '../../assets/components/Breadcrumbs/BreadcrumbS
 import { useEffect, useState } from 'react';
 import {
   Box,
+  Button,
   ButtonBase,
   Container,
   Grid,
+  TableCell,
+  TableRow,
   Typography,
 } from '@mui/material';
 import CardSaldo from '../../assets/components/Cards/CardSaldo';
@@ -16,7 +19,11 @@ import QrisIcon from '../../assets/img/icons/qris-pengeluaran-icon.png';
 import TarikTunaiIcon from '../../assets/img/icons/tarik-tunai-icon.png';
 import TransferPengeuaranIcon from '../../assets/img/icons/transfer-pengeluaran-icon.png';
 import TransferIcon from '../../assets/img/icons/transfer-icon.png';
+import TransactionMiniIcon from '../../assets/img/icons/transaction-mini-icon.svg';
+import QrMiniIcon from '../../assets/img/icons/qr-code-mini-Icon.svg'
+import MoneyMiniIcon from '../../assets/img/icons/money-mini-icon.svg'
 import SetorTunaiIcon from '../../assets/img/icons/setor-tunai-icon.png';
+import QrisMiniIcon from '../../assets/img/icons/qris-mini-icon.svg';
 import TransactionBox from '../../assets/components/boxComponents/TransactionBox';
 import DynamicPieChart from '../../assets/components/chartComponents/DynamicPieChart';
 import ButtonPrimary from '../../assets/components/buttonComponents/PrimaryButton';
@@ -32,11 +39,16 @@ import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/uti
 import FailAlert from '../../assets/components/Alerts/FailAlert';
 import { LayoutSecondary } from '../layoutSecondary';
 import { useTransferContext } from '../../context/TransferContext';
+import { ChevronRightOutlined } from '@mui/icons-material';
+import { useGetMutations } from '../../services/account/account-mutasi';
+import ModalBuktiTransfer from '../../assets/components/Modals/ModalBuktiTransfer';
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
+  const [openBuktiTransaksi, setOpenBuktiTransaksi] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
   const [title, setTitle] = useState('');
   const [activeSection, setActiveSection] = useState('Pemasukan');
+  const [detail, setDetail] = useState('');
   const [type, setType] = useState('debit');
   const [icon, setIcon] = useState('');
   const [selectedMonth, setSelectedMonth] = useState({
@@ -52,12 +64,14 @@ export const InfoSaldoPage = () => {
     setOptions({ month: selectedMonth.month, year: selectedMonth.year });
   }, [selectedMonth]); // Dependensi diperbaiki di sini
 
-  const handleOpen = (transactionData, title, type, icon) => {
+  const handleOpen = (transactionData, title, detail, type, icon) => {
     setSelectedTransaction(transactionData);
     setTitle(title);
+    setDetail(detail);
     setType(type);
-    setOpen(true);
     setIcon(icon);
+    setOpen(true);
+    
   };
 
   const handleClose = () => {
@@ -76,18 +90,53 @@ export const InfoSaldoPage = () => {
   const chartDataPemasukan = (dataIncome?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
     color: ['#0ed79c', '#0065ae', '#feb831'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
+    icon: ['transfer', 'qr', 'setor'][index]
   }));
 
   const chartDataPengeluaran = (dataExpense?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
     color: ['#ca3a31', '#0a3967', '#926001'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
+    icon: ['transfer', 'qris', 'setor'][index]
   }));
 
   const groupedDataTransferExpense = groupByDate(transferExpenseCategory?.mutations);
+  const groupedDataQris = groupByDate(qrisCategory?.mutations)
   const groupedDataTransferIncome = groupByDate(transferIncomeCategory?.mutations);
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
+  const dataQris = formatGroupedData(groupedDataQris)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
+
+  const { data: dataMutasi } = useGetMutations()
+  console.log("data nutasi ini tuh : ", dataMutasi)
+  const [transferData, setTransferData] = useState({
+    recipientName: 'John Doe',
+    bankName: 'Bank ABC',
+    accountNumber: '1234567890',
+    transferAmount: 'Rp 1.000.000',
+    transferMethod: 'Online Banking',
+    transferFee: 'Rp 5.000',
+    totalTransaction: 'Rp 1.005.000',
+    senderName: 'SAMSUL',
+    senderBankName: 'Bank XYZ',
+    senderAccountSuffix: '7890',
+  });
+
+  const handleOpenBuktiTransfer = (buktiTransfer) => {
+    setOpen(true);
+    setTransferData(buktiTransfer);
+  };
+  const handleShare = () => {
+    console.log('Share');
+  };
+
+  const handleDownload = () => {
+    console.log('Download');
+  };
+  const handleCloseBuktiTransfer = () => {
+    setOpen(false);
+  };
+
 
   return (
     <LayoutSecondary>
@@ -239,9 +288,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataTransferIncome,
-                          'Transfer',
+                          'Transfer Rupiah',
+                          'Transfer BI Fast',
                           'credit',
-                          <WalletIcon />
+                          <img width={18}  src={TransactionMiniIcon} />
                         )
                       }
                     />
@@ -253,8 +303,9 @@ export const InfoSaldoPage = () => {
                         handleOpen(
                           dataQrTerimaTransfer,
                           'QR Terima Transfer',
+                          'QR Terima Transfer',
                           'credit',
-                          <QrCodeIcon />
+                          <img width={18} src={QrMiniIcon} />
                         )
                       }
                     />
@@ -266,8 +317,9 @@ export const InfoSaldoPage = () => {
                         handleOpen(
                           dataSetorTunai,
                           'Setor Tunai',
+                          'Setor Tunai',
                           'credit',
-                          <CreditCardIcon />
+                          <img width={18} src={MoneyMiniIcon} />
                         )
                       }
                     />
@@ -281,9 +333,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataTransferExpense,
-                          'Transfer Pengeluaran',
+                          'Transfer Rupiah',
+                          'Transfer Ke BCA',
                           'debit',
-                          <WalletIcon />
+                          <img width={18} src={TransactionMiniIcon} />
                         )
                       }
                     />
@@ -293,10 +346,11 @@ export const InfoSaldoPage = () => {
                       data={qrisCategory}
                       onClick={() =>
                         handleOpen(
-                          datQris,
-                          'QRIS Pembayaran',
+                          dataQris,
+                          'QRIS',
+                          'Qris',
                           'debit',
-                          <QrCode2Icon />
+                          <img width={18} src={QrisMiniIcon} />
                         )
                       }
                     />
@@ -307,6 +361,7 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataTarikTunai,
+                          'Tarik Tunai',
                           'Tarik Tunai',
                           'debit',
                           <CreditCardIcon />
@@ -356,53 +411,69 @@ export const InfoSaldoPage = () => {
               width: '100%',
             }}
           >
-            <ButtonPrimary text="Lihat Mutasi Rekening" />
+            {/* <ButtonPrimary text="Lihat Mutasi Rekening" /> */}
+            <Button href="/mutasi" variant="contained" sx={{ borderRadius: 3, textTransform: 'none' }}>Lihat Mutasi Rekening <ChevronRightOutlined /></Button>
           </Box>
 
           <Box
             sx={{ display: 'flex', justifyContent: 'flex-start', mt: 5 }}
           >
-            <TablePrimary
+            {/* <TablePrimary
               title="Aktivitas Terakhir"
-              rows={['Transaksi', 'Tanggal', 'Keterangan', 'Nominal']}
-              data={[
-                {
-                  Transaksi: '',
-                  Tanggal: '12 Juli 2024',
-                  Keterangan: 'Transfer',
-                  Nominal: 'Rp 1.000.000',
-                },
-                {
-                  Transaksi: '',
-                  Tanggal: '12 Juli 2024',
-                  Keterangan: 'Pembayaran',
-                  Nominal: 'Rp 1.000.000',
-                },
-                {
-                  Transaksi: '',
-                  Tanggal: '12 Juli 2024',
-                  Keterangan: 'Setor Tunai',
-                  Nominal: 'Rp 1.000.000',
-                },
-              ]}
-              actions={[
-                {
-                  handler: () => { },
-                  label: 'Lihat Bukti',
-                  icon: <ReceiptIcon />,
-                },
-                {
-                  handler: () => { },
-                  label: 'Bagikan Resi',
-                  icon: <ShareIcon />,
-                },
-                {
-                  handler: () => { },
-                  label: 'Unduh Resi',
-                  icon: <DownloadIcon />,
-                },
-              ]}
-            />
+              rows={['Transaksi', 'Tanggal', 'Nominal', 'Aksi']}
+            >
+              {dataMutasi?.map((data) => (
+                <TableRow key={data?.id}>
+                  <TableCell>pag</TableCell>
+                  <TableCell>{data?.date}</TableCell>
+                  <TableCell>{data?.amount}</TableCell>
+                
+                  <TableCell>
+                    <Button
+                      key={data.id}
+                      variant="outlined"
+                      startIcon={<ReceiptIcon />}
+                      onClick={() => {
+                        handleOpenBuktiTransfer({
+                          recipientName: 'John Doe',
+                          bankName: 'Bank ABC',
+                          accountNumber: '1234567890',
+                          transferAmount: 'Rp 1.000.000',
+                          transferMethod: 'Online Banking',
+                          transferFee: 'Rp 5.000',
+                          totalTransaction: 'Rp 1.005.000',
+                          senderName: 'SAMSUL',
+                          senderBankName: 'Bank XYZ',
+                          senderAccountSuffix: '7890',
+                        });
+                      }}
+                      style={{ margin: '0 4px' }}
+                    >
+                      Lihat Bukti
+                    </Button>
+                    <Button
+                      key={data?.id}
+                      variant="outlined"
+                      startIcon={<DownloadIcon />}
+                      onClick={() => { }}
+                      style={{ margin: '0 4px' }}
+                    >
+                      Download
+                    </Button>
+                    <Button
+                      key={data?.id}
+                      variant="outlined"
+                      startIcon={<ShareIcon />}
+                      onClick={() => { }}
+                      style={{ margin: '0 4px' }}
+                    >
+                      Bagikan
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TablePrimary> */}
+            
           </Box>
         </Box>
       </Container>
@@ -411,8 +482,27 @@ export const InfoSaldoPage = () => {
         onClose={handleClose}
         transactions={selectedTransaction}
         title={title}
+        detailTransaction={detail}
         type={type}
         icon={icon}
+      />
+      <ModalBuktiTransfer
+        open={openBuktiTransaksi}
+        onClose={handleCloseBuktiTransfer}
+        appName={transferData.appName}
+        status={transferData.status}
+        recipientName={transferData.recipientName}
+        bankName={transferData.bankName}
+        accountNumber={transferData.accountNumber}
+        transferAmount={transferData.transferAmount}
+        transferMethod={transferData.transferMethod}
+        transferFee={transferData.transferFee}
+        totalTransaction={transferData.totalTransaction}
+        senderName={transferData.senderName}
+        senderBankName={transferData.senderBankName}
+        senderAccountSuffix={transferData.senderAccountSuffix}
+        onShare={handleShare}
+        onDownload={handleDownload}
       />
 
       {errorMutationSummary && (

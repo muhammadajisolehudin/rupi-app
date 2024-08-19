@@ -3,7 +3,8 @@ import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const addTransaksiIntrabank = async (input) => {
-  return await http.post(API_ENDPOINT.TRANSFER_INTRABANK, input);
+  const result = await http.post(API_ENDPOINT.TRANSFER_INTRABANK, input);
+  return result.data.data
 };
 
 const useAddTransaksiIntrabank = () => {

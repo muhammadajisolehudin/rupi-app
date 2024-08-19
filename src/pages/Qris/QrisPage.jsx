@@ -12,10 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 import Webcam from 'react-webcam';
 import { BrowserMultiFormatReader, NotFoundException } from '@zxing/library';
+import { useTransferContext } from '../../context/TransferContext';
 
 
 export const QrisPage = () => {
-
+	const { setStep } = useTransferContext();
 	const [currentView, setCurrentView] = useState("scan");
 	const navigate = useNavigate()
 	const webcamRef = useRef(null);
@@ -80,16 +81,12 @@ export const QrisPage = () => {
 			return false;
 		}
 
-		// QRIS Code harus memiliki panjang minimal
-		// Panjang QRIS Code yang valid bisa bervariasi
 		const minLength = 60;
 		const maxLength = 500;
 
 		if (code.length < minLength || code.length > maxLength) {
 			return false;
 		}
-		// Tambahkan validasi lain jika diperlukan, misalnya memeriksa struktur data
-		// Berdasarkan spesifikasi QRIS yang lebih rinci
 
 		return true;
 	};
@@ -124,6 +121,9 @@ export const QrisPage = () => {
 		reader.readAsDataURL(file);
 	};
 
+	useEffect(() => {
+		setStep(1)
+	}, [])
 	return (
 		<Layout>
 			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
@@ -357,6 +357,7 @@ export const QrisPage = () => {
 							>
 								<Button
 									sx={{ display: "flex", flexDirection: "column" }}
+									onClick={() => navigate('/qris/qr-merchan')} 
 									aria-label={currentView === "tampilkan" ? "QRIS Barcode Ditampilkan" : "QRIS Barcode"}
 								>
 									<hr

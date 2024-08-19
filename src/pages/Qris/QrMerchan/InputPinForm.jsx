@@ -3,18 +3,14 @@ import { useFormik, FormikProvider } from "formik";
 import * as Yup from "yup";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from "prop-types"
-import { useAddTransferQris } from "../../../services/qris/add-transfer-qris";
-import { useTransferContext } from "../../../context/TransferContext";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";
+import { useGenerateQrisCpmTransaction } from "../../../services/qris/generate-qris-cpm-transaction";
 
 export const InputPinForm = ({ onNext }) => {
-    const { formData } = useTransferContext()
-    const addTransferQris = useAddTransferQris()
+    // const addTransferQris = useAddTransferQris()
+    const generateQris = useGenerateQrisCpmTransaction()
     const formik = useFormik({
         initialValues: {
-            qris: formData.qris,
-            amount: formData.amount,
-            description: formData.description,
             pin: "",
         },
         validationSchema: Yup.object({
@@ -25,8 +21,10 @@ export const InputPinForm = ({ onNext }) => {
         }),
         onSubmit: async (values) => {
             try {
-                const result = await addTransferQris.mutateAsync(values)
-                onNext(result);
+               
+                const response = await generateQris.mutateAsync(values)
+                console.log(response)
+                onNext(response);
             } catch (error) {
                 return error
             }
@@ -73,8 +71,8 @@ export const InputPinForm = ({ onNext }) => {
 					Lanjutkan
 				</Button>
             </Grid>
-            {addTransferQris.isError && (
-                <FailAlert message={addTransferQris?.error.response.data.message || addTransferQris?.message} title="Transaksi Belum Berhasil" />
+            {generateQris.isError && (
+                <FailAlert message={generateQris?.error.response.data.message || generateQris?.message} title="Generate Qris Gagal" />
             )}
         </FormikProvider>
     );

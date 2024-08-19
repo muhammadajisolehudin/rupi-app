@@ -4,8 +4,11 @@ import SearchIcon from "../../img/icons/Search.svg";
 import InputBase from "@mui/material/InputBase";
 import ScanIcon from "../../img/icons/Scan.svg";
 
-export const TransferSearch = () => {
-	const navigate = useNavigate();
+export const TransferSearch = ({ onSearch }) => {
+	const navigate = useNavigate()
+	const handleSearchChange = (event) => {
+		onSearch(event.target.value);
+	};
 
 	const handlePageChange = (path) => {
 		navigate(path);
@@ -42,6 +45,7 @@ export const TransferSearch = () => {
 					}}
 					role="search"
 					tabIndex={0}
+					onChange={handleSearchChange}
 				/>
 			</Box>
 			<img

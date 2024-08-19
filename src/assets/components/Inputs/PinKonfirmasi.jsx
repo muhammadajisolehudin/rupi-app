@@ -4,6 +4,7 @@ import { useFormikContext } from "formik";
 
 const PinKonfirmasi = () => {
 	const { values, setFieldValue } = useFormikContext();
+	console.log("tes lahh :",values)
 
 	// Handle change in input field
 	const handleChange = (index, event) => {
@@ -11,16 +12,16 @@ const PinKonfirmasi = () => {
 
 		if (/^\d?$/.test(value)) {
 			// Convert the PIN string to an array to update specific digit
-			const newPinArray = values.confirmPin.split("");
+			const newPinArray = values.confirm_pin.split("");
 			newPinArray[index] = value;
 
 			// Join array to form a new PIN string
 			const newPinString = newPinArray.join("");
-			setFieldValue("confirmPin", newPinString);
+			setFieldValue("confirm_pin", newPinString);
 
 			// Focus on the next input field if needed
 			if (value && index < 5) {
-				document.getElementById(`confirmPin-input-${index + 1}`).focus();
+				document.getElementById(`confirm_pin-input-${index + 1}`).focus();
 			}
 		}
 	};
@@ -28,9 +29,9 @@ const PinKonfirmasi = () => {
 	// Handle keydown events for backspace functionality
 	const handleKeyDown = (index, event) => {
 		if (event.key === "Backspace") {
-			if (!values.confirmPin[index]) {
+			if (!values.confirm_pin[index]) {
 				if (index > 0) {
-					document.getElementById(`confirmPin-input-${index - 1}`).focus();
+					document.getElementById(`confirm_pin-input-${index - 1}`).focus();
 				}
 			}
 		}
@@ -38,7 +39,7 @@ const PinKonfirmasi = () => {
 
 	// Set focus on the first input when the component mounts
 	useEffect(() => {
-		document.getElementById("confirmPin-input-0")?.focus();
+		document.getElementById("confirm_pin-input-0")?.focus();
 	}, []);
 
 	return (
@@ -46,8 +47,8 @@ const PinKonfirmasi = () => {
 			{Array.from({ length: 6 }, (_, index) => (
 				<TextField
 					key={index}
-					id={`confirmPin-input-${index}`}
-					value={values.confirmPin[index] || ""}
+					id={`confirm_pin-input-${index}`}
+					value={values.confirm_pin[index] || ""}
 					onChange={(event) => handleChange(index, event)}
 					onKeyDown={(event) => handleKeyDown(index, event)}
 					inputProps={{ maxLength: 1, style: { textAlign: "center" } }}
@@ -56,7 +57,7 @@ const PinKonfirmasi = () => {
 					aria-label={"Masukkan 6 Digit Pin"}
 					sx={{
 						borderRadius: "50%",
-						bgcolor: values.confirmPin[index] ? "#0066AE" : "#B3B3B3",
+						bgcolor: values.confirm_pin[index] ? "#0066AE" : "#B3B3B3",
 						width: 30,
 						height: 30,
 						"& .MuiOutlinedInput-root": {

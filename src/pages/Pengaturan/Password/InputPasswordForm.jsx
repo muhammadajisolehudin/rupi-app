@@ -141,7 +141,7 @@ export const InputPasswordForm = ({ onNext }) => {
 				</FormikProvider>
 			</Grid>
 			{mutateVerifyPassword.isError && (
-				<FailAlert message={mutateVerifyPassword?.response?.data?.message || mutateVerifyPassword?.message} title="Verifikasi Password Gagal" />
+				<FailAlert message={mutateVerifyPassword?.error.response.data.message || mutateVerifyPassword?.message} title="Verifikasi Password Gagal" />
 			)}
 			{mutateVerifyPassword.isSuccess && (
 				<SuccesAlert message="silahkan masukan password baru" title="Ferivikasi Password Berhasil" />

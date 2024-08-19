@@ -18,20 +18,20 @@ export const UbahPinContent = (onSubmit) => {
 	const formik = useFormik({
 		initialValues: {
 			pin: "",
-			confirmPin: "",
+			confirm_pin: "",
 		},
 		validationSchema: Yup.object({
 			pin: Yup.string()
 				.length(6, "PIN baru harus terdiri dari 6 digit")
 				.matches(/^\d+$/, "PIN baru harus berisi angka saja")
 				.required("PIN baru diperlukan"),
-			confirmPin: Yup.string()
+			confirm_pin: Yup.string()
 				.oneOf([Yup.ref("pin"), null], "PIN dan Konfirmasi PIN harus sama")
 				.required("Konfirmasi PIN diperlukan"),
 		}),
 		onSubmit: async (values) => {
 			// const updatedValues = {};
-			// if (values.pin === values.confirmPin) {
+			// if (values.pin === values.confirm_pin) {
 			// 	updatedValues.pinBaru = values.pin;
 			// }
 			try {
@@ -87,7 +87,7 @@ export const UbahPinContent = (onSubmit) => {
 						</Grid>
 						<Grid item xs={12} sx={{ my: 4 }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
-								<Typography id="confirmPin" variant="body1" sx={{ width: "230px" }}>
+								<Typography id="confirm_pin" variant="body1" sx={{ width: "230px" }}>
 									Konfirmasi PIN
 								</Typography>
 								<Box
@@ -98,7 +98,7 @@ export const UbahPinContent = (onSubmit) => {
 									}}
 								>
 									<Box
-										aria-labelledby="confirmPin"
+										aria-labelledby="confirm_pin"
 										sx={{
 											border: 1,
 											borderRadius: 2,
@@ -114,9 +114,9 @@ export const UbahPinContent = (onSubmit) => {
 										/>
 									</Box>
 									<Box>
-										{formik.touched.confirmPin && formik.errors.confirmPin && (
-											<Typography id="confirmPin-error" color="error" sx={{ my: 2 }}>
-												{formik.errors.confirmPin}
+										{formik.touched.confirm_pin && formik.errors.confirm_pin && (
+											<Typography id="confirm_pin-error" color="error" sx={{ my: 2 }}>
+												{formik.errors.confirm_pin}
 											</Typography>
 										)}
 									</Box>
@@ -157,7 +157,7 @@ export const UbahPinContent = (onSubmit) => {
 				</FormikProvider>
 			</Box>
 			{mutateChangePin.isError && (
-				<FailAlert message={mutateChangePin?.response?.data?.message || mutateChangePin?.message} title="Pin Gagal Diubah" />
+				<FailAlert message={mutateChangePin?.error.response.data.message || mutateChangePin?.message} title="Pin Gagal Diubah" />
 			)}
 			{mutateChangePin.isSuccess && (
 				<SuccesAlert message="silahkan gunakan pin baru" title="Pin Baru Berhasil Dibuat" />

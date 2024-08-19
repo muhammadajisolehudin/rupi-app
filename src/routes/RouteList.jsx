@@ -12,6 +12,7 @@ import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPag
 import { QrisPage } from '../pages/Qris/QrisPage';
 import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBaru';
 import QrBayar from '../pages/Qris/QrBayar';
+import QrMerchan from '../pages/Qris/QrMerchan';
 import { AuthProvider } from '../context/AuthContext';
 import { ProtectedAccount } from '../assets/components/Protected/ProtectedAccount';
 import { InfoSaldoPage } from '../pages/InfoSaldo/InfoSaldoPage';
@@ -20,6 +21,8 @@ import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
 import { MutasiPage } from '../pages/Mutasi/MutasiPage';
 import { TransferProvider } from '../context/TransferContext';
 import { QrProvider } from '../context/QrContext';
+import { ForgotPasswordPage } from '../pages/auth/ForgotPasswordPage';
+
 
 export const RouteList = () => {
   // const navigate = useNavigate()
@@ -27,7 +30,9 @@ export const RouteList = () => {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/verify" element={<VerifyOtpPage />} />
+          <Route path="/set-password" element={<SetPasswordPage />} />
           <Route
             path="/*"
             element={
@@ -65,6 +70,7 @@ export const RouteList = () => {
                             <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
                             <Route path="/qris" element={<QrisPage />} />
                             <Route path="/qris/qr-bayar" element={<QrBayar />} />
+                            <Route path="/qris/qr-merchan" element={<QrMerchan />} />
                             <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
 
                             {/* pengaturan */}

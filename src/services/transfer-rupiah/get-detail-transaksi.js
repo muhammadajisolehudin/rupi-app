@@ -3,15 +3,15 @@ import http from "../../utils/http";
 import { API_ENDPOINT } from "../../utils/api-endpoints";
 
 const getTransaksiDetail = async ({ queryKey }) => {
-  const [_key, params] = queryKey;
-  const result = await http.get(`${_key}/${params}`);
+  const [_key, pathParams] = queryKey;
+  const result = await http.get(`${_key}/${pathParams}`);
 
   return result.data.data;
 };
 
-const useGetTransaksiDetail = (options) => {
+const useGetTransaksiDetail = (idTransaksi) => {
   return useQuery({
-    queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS, options],
+    queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS, idTransaksi],
     queryFn: getTransaksiDetail,
   });
 };

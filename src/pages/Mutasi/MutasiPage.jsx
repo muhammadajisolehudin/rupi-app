@@ -183,9 +183,8 @@ export const MutasiPage = () => {
                 <MenuItem value="" disabled>
                   <em>Kategori Transaksi</em>
                 </MenuItem>
-                <MenuItem value="TRANSFER">Transfer</MenuItem>
-                <MenuItem value="QRIS">Qris</MenuItem>
-                <MenuItem value="category3">Category 3</MenuItem>
+                <MenuItem value="TRANSFER">Pemasukan</MenuItem>
+                <MenuItem value="QRIS">Pengeluaran</MenuItem>
               </Select>
             </FormControl>
           </Grid>

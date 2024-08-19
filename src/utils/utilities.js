@@ -1,7 +1,13 @@
 // beranda
-export const formatBalance = (balance) => {
-  const cleaned = balance?.replace(/^RP\. /, "").replace(/,.*$/, "");
-  return cleaned;
+export const formatRupiah = (amount) => {
+ if (!amount) return "Rp 0";
+ const number = parseFloat(amount);
+ return `${number.toLocaleString("id-ID", {
+  //  style: "currency",
+  //  currency: "IDR",
+   minimumFractionDigits: 0, // Mengatur jumlah digit desimal minimum menjadi 0
+   maximumFractionDigits: 0, // Mengatur jumlah digit desimal maksimum menjadi 0
+ })}`;
 };
 export const formatAccountNumber = (number) => {
   const cleaned = ("" + number).replace(/\D/g, ""); 

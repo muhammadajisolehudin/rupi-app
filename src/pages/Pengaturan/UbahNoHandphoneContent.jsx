@@ -11,7 +11,7 @@ import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 export const UbahNoHandphoneContent = () => {
 	const { data: dataProfile } = useGetUserProfile() 
 	const [modalOpen, setModalOpen] = useState(false);
-	const {mutate:mutateChangePhone, isError, error, isSuccess }= useChangeUserPhone()
+	const mutateChangePhone = useChangeUserPhone()
 	
 
 	const formik = useFormik({
@@ -28,9 +28,12 @@ export const UbahNoHandphoneContent = () => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				await mutateChangePhone.mutateAsync(values)
+				console.log("masuk sisni udah")
+				const response = await mutateChangePhone.mutateAsync(values)
+				console.log("ini loh data : ",response)
 				setModalOpen(true);
 			} catch (error) {
+				console.log("ada yang salah ")
 				return error
 			}
 			
@@ -47,12 +50,8 @@ export const UbahNoHandphoneContent = () => {
 	};
 
 	const handleOtpVerified = async (values) => {
-		console.log("OTP verified successfully");
-		// try {
-			
-		// } catch (error) {
-		// 	return error
-		// }
+		// setModalOpen(false)
+		
 		
 	};
 
@@ -140,12 +139,13 @@ export const UbahNoHandphoneContent = () => {
 				onClose={handleCloseModal}
 				onOtpVerified={handleOtpVerified(formik.values)}
 			/>
-			{isError && (
-				<FailAlert message={error?.response?.data?.message || error?.message} title="Verifikasi Pin Gagal" />
+			{mutateChangePhone.isError && (
+				<FailAlert message={mutateChangePhone.error?.response?.data?.message || mutateChangePhone.error?.message} title="No Baru Gagal Didaftarkan" />
 			)}
-			{isSuccess && (
-				<SuccesAlert message="silahkan masukan pin baru" title="Ferivikasi Berhasil" />
+			{mutateChangePhone.isSuccess && (
+				<SuccesAlert message="silahkan masukan kode OTP untuk ferivikasi" title="No Baru Sedang Didaftarkan" />
 			)}
+			
 		</Container>
 	);
 };

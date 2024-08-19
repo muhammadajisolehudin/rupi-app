@@ -12,12 +12,15 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { green, red } from '@mui/material/colors';
+import { Block } from '@mui/icons-material';
+
 
 export const ModalInfoSaldo = ({
   open,
   onClose,
   transactions,
   title,
+  detailTransaction,
   type,
   icon,
 }) => {
@@ -39,22 +42,55 @@ export const ModalInfoSaldo = ({
           justifyContent: 'center',
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mb: 2,
-          }}
-        >
-          <Typography variant="h6" component="h2">
-            {title}
-          </Typography>
-          <IconButton onClick={onClose}>
-            <CloseIcon />
-          </IconButton>
+        <Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              mb: 2,
+            }}
+          >
+            <Typography variant="h6" component="h2" sx={{ fontWeight: "bold" }}>
+              Daftar Transaksi
+            </Typography>
+            <IconButton onClick={onClose}>
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{
+            display:"flex",
+            justifyContent: 'center',  // Center content horizontally
+            alignItems: 'center',      // Center content vertically if needed
+            width: '100%'
+}}>
+            <Box
+              sx={{
+                position: 'relative',  // Ensure the Box is positioned relative for the pseudo-element
+                display: 'inline-block',  // Ensure the Box only wraps around the content
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -2,            // Adjust this value if needed to align with the Divider
+                  left: '50%',          // Center the line horizontally
+                  transform: 'translateX(-50%)', // Adjust positioning to center line
+                  width: '180px',       // Set the width to a constant value
+                  height: 3,
+                  backgroundColor: '#0066AE',
+                  borderRadius: '5px',
+                },
+              }}
+            >
+              <Typography sx={{ mb: 1, fontWeight:"bold" }}>
+                {title}
+              </Typography>
+            </Box>
+          </Box>
+          
         </Box>
 
+
+        <Divider />
         <Box
           sx={{
             maxHeight: '60vh',
@@ -63,7 +99,7 @@ export const ModalInfoSaldo = ({
         >
           <List>
             {transactions?.map((transaction, index) => (
-              <Box key={index}>
+              <Box key={index} sx={{ px:1 }}>
                 <Typography
                   variant="subtitle1"
                   fontWeight="bold"
@@ -71,32 +107,38 @@ export const ModalInfoSaldo = ({
                 >
                   {transaction.date}
                 </Typography>
-                <Divider />
+                <Divider sx={{ mb:2 }}/>
                 {transaction?.transactions.map((detail, idx) => (
-                  <ListItem key={idx} sx={{ py: 1 }}>
-                    <ListItemIcon>{icon}</ListItemIcon>
-                    <ListItemText
-                      // primary={detail.title}
-                      secondary={
-                        <>
-                          <Typography variant="body2" color="textSecondary">
-                            {/* {detail.from} */}BCA
-                            <br />
-                            {detail.full_name}
-                            <br />
-                            {detail.account_number}
-                          </Typography>
-                        </>
-                      }
-                    />
+                  <Box key={idx} sx={{ display: 'flex', my: 1 }}>
+                    <Box sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      mr: 2,
+                      mt:"3px"
+                    }}>
+                      {icon}
+                    </Box>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography>
+                        {detailTransaction}
+                        <br />
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                       
+                        {detail.full_name}
+                        <br />
+                        {detail.account_number}
+                      </Typography>
+                    </Box>
                     <Typography
                       variant="body2"
                       color={type === 'debit' ? error : success}
                       fontWeight="bold"
+                      sx={{ ml: 2 }}
                     >
                       {type === 'debit' ? '-' : '+'}{detail.amount}
                     </Typography>
-                  </ListItem>
+                  </Box>
                 ))}
               </Box>
             ))}

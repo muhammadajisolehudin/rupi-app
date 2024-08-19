@@ -34,14 +34,14 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 
 	const formik = useFormik({
 		initialValues: {
-			Password: "",
-			confirmPassword: "",
+			password: "",
+			confirm_password: "",
 		},
 		validationSchema: Yup.object({
-			Password: Yup.string().required("Password Diperlukan").min(8, "Minimal harus 8 karakter"),
-			confirmPassword: Yup.string()
+			password: Yup.string().required("Password Diperlukan").min(8, "Minimal harus 8 karakter"),
+			confirm_password: Yup.string()
 				.required("Password Konfirmasi Diperlukan")
-				.oneOf([Yup.ref("Password"), null], "Kedua Password Harus Cocok"),
+				.oneOf([Yup.ref("password"), null], "Kedua Password Harus Cocok"),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -77,23 +77,23 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 						</Typography>
 						<Grid item xs={12} sx={{ my: 4 }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
-								<Typography id="Password" variant="body1" sx={{ width: "230px", fontSize: "15px" }}>
+								<Typography id="password" variant="body1" sx={{ width: "230px", fontSize: "15px" }}>
 									Password Baru
 								</Typography>
 								<TextField
 									type={showPassword ? "text" : "password"}
 									placeholder="Masukkan Password Baru Anda"
 									fullWidth
-									name="Password"
-									value={formik.values.Password}
+									name="password"
+									value={formik.values.password}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
-									error={formik.touched.Password && Boolean(formik.errors.Password)}
-									helperText={formik.touched.Password && formik.errors.Password}
-									aria-labelledby="Password"
-									aria-describedby="Password-helper-text"
+									error={formik.touched.password && Boolean(formik.errors.password)}
+									helperText={formik.touched.password && formik.errors.password}
+									aria-labelledby="password"
+									aria-describedby="password-helper-text"
 									FormHelperTextProps={{
-										id: "Password-helper-text",
+										id: "password-helper-text",
 									}}
 									InputProps={{
 										style: { borderRadius: "8px", height: "3rem" },
@@ -115,7 +115,7 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 						<Grid item xs={12} sx={{ my: 4 }}>
 							<Box sx={{ display: "flex", alignItems: "center" }}>
 								<Typography
-									id="confirmPassword"
+									id="confirm_password"
 									variant="body1"
 									sx={{ width: "230px", fontSize: "15px" }}
 								>
@@ -125,16 +125,16 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 									type={showConfirmPassword ? "text" : "password"}
 									placeholder="Masukkan Konfirmasi Password"
 									fullWidth
-									name="confirmPassword"
-									value={formik.values.confirmPassword}
+									name="confirm_password"
+									value={formik.values.confirm_password}
 									onChange={formik.handleChange}
 									onBlur={formik.handleBlur}
-									error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-									helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-									aria-labelledby="confirmPassword"
-									aria-describedby="confirmPassword-helper-text"
+									error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
+									helperText={formik.touched.confirm_password && formik.errors.confirm_password}
+									aria-labelledby="confirm_password"
+									aria-describedby="confirm_password-helper-text"
 									FormHelperTextProps={{
-										id: "confirmPassword-helper-text",
+										id: "confirm_password-helper-text",
 									}}
 									InputProps={{
 										style: { borderRadius: "8px", height: "3rem" },
@@ -188,7 +188,7 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 				</FormikProvider>
 			</Grid>
 			{mutateChangePassword.isError && (
-				<FailAlert message={mutateChangePassword?.response?.data?.message || mutateChangePassword?.message} title="Password Gagal Diubah" />
+				<FailAlert message={mutateChangePassword?.error.response?.data?.message || mutateChangePassword?.message} title="Password Gagal Diubah" />
 			)}
 			{mutateChangePassword.isSuccess && (
 				<SuccesAlert message="silahkan gunakan password baru" title="Password Baru Berhasil Dibuat" />

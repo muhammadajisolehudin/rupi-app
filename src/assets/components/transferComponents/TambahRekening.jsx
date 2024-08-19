@@ -12,18 +12,26 @@ export const TambahRekening = () => {
 
 	return (
 		// <Button variant="outlined" style={{ width:"100%" }}>
-		<Box
+		<Button
 			type="button"
 			role="button"
 			aria-labelledby="tambah-rekening-baru"
 			sx={{
 				backgroundColor: "#EFEFEF",
+
 				marginY: 5,
 				width: "100%",
 				borderRadius: 2,
+				transition: 'background-color 0.3s ease', // Animasi perubahan warna background
+				'&:hover': {
+					backgroundColor: "#0A3967",
+				},
 			}}
 		>
-			<Button variant="outlined" style={{ width: "100%", border: "none" }}>
+			<Box variant="outlined" style={{
+				width: "100%", border: "none", color: "#0A3967",
+			}}
+			>
 				<Box
 					sx={{
 						display: "flex",
@@ -31,6 +39,10 @@ export const TambahRekening = () => {
 						alignItems: "center",
 						padding: 3,
 						width: "100%",
+						'&:hover': {
+							color: "white",
+							borderColor: "white", // Juga ubah warna border jika diperlukan
+						},
 					}}
 					onClick={() => handlePageChange("/transfer-rupiah/transfer-ke-penerima-baru")}
 				>
@@ -40,16 +52,16 @@ export const TambahRekening = () => {
 						style={{ cursor: "pointer" }}
 						onClick={() => handlePageChange("/")}
 					/>
-					<Typography id="tambah-rekening-baru" variant="body1" sx={{ color: "#0A3967" }}>
+					<Typography variant="h6" id="tambah-rekening-baru" sx={{ textTransform: 'none' }}>
 						Tambah rekening baru
 					</Typography>
 					<ArrowForwardIosRoundedIcon
-						style={{ color: "#0066AE", cursor: "pointer" }}
+						style={{ cursor: "pointer" }}
 						onClick={() => handlePageChange("/")}
 					/>
 				</Box>
-			</Button>
-		</Box>
+			</Box>
+		</Button>
 		// </Button>
 	);
 };
