@@ -6,16 +6,13 @@ import { Box, CircularProgress } from '@mui/material';
 import { CookiesKey, CookiesStorage } from '../../../utils/cookies';
 
 export const ProtectedAccount = ({ children }) => {
-    // const { logout } = useAuthContext()
     const { account, setAccount, logout } = useAuthContext();
     const { data: Account, isLoading, error } = useGetAccountDetail();
     const navigate = useNavigate();
-    // if (error) {
-    //     navigate("/set-password");
-    // }
+ 
     useEffect(() => {
 
-        const handleError = async () => {
+        const handleError= async()=>{
             if (isLoading) return;
 
             if (error) {
@@ -23,16 +20,31 @@ export const ProtectedAccount = ({ children }) => {
                 if (error.response.status === 403) {
                     navigate("/set-password");
                 }
-                if (error.response.status === 401) {
-                    CookiesStorage.remove(CookiesKey.AuthToken);
-                    CookiesStorage.remove(CookiesKey.User);
-                    logout();
-                    setTimeout(() => {
+                // if (error.response.status === 401) {
+                    
+                //     CookiesStorage.remove(CookiesKey.AuthToken);
+                //     CookiesStorage.remove(CookiesKey.User);
+                //     logout();
+                //     setTimeout(() => {
+                //         navigate('/login');
+                //     }, 1000); 
+                // }
+
+                setTimeout(() => {
+                    if (error.response.status === 401) {
+                        // Hapus token dan informasi pengguna dari cookies
+                        CookiesStorage.remove(CookiesKey.AuthToken);
+                        CookiesStorage.remove(CookiesKey.User);
+
+                        // Panggil fungsi logout
+                        logout();
+
+                        // Navigasi ke halaman login setelah delay
                         navigate('/login');
-                    }, 1000);
-                }
-
-
+                    }
+                }, 1000);
+                
+               
                 return;
             }
 
@@ -40,11 +52,11 @@ export const ProtectedAccount = ({ children }) => {
             if (Account) {
                 setAccount(Account);
             }
-        }
-
+        } 
+        
         handleError()
         console.log("ini akun :", account)
-    }, [isLoading, error, Account, setAccount, logout]);
+    }, [isLoading, error, Account, setAccount, logout ]);
 
 
     if (isLoading) {

@@ -1,7 +1,4 @@
-// import { useState } from "react";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-// import { useNavigate } from "react-router-dom";
-// import checklistIcon from "../../assets/img/checklist-icon.png";
 import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -36,10 +33,9 @@ export const SetPasswordPage = () => {
     onSubmit: async (values) => {
       try {
         await password.mutateAsync(values);
-        navigate("/set-pin"); // Navigasi ke halaman beranda setelah login sukses
+        navigate("/set-pin");
       } catch (error) {
         console.error("Login failed, error:", error); // Debug log
-        // Error handling sudah diatur di dalam useLoginMutation
       }
 
     },

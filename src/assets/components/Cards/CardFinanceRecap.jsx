@@ -2,8 +2,9 @@ import { Box, Card, Typography, Button } from "@mui/material";
 import buttonEnter from "../../img/icons/button enter.svg";
 import pemasukanIcon from "../../img/icons/pemasukan.png";
 import pengeluaranIcon from "../../img/icons/pengeluaran.png";
+import { formatRupiah, getTotalTransaction } from "../../../utils/utilities";
 
-export const CardFinanceRecap = () => {
+export const CardFinanceRecap = ({income, expense}) => {
   const neutral = "#FFFFFF";
   const green = "#12D79C";
   const red = "#CB3A31";
@@ -50,14 +51,12 @@ export const CardFinanceRecap = () => {
               Periode 1 Jul 2024 - 21 Jul 2024
             </Typography>
           </Box>
-          <Box
-            component="a"
-            href="/saldo"
-            aria-label="Tombol Saldo, ini akan membawa Anda ke halaman Saldo"
-            role="button"
-          >
-            <Button sx={{ minWidth: "auto", padding: 0 }}>
-              <img src={buttonEnter} alt="" style={{ width: "36px" }} />
+          <Box component="a" href="/info-saldo">
+            <Button
+              sx={{ minWidth: "auto", padding: 0 }}
+              aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Info Saldo"
+            >
+              <img src={buttonEnter} alt="" style={{ width: "28px" }} />
             </Button>
           </Box>
         </Box>
@@ -75,9 +74,9 @@ export const CardFinanceRecap = () => {
           <img src={pemasukanIcon} alt="" style={{ width: "auto" }} />
           <Box sx={{ marginLeft: "32px" }}>
             <Typography
+              variant="h6"
               sx={{
                 color: neutral,
-                fontSize: "24px",
                 fontWeight: 400,
                 lineHeight: "24px",
                 letterSpacing: "0.15px",
@@ -96,7 +95,7 @@ export const CardFinanceRecap = () => {
                 letterSpacing: "0.15px",
               }}
             >
-              Rp 600.000
+              Rp {formatRupiah(income?.total_income) } 
             </Typography>
             <Typography
               sx={{
@@ -107,7 +106,7 @@ export const CardFinanceRecap = () => {
                 letterSpacing: "0.15px",
               }}
             >
-              3 Kategori
+              {getTotalTransaction(income?.categories)} Kategori
             </Typography>
           </Box>
         </Card>
@@ -124,9 +123,9 @@ export const CardFinanceRecap = () => {
           <img src={pengeluaranIcon} alt="" style={{ width: "auto" }} />
           <Box sx={{ marginLeft: "32px" }}>
             <Typography
+              variant="h6"
               sx={{
                 color: neutral,
-                fontSize: "24px",
                 fontWeight: 400,
                 lineHeight: "24px",
                 marginBottom: "8px",
@@ -145,18 +144,18 @@ export const CardFinanceRecap = () => {
                 letterSpacing: "0.15px",
               }}
             >
-              Rp 300.000
+              Rp {formatRupiah(expense?.total_expense) }
             </Typography>
             <Typography
+              variant="h6"
               sx={{
                 color: neutral,
-                fontSize: "20px",
                 fontWeight: 700,
                 lineHeight: "24px",
                 letterSpacing: "0.15px",
               }}
             >
-              3 Kategori
+              {getTotalTransaction(expense?.categories)} Kategori
             </Typography>
           </Box>
         </Card>

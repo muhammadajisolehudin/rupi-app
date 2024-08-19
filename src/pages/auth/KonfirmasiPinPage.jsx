@@ -8,7 +8,6 @@ import { useEffect } from "react";
 
 export const KonfirmasiPinPage = () => {
   const { state } = useLocation();
-  console.log("state : ", state);
   const pinData = state?.pin;
 
   const pinMutation = useSetPin();

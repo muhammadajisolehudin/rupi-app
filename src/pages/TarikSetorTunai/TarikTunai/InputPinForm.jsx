@@ -1,17 +1,21 @@
+import * as Yup from "yup";
 import { Button, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
-import * as Yup from "yup";
 import PinInput from "../../../assets/components/Inputs/PinInput";
+import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
+import { useQrContext } from "../../../context/QrContext";
 
 export const InputPinForm = ({ onNext }) => {
+    const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();
+    const { formDataTarik } = useQrContext()
+
+    console.log("formData in InputPinForm: ", formDataTarik);
+
     const formik = useFormik({
         initialValues: {
-            destination_id: "",
-            amount: "",
-            description: "",
-            type: "TRANSFER",
+            amount: formDataTarik?.amount,
             pin: "",
-            transaction_purpose: "",
+            type: "WITHDRAW",
         },
         validationSchema: Yup.object({
             pin: Yup.string()
@@ -20,21 +24,34 @@ export const InputPinForm = ({ onNext }) => {
                 .required("PIN diperlukan"),
         }),
         onSubmit: async (values) => {
-            console.log("Form Submitted", values);
-            onNext(values);
-            // Call mutation function here if using useMutation
+            try {
+                generateToken(
+                    {
+                        amount: values.amount,
+                        type: "WITHDRAW",
+                        pin: values.pin,
+                    },
+                    {
+                        onSuccess: (response) => {
+                            onNext(response);
+                        },
+                        onError: (err) => {
+                            console.error("Error generating token:", err);
+                        },
+                    }
+                );
+            } catch (err) {
+                console.error("Error in onSubmit:", err);
+            }
         },
     });
 
-    
-
     return (
-
         <Container>
             <Grid container spacing={5} sx={{
-                    py: 6,
-                    px: 4,
-                }}>
+                py: 6,
+                px: 4,
+            }}>
                 <FormikProvider value={formik}>
                     <Grid
                         container
@@ -56,6 +73,11 @@ export const InputPinForm = ({ onNext }) => {
                                 {formik.errors.pin}
                             </Typography>
                         )}
+                        {error && (
+                            <Typography color="error" sx={{ my: 2 }}>
+                                {error.message}
+                            </Typography>
+                        )}
                         <Button
                             onClick={formik.handleSubmit}
                             fullWidth
@@ -67,6 +89,8 @@ export const InputPinForm = ({ onNext }) => {
                                 mt: 4,
                             }}
                             variant="contained"
+                            aria-label="submit pin"
+                            disabled={isLoading}
                         >
                             Lanjutkan
                         </Button>
@@ -74,8 +98,5 @@ export const InputPinForm = ({ onNext }) => {
                 </FormikProvider>
             </Grid>
         </Container>
-            // <form onSubmit={formik.handleSubmit}>
-                
-
     );
 };

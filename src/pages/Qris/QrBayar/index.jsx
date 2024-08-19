@@ -1,15 +1,15 @@
 import { Box, Card, Container } from '@mui/material';
 import { Layout } from '../../layout';
-import { useTransferRupiahContext } from '../../../context/TransferRupiahContext';
 import { BreadcrumbsQrBayar } from '../../../assets/components/Breadcrumbs/BreadCrumbsQrBayar';
 import { InputNominalBayarForm } from './InputNominalBayarForm';
 import { KonfirmasiBayarForm } from './KonfirmasiBayarForm';
 import { InputPinForm } from './InputPinForm';
 import { SuccesInfoBayar } from './SuccesInfoBayar';
 import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
+import { useTransferContext } from '../../../context/TransferContext';
 
 const QrBayar = () => {
-    const { step, handleNext, handleSubmit } = useTransferRupiahContext();
+    const { step, handleNext, handleSubmit } = useTransferContext();
 
     return (
         <Layout>

@@ -1,8 +1,12 @@
 import { Box, Button, Card, Paper, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import checklistIcon from "../../../assets/img/checklist-icon.png";
+import { useQrContext } from "../../../context/QrContext";
 
-export const SuccesInfo= () => {
+export const SuccesInfo = () => {
+    // const { token, expiredAt, amount } = tokenData;
+    const { formDataTarik } = useQrContext()
+
     return (
         <>
             <Box
@@ -22,24 +26,26 @@ export const SuccesInfo= () => {
                 <Typography sx={{ fontWeight: "bold" }} variant={"h6"}>
                     Uang Siap Ditarik
                 </Typography>
-                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>12 Jul 2024 . 11:35 WIB</Typography>
+                <Typography sx={{ fontSize: "20px", color: "grey", mt: 2 }}>
+                    {new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })} . {new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })} WIB
+                </Typography>
                 <Typography sx={{ fontSize: "20px", color: "grey", mb: 2 }}>No. Ref 12736192837636</Typography>
             </Box>
 
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3 }}>
+                <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3, borderRadius: 2 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Nominal</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                Rp 100.000
+                                Rp {formDataTarik?.amount.toLocaleString('id-ID')}
                             </Typography>
                         </Box>
 
                         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
                             <Typography sx={{ fontSize: "12px", color: "grey" }}>Berlaku Hingga</Typography>
                             <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0A3967" }}>
-                                12.35
+                                {new Date(formDataTarik?.expired_at).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })}
                             </Typography>
                         </Box>
                     </Box>
@@ -55,15 +61,18 @@ export const SuccesInfo= () => {
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
-                                justifyContent: "space-evenly",
+                                justifyContent: "space",
                                 bgcolor: "#E4EDFF",
-                                p: 1,
-                                width: "415px",
+                                py: 1,
+                                px: 3,
+                                width: "100%",
                             }}
                         >
-                            <Typography>Kode Penarikan</Typography>
-                            <Typography sx={{ fontWeight: "bold", fontSize: "20px", color: "#0066AE" }}>
-                                654888
+                            <Typography sx={{ width:"500%" }}>
+                                Kode Penarikan
+                            </Typography>
+                            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#0066AE", width: "500%", pl:3}}>
+                                {formDataTarik?.code}
                             </Typography>
                         </Box>
                     </Box>
@@ -84,7 +93,6 @@ export const SuccesInfo= () => {
 
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", my: 5, px:10 }}>
                 <Button
-                    onClick=""
                     fullWidth
                     sx={{
                         py: 1.5,
@@ -93,6 +101,7 @@ export const SuccesInfo= () => {
                         textTransform: "capitalize",
                         mt: 4,
                     }}
+                    onClick={() => window.location.reload()}
                     aria-label="button make new token"
                     variant="contained"
                 >

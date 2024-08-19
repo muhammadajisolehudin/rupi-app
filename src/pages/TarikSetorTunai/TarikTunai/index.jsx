@@ -1,30 +1,18 @@
-import { useState } from "react";
 import { TarikTunaiForm } from "./TarikTunaiForm";
 import { KonfirmasiForm } from "./KonfirmasiForm";
 import { InputPinForm } from "./InputPinForm";
 import { SuccesInfo } from "./SuccesInfo";
+import { useQrContext } from "../../../context/QrContext";
 
-export const TarikTunai = () => {
-    const [step, setStep] = useState(1);
-    const [formData, setFormData] = useState({});
-
-    const handleNext = (values) => {
-        console.log("handleNext called with values:", values);
-        setFormData((prevData) => ({ ...prevData, ...values }));
-        setStep((prevStep) => prevStep + 1);
-    };
-
-    const handleSubmit = (values) => {
-        console.log("Final Submission", { ...formData, ...values });
-        setStep((prevStep) => prevStep + 1);
-    };
+export const TarikTunai = ({ onStepChange }) => {
+    const { step, handleNextTarik } = useQrContext()
 
     return (
         <>
-            {step === 1 && <TarikTunaiForm onNext={handleNext} />}
-            {step === 2 && <KonfirmasiForm onNext={handleNext} />}
-            {step === 3 && <InputPinForm onNext={handleNext}  />}
-            {step === 4 && <SuccesInfo onSubmit={handleSubmit}  />}
+            {step === 1 && <TarikTunaiForm onNext={handleNextTarik} />}
+            {step === 2 && <KonfirmasiForm onNext={handleNextTarik} />}
+            {step === 3 && <InputPinForm onNext={handleNextTarik}  />}
+            {step === 4 && <SuccesInfo />}
         </>
     );
 };

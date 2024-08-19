@@ -2,17 +2,22 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";
 import logoIcon from "/logo.png";
+import { useAuthContext } from "../../../context/AuthContext";
+import { useQrContext } from "../../../context/QrContext";
 
 export const KonfirmasiForm = ({ onNext }) => {
+    const { account } = useAuthContext()
+    const { formDataSetor } = useQrContext()
     const formik = useFormik({
-        initialValues: {},
+        initialValues: {
+
+        },
         onSubmit: (values) => {
             onNext(values);
         },
     });
 
     return (
-
         <Container>
             <Grid container spacing={4} sx={{
                 py: 6,
@@ -25,15 +30,10 @@ export const KonfirmasiForm = ({ onNext }) => {
                             Rupi App
                         </Typography>
                     </Box>
-
-
                     <Typography variant={"h6"} sx={{ fontWeight: "bold" }} aria-label="konfirmasi tarik tunai">
                         Konfirmasi Tarik Tunai
                     </Typography>
-
-
                 </Grid>
-
                 <Grid item xs={12} mt={8}>
                     <hr
                         style={{
@@ -41,8 +41,11 @@ export const KonfirmasiForm = ({ onNext }) => {
                         }}
                     />
                     <Box sx={{ display: "flex", justifyContent: "space-between" }} aria-label="nominal penarikan">
-                        <Typography>Metode</Typography>
-                        <Typography sx={{ fontWeight: "bold" }}>BCA</Typography>
+                        <Typography sx={{
+                            fontWeight: "400",
+                            fontSize: "18px",
+                        }}>Metode</Typography>
+                        <Typography sx={{ fontWeight: "bold" }}>{formDataSetor?.metode}</Typography>
                     </Box>
                 </Grid>
                 <Grid item xs={12}>
@@ -51,13 +54,14 @@ export const KonfirmasiForm = ({ onNext }) => {
                             border: "1px solid #B3B3B3"
                         }}
                     />
-                    <Typography variant="h6" sx={{ mt: 5 }} aria-label="sumber dana rupiah">
-                        Sumber Rupiah
+                    <Typography variant="h6" sx={{ mt: 5, fontSize: "18px" }} aria-label="sumber dana rupiah">
+                        Rekening Tujuan
                     </Typography>
-                    <CardAccountInfo accountNumber={"5667 2323 1444 5554"} balance={5000000} />
+                    <CardAccountInfo accountNumber={account.account_number}
+                        balance={account.balance} />
                     <hr
                         style={{
-                            border: "1px solid #B3B3B3", marginTop: "5rem"
+                            border: "1px solid #B3B3B3", marginTop: "4rem"
                         }}
                     />
                 </Grid>
@@ -77,18 +81,14 @@ export const KonfirmasiForm = ({ onNext }) => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
-                            // disabled={mutation.isLoading}
+                                sx={{ mb: 1, py: 1.5, borderRadius: 2 }}
                             >
                                 Lanjutkan
                             </Button>
                         </Box>
                     </form>
                 </Grid>
-
-
             </Grid>
         </Container>
-
     );
 };

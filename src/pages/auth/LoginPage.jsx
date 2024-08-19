@@ -22,7 +22,7 @@ import { useAuthContext } from "../../context/AuthContext";
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login, isLoading, isSuccess, error } = useAuthContext();
+  const { login, isLoading: isLoadingLogin, isSuccess: isSuccessLogin, error: errorLogin } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -38,17 +38,14 @@ export const LoginPage = () => {
         .required("Password harus diisi"),
     }),
     onSubmit: async (values) => {
-      console.log("Form Submitted", values); // Debug log
       try {
         await login(values);
         navigate("/verify");
       } catch (error) {
         console.error("Login failed, error:", error);
-        // setErrorMessage(error.response ? error.response.data.message : error.message);
-        
       }
-    },
-  });
+    }
+  })
 
   return (
     <AuthLayout>
@@ -60,7 +57,7 @@ export const LoginPage = () => {
           justifyContent: "center",
           flexDirection: "column",
           my: "auto",
-          py: 5, 
+          py: 5,
           px: 4,
         }}
       >
@@ -150,18 +147,19 @@ export const LoginPage = () => {
             }}
           />
           {formik.touched.password && formik.errors.password ? (
-            <Typography id="password-error" variant="body2" sx={{color: "red" }}>
+            <Typography id="password-error" variant="body2" sx={{ color: "red" }}>
               {formik.errors.password}
             </Typography>
           ) : null}
           <Grid container>
             <Grid item xs sx={{ mt: 1, mb: 2 }}>
-              <Link href="#"
+              <Link 
+                to="/forgot-password"
                 variant="body2"
                 style={{ textDecoration: "none" }}
                 role="button"
-                aria-label="Button Lupa Username atau Password">
-                Lupa Username/Password? 
+                aria-label="Link lupa Username atau Password">
+                Lupa Username/Password?
               </Link>
             </Grid>
           </Grid>
@@ -170,21 +168,20 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
-            disabled={isLoading}
+            disabled={isLoadingLogin}
             aria-label="Button Masuk"
           >
-            {isLoading ? "Logging in..." : "Masuk"}
+            {isLoadingLogin ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
       </Paper>
-      {error && (
-        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
+      {errorLogin && (
+        <FailAlert message={errorLogin?.response?.data?.message || errorLogin?.message} title="Login Gagal" />
       )}
-      {isSuccess && (
+      {isSuccessLogin && (
         <SuccesAlert message="" title="Login Berhasil" />
       )}
     </AuthLayout>
   );
 };
-
 
