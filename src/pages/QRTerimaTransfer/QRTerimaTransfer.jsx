@@ -1,4 +1,4 @@
-import { Box, Button, Card, Typography } from "@mui/material";
+import { Box, Button, Card, Typography, TextField } from "@mui/material";
 import { Layout } from "../layout";
 import QRISIcon from '../../assets/img/icons/QRIS-Icon.png';
 import LogoIcon from '../../assets/img/icons/3.png';
@@ -7,14 +7,15 @@ import ShareIcon from '../../assets/img/icons/mdi_share.png';
 import RiayatIcon from '../../assets/img/icons/Document.png';
 import { useNavigate } from 'react-router-dom';
 import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
-
 import { QRTerimaTransferCode } from "../../assets/components/QRTransferComponents/QRTerimaTransferCode";
-
 import { useAuthContext } from "../../context/AuthContext";
+import { useEffect, useState } from "react";
 
 export const QRTerimaTransfer = () => {
 	const navigate = useNavigate();
 	const { account } = useAuthContext();
+	const [amount, setAmount] = useState(undefined); // Awalnya undefined
+	const [inputAmount, setInputAmount] = useState(0);
 
 	const formatAccountNumber = (number) => {
 		const visibleDigits = 4;
@@ -27,7 +28,7 @@ export const QRTerimaTransfer = () => {
 	const accountNumber = account.account_number;
 
 	const currentDate = new Date();
-	const expiryDate = new Date(currentDate.getTime() + (7 * 24 * 60 * 60 * 1000)); // 7 hari
+	const expiryDate = new Date(currentDate.getTime() + (1 * 24 * 60 * 60 * 1000));
 
 	const formatExpiryDate = (date) => {
 		const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
@@ -38,14 +39,18 @@ export const QRTerimaTransfer = () => {
 		navigate('/QR-terima-transfer/riwayat');
 	};
 
+	const handleGenerateQRCode = () => {
+		setAmount(inputAmount);
+	};
+
+	useEffect(() => {
+		handleGenerateQRCode();
+	} ,[]);
+
 	return (
 		<Layout>
-			{/* <Container sx={{ paddingTop: "2rem", paddingBottom: "2rem" }}> */}
 			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
 				<Breadcrumb />
-				{/* <Card sx={{ mt: 6, mb: 4 }}>
-                    
-                </Card> */}
 				<Box sx={{ px: 6, mt: 6, mb: 4 }}>
 					<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
 						<Button
@@ -74,12 +79,23 @@ export const QRTerimaTransfer = () => {
 							<Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
 								RupiApp by BCA - {formatAccountNumber(accountNumber)}
 							</Typography>
-							<Box sx={{ display: 'flex', justifyContent: 'center', mb: '2rem' }}>
-								<QRTerimaTransferCode />
+							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
+								<QRTerimaTransferCode amount={amount} />
 							</Box>
+							<Typography variant="body2" sx={{ textAlign: 'left', mb: '1rem' }}>
+								Masukkan nominal yang ingin Anda terima
+							</Typography>
+							<TextField
+								type="number"
+								variant="outlined"
+								value={inputAmount}
+								onChange={(e) => setInputAmount(Number(e.target.value))}
+								sx={{ mb: '1rem', width: '100%', border: '1px solid #fff', color: '#fff' }}
+							/>
 							<Button
 								variant="outlined"
 								sx={{ borderColor: '#fff', color: '#fff', width: '100%', mb: '2rem' }}
+								onClick={handleGenerateQRCode}
 							>
 								Tambah Nominal
 							</Button>
@@ -100,6 +116,7 @@ export const QRTerimaTransfer = () => {
 											backgroundColor: '#f0f0f0'
 										}
 									}}
+									onClick={() => setAmount(amount)}
 								>
 									<img src={ScanIcon} alt="Scan QR" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
 									Buat QR Baru
@@ -125,10 +142,7 @@ export const QRTerimaTransfer = () => {
 						</Card>
 					</Box>
 				</Box>
-
 			</Box>
-
-			{/* </Container> */}
 		</Layout>
 	);
 };
