@@ -10,6 +10,17 @@ const AuthContext = createContext();
 export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+
+    const [step, setStep] = useState(1);
+
+    const [formData, setFormData] = useState({});
+
+    const handleNext = (values) => {
+        setFormData((prevData) => ({ ...prevData, ...values }));
+        setStep((prevStep) => prevStep + 1);
+
+    };
+
     const [user, setUser] = useState(CookiesStorage?.get(CookiesKey.User));
     
     const [account, setAccount] = useState([])
@@ -45,6 +56,10 @@ export const AuthProvider = ({ children }) => {
             isLoadingSignout,
             isErrorSignout,
             errorSignout,
+            step,
+            setStep,
+            formData,
+            handleNext
         }}
     >
         {children}

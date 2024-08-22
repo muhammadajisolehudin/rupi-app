@@ -5,20 +5,21 @@ import { createContext, useState, useContext } from 'react';
 const QrContext = createContext();
 
 export const QrProvider = ({ children }) => {
-    const [step, setStep] = useState(1);
+    const [stepTarik, setStepTarik] = useState(1);
     const [formDataTarik, setFormDataTarik] = useState({});
     const [formDataSetor, setFormDataSetor] = useState({});
+    const [stepSetor, setStepSetor] = useState(1);
 
     const handleNextTarik = (values) => {
         setFormDataTarik((prevData) => ({ ...prevData, ...values }));
        
-        setStep((prevStep) => prevStep + 1);
+        setStepTarik((prevStep) => prevStep + 1);
 
     };
     const handleNextSetor = (values) => {
         setFormDataSetor((prevData) => ({ ...prevData, ...values }));
 
-        setStep((prevStep) => prevStep + 1);
+        setStepSetor((prevStep) => prevStep + 1);
 
     };
 
@@ -26,12 +27,15 @@ export const QrProvider = ({ children }) => {
 
     const handleSubmit = (values) => {
         console.log("Final Submission", { ...formDataTarik, ...formDataSetor, ...values });
-        setStep((prevStep) => prevStep + 1);
+        if(setStepSetor){
+            setStepSetor((prevStep) => prevStep + 1)
+        }
+        setStepTarik((prevStep) => prevStep + 1)
     };
 
 
     return (
-        <QrContext.Provider value={{ step, setStep, handleNextTarik, handleNextSetor, handleSubmit, formDataSetor, formDataTarik }}>
+        <QrContext.Provider value={{ stepTarik, setStepTarik, stepSetor, setStepSetor, handleNextTarik, handleNextSetor, handleSubmit, formDataSetor, formDataTarik }}>
             {children}
         </QrContext.Provider>
     );

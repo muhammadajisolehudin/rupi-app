@@ -28,8 +28,9 @@ export const InputPinForm = ({ onNext }) => {
     onSubmit: async (values) => {
       try {
         const response = await transaksiIntrabank.mutateAsync(values);
-		console.log("dat arespon tf intra bank", response)
-        onNext(values);
+		console.log("data respon id mutasi dari transaksi intra bank", response?.data)
+		console.log("data respon id mutasi dari transaksi intra bank", response?.data.mutation_detail.mutation_id)
+		onNext(response?.data.mutation_detail);
       } catch (error) {
         console.error("Error:", error);
       }

@@ -1,46 +1,105 @@
-import { Box, ButtonBase, Divider, Grid, IconButton, Paper, Typography } from "@mui/material";
+import { Box, ButtonBase, Divider, Fade, Grid, IconButton, Paper, Tooltip, Typography } from "@mui/material";
 import { LayoutSecondary } from "../layoutSecondary";
 import BreadcrumbSecondary from "../../assets/components/Breadcrumbs/BreadcrumbSecondary";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
 import birdImg from "../../assets/img/bird.png";
 import catImg from "../../assets/img/cat.png";
 import dogImg from "../../assets/img/dog.png";
-import { useState } from "react";
-// import { Login } from "@mui/icons-material";
+import { useState, useRef, useEffect } from "react";
+import * as Yup from "yup";
 import { AkunContent } from "./AkunContent";
 import { UbahNoHandphoneContent } from "./UbahNoHandphoneContent";
 import { InformasiRupiAppContent } from "./InformasiRupiAppContent";
 import { UbahPin } from "./Pin";
 import { UbahPassword } from "./Password";
 import { useGetUserProfile } from "../../services/user/get-user-profile";
+import { useFormik } from "formik";
+import { useChangeUserProfile } from "../../services/user/change-user-profile";
+import { useAuthContext } from "../../context/AuthContext";
+import { useGetImg } from "../../services/user/get-img";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
+import SettingsNavigator from "../../assets/components/navigators/SettingsNavigator";
 
 export const PengaturanPage = () => {
 	const [activeSection, setActiveSection] = useState("Akun");
-	const { data: getUserProfile } = useGetUserProfile()
+	const { account } = useAuthContext()
+	const { data: getUserProfile, refetch: userProfileRefetch } = useGetUserProfile()
+	const { data: imgData, refetch: imgRefetch } = useGetImg(getUserProfile?.avatar)
+	const changeAvatarProfile = useChangeUserProfile()
+	const fileInputRef = useRef(null);
 	const [profilePic, setProfilePic] = useState(null);
 
-	console.log("avatar ini : ",getUserProfile)
-	const handleImageChange = (image) => {
-		setProfilePic(image);
+	const validateFile = (file) => {
+		const allowedTypes = ["image/jpeg", "image/png", "image/svg+xml"];
+		return file && allowedTypes.includes(file.type);
 	};
+	const formik = useFormik({
+		initialValues: {
+			avatar: null,
+		},
+		validationSchema: Yup.object({
+			avatar: Yup.mixed()
+				.required("Avatar Harus Diisi")
+				.test(
+					"fileSize",
+					"File harus berukuran lebih kecil dari 5MB",
+					(value) => !value || (value && value.size <= 5 * 1024 * 1024)
+				)
+				.test(
+					"fileType",
+					"Format file harus berupa .jpg, .png, atau .svg",
+					(value) => !value || validateFile(value)
+				),
+		}),
+		onSubmit: async (values) => {
+			const formData = new FormData();
+			if (values.avatar) {
+				formData.append('avatar', values.avatar);
+			}
 
-	const getTabStyle = (section) => ({
-		position: "relative",
-		"&::after": {
-			content: '""',
-			position: "absolute",
-			bottom: -2,
-			left: 0,
-			width: "100%",
-			height: 3,
-			backgroundColor: "#0066AE",
-			borderRadius: "5px",
-			visibility: activeSection === section ? "visible" : "hidden",
-			transition: " bottom 0.2s ease",
+			try {
+				await changeAvatarProfile.mutateAsync(formData);
+			} catch (error) {
+				return error
+			}
 		},
 	});
 
-	//UNCOMENT INI BUAT MASING MASING CONTENT
+
+
+	const handleFileInputChange = (event) => {
+		const file = event.target.files[0];
+		if (file) {
+			if (validateFile(file)) {
+				formik.setFieldValue("avatar", file);
+				formik.submitForm(); // Automatically submit 
+			} else {
+				formik.setFieldError("avatar", "Format file harus berupa .jpg, .png, atau .svg");
+			}
+		}
+	};
+
+	const handleImageChange = async (imageUrl) => {
+		try {
+			const response = await fetch(imageUrl);
+			const blob = await response.blob();
+			const file = new File([blob], "avatar.png", { type: blob.type });
+
+			console.log("Selected file:", file);
+
+			// Update Formik value
+			formik.setFieldValue("avatar", file);
+			formik.setFieldTouched("avatar", true); // Mark as touched if needed
+			setProfilePic(URL.createObjectURL(file));
+		} catch (error) {
+			console.error("Error converting image to file:", error);
+		}
+	};
+
+	const handleClickUpload = () => {
+		fileInputRef.current.click();
+	};
 
 	const renderContent = () => {
 		switch (activeSection) {
@@ -59,9 +118,14 @@ export const PengaturanPage = () => {
 		}
 	};
 
+	useEffect(()=>{
+		userProfileRefetch()
+		imgRefetch()
+
+	}, [changeAvatarProfile])
+
 	return (
 		<LayoutSecondary>
-			
 			<Grid xs={12} sx={{
 				height: "130vh"
 			}}>
@@ -96,238 +160,166 @@ export const PengaturanPage = () => {
 									sx={{
 										display: "flex",
 										flexDirection: "column",
-										justifyContent: "center",
+										// justifyContent: "center",
 										alignItems: "center",
+										textAlign: "center",
 										gap: 1,
 									}}
 								>
-									{profilePic ? (
-										<Paper
-											component="paper"
-											elevation={4}
+									{/* {profilePic ? ( */}
+									<Paper
+										component="paper"
+										elevation={4}
+										sx={{
+											display: "flex",
+											justifyContent: "center",
+											alignItems: "center",
+											width: "9rem",
+											height: "9rem",
+											borderRadius: "50%",
+											overflow: "hidden",
+										}}
+									>
+										<img
+											src={imgData}
+											alt="Profile"
+											style={{ width: "8rem", height: "8rem", borderRadius: "50%" }}
+										/>
+									</Paper>
+									<Tooltip TransitionComponent={Fade} slotProps={{
+										popper: {
+											modifiers: [
+												{
+													name: 'offset',
+													options: {
+														offset: [0, -14],
+													},
+												},
+											],
+										},
+									}}
+										TransitionProps={{ timeout: 600 }} title={account.full_name}>
+										<Typography variant="h4" sx={{
+											fontWeight: "bold", width: "100%",
+											overflow: "hidden",
+											textOverflow: "ellipsis",
+										}}>
+											{account.full_name}
+										</Typography>
+									</Tooltip>
+
+									<Typography sx={{ mt: 2.5 }}>Pasang foto atau avatar favoritmu</Typography>
+								</Box>
+								<form onSubmit={formik.handleSubmit}>
+									<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+										<IconButton
+											onClick={handleClickUpload}
+											aria-label="Tambahkan Foto"
 											sx={{
 												display: "flex",
 												justifyContent: "center",
 												alignItems: "center",
-												width: "10rem",
-												height: "10rem",
+												width: 60,
+												height: 60,
+												border: "2px dashed black",
 												borderRadius: "50%",
 												overflow: "hidden",
+												padding: 2,
+												boxShadow: 3,
+												backgroundColor: "#f5f5f5",
 											}}
 										>
-											<img
-												src={getUserProfile?.avatar}
-												alt="Profile"
-												style={{ width: "9rem", height: "9rem", borderRadius: "50%" }}
+											<AddAPhotoOutlinedIcon />
+											<input
+												type="file"
+												ref={fileInputRef}
+												style={{ display: "none" }}
+												accept="image/*"
+												id="avatar"
+												name="avatar"
+												onChange={handleFileInputChange}
+												onBlur={formik.handleBlur}
 											/>
-										</Paper>
-									) : (
-										<Typography variant="h6" color="textSecondary">
-											No Image
-										</Typography>
-									)}
-									<Typography variant="h4" sx={{ fontWeight: "bold" }}>
-										Nama user
-									</Typography>
-									<Typography sx={{ mt: 1 }}>Pasang foto atau avatar favoritmu</Typography>
-								</Box>
 
-								<Box sx={{ display: "flex", justifyContent: "space-between" }}>
-									<IconButton
-										onClick={() => { }}
-										aria-label="Tambahkan Foto"
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center",
-											width: 60,
-											height: 60,
-											border: "2px dashed black",
-											borderRadius: "50%",
-											overflow: "hidden",
-											padding: 2,
-											boxShadow: 3,
-											backgroundColor: "#f5f5f5",
-										}}
-									>
-										<AddAPhotoOutlinedIcon />
-									</IconButton>
-									<Box
-										onClick={() => handleImageChange(birdImg)}
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center",
-											width: 60,
-											height: 60,
-											borderRadius: "50%",
-											overflow: "hidden",
-											border: profilePic === birdImg ? "2px solid #1976d2" : "none",
-											cursor: "pointer",
-										}}
-										aria-label="Select bird image"
-									>
-										<img src={birdImg} alt="Bird" />
+										</IconButton>
+										<Box
+											onClick={() => handleImageChange(birdImg)}
+											sx={{
+												display: "flex",
+												justifyContent: "center",
+												alignItems: "center",
+												width: 60,
+												height: 60,
+												borderRadius: "50%",
+												overflow: "hidden",
+												border: profilePic === birdImg ? "2px solid #1976d2" : "none",
+												cursor: "pointer",
+											}}
+											aria-label="Select bird image"
+										>
+											<img src={birdImg} alt="Bird" />
+										</Box>
+										<Box
+											onClick={() => handleImageChange(catImg)}
+											sx={{
+												display: "flex",
+												justifyContent: "center",
+												alignItems: "center",
+												width: 60,
+												height: 60,
+												borderRadius: "50%",
+												overflow: "hidden",
+												border: profilePic === catImg ? "2px solid #1976d2" : "none",
+												cursor: "pointer",
+											}}
+											aria-label="Select cat image"
+										>
+											<img src={catImg} alt="Cat" />
+										</Box>
+										<Box
+											onClick={() => handleImageChange(dogImg)}
+											sx={{
+												display: "flex",
+												justifyContent: "center",
+												alignItems: "center",
+												width: 60,
+												height: 60,
+												borderRadius: "50%",
+												overflow: "hidden",
+												border: profilePic === dogImg ? "2px solid #1976d2" : "none",
+												cursor: "pointer",
+											}}
+											aria-label="Select dog image"
+										>
+											<img src={dogImg} alt="Dog" />
+										</Box>
 									</Box>
-									<Box
-										onClick={() => handleImageChange(catImg)}
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center",
-											width: 60,
-											height: 60,
-											borderRadius: "50%",
-											overflow: "hidden",
-											border: profilePic === catImg ? "2px solid #1976d2" : "none",
-											cursor: "pointer",
-										}}
-										aria-label="Select cat image"
-									>
-										<img src={catImg} alt="Cat" />
+									<Box sx={{ mt:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
+										{formik.errors.avatar && formik.touched.avatar && (
+										<Typography color="error">{formik.errors.avatar}</Typography>
+									)}
 									</Box>
-									<Box
-										onClick={() => handleImageChange(dogImg)}
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											alignItems: "center",
-											width: 60,
-											height: 60,
-											borderRadius: "50%",
-											overflow: "hidden",
-											border: profilePic === dogImg ? "2px solid #1976d2" : "none",
-											cursor: "pointer",
-										}}
-										aria-label="Select dog image"
-									>
-										<img src={dogImg} alt="Dog" />
-									</Box>
-								</Box>
+									
+								</form>
 							</Paper>
 						</Grid>
 						<Grid item xs={8.5}>
-							<Paper elevation={5} sx={{ height: "100vh", display: "box" }}>
-								<Box
-									sx={{ display: "flex", justifyContent: "space-between", pt: 3, px: 5, zIndex: 1 }}
-									role="region"
-									aria-label="Tab Bar Pengaturan"
-								>
-									<ButtonBase
-										id="TabAkun"
-										onClick={() => setActiveSection("Akun")}
-										sx={getTabStyle("Akun")}
-										aria-label="Tab Akun"
-									>
-										<Typography
-											aria-labelledby="TabAkun"
-											role="button"
-											variant="h6"
-											component="div"
-											sx={{
-												fontWeight: activeSection === "Akun" ? "bold" : "normal",
-												color: activeSection === "Akun" ? "#0066AE" : "#dedede",
-												cursor: "pointer",
-											}}
-										>
-											Akun
-										</Typography>
-									</ButtonBase>
-									<ButtonBase
-										id="TabUbahPin"
-										onClick={() => setActiveSection("Ubah Pin")}
-										sx={getTabStyle("Ubah Pin")}
-										aria-label="Tab Ubah Pin"
-									>
-										<Typography
-											aria-labelledby="TabUbahPin"
-											role="button"
-											variant="h6"
-											component="div"
-											sx={{
-												fontWeight: activeSection === "Ubah Pin" ? "bold" : "normal",
-												color: activeSection === "Ubah Pin" ? "#0066AE" : "#dedede",
-												cursor: "pointer",
-											}}
-										>
-											Ubah Pin
-										</Typography>
-									</ButtonBase>
-									<ButtonBase
-										id="TabUbahPassword"
-										onClick={() => setActiveSection("Ubah Password")}
-										sx={getTabStyle("Ubah Password")}
-										aria-label="Tab Ubah Password"
-									>
-										<Typography
-											aria-labelledby="TabUbahPassword"
-											role="button"
-											variant="h6"
-											component="div"
-											sx={{
-												fontWeight: activeSection === "Ubah Password" ? "bold" : "normal",
-												color: activeSection === "Ubah Password" ? "#0066AE" : "#dedede",
-												cursor: "pointer",
-											}}
-										>
-											Ubah Password
-										</Typography>
-									</ButtonBase>
-									<ButtonBase
-										id="TabUbahHP"
-										onClick={() => setActiveSection("Ubah No Handphone")}
-										sx={getTabStyle("Ubah No Handphone")}
-										aria-label="Tab Ubah No Handphone"
-									>
-										<Typography
-											aria-labelledby="TabUbahHP"
-											role="button"
-											variant="h6"
-											component="div"
-											sx={{
-												fontWeight: activeSection === "Ubah No Handphone" ? "bold" : "normal",
-												color: activeSection === "Ubah No Handphone" ? "#0066AE" : "#dedede",
-												cursor: "pointer",
-											}}
-										>
-											Ubah No Handphone
-										</Typography>
-									</ButtonBase>
-									<ButtonBase
-										id="TabInformasi"
-										onClick={() => setActiveSection("Informasi Rupi App")}
-										sx={getTabStyle("Informasi Rupi App")}
-										aria-label="Tab Informasi Rupi App"
-									>
-										<Typography
-											aria-labelledby="TabInformasi"
-											role="button"
-											variant="h6"
-											component="div"
-											sx={{
-												fontWeight: activeSection === "Informasi Rupi App" ? "bold" : "normal",
-												color: activeSection === "Informasi Rupi App" ? "#0066AE" : "#dedede",
-												cursor: "pointer",
-											}}
-										>
-											Informasi Rupi App
-										</Typography>
-									</ButtonBase>
-								</Box>
-								<Divider
-									sx={{
-										width: "100%",
-										backgroundColor: "#B3B3B3", // Warna garis
-									}}
-								/>
-
-								<Box sx={{ bgcolor: "white" }}>{renderContent()}</Box>
-							</Paper>
+							<SettingsNavigator
+								activeSection={activeSection}
+								setActiveSection={setActiveSection}
+								renderContent={renderContent}
+							/>
 						</Grid>
 
 					</Grid>
 				</Grid>
 			</Grid>
+			{changeAvatarProfile.isError && (
+				<FailAlert message={changeAvatarProfile.error?.response?.data?.message || changeAvatarProfile.error?.message} title="Foto Profil Gagal Diubah" />
+			)}
+			{changeAvatarProfile.isSuccess && (
+				<SuccesAlert message="" title="Foto Profil Berhasil Diubah" />
+			)}
 		</LayoutSecondary>
 	);
 };

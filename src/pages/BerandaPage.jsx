@@ -22,7 +22,7 @@ export const BerandaPage = () => {
 
   useEffect(() => {
     if (dataTransaksi) {
-        setDataFavorite(dataTransaksi.filter((item) => item.favorites))
+        setDataFavorite(dataTransaksi?.content.filter((item) => item.favorites))
     }
   }, [dataTransaksi]);
 

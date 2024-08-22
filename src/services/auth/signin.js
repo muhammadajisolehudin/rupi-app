@@ -8,6 +8,7 @@ const login = async (input) => {
 
   const result = await http.post(API_ENDPOINT.AUTH_SIGNIN, input);
   CookiesStorage.set(CookiesKey.AuthToken, result.data.data.access_token);
+  CookiesStorage.set(CookiesKey.User, result.data.data.username);
   // CookiesStorage.set(
   //   CookiesKey.User,
   //   result.data.data.username,

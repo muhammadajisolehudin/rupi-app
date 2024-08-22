@@ -7,16 +7,14 @@ import {
     Typography,
 } from "@mui/material";
 import * as Yup from "yup";
-import { AuthLayout } from "../authLayout";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
-import FailAlert from "../../assets/components/Alerts/FailAlert";
-import { useForgotPassword } from "../../services/auth/forgot-password";
+import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
+import { useForgotPassword } from "../../../services/auth/forgot-password";
 
-export const ForgotPasswordPage = () => {
-    const navigate = useNavigate();
+export const InputUsernamePage = ({ onNext}) => {
+    // const navigate = useNavigate();
     // const { login, isLoading: isLoadingLogin, isSuccess: isSuccessLogin, error: errorLogin } = useAuthContext();
     const mutateForgotPassword = useForgotPassword()
 
@@ -30,7 +28,7 @@ export const ForgotPasswordPage = () => {
         onSubmit: async (values) => {
             try {
                 await mutateForgotPassword.mutateAsync(values);
-                navigate("/verify");
+                onNext(values)
             } catch (error) {
                 return error
             }
@@ -38,7 +36,7 @@ export const ForgotPasswordPage = () => {
     })
 
     return (
-        <AuthLayout>
+        <>
             <Paper
                 elevation={5}
                 square={false}
@@ -65,7 +63,7 @@ export const ForgotPasswordPage = () => {
                 >
                     Lupa Password
                 </Typography>
-                <Typography sx={{ mb:1 }}>
+                <Typography sx={{ mb: 1 }}>
                     Silakan masukkan username Anda,  kami akan mengirimkan Kode OTP untuk membuat password baru.
                 </Typography>
                 <Box
@@ -106,8 +104,8 @@ export const ForgotPasswordPage = () => {
                             {formik.errors.username}
                         </Typography>
                     ) : null}
-                    
-                   
+
+
                     <Button
                         type="submit"
                         fullWidth
@@ -119,7 +117,7 @@ export const ForgotPasswordPage = () => {
                         {mutateForgotPassword.isLoading ? "Logging in..." : "Kirim"}
                     </Button>
                     <Grid container>
-                        <Grid item xs sx={{ mt: 3, mb: 1, display: "flex", justifyContent:"center"}}>
+                        <Grid item xs sx={{ mt: 3, mb: 1, display: "flex", justifyContent: "center" }}>
                             <Link to="/login"
                                 variant="body2"
                                 style={{ textDecoration: "none" }}
@@ -137,7 +135,7 @@ export const ForgotPasswordPage = () => {
             {mutateForgotPassword.isSuccess && (
                 <SuccesAlert message="periksa WhatsApp mu" title="OTP Sudah Dikirim" />
             )}
-        </AuthLayout>
+        </>
     );
 };
 

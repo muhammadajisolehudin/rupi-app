@@ -3,10 +3,10 @@ import { API_ENDPOINT } from "../../utils/api-endpoints";
 import http from "../../utils/http";
 import { useQuery } from "@tanstack/react-query";
 
-const getDataTransaksi = async ({ queryKey }) => {
-  const [_key] = queryKey;
+const getTransferDestination = async ({ queryKey }) => {
+  const [_key, params] = queryKey;
   try {
-    const result = await http.get(_key);
+    const result = await http.get(_key, { params });
     return result.data.data;
   } catch (error) {
     console.error("Error in getAccountDetail:", error);
@@ -14,11 +14,11 @@ const getDataTransaksi = async ({ queryKey }) => {
   }
 };
 
-const useGetDataTransaksi = () => {
+const useGetTransferDestination = (params) => {
    return useQuery({
-     queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS],
-     queryFn: getDataTransaksi,
+     queryKey: [API_ENDPOINT.TRANSFER_DESTINATIONS, params],
+     queryFn: getTransferDestination,
    });
 };
 
-export { getDataTransaksi, useGetDataTransaksi };
+export { getTransferDestination, useGetTransferDestination };

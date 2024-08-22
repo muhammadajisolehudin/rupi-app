@@ -26,7 +26,10 @@ export const InputPinForm = ({ onNext }) => {
         onSubmit: async (values) => {
             try {
                 const result = await addTransferQris.mutateAsync(values)
-                onNext(result);
+                console.log("data:", result)
+                console.log("respon dari qris :", result.data.data)
+                // console.log("respon dari values:", values)
+                onNext(result.data.data);
             } catch (error) {
                 return error
             }

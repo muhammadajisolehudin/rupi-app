@@ -10,6 +10,7 @@ import { useTransferContext } from "../../../context/TransferContext";
 export const KonfirmasiBayarForm = ({ onNext }) => {
     const { account } = useAuthContext()
     const { formData } = useTransferContext()
+	console.log("ciba periksa : ", formData)
 
     const formik = useFormik({
         initialValues: {

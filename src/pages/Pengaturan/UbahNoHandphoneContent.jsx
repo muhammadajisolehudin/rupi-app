@@ -2,16 +2,17 @@ import { Box, Button, Container, Grid, TextField, Typography } from "@mui/materi
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useGetUserProfile } from "../../services/user/get-user-profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ModalOtp } from "../../assets/components/Modals/ModalOtp";
 import { useChangeUserPhone } from "../../services/user/change-user-phone";
 import FailAlert from "../../assets/components/Alerts/FailAlert";
 import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 
 export const UbahNoHandphoneContent = () => {
-	const { data: dataProfile } = useGetUserProfile() 
+	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile() 
 	const [modalOpen, setModalOpen] = useState(false);
 	const mutateChangePhone = useChangeUserPhone()
+	const [verificationSuccess, setVerificationSuccess] = useState(false);
 	
 
 	const formik = useFormik({
@@ -28,9 +29,7 @@ export const UbahNoHandphoneContent = () => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				console.log("masuk sisni udah")
-				const response = await mutateChangePhone.mutateAsync(values)
-				console.log("ini loh data : ",response)
+				await mutateChangePhone.mutateAsync(values)
 				setModalOpen(true);
 			} catch (error) {
 				console.log("ada yang salah ")
@@ -49,11 +48,14 @@ export const UbahNoHandphoneContent = () => {
 		setModalOpen(false);
 	};
 
-	const handleOtpVerified = async (values) => {
-		// setModalOpen(false)
-		
-		
+	const handleOtpVerified = () => {
+		setVerificationSuccess(true);
+		// Lakukan tindakan lain jika perlu, seperti menampilkan notifikasi
 	};
+
+	useEffect(()=>{
+		refetchProfile()
+	}, [verificationSuccess])
 
 
 	return (
@@ -137,13 +139,14 @@ export const UbahNoHandphoneContent = () => {
 			<ModalOtp
 				open={modalOpen}
 				onClose={handleCloseModal}
-				onOtpVerified={handleOtpVerified(formik.values)}
+				type="phone"
+				onSuccess={handleOtpVerified}
 			/>
 			{mutateChangePhone.isError && (
 				<FailAlert message={mutateChangePhone.error?.response?.data?.message || mutateChangePhone.error?.message} title="No Baru Gagal Didaftarkan" />
 			)}
-			{mutateChangePhone.isSuccess && (
-				<SuccesAlert message="silahkan masukan kode OTP untuk ferivikasi" title="No Baru Sedang Didaftarkan" />
+			{verificationSuccess && (
+				<SuccesAlert message="" title="No Phone Berhasil Diganti" />
 			)}
 			
 		</Container>

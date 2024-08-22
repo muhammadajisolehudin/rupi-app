@@ -11,8 +11,10 @@ import { useTransferContext } from "../../context/TransferContext";
 
 
 export const TransferRupiahPage = () => {
-	const [searchText, setSearchText] = useState("");
-	console.log("data serach :", searchText)
+	const [searchData, setSearchData] = useState("");
+	
+	const [page, setPage] = useState(1);
+	const rowsPerPage = 10;
 
 	// const [destinationData, setDestinationData] = useState(null);
 	const [destinationData, setDestinationData] = useState({
@@ -20,10 +22,8 @@ export const TransferRupiahPage = () => {
 		others: [],
 	});
 
-	const { dataTransaksi, setStep } = useTransferContext() 
-	//fetching api
+	const { dataTransaksi, refetchDataTransaksi, setStep, setParams } = useTransferContext() 
 	
-
 	const { mutate: updateFavorite } = useAddFavorite();
 
 	const handleToggleFavorite = (id, currentFavoriteStatus) => {
@@ -36,7 +36,7 @@ export const TransferRupiahPage = () => {
 			const updatedFavorites = prevData.favorites.filter((item) => item.id !== id);
 			const updatedOthers = prevData.others.filter((item) => item.id !== id);
 
-			const updatedItem = dataTransaksi.find((item) => item.id === id);
+			const updatedItem = dataTransaksi.content?.find((item) => item.id === id);
 			updatedItem.favorite = newFavoriteStatus;
 
 			if (newFavoriteStatus) {
@@ -47,46 +47,49 @@ export const TransferRupiahPage = () => {
 
 			return {
 				favorites: updatedFavorites,
-				others: updatedOthers,
+				others: updatedOthers
 			};
 		});
 	};
 
-	useEffect(() => {
-		setStep(1)
-	}, [])
+	// useEffect(() => {
+	// 	setStep(1)
+	// }, [])
 	
 	useEffect(() => {
+		setParams(prevParams => {
+			const newParams = {
+				...prevParams,
+				page: page - 1,
+				size: rowsPerPage,
+				search: searchData
+			};
+			return newParams;
+		})
+
+
 		if (dataTransaksi) {
 			// Pisahkan data menjadi favorit dan bukan favorit
-			const favorites = dataTransaksi.filter((item) => item.favorites);
-			const others = dataTransaksi.filter((item) => !item.favorites);
+			const favorites = dataTransaksi?.content?.filter((item) => item.favorites);
+			const others = dataTransaksi?.content.filter((item) => !item.favorites);
 
+			// console.log("data favorite:", favorites)
+			// console.log("data other:", others)
 			setDestinationData({ favorites, others });
 		}
-	}, [dataTransaksi, updateFavorite]);
+	}, [dataTransaksi, searchData]);
 
-	// useEffect(() => {
-	// 	if (destinationData.favorites && destinationData.others) {
-	// 		const filteredFavorites = destinationData.favorites
-	// 			.filter((item) => item?.full_name?.toLowerCase().includes(searchText.toLowerCase()));
-
-	// 		const filteredOthers = destinationData.others
-	// 			.filter((item) => item?.full_name?.toLowerCase().includes(searchText.toLowerCase()));
-
-	// 		console.log("Filtered Favorites:", filteredFavorites);
-	// 		console.log("Filtered Others:", filteredOthers);
-
-	// 		setDestinationData({ favorites: filteredFavorites, others: filteredOthers });
-	// 	}
-	// }, [searchText, destinationData]);
+	useEffect(() => {
+		console.log("ok deh di refetch ")
+		refetchDataTransaksi()
+	}, [destinationData]);
 	
 
 	return (
 		<Layout>
 			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
 				<Breadcrumb />
-				<TransferSearch onSearch={(text) => setSearchText(text)} />
+				<TransferSearch onSearch={(text) => setSearchData(text)} />
 				<TambahRekening />
 				<Box
 					sx={{

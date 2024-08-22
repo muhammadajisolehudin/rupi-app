@@ -70,3 +70,22 @@ export const groupByDate = (mutations) => {
       return [];
     }
   };
+
+import dayjs from "dayjs";
+
+  export const formatDateRange = (dateRange) => {
+    const [startDate, endDate] = dateRange;
+
+    // Format tanggal ke 'YYYY-MM-DD'
+    const formattedStartDate = startDate
+      ? dayjs(startDate).format("YYYY-MM-DD")
+      : "";
+    const formattedEndDate = endDate
+      ? dayjs(endDate).format("YYYY-MM-DD")
+      : "";
+
+    return {
+      start: formattedStartDate,
+      end: formattedEndDate,
+    };
+  };

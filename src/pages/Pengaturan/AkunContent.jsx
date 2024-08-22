@@ -2,34 +2,53 @@ import { Box, Button, Container, Grid, TextField, Typography } from "@mui/materi
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useGetUserProfile } from "../../services/user/get-user-profile";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useChangeUserProfile } from "../../services/user/change-user-profile";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
+import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
+import { useChangeUserEmail } from "../../services/user/change-user-email";
+import { ModalOtp } from "../../assets/components/Modals/ModalOtp";
 
 export const AkunContent = ({ onNext }) => {
 
-	const { data: dataProfile } = useGetUserProfile() 
-	console.log("pengaturan data:", dataProfile?.email)
+	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile() 
+	const [modalOpen, setModalOpen] = useState(false);
+	const changeUserProfile = useChangeUserProfile()
+	const changeUserEmail = useChangeUserEmail()
+	const [verificationSuccess, setVerificationSuccess] = useState(false);
+
+	const initialValuesRef = useRef({
+		username: "",
+		name: "",
+		avatar: "",
+		email: "",
+	});
 
 	const formik = useFormik({
 		initialValues: {
 			username: "",
 			name: "",
+			avatar: "",
 			email: "",
 		},
 		validationSchema: Yup.object({
-			name: Yup.string().required("Nama Panggilan diperlukan").max(15, "Max 15 Karakter"),
+			name: Yup.string().required("Nama Panggilan diperlukan").max(15, "Nama Panggilan tidak boleh lebih dari 15 karakter"),
 			email: Yup.string().email("Email tidak valid").required("Email diperlukan"),
 		}),
 		onSubmit: async (values) => {
-			const updatedValues = {};
+			const formData = new FormData();
 
-			// Membandingkan nilai saat ini dengan nilai awal, dan hanya menyimpan nilai yang berubah
-			if (values.name !== formik.initialValues.name) {
-				updatedValues.name = values.name;
+			if (values.name !== initialValuesRef.current.name) {
+				formData.append('name', values.name);
+				// formData.append('avatar', values.avatar);
+				await changeUserProfile.mutateAsync(formData);
+				console.log("ini data isSucces: ",changeUserProfile.isSuccess)
 			}
-			if (values.email !== formik.initialValues.email) {
-				updatedValues.email = values.email;
+
+			if (values.email !== initialValuesRef.current.email) {
+				await changeUserEmail.mutateAsync({ email: values.email });
+				setModalOpen(true);
 			}
-			console.log("submitted ", updatedValues);
 		},
 	});
 
@@ -38,17 +57,43 @@ export const AkunContent = ({ onNext }) => {
 			formik.setValues({
 				username: dataProfile?.username || "",
 				name: dataProfile?.name || "",
+				avatar: dataProfile?.avatar || "",
 				email: dataProfile?.email || "",
 			});
+			initialValuesRef.current = {
+				username: dataProfile?.username || "",
+				name: dataProfile?.name || "",
+				avatar: dataProfile?.avatar || "",
+				email: dataProfile?.email || "",
+			};
 		}
-	}, [dataProfile]);
 
-	console.log("Initial Values:", formik.initialValues);
+		if (changeUserProfile.isSuccess || verificationSuccess || (changeUserProfile.isSuccess && verificationSuccess) ){
+			refetchProfile()
+		}
+
+	}, [dataProfile, changeUserProfile.isSuccess, verificationSuccess]);
+
 
 	// Reset form values to initial values
 	const handleReset = () => {
 		formik.resetForm({ values: formik.initialValues });
 	};
+
+	const handleCloseModal = () => {
+		setModalOpen(false);
+	};
+
+	const handleOtpVerified = () => {
+		setVerificationSuccess(true);
+		// Lakukan tindakan lain jika perlu, seperti menampilkan notifikasi
+	};
+
+	// const handleOtpVerified = async (values) => {
+	// 	// setModalOpen(false)
+
+
+	// };
 
 	return (
 		<Container>
@@ -76,7 +121,7 @@ export const AkunContent = ({ onNext }) => {
 					<Grid item xs={12} sx={{ my: 4 }}>
 						<Box sx={{ display: "flex", alignItems: "center" }}>
 							<Typography id="name" variant="body1" sx={{ width: "230px" }}>
-								Nama Panggilan
+								Nama
 							</Typography>
 							<TextField
 								type="text"
@@ -150,6 +195,19 @@ export const AkunContent = ({ onNext }) => {
 					</Box>
 				</form>
 			</Box>
+			<ModalOtp
+				open={modalOpen}
+				onClose={handleCloseModal}
+				type="email"
+				onSuccess={handleOtpVerified}
+				// onOtpVerified={handleOtpVerified(formik.values)}
+			/>
+			{(changeUserProfile.isError || changeUserEmail.isError) && (
+				<FailAlert message={changeUserProfile.isError ? changeUserProfile?.error.response?.data?.message || changeUserProfile?.message : changeUserEmail?.error.response?.data?.message || changeUserEmail?.message } title={changeUserProfile.isError ? "Nama Panggilan Gagal Diubah" : "Email Gagal Diubah"} />
+			)}
+			{(changeUserProfile.isSuccess || verificationSuccess) &&  (
+				<SuccesAlert message="" title={changeUserProfile.isSuccess ? "Nama Panggilan Berhasil Diubah" : "Email Berhasil Diubah"} />
+			)}
 		</Container>
 	);
 };

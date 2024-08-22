@@ -3,13 +3,16 @@ import { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
 import ModalBuktiTransfer from "../../../assets/components/Modals/ModalBuktiTransfer";
+import { useTransferContext } from "../../../context/TransferContext";
+import { useGetMutationDetail } from "../../../services/account/account-mutation-detail";
 import { useGetTransaksiDetail } from "../../../services/transfer-rupiah/get-detail-transaksi";
 
 export const SuccesTransferInfo = () => {
 	const [open, setOpen] = useState(false);
+	const { formData } = useTransferContext()
 
-
-	const { data : detailTransaksi } = useGetTransaksiDetail()
+	const { data: detailTransaksi } = useGetMutationDetail(formData.mutation_id)
+	const { data: destinationDetailTransaksi } = useGetTransaksiDetail(formData.destination_id)
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -53,24 +56,24 @@ export const SuccesTransferInfo = () => {
 			</Button>
 
 			{/* <ModalTransferBerhasil open={open} handleClose={handleClose} accountNumber={accountNumber} /> */}
-			{/* <ModalBuktiTransfer
+			<ModalBuktiTransfer
 				open={open}
 				onClose={handleClose}
-				appName={transferData.appName}
-				status={transferData.status}
-				recipientName={transferData.recipientName}
-				bankName={transferData.bankName}
-				accountNumber={transferData.accountNumber}
-				transferAmount={transferData.transferAmount}
-				transferMethod={transferData.transferMethod}
-				transferFee={transferData.transferFee}
-				totalTransaction={transferData.totalTransaction}
-				senderName={transferData.senderName}
-				senderBankName={transferData.senderBankName}
-				senderAccountSuffix={transferData.senderAccountSuffix}
-				onShare={handleShare}
-				onDownload={handleDownload}
-			/> */}
+				appName="Rupi App"
+				status="Transfer Berhasil"
+				recipientName={detailTransaksi?.receiver_detail.name}
+				bankName={destinationDetailTransaksi?.bank_name}
+				accountNumber={destinationDetailTransaksi?.account_number}
+				transferAmount={detailTransaksi?.mutation_detail.amount}
+				transferMethod={detailTransaksi?.transaction_purpose}
+				transferFee="0"
+				totalTransaction={detailTransaksi?.mutation_detail.amount}
+				senderName={detailTransaksi?.sender_detail.name}
+				senderBankName="Rupi App"
+				senderAccountSuffix={detailTransaksi?.sender_detail.account_number}
+				// onShare={handleShare}
+				// onDownload={handleDownload}
+			/>
 		</Box>
 	);
 };

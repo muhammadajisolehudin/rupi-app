@@ -21,7 +21,9 @@ import { RiwayatTransfer } from '../pages/QrTerimaTransfer/RiwayatTransfer';
 import { MutasiPage } from '../pages/Mutasi/MutasiPage';
 import { TransferProvider } from '../context/TransferContext';
 import { QrProvider } from '../context/QrContext';
-import { ForgotPasswordPage } from '../pages/auth/ForgotPasswordPage';
+import { ForgotPasswordPage } from '../pages/auth/ForgotPassword';
+
+
 
 
 export const RouteList = () => {

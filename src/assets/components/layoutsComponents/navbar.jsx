@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { Box, Button } from '@mui/material';
+import { Avatar, Box, keyframes } from '@mui/material';
 import NotificationIcon from '../../img/icons/Notification.svg';
 import SettingIcon from '../../img/icons/Setting.svg';
 import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
 import LogoutIcon from '../../img/icons/Logout.svg';
 import { useAuthContext } from '../../../context/AuthContext';
+import { styled } from '@mui/material/styles';
 
 function Navbar() {
   const [activePage, setActivePage] = useState("beranda");
@@ -26,6 +27,24 @@ function Navbar() {
       navigate('/login');
     }, 1000); 
   };
+
+  const shake = keyframes`
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  50% { transform: translateX(2px); }
+  75% { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+`;
+  const AnimatedAvatar = styled(Avatar)`
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    animation: ${shake} 0.5s ease-in-out;
+  }
+`;
 
   return (
     <AppBar
@@ -52,6 +71,7 @@ function Navbar() {
             src="/logo.png"
             aria-label="Logo Rupi App"
             alt="Logo Rupi App"
+            style={{ paddingBottom:10 }}
           />
           <Typography
             id="logoText"
@@ -85,11 +105,13 @@ function Navbar() {
 
           {/* Icons */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <img
+            
+            <AnimatedAvatar
               src={NotificationIcon}
               alt="notifications"
-              style={{ cursor: "pointer" }}
+              // style={{ cursor: "pointer" }}
               onClick={() => handlePageChange("notifications", "/")}
+              
             />
             <img
               src={CustomerServiceIcon}

@@ -5,14 +5,14 @@ import { SuccesInfo } from "./SuccesInfo";
 import { useQrContext } from "../../../context/QrContext";
 
 export const TarikTunai = ({ onStepChange }) => {
-    const { step, handleNextTarik } = useQrContext()
+    const { stepTarik, handleNextTarik } = useQrContext()
 
     return (
         <>
-            {step === 1 && <TarikTunaiForm onNext={handleNextTarik} />}
-            {step === 2 && <KonfirmasiForm onNext={handleNextTarik} />}
-            {step === 3 && <InputPinForm onNext={handleNextTarik}  />}
-            {step === 4 && <SuccesInfo />}
+            {stepTarik === 1 && <TarikTunaiForm onNext={handleNextTarik} />}
+            {stepTarik === 2 && <KonfirmasiForm onNext={handleNextTarik} />}
+            {stepTarik === 3 && <InputPinForm onNext={handleNextTarik}  />}
+            {stepTarik === 4 && <SuccesInfo />}
         </>
     );
 };

@@ -38,6 +38,7 @@ export const InputPinForm = ({ onNext }) => {
 		formik.resetForm({ values: formik.initialValues });
 	};
 
+	
 	return (
 		<Container>
 			<Grid

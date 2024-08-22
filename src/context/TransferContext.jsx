@@ -1,7 +1,7 @@
 
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useGetMutationsSummary } from '../services/account/account-mutations-summary';
-import { useGetDataTransaksi } from '../services/transfer-rupiah/get-data-transaksi';
+import { useGetTransferDestination } from '../services/transfer-rupiah/get-transfer-destination';
 
 const TransferContext = createContext();
 
@@ -22,16 +22,23 @@ export const TransferProvider = ({ children }) => {
     };
 
     const handleSubmit = (values) => {
-        console.log("Final Submission", { ...formData, ...values });
+        // console.log("Final Submission", { ...formData, ...values });
         setStep((prevStep) => prevStep + 1);
     };
 
+    
+    const [params, setParams] = useState({
+        page:"0",
+        size: "10",
+    });
+    const { data: dataTransaksi, refetch: refetchDataTransaksi } = useGetTransferDestination(params);
+
+    console.log("dat destinasi :", dataTransaksi)
     const [options, setOptions] = useState({
         month: currentMonth,
         year: currentYear
     });
 
-    const { data: dataTransaksi } = useGetDataTransaksi();
     const { data: useMutationsSummary, error: errorMutationSummary } = useGetMutationsSummary(options)
     
     useEffect(() => {
@@ -40,13 +47,11 @@ export const TransferProvider = ({ children }) => {
             setDataIncome(useMutationsSummary.income);
             setDataExpense(useMutationsSummary.expense);
         }
-        console.log("ini data income: ", useMutationsSummary)
-        console.log("lalala", options)
     }, [useMutationsSummary, setOptions])
 
 
     return (
-        <TransferContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData, dataIncome, dataExpense, errorMutationSummary, setOptions, dataTransaksi }}>
+        <TransferContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData, dataIncome, dataExpense, errorMutationSummary, setOptions, dataTransaksi, params, setParams, refetchDataTransaksi }}>
             {children}
         </TransferContext.Provider>
     );

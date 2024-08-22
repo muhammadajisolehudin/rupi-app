@@ -9,20 +9,27 @@ import {
 } from '@mui/material';
 import * as Yup from "yup";
 import CloseIcon from '@mui/icons-material/Close';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import { useAuthContext } from '../../../context/AuthContext';
 import { useVerifyUserPhone } from '../../../services/user/verify-phone-otp';
-import FailAlert from '../Alerts/FailAlert';
+import { useVerifyUserEmail } from '../../../services/user/verify-email-otp';
+import { useResendPhoneVerificationOtp } from '../../../services/user/resend-phone-verification-otp';
+import { useResendEmailVerificationOtp } from '../../../services/user/resend-email-verification-otp';
 
 export const ModalOtp = ({
     open,
     onClose,
-    onOtpVerified,
+    type,
+    onSuccess
 }) => {
     const inputRefs = useRef([]);
     const { user } = useAuthContext();
     const mutateVerifiedPhone = useVerifyUserPhone();
+    const mutateVerifiedEmail = useVerifyUserEmail();
+    const resendPhoneOtp = useResendPhoneVerificationOtp()
+    const resendEmailOtp = useResendEmailVerificationOtp()
+    // const [errorMessage, setErrorMessage] = useState(null)
 
     const formik = useFormik({
         initialValues: {
@@ -45,9 +52,21 @@ export const ModalOtp = ({
             };
 
             try {
-                await mutateVerifiedPhone.mutateAsync(payload);
+                if (type === "phone"){
+                    await mutateVerifiedPhone.mutateAsync(payload);
+     
+                } else {
+                    console.log("ok masuk ")
+                    await mutateVerifiedEmail.mutateAsync(payload);
+                }
+                formik.resetForm();
                 onClose();
+                if (onSuccess) {
+                    onSuccess(); // Panggil callback ketika OTP berhasil diverifikasi
+                }
+                
             } catch (error) {
+                // setErrorMessage(error?.response.data.message || "Terjadi kesalahan");
                 return error
             }
         },
@@ -71,9 +90,11 @@ export const ModalOtp = ({
 
     const handleResendOtp = async () => {
         try {
-            console.log("Resend OTP to:", user);
-            // Simulasi pengiriman ulang OTP
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+           if(type === "phone"){
+               await resendPhoneOtp.mutateAsync()
+           }else{
+                await resendEmailOtp.mutateAsync()
+           }
         } catch (error) {
             console.error("Resend OTP failed:", error);
         }
@@ -147,7 +168,23 @@ export const ModalOtp = ({
                                         aria-label="Input enam Digit Kode OTP"
                                     />
                                 ))}
+
                             </Box>
+                            {(mutateVerifiedPhone?.isError || mutateVerifiedEmail?.isError) && (
+                                <Typography sx={{ color:"red" }}>
+                                    {mutateVerifiedPhone?.error ? mutateVerifiedPhone.error?.response?.data?.message || mutateVerifiedPhone?.error?.message : mutateVerifiedEmail?.error?.response?.data?.message || mutateVerifiedEmail?.error?.message}
+                                </Typography>
+                            )}
+                            {(resendPhoneOtp?.isSuccess || resendEmailOtp?.isSuccess) && (
+                                <Typography sx={{ color: "red" }}>
+                                    {resendPhoneOtp?.isSuccess ? "kode Otp sudah dikirim ulang periksa whattsup anda" : "kode Otp sudah dikirim ulang periksa email baru anda" }
+                                </Typography>
+                            )}
+                            {(resendPhoneOtp?.isError || resendEmailOtp?.isError) && (
+                                <Typography sx={{ color: "red" }}>
+                                    {resendPhoneOtp?.isError ? resendPhoneOtp.error?.response.data.message || resendPhoneOtp?.error?.message : resendEmailOtp?.error.response.data.message || resendEmailOtp?.error?.message}
+                                </Typography>
+                            )}
                             <Typography
                                 onClick={handleResendOtp}
                                 sx={{
@@ -165,12 +202,12 @@ export const ModalOtp = ({
                             </Typography>
                         </Box>
                     </form>
+                   
                 </Paper>
             </Box>
-            {/* {mutateVerifiedPhone.isError && (
-                <FailAlert message={mutateVerifiedPhone.error?.response?.data?.message || mutateVerifiedPhone.error?.message} title="Ferivikasi No Handphone Gagal" />
-            )}
-            {mutateChangePhone.isSuccess && (
+            
+           
+            {/* {mutateChangePhone.isSuccess && (
                 <SuccesAlert message="silahkan masukan kode OTP untuk ferivikasi" title="No Baru Sedang Didaftarkan" />
             )} */}
         </Modal>
@@ -180,5 +217,6 @@ export const ModalOtp = ({
 ModalOtp.propTypes = {
     open: PropTypes.bool.isRequired,
     onClose: PropTypes.func.isRequired,
-    onOtpVerified: PropTypes.func,
+    type: PropTypes.string.isRequired,
+    onSuccess: PropTypes.func,
 };

@@ -185,7 +185,7 @@ export const QrisPage = () => {
 												sx={{
 													position: 'absolute',
 													top: '28%',
-													left: '20%',
+													left: '21%',
 													width: '60%',
 													height: '45%',
 													border: '2px solid transparent', // Transparent border to center the lines

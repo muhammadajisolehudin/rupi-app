@@ -38,7 +38,15 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 			confirm_password: "",
 		},
 		validationSchema: Yup.object({
-			password: Yup.string().required("Password Diperlukan").min(8, "Minimal harus 8 karakter"),
+			password: Yup.string().min(8, "Minimal harus 8 karakter")
+				.matches(/[a-z]/, "Kata sandi harus mengandung setidaknya satu huruf kecil")
+				.matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+				.matches(/[0-9]/, "Kata sandi harus mengandung setidaknya satu huruf besar")
+				.matches(
+					/[@$!%*?&#]/,
+					"Kata sandi harus mengandung setidaknya satu karakter khusus"
+				)
+				.required("Password Diperlukan"),
 			confirm_password: Yup.string()
 				.required("Password Konfirmasi Diperlukan")
 				.oneOf([Yup.ref("password"), null], "Kedua Password Harus Cocok"),
@@ -58,6 +66,7 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 	const handleReset = () => {
 		formik.resetForm({ values: formik.initialValues });
 	};
+	
 
 	return (
 		<Container>
