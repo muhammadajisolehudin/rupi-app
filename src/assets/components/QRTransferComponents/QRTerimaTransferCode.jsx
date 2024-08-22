@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useGenerateTransactionQR } from '../../../services/qr-transfer/generate-qr';
 
-export const QRTerimaTransferCode = () => {
+export const QRTerimaTransferCode = ({ amount }) => {
     const [qrCode, setQrCode] = useState(null);
     const { mutate, isLoading, error } = useGenerateTransactionQR();
 
     useEffect(() => {
-        mutate(undefined, {
-            onSuccess: (response) => {
-                if (response.data.success) {
-                    setQrCode(response.data.data);
-                }
-            },
-            onError: (err) => {
-                console.error('Error generating QR code:', err);
-            },
-        });
-    }, [mutate]);
+        if (amount !== undefined) {
+            mutate({ amount }, {
+                onSuccess: (response) => {
+                    if (response.data.success) {
+                        setQrCode(response.data.data);
+                    }
+                },
+                onError: (err) => {
+                    console.error('Error generating QR code:', err);
+                },
+            });
+        }
+    }, [amount, mutate]);
 
     return (
         <div>
