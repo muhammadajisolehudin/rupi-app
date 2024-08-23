@@ -7,10 +7,13 @@ export const QRTerimaTransferCode = ({ amount }) => {
 
     useEffect(() => {
         if (amount !== undefined) {
+
+            setQrCode(null);
+
             mutate({ amount }, {
                 onSuccess: (response) => {
                     if (response.data.success) {
-                        setQrCode(response.data.data);
+                        setQrCode(response.data.data.qrCode);
                     }
                 },
                 onError: (err) => {
