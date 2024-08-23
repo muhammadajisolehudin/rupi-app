@@ -7,7 +7,7 @@ import { KonfirmasiPinPage } from '../pages/auth/KonfirmasiPinPage';
 import { ProtectedUser } from '../assets/components/Protected/protected';
 import { BerandaPage } from '../pages/BerandaPage';
 import { TransferRupiahPage } from '../pages/TransferRupiah/TransferRupiahPage';
-import { QRTerimaTransfer } from '../pages/QrTerimaTransfer/QRTerimaTransfer';
+import { QRTerimaTransfer } from '../pages/QRTerimaTransfer/QRTerimaTransfer';
 import { TarikSetorTunaiPage } from "../pages/TarikSetorTunai/TarikSetorTunaiPage";
 import { QrisPage } from '../pages/Qris/QrisPage';
 import TransferKePenerimaBaru from '../pages/TransferRupiah/TrasnferKePenerimaBaru';

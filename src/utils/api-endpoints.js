@@ -45,4 +45,7 @@ export const API_ENDPOINT = {
   CHANGE_USER_PASSWORD: "/users/change-password",
   CHANGE_USER_PHONE: "/users/change-number",
   CHANGE_USER_EMAIL: "/users/change-email",
+
+  // Mutations
+  GET_ALL_MUTATIONS: "/api/v1/mutations",
 };
