@@ -1,6 +1,7 @@
 import { Box, Container, Paper, Typography } from "@mui/material";
-import { NotifAktivitasItem } from "../../assets/components/notifikasi/NotifAktivitasItem";
+// import { NotifAktivitasItem } from "../../assets/components/notifikasi/NotifAktivitasItem";
 import { Layout } from "../layout";
+import { NotifAktivitasItem } from "../../assets/components/Notifikasi/NotifAktivitasItem";
 
 const notificationData = [
 	{
