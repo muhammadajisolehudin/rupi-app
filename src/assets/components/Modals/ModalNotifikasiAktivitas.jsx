@@ -48,12 +48,14 @@ const notificationData = [
 
 const style = {
 	position: "absolute",
-	top: "60%",
-	left: "60%",
+	top: "78%",
+	left: "42%",
 	transform: "translate(2%, -81%)",
 	borderRadius: 10,
 	width: 557,
 	backgroundColor: "white",
+	border: 'none',
+	
 };
 
 export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
@@ -91,9 +93,9 @@ export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
 			aria-expanded={open ? "true" : undefined}
 		>
 			<Box id="notification-dropdown" open={open} onClose={onClose} style={style}>
-				<Box sx={{ position: "relative" }}>
-					<Box>
-						<Box sx={{ display: "flex", justifyContent: "space-between" }}>
+				<Box sx={{ position: "relative", py:1 }}>
+					<Box sx={{ mt:2 }}>
+						<Box sx={{ display: "flex", justifyContent: "space-between", px:5 }}>
 							<Typography
 								id="modal-notif-title"
 								variant="h5"
@@ -102,17 +104,24 @@ export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
 									letterSpacing: "-0.015em",
 									lineHeight: 1,
 									color: "text.primary",
-									px: 3,
+									// px: 5,
 									py: 2,
 								}}
 							>
 								Notifikasi Aktivitas
 							</Typography>
-							<IconButton size="small" onClick={onClose} aria-label="Tombol Tutup Notifikasi">
-								<CloseIcon />
-							</IconButton>
+							<Box sx={{ mt: -2 }}>
+								<IconButton size="small" onClick={onClose} aria-label="Tombol Tutup Notifikasi">
+									<CloseIcon />
+								</IconButton>
+							</Box>
+							
 						</Box>
 					</Box>
+					<Box sx={{
+						maxHeight: '55vh',
+						overflowY: 'auto',
+					}}>
 					{filterNewNotification.map((notification, index) => (
 						<MenuItem key={index}>
 							<NotifAktivitasItem
@@ -122,7 +131,9 @@ export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
 								isHighlighted={index % 2 === 0}
 							/>
 						</MenuItem>
-					))}
+					))}	
+					</Box>
+					
 
 					<MenuItem sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
 						<Button href="/notifikasi-aktivitas" variant="contained" color="primary" sx={{ my: 2 }}>

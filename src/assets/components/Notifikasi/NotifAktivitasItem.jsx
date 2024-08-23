@@ -11,7 +11,7 @@ const HighlightedPaper = styled(Paper)(({ theme, isHighlighted }) => ({
 	alignItems: "center",
 	borderBottom: `1px solid ${theme.palette.divider}`,
 	width: "100%",
-	maxWidth: "100%",
+	// maxWidth: "100%",
 }));
 
 export const NotifAktivitasItem = ({ icon, title, description, date, time, isHighlighted }) => {
@@ -19,7 +19,9 @@ export const NotifAktivitasItem = ({ icon, title, description, date, time, isHig
 		<HighlightedPaper
 			elevation={0}
 			isHighlighted={isHighlighted}
-			sx={{ borderBottom: "1px solid #B3B3B3" }}
+			sx={{
+				borderBottom: "1px solid #B3B3B3", px: 3
+			}}
 		>
 			<Box
 				sx={{
@@ -27,7 +29,8 @@ export const NotifAktivitasItem = ({ icon, title, description, date, time, isHig
 					flexDirection: "row",
 					alignItems: "center",
 					justifyContent: "space-between",
-					width: "100%",
+					width: "auto",
+					overflow:"scrool"
 				}}
 			>
 				<Box sx={{ display: "flex", gap: 2.5, alignItems: "center", minWidth: "240px" }}>
@@ -49,21 +52,23 @@ export const NotifAktivitasItem = ({ icon, title, description, date, time, isHig
 							{description}
 						</Typography>
 					</Box>
+					<Box
+						sx={{
+							flexGrow: 1,
+							textAlign: "right",
+							minWidth: "64px",
+							display: "flex",
+							flexDirection: "column",
+							justifyContent: "flex-end",
+							flexWrap: "wrap",
+							mr: 4
+						}}
+					>
+						<Typography variant="body2">{date}</Typography>
+						<Typography variant="body2">{time}</Typography>
+					</Box>
 				</Box>
-				<Box
-					sx={{
-						flexGrow: 1,
-						textAlign: "right",
-						minWidth: "64px",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "flex-end",
-						flexWrap: "wrap",
-					}}
-				>
-					<Typography variant="body2">{date}</Typography>
-					<Typography variant="body2">{time}</Typography>
-				</Box>
+				
 			</Box>
 		</HighlightedPaper>
 	);
