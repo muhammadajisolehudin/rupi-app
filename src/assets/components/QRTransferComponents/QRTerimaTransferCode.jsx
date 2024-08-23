@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGenerateTransactionQR } from '../../../services/qr-transfer/generate-qr';
+import { Box } from '@mui/system';
 
 export const QRTerimaTransferCode = ({ amount }) => {
     const [qrCode, setQrCode] = useState(null);
@@ -21,16 +22,16 @@ export const QRTerimaTransferCode = ({ amount }) => {
     }, [amount, mutate]);
 
     return (
-        <div>
+        <Box >
             {!qrCode && !isLoading && !error && <p>Generating your QR Code...</p>}
 
             {error && <p>Something went wrong while generating the QR code. Please try again later</p>}
 
             {qrCode && !isLoading && (
                 <div>
-                    <img src={qrCode} alt="QR Code" style={{ width: '300px', height: '300px', borderRadius: '10px' }} />
+                    <img src={qrCode} alt="QR Code" style={{ width: '15rem', height: '15rem', borderRadius: '10px' }} />
                 </div>
             )}
-        </div>
+        </Box>
     );
 };

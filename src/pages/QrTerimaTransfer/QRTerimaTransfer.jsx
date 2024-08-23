@@ -49,7 +49,7 @@ export const QRTerimaTransfer = () => {
 
 	return (
 		<Layout>
-			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem" }}>
+			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem", height:"160vh" }}>
 				<Breadcrumb />
 				<Box sx={{ px: 6, mt: 6, mb: 4 }}>
 					<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -67,9 +67,10 @@ export const QRTerimaTransfer = () => {
 							QR Terima Transfer
 						</Typography>
 					</Box>
-					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)' }}>
+					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)', mt:15 }}>
 						<Card sx={{ backgroundColor: '#0066AE', color: '#fff', width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px' }}>
 							<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
+								
 								<img src={QRISIcon} alt="QRIS Icon" style={{ width: '59px', height: '23px' }} />
 								<img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
 							</Box>
@@ -79,18 +80,32 @@ export const QRTerimaTransfer = () => {
 							<Typography variant="body1" sx={{ textAlign: 'center', mb: '2rem' }}>
 								RupiApp by BCA - {formatAccountNumber(accountNumber)}
 							</Typography>
-							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
+							{/* <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: -15 }}>
 								<QRTerimaTransferCode amount={amount} />
+							</Box> */}
+							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
+								<QRTerimaTransferCode height={60} amount={amount} />
 							</Box>
 							<Typography variant="body2" sx={{ textAlign: 'left', mb: '1rem' }}>
 								Masukkan nominal yang ingin Anda terima
 							</Typography>
 							<TextField
 								type="number"
-								variant="outlined"
+								// variant="outlined"
 								value={inputAmount}
 								onChange={(e) => setInputAmount(Number(e.target.value))}
-								sx={{ mb: '1rem', width: '100%', border: '1px solid #fff', color: '#fff' }}
+								sx={{
+									mb: '1rem', width: '100%', height: "45px", color: '#fff', 
+									'& .MuiInputBase-root': {
+										height: '45px', // Menentukan tinggi dari input
+										// border: 'none',
+										color: '#fff',
+										borderRadius: 1,
+										border: '1px solid #fff' // Mengatur border-radius jika diinginkan
+									},
+									'& .MuiOutlinedInput-notchedOutline': {
+										borderColor: 'none', // Mengatur warna border pada mode outlined
+									}, }}
 							/>
 							<Button
 								variant="outlined"

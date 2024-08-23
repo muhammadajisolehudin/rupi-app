@@ -8,6 +8,7 @@ import { SuccesTransferInfo } from './SuccesTransferInfo';
 import { InputPinForm } from './InputPinForm';
 import { useTransferContext } from '../../../context/TransferContext';
 import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
+import { BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
 
 const TransferKePenerimaBaru = () => {
     const { step, handleNext, handleSubmit } = useTransferContext();
@@ -17,7 +18,7 @@ const TransferKePenerimaBaru = () => {
             <Box sx={{ px: 6, paddingTop: '1.5rem', paddingBottom: '2rem' }}>
                 <Breadcrumb />
                 <Card sx={{ mt: 6, mb: 4 }}>
-                    {/* <BreadcrumbsTranferRupiah /> */}
+                    <BreadcrumbsTranferRupiah />
                     <Container>
                         <>
                             {step === 1 && <RekeningBaruForm onNext={handleNext} />}

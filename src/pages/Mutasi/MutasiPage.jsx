@@ -108,7 +108,7 @@ export const MutasiPage = () => {
         <Breadcrumb />
         <Grid container spacing={2} marginTop={2}>
           <Grid item xs={12} sm={4} md={5}>
-            <Paper elevation={3} sx={{ display: 'flex', alignItems: 'center', width: '100%', height: 56, borderRadius: 1 }}>
+            <Paper sx={{ display: 'flex', alignItems: 'center', width: '100%', height: 56, borderRadius: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}>
               <TextField
                 variant="standard"
                 placeholder="Cari transaksi apa?"
@@ -160,7 +160,6 @@ export const MutasiPage = () => {
                           <TextField
                             {...startProps}
                             sx={{
-                              width: '48%',
                               width: "100%"
                               
                             }}
@@ -168,7 +167,6 @@ export const MutasiPage = () => {
                           <TextField
                             {...endProps}
                             sx={{
-                              width: '48%',
                               width: "100%"
                             }}
                           />
@@ -195,7 +193,7 @@ export const MutasiPage = () => {
                 sx={{
                   bgcolor: 'neutral.100',
                   borderRadius: 2,
-                  boxShadow: 3,
+                  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
                   width: '100%',
                   height: 56,
                   '& .MuiSelect-select': {
@@ -224,7 +222,7 @@ export const MutasiPage = () => {
                 bgcolor: 'neutral.100',
                 color: 'primary.main',
                 borderRadius: 2,
-                boxShadow: 3,
+                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
                 padding: '0.75rem 1rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -284,35 +282,40 @@ export const MutasiPage = () => {
 
                 </TableCell>
                 <TableCell>
-                  <Button
+                  {/* <Paper elevation={5}> */}
+                     <Button
                     // key={data.id}
-                    variant="outlined"
+                    variant="standar"
                     startIcon={<ReceiptIcon />}
                     onClick={() => {
                       handleOpenBuktiTransfer(data?.id);
                     }}
-                    style={{ margin: '0 4px' }}
+                    sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
                   >
                     Lihat Bukti
                   </Button>
+                  {/* </Paper> */}
+                  <Button
+
+                    // elevation={5}
+                    variant="standar"
+                    startIcon={<ShareIcon />}
+                    onClick={() => { }}
+                    sx={{ mx: 1, p: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                  >
+                    Bagikan Resi
+                  </Button>
+
                   <Button
                     // key={data?.id}
-                    variant="outlined"
+                    variant="standar"
                     startIcon={<DownloadIcon />}
                     onClick={() => { }}
-                    style={{ margin: '0 4px' }}
+                    sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
                   >
                     Download
                   </Button>
-                  <Button
-                    // key={data?.id}
-                    variant="outlined"
-                    startIcon={<ShareIcon />}
-                    onClick={() => { }}
-                    style={{ margin: '0 4px' }}
-                  >
-                    Bagikan
-                  </Button>
+                  
                 </TableCell>
               </TableRow>
             ))}
