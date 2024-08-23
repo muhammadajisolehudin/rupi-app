@@ -37,8 +37,6 @@ export const RouteList = () => {
               <ProtectedUser>
                 <TransferProvider>
                   <QrProvider>
-
-                  
                   <Routes>
                     {/* auth */}
                     <Route path="/login" element={<LoginPage />} />
