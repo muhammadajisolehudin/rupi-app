@@ -31,8 +31,6 @@ export const RouteList = () => {
       <AuthProvider>
         <Routes>
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          {/* <Route path="/verify" element={<VerifyOtpPage />} />
-          <Route path="/set-password" element={<SetPasswordPage />} /> */}
           <Route
             path="/*"
             element={
