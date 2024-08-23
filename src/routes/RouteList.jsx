@@ -22,9 +22,7 @@ import { MutasiPage } from '../pages/Mutasi/MutasiPage';
 import { TransferProvider } from '../context/TransferContext';
 import { QrProvider } from '../context/QrContext';
 import { ForgotPasswordPage } from '../pages/auth/ForgotPassword';
-
-
-
+import { NotifikasiAktivitasPage } from "../pages/Notifikasi/NotifikasiAktivitasPage";
 
 export const RouteList = () => {
   // const navigate = useNavigate()
@@ -33,8 +31,8 @@ export const RouteList = () => {
       <AuthProvider>
         <Routes>
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-          <Route path="/verify" element={<VerifyOtpPage />} />
-          <Route path="/set-password" element={<SetPasswordPage />} />
+          {/* <Route path="/verify" element={<VerifyOtpPage />} />
+          <Route path="/set-password" element={<SetPasswordPage />} /> */}
           <Route
             path="/*"
             element={
@@ -77,6 +75,9 @@ export const RouteList = () => {
 
                             {/* pengaturan */}
                             <Route path="/pengaturan" element={<PengaturanPage />} />
+
+                            {/* notifikasi aktivitas */}
+                            <Route path="/notifikasi-aktivitas" element={<NotifikasiAktivitasPage />} />
                           </Routes>
                         </ProtectedAccount>
                       }
