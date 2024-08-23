@@ -52,7 +52,7 @@ function Navbar() {
       sx={{
         backgroundColor: "#ffffff",
         color: "#0066AE",
-        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+        // boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
         paddingX: "1rem",
         zIndex: 9999,
       }}

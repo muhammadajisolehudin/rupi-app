@@ -17,6 +17,7 @@ export const Breadcrumb = () => {
 
 	return (
 		<Card
+		elevation={4}
 			sx={{
 				minWidth: 275,
 				height: 60,
