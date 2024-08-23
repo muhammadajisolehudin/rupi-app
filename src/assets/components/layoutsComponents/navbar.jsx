@@ -113,19 +113,19 @@ const shake = keyframes`
 
 						<AnimatedAvatar
 							src={NotificationIcon}
-							alt="notifications"
+							alt="notifikasi aktivitas"
 							onClick={() => handleOpenNotifDropdown()}
 
 						/>
 						<img
 							src={CustomerServiceIcon}
-							alt="customer service"
+							alt="bantuan"
 							style={{ cursor: "pointer" }}
 							onClick={() => handlePageChange("customerService", "/")}
 						/>
 						<img
 							src={SettingIcon}
-							alt="account settings"
+							alt="pengaturan"
 							style={{ cursor: "pointer" }}
 							onClick={() => handlePageChange("accountSettings", "/pengaturan")}
 						/>
@@ -133,7 +133,7 @@ const shake = keyframes`
 						<img
 							itemType='button'
 							src={LogoutIcon}
-							alt="logout"
+							alt="keluar"
 							style={{ cursor: "pointer" }}
 							onClick={() => handleLogout()}
 						/>
@@ -144,7 +144,7 @@ const shake = keyframes`
 			{/* Modal Notifikasi Aktivitas */}
 			<ModalNotifikasiAktivitas open={open} onClose={handleCloseNotifDropdown} />
 		</AppBar>
-  	);
+  );
 }
 
 export default Navbar;

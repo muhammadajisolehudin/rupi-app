@@ -57,6 +57,7 @@ export const QRTerimaTransfer = () => {
 							variant="contained"
 							sx={{ backgroundColor: '#0066AE', color: '#fff', ml: 'auto', borderRadius: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '0.5rem 3rem' }}
 							onClick={goToRiwayat}
+							aria-label="Lihat Riwayat QR Terima Transfer"
 						>
 							<img src={RiayatIcon} alt="Riwayat" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
 							Riwayat

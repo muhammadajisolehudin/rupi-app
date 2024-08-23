@@ -20,7 +20,7 @@ export const QrisMerchan = () => {
 
         <Box sx={{ mt: 5}}>
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb:-15 }}>
-                <img src={QrisIcon} height={60} aria-hidden="true" />
+                <img src={QrisIcon} height={60} alt="QRIS Logo" />
             </Box>
             <Box
                 sx={{
@@ -48,7 +48,7 @@ export const QrisMerchan = () => {
                     <img src={imageSrc}  style={{
                             objectFit: 'contain',  
                             margin: -20, 
-                        }}/>
+                        }} alt="QR Code Merchant"/>
 
                 </Card>
                 <Box sx={{ width: "100%" }}>

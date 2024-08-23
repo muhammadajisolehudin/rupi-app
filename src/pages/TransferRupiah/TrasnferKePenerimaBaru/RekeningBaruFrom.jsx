@@ -36,7 +36,7 @@ export const RekeningBaruForm = ({ onNext }) => {
 				}}
 			>
 				<Grid item xs={12} p={0} m={0}>
-					<img src={BcaIcon} alt="BCA Icon" aria-hidden="true" />
+					<img src={BcaIcon} alt="logo BCA" />
 					<Box role="form" onSubmit={formik.handleSubmit} width="100%" mt={2}>
 						<TextField
 							margin="normal"

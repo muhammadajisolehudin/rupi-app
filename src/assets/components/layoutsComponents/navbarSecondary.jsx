@@ -187,6 +187,7 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handleOpenNotifDropdown()}
+									aria-label="notifikasi aktivitas"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -196,6 +197,7 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handlePageChange("customerService", "/")}
+									aria-label="bantuan"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -205,6 +207,7 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handlePageChange("accountSettings", "/")}
+									aria-label="pengaturan"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -214,6 +217,7 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handleLogout()}
+									aria-label="keluar"
 								/>
 							</Box>
 						</Box>
