@@ -24,7 +24,7 @@ const notificationData = [
 			"https://cdn.builder.io/api/v1/image/assets/TEMP/c0d97d04754bda5ca782703e506eea954db3879eb74bf0301c3a095f94e4f0be?placeholderIfAbsent=true&apiKey=cbd64819dad2459bacc70f26f39e5eb7",
 		title: "Password Baru Berhasil Dibuat!",
 		description: "Password baru kamu di Rupi App berhasil dibuat.",
-		date: "2024-08-15",
+		date: "2024-08-23",
 		time: "9.33 AM",
 	},
 	{

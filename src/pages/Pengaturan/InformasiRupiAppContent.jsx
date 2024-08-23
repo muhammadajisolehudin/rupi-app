@@ -2,15 +2,17 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import FAQIcon from "../../assets/img/icons/faqIcon.svg";
 import logoIcon from "../../assets/img/icons/logoRupi.png";
 import infoIcon from "../../assets/img/icons/infoIcon.svg";
-import customerServiceIcon from "../../assets/img/icons/CustomerService.svg";
+// import customerServiceIcon from "../../assets/img/icons/CustomerService.svg";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+// import customerServiceIcon from "@mui/icons-material/SupportAgent";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 export const InformasiRupiAppContent = () => {
 	return (
 		<Container>
 			<Box sx={{ my: 8, mx: 5 }}>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<img src={infoIcon} alt="Info" />
+					<img src={infoIcon} alt="Info Icon" />
 					<Typography variant="h4" sx={{ fontWeight: "bold", fontSize: "30px", ml: 3 }}>
 						Tentang Rupi App
 					</Typography>
@@ -40,21 +42,18 @@ export const InformasiRupiAppContent = () => {
 										color: "#fff",
 										width: "30%",
 										fontSize: "10px",
+										display: "flex",
+										alignItems: "center",
 									}}
 									disableElevation
 									aria-label="Customer Service Button"
 								>
-									<img
-										src={customerServiceIcon}
-										alt="Customer Service"
-										style={{
-											width: "20px",
-											height: "20px",
-											marginRight: "10px",
-											marginBottom: "3px",
-											color: "#fff",
+									<SupportAgentIcon
+										sx={{
+											color: { xs: "primary.main", sm: "#ffffff" },
+											cursor: "pointer",
+											mr: 1,
 										}}
-										aria-hidden="true"
 									/>
 									Customer Service
 								</Button>

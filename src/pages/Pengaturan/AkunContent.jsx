@@ -10,11 +10,10 @@ import { useChangeUserEmail } from "../../services/user/change-user-email";
 import { ModalOtp } from "../../assets/components/Modals/ModalOtp";
 
 export const AkunContent = ({ onNext }) => {
-
-	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile() 
+	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile();
 	const [modalOpen, setModalOpen] = useState(false);
-	const changeUserProfile = useChangeUserProfile()
-	const changeUserEmail = useChangeUserEmail()
+	const changeUserProfile = useChangeUserProfile();
+	const changeUserEmail = useChangeUserEmail();
 	const [verificationSuccess, setVerificationSuccess] = useState(false);
 
 	const initialValuesRef = useRef({
@@ -32,17 +31,19 @@ export const AkunContent = ({ onNext }) => {
 			email: "",
 		},
 		validationSchema: Yup.object({
-			name: Yup.string().required("Nama Panggilan diperlukan").max(15, "Nama Panggilan tidak boleh lebih dari 15 karakter"),
+			name: Yup.string()
+				.required("Nama Panggilan diperlukan")
+				.max(15, "Nama Panggilan tidak boleh lebih dari 15 karakter"),
 			email: Yup.string().email("Email tidak valid").required("Email diperlukan"),
 		}),
 		onSubmit: async (values) => {
 			const formData = new FormData();
 
 			if (values.name !== initialValuesRef.current.name) {
-				formData.append('name', values.name);
+				formData.append("name", values.name);
 				// formData.append('avatar', values.avatar);
 				await changeUserProfile.mutateAsync(formData);
-				console.log("ini data isSucces: ",changeUserProfile.isSuccess)
+				console.log("ini data isSucces: ", changeUserProfile.isSuccess);
 			}
 
 			if (values.email !== initialValuesRef.current.email) {
@@ -53,7 +54,7 @@ export const AkunContent = ({ onNext }) => {
 	});
 
 	useEffect(() => {
-		if (dataProfile ) {
+		if (dataProfile) {
 			formik.setValues({
 				username: dataProfile?.username || "",
 				name: dataProfile?.name || "",
@@ -68,16 +69,18 @@ export const AkunContent = ({ onNext }) => {
 			};
 		}
 
-		if (changeUserProfile.isSuccess || verificationSuccess || (changeUserProfile.isSuccess && verificationSuccess) ){
-			refetchProfile()
+		if (
+			changeUserProfile.isSuccess ||
+			verificationSuccess ||
+			(changeUserProfile.isSuccess && verificationSuccess)
+		) {
+			refetchProfile();
 		}
-
 	}, [dataProfile, changeUserProfile.isSuccess, verificationSuccess]);
-
 
 	// Reset form values to initial values
 	const handleReset = () => {
-		formik.resetForm({ values: formik.initialValues });
+		formik.resetForm({ values: initialValuesRef.current });
 	};
 
 	const handleCloseModal = () => {
@@ -91,7 +94,6 @@ export const AkunContent = ({ onNext }) => {
 
 	// const handleOtpVerified = async (values) => {
 	// 	// setModalOpen(false)
-
 
 	// };
 
@@ -203,10 +205,22 @@ export const AkunContent = ({ onNext }) => {
 				// onOtpVerified={handleOtpVerified(formik.values)}
 			/>
 			{(changeUserProfile.isError || changeUserEmail.isError) && (
-				<FailAlert message={changeUserProfile.isError ? changeUserProfile?.error.response?.data?.message || changeUserProfile?.message : changeUserEmail?.error.response?.data?.message || changeUserEmail?.message } title={changeUserProfile.isError ? "Nama Panggilan Gagal Diubah" : "Email Gagal Diubah"} />
+				<FailAlert
+					message={
+						changeUserProfile.isError
+							? changeUserProfile?.error.response?.data?.message || changeUserProfile?.message
+							: changeUserEmail?.error.response?.data?.message || changeUserEmail?.message
+					}
+					title={changeUserProfile.isError ? "Nama Panggilan Gagal Diubah" : "Email Gagal Diubah"}
+				/>
 			)}
-			{(changeUserProfile.isSuccess || verificationSuccess) &&  (
-				<SuccesAlert message="" title={changeUserProfile.isSuccess ? "Nama Panggilan Berhasil Diubah" : "Email Berhasil Diubah"} />
+			{(changeUserProfile.isSuccess || verificationSuccess) && (
+				<SuccesAlert
+					message=""
+					title={
+						changeUserProfile.isSuccess ? "Nama Panggilan Berhasil Diubah" : "Email Berhasil Diubah"
+					}
+				/>
 			)}
 		</Container>
 	);

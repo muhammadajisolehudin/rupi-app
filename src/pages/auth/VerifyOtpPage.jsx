@@ -12,11 +12,11 @@ import FailAlert from "../../assets/components/Alerts/FailAlert";
 
 export const VerifyOtpPage = () => {
 	const inputRefs = useRef([]);
-	const { user } = useAuthContext()
+	const { user } = useAuthContext();
 	const location = useLocation();
 	const otp = useVerifyOtp();
 	const resendOtp = useVerifyOtpResend();
-	const navigate = useNavigate()
+	const navigate = useNavigate();
 
 	const formik = useFormik({
 		initialValues: {
@@ -42,14 +42,12 @@ export const VerifyOtpPage = () => {
 
 			try {
 				await otp.mutateAsync(payload);
-				const previousPath = location.state?.from?.pathname || '/login';
-				navigate(previousPath === '/forgot-password' ? '/set-password' : '/');
+				const previousPath = location.state?.from?.pathname || "/login";
+				navigate(previousPath === "/forgot-password" ? "/set-password" : "/");
 				// navigate("/")
 			} catch (error) {
 				console.error("Login failed, error:", error);
-
 			}
-
 		},
 	});
 
@@ -69,7 +67,7 @@ export const VerifyOtpPage = () => {
 
 	const handleResendOtp = async () => {
 		try {
-			console.log("ini data user dari use : ", user)
+			console.log("ini data user dari use : ", user);
 			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
@@ -88,19 +86,15 @@ export const VerifyOtpPage = () => {
 					justifyContent: "center",
 					flexDirection: "column",
 					my: "auto",
-					py: 8, 
+					py: 8,
 					px: 4,
 				}}
 			>
 				<Typography variant="h5" sx={{ fontWeight: "bold", mx: "auto" }}>
 					Masukkan Kode Verifikasi
 				</Typography>
-				<Typography
-					variant="body1"
-					sx={{ mx: "auto", mt: 7, textAlign: "center" }}
-				>
-					Kami telah mengirimkan kode verifikasi 6 digit melalui WhatsApp ke
-					nomor yang terdaftar
+				<Typography variant="body1" sx={{ mx: "auto", mt: 7, textAlign: "center" }}>
+					Kami telah mengirimkan kode verifikasi 6 digit melalui WhatsApp ke nomor yang terdaftar
 				</Typography>
 				<form onSubmit={formik.handleSubmit}>
 					<Box
@@ -129,6 +123,7 @@ export const VerifyOtpPage = () => {
 										size="small"
 										name={`otp[${index}]`}
 										value={digit}
+										autoComplete="off"
 										onChange={(e) => handleChange(index, e)}
 										onKeyDown={(e) => {
 											if (e.key === "Backspace" && index > 0 && !digit) {
@@ -147,19 +142,21 @@ export const VerifyOtpPage = () => {
 								</Box>
 							))}
 						</Box>
-						<Typography onClick={handleResendOtp}
+						<Typography
+							onClick={handleResendOtp}
 							sx={{
 								color: "#B3B3B3",
 								cursor: "pointer",
 								"&:hover": {
 									color: "#1976d2",
 								},
-							}
-							}
+							}}
 							variant="body1"
 							role="button"
-							aria-label="Button Kirim kode otp baru"
-						>Kirim Kode Baru </Typography>
+							aria-label="Button request kode otp baru"
+						>
+							Kirim Kode Baru{" "}
+						</Typography>
 						<Button
 							type="submit"
 							fullWidth
@@ -167,7 +164,7 @@ export const VerifyOtpPage = () => {
 							sx={{ py: 1.5, borderRadius: "8px" }}
 							disabled={formik.isSubmitting || !formik.isValid}
 							role="button"
-							aria-label="Button Lanjutkan verify kode OTP"
+							aria-label="Button Lanjutkan verifikasi kode OTP"
 						>
 							Lanjutkan
 						</Button>
@@ -176,16 +173,21 @@ export const VerifyOtpPage = () => {
 			</Paper>
 			{(otp.isError || resendOtp.isError) && (
 				<FailAlert
-					message={otp.isError ? otp.error?.response?.data?.message || otp.error?.message : resendOtp.error?.response?.data?.message || resendOtp.error?.message}
+					message={
+						otp.isError
+							? otp.error?.response?.data?.message || otp.error?.message
+							: resendOtp.error?.response?.data?.message || resendOtp.error?.message
+					}
 					title={otp.isError ? "Verifikasi Gagal" : "Resend OTP Gagal"}
 				/>
 			)}
-			{otp.isSuccess || resendOtp.isSuccess && (
-				<SuccesAlert 
-					message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
-					title={ otp.isSuccess? "Verifikasi Berhasil" : "Resend OTP" }
-				/>
-			)}
+			{otp.isSuccess ||
+				(resendOtp.isSuccess && (
+					<SuccesAlert
+						message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
+						title={otp.isSuccess ? "Verifikasi Berhasil" : "Resend OTP"}
+					/>
+				))}
 			{/* <SuccesAlert message="" title="Login Berhasil"/> */}
 		</AuthLayout>
 	);

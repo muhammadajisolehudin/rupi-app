@@ -18,7 +18,7 @@ import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
 
 export const InputPasswordForm = ({ onNext }) => {
 	const [showPassword, setShowPassword] = useState(false);
-	const mutateVerifyPassword = useVerifyUserPassword()
+	const mutateVerifyPassword = useVerifyUserPassword();
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -31,13 +31,12 @@ export const InputPasswordForm = ({ onNext }) => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				const result = await mutateVerifyPassword.mutateAsync(values)
-				console.log("tes lah :", result.data.data)
+				const result = await mutateVerifyPassword.mutateAsync(values);
+				console.log("tes lah :", result.data.data);
 				onNext(result.data.data);
 			} catch (error) {
-				return error
+				return error;
 			}
-			
 		},
 	});
 
@@ -131,7 +130,7 @@ export const InputPasswordForm = ({ onNext }) => {
 								}}
 								disabled={!(formik.dirty && formik.isValid)}
 								aria-label={
-									formik.dirty && formik.isValid ? "Lanjut Ganti Password" : "Password Tidak Valid"
+									formik.dirty && formik.isValid ? "Lanjutkan Ganti Password" : "Password Tidak Valid"
 								}
 							>
 								Lanjutkan
@@ -141,10 +140,13 @@ export const InputPasswordForm = ({ onNext }) => {
 				</FormikProvider>
 			</Grid>
 			{mutateVerifyPassword.isError && (
-				<FailAlert message={mutateVerifyPassword?.error.response.data.message || mutateVerifyPassword?.message} title="Verifikasi Password Gagal" />
+				<FailAlert
+					message={mutateVerifyPassword?.error.response.data.message || mutateVerifyPassword?.message}
+					title="Verifikasi Password Gagal"
+				/>
 			)}
 			{mutateVerifyPassword.isSuccess && (
-				<SuccesAlert message="silahkan masukan password baru" title="Ferivikasi Password Berhasil" />
+				<SuccesAlert message="silahkan masukan password baru" title="Verifikasi Password Berhasil" />
 			)}
 		</Container>
 	);
