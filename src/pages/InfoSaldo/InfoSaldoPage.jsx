@@ -35,13 +35,24 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import { useAuthContext } from "../../context/AuthContext";
 import { MonthNavigator } from "../../assets/components/navigators/MonthNavigator";
-import { formatGroupedData, groupByDate, parsePercentage } from "../../utils/utilities";
+import {
+	formatDateRange,
+	formatGroupedData,
+	groupByDate,
+	parsePercentage,
+} from "../../utils/utilities";
 import FailAlert from "../../assets/components/Alerts/FailAlert";
 import { LayoutSecondary } from "../layoutSecondary";
 import { useTransferContext } from "../../context/TransferContext";
 import { ChevronRightOutlined } from "@mui/icons-material";
 import { useGetMutations } from "../../services/account/account-mutasi";
 import ModalBuktiTransfer from "../../assets/components/Modals/ModalBuktiTransfer";
+import TransactionIcon from "../../assets/img/icons/transaction-mini-icon.svg";
+import { formatDate } from "../../utils/utilities";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { useGetMutationDetail } from "../../services/account/account-mutation-detail";
+import ModalBuktiTransaksiQris from "../../assets/components/Modals/ModalBuktiTransaksiQris";
+
 export const InfoSaldoPage = () => {
 	const [open, setOpen] = useState(false);
 	const [openBuktiTransaksi, setOpenBuktiTransaksi] = useState(false);
@@ -57,6 +68,7 @@ export const InfoSaldoPage = () => {
 	});
 	const { account } = useAuthContext();
 	const { dataExpense, dataIncome, errorMutationSummary, setOptions } = useTransferContext();
+	const [category, setCategory] = useState("");
 
 	// setOptions({ month: selectedMonth.month, year: selectedMonth.year });
 	useEffect(() => {
@@ -110,34 +122,87 @@ export const InfoSaldoPage = () => {
 	const dataQris = formatGroupedData(groupedDataQris);
 	const dataTransferIncome = formatGroupedData(groupedDataTransferIncome);
 
-	const { data: dataMutasi } = useGetMutations();
-	console.log("data nutasi ini tuh : ", dataMutasi);
-	const [transferData, setTransferData] = useState({
-		recipientName: "John Doe",
-		bankName: "Bank ABC",
-		accountNumber: "1234567890",
-		transferAmount: "Rp 1.000.000",
-		transferMethod: "Online Banking",
-		transferFee: "Rp 5.000",
-		totalTransaction: "Rp 1.005.000",
-		senderName: "SAMSUL",
-		senderBankName: "Bank XYZ",
-		senderAccountSuffix: "7890",
+	// Pagination state
+	const [page, setPage] = useState(1);
+	const [dateRange, setDateRange] = useState([null, null]);
+	const rowsPerPage = 10;
+
+	const [params, setParams] = useState({
+		page: page,
+		size: rowsPerPage,
 	});
 
+	const { data: dataMutasi } = useGetMutations(params);
+	console.log("data nutasi ini tuh : ", dataMutasi);
+
+	// const [transferData, setTransferData] = useState({
+	// 	recipientName: "John Doe",
+	// 	bankName: "Bank ABC",
+	// 	accountNumber: "1234567890",
+	// 	transferAmount: "Rp 1.000.000",
+	// 	transferMethod: "Online Banking",
+	// 	transferFee: "Rp 5.000",
+	// 	totalTransaction: "Rp 1.005.000",
+	// 	senderName: "SAMSUL",
+	// 	senderBankName: "Bank XYZ",
+	// 	senderAccountSuffix: "7890",
+	// });
+	const [transferData, setTransferData] = useState(null);
+	const { data: detailMutasi } = useGetMutationDetail(transferData);
+	let MutationType = null;
+
+	if (dataMutasi?.content?.length > 0) {
+		const filteredData = dataMutasi?.content?.filter((data) => data?.id === transferData);
+
+		if (filteredData?.length > 0) {
+			MutationType = filteredData[0]?.mutation_type;
+			console.log("detail mutation type: ", MutationType);
+		}
+	}
+
+	useEffect(() => {
+		activeSection === "Pemasukan" ? setCategory("CREDIT") : setCategory("DEBIT");
+		const { start, end } = formatDateRange(dateRange);
+		setParams((prevParams) => {
+			const newParams = {
+				...prevParams,
+				page: page - 1,
+				size: rowsPerPage,
+				startDate: start,
+				endDate: end,
+				category: category,
+			};
+
+			if (category) {
+				newParams.mutationType = category;
+			}
+
+			return newParams;
+		});
+
+		// console.log("data setelah di ubah :", start)
+		// console.log("data setelah di ubah :", end)
+	}, [page, category, dateRange, activeSection]);
+
 	const handleOpenBuktiTransfer = (buktiTransfer) => {
-		setOpen(true);
+		setOpenBuktiTransaksi(true);
 		setTransferData(buktiTransfer);
 	};
+
+	const handleCloseBuktiTransfer = () => {
+		if (openBuktiTransaksi) {
+			setOpenBuktiTransaksi(false);
+		} else {
+			setOpenBuktiTransaksiQR(false);
+		}
+	};
+
 	const handleShare = () => {
 		console.log("Share");
 	};
 
 	const handleDownload = () => {
 		console.log("Download");
-	};
-	const handleCloseBuktiTransfer = () => {
-		setOpen(false);
 	};
 
 	return (
@@ -390,11 +455,6 @@ export const InfoSaldoPage = () => {
 							// dataCart={data.income}
 							width={500}
 							height={500}
-							aria-label={`Pie chart menunjukkan ${
-								activeSection === "Pemasukan"
-									? `Total pemasukan ${dataIncome}`
-									: `Total pengeluaran ${dataExpense}`
-							}`}
 						/>
 					</Grid>
 				</Grid>
@@ -419,61 +479,92 @@ export const InfoSaldoPage = () => {
 					</Box>
 
 					<Box sx={{ display: "flex", justifyContent: "flex-start", mt: 5 }}>
-						{/* <TablePrimary
-              title="Aktivitas Terakhir"
-              rows={['Transaksi', 'Tanggal', 'Nominal', 'Aksi']}
-            >
-              {dataMutasi?.map((data) => (
-                <TableRow key={data?.id}>
-                  <TableCell>pag</TableCell>
-                  <TableCell>{data?.date}</TableCell>
-                  <TableCell>{data?.amount}</TableCell>
-                
-                  <TableCell>
-                    <Button
-                      key={data.id}
-                      variant="outlined"
-                      startIcon={<ReceiptIcon />}
-                      onClick={() => {
-                        handleOpenBuktiTransfer({
-                          recipientName: 'John Doe',
-                          bankName: 'Bank ABC',
-                          accountNumber: '1234567890',
-                          transferAmount: 'Rp 1.000.000',
-                          transferMethod: 'Online Banking',
-                          transferFee: 'Rp 5.000',
-                          totalTransaction: 'Rp 1.005.000',
-                          senderName: 'SAMSUL',
-                          senderBankName: 'Bank XYZ',
-                          senderAccountSuffix: '7890',
-                        });
-                      }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Lihat Bukti
-                    </Button>
-                    <Button
-                      key={data?.id}
-                      variant="outlined"
-                      startIcon={<DownloadIcon />}
-                      onClick={() => { }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Download
-                    </Button>
-                    <Button
-                      key={data?.id}
-                      variant="outlined"
-                      startIcon={<ShareIcon />}
-                      onClick={() => { }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Bagikan
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TablePrimary> */}
+						<TablePrimary title="Aktivitas Terakhir" rows={["Transaksi", "Tanggal", "Nominal", "Aksi"]}>
+							{/* {console.log(
+								"table mutasi",
+								dataMutasi?.content.map((data) => data)
+							)} */}
+							{dataMutasi?.content?.slice(-2).map((data) => (
+								<TableRow key={data?.id}>
+									<TableCell>
+										<Grid container sx={{ display: "flex", height: "100%", alignItems: "center" }}>
+											<Grid
+												item
+												xs={3}
+												sx={{
+													display: "flex",
+													justifyContent: "center",
+													alignItems: "center",
+													height: "100%",
+												}}
+											>
+												<img src={TransactionIcon} alt="icon transaksi" height={24} width="auto" />
+											</Grid>
+											<Grid item xs={7} sx={{ display: "flex", flexDirection: "column" }}>
+												<Typography variant="caption">{data.mutation_type}</Typography>
+												{/* <Typography variant="caption" >{}</Typography>  */}
+												<Typography variant="caption">{data.full_name}</Typography>
+												<Typography variant="caption">{data.account_number}</Typography>
+											</Grid>
+										</Grid>
+									</TableCell>
+									<TableCell>
+										<Box sx={{ display: "flex", flexDirection: "column" }}>
+											<Typography variant="caption">{formatDate(data?.date)}</Typography>
+											<Typography variant="caption" sx={{ color: "#B3B3B3" }}>
+												{" "}
+												{data?.time}
+											</Typography>
+										</Box>
+									</TableCell>
+									<TableCell>
+										<Typography
+											variant="body1"
+											sx={{
+												fontWeight: "bold",
+												color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
+											}}
+										>
+											{data.transaction_type === "DEBIT" ? "-" : "+"} {data?.amount}
+										</Typography>
+									</TableCell>
+									<TableCell>
+										<Button
+											// key={data.id}
+											variant="outlined"
+											startIcon={<ReceiptIcon />}
+											onClick={() => {
+												handleOpenBuktiTransfer(data?.id);
+											}}
+											style={{ margin: "0 4px" }}
+											aria-label="Lihat bukti transaksi"
+										>
+											Lihat Bukti
+										</Button>
+										<Button
+											// key={data?.id}
+											variant="outlined"
+											startIcon={<DownloadIcon />}
+											onClick={() => {}}
+											style={{ margin: "0 4px" }}
+											aria-label="Download bukti transaksi"
+										>
+											Download
+										</Button>
+										<Button
+											// key={data?.id}
+											variant="outlined"
+											startIcon={<ShareIcon />}
+											onClick={() => {}}
+											style={{ margin: "0 4px" }}
+											aria-label="Bagikan bukti transaksi"
+										>
+											Bagikan
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TablePrimary>
 					</Box>
 				</Box>
 			</Container>
@@ -486,24 +577,54 @@ export const InfoSaldoPage = () => {
 				type={type}
 				icon={icon}
 			/>
-			<ModalBuktiTransfer
-				open={openBuktiTransaksi}
-				onClose={handleCloseBuktiTransfer}
-				appName={transferData.appName}
-				status={transferData.status}
-				recipientName={transferData.recipientName}
-				bankName={transferData.bankName}
-				accountNumber={transferData.accountNumber}
-				transferAmount={transferData.transferAmount}
-				transferMethod={transferData.transferMethod}
-				transferFee={transferData.transferFee}
-				totalTransaction={transferData.totalTransaction}
-				senderName={transferData.senderName}
-				senderBankName={transferData.senderBankName}
-				senderAccountSuffix={transferData.senderAccountSuffix}
-				onShare={handleShare}
-				onDownload={handleDownload}
-			/>
+
+			{MutationType == "TRANSFER" ? (
+				<>
+					<ModalBuktiTransfer
+						open={openBuktiTransaksi}
+						onClose={() => setOpenBuktiTransaksi(null)}
+						appName={"Rupi App"}
+						status={
+							dataMutasi?.content?.find((data) => data?.id === transferData)?.transaction_type === "CREDIT"
+								? "Bukti Terima Transfer"
+								: "Transfer Berhasil"
+						}
+						recipientName={detailMutasi?.receiver_detail?.name}
+						bankName={"RUPI APP"}
+						// bankName={destinationDetailTransaksi?.bank_name}
+						accountNumber={detailMutasi?.receiver_detail?.account_number}
+						transferAmount={detailMutasi?.mutation_detail?.amount}
+						transferMethod={detailMutasi?.transaction_purpose}
+						transferFee={0}
+						totalTransaction={detailMutasi?.mutation_detail?.amount}
+						senderName={detailMutasi?.sender_detail?.name}
+						senderBankName={"Rupi App"}
+						senderAccountSuffix={detailMutasi?.sender_detail?.account_number}
+
+						// onShare={handleShare}
+						// onDownload={handleDownload}
+					/>
+				</>
+			) : (
+				<>
+					<ModalBuktiTransaksiQris
+						open={openBuktiTransaksi}
+						onClose={() => setOpenBuktiTransaksi(null)}
+						appName="Rupi App"
+						status="Transfer Berhasil"
+						recipientName={detailMutasi?.merchant}
+						bankName="Bank BCA"
+						transferAmount={detailMutasi?.amount}
+						transferFee="0"
+						totalTransaction={detailMutasi?.amount}
+						senderName={account?.full_name}
+						senderBankName="Rupi App"
+						senderAccountSuffix={account?.account_number}
+						// onShare={handleShare}
+						// onDownload={handleDownload}
+					/>
+				</>
+			)}
 
 			{errorMutationSummary && (
 				<FailAlert

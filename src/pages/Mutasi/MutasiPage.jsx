@@ -29,8 +29,11 @@ import { useGetMutations } from "../../services/account/account-mutasi";
 import { formatDate, formatDateRange } from "../../utils/utilities";
 import { DateRangePicker } from "@mui/x-date-pickers-pro";
 import { useGetMutationDetail } from "../../services/account/account-mutation-detail";
+import ModalBuktiTransaksiQris from "../../assets/components/Modals/ModalBuktiTransaksiQris";
+import { useAuthContext } from "../../context/AuthContext";
 
 export const MutasiPage = () => {
+	const { account } = useAuthContext();
 	const [dateRange, setDateRange] = useState([null, null]);
 	const [category, setCategory] = useState("");
 	const [searchData, setSearchData] = useState("");
@@ -76,8 +79,18 @@ export const MutasiPage = () => {
 		setPage(newPage);
 	};
 
+	let MutationType = null;
+
+	if (dataMutasi?.content?.length > 0) {
+		const filteredData = dataMutasi?.content?.filter((data) => data?.id === selectedMutationId);
+
+		if (filteredData?.length > 0) {
+			MutationType = filteredData[0]?.mutation_type;
+			console.log("detail mutation type: ", MutationType);
+		}
+	}
+
 	const handleOpenBuktiTransfer = (buktiTransfer) => {
-		console.log("data ini masuk bukti");
 		setOpen(true);
 		setSelectedMutationId(buktiTransfer);
 	};
@@ -89,6 +102,7 @@ export const MutasiPage = () => {
 	const handleCategoryChange = (event) => {
 		setCategory(event.target.value);
 	};
+
 	const handleSearchChange = (event) => {
 		setSearchData(event.target.value);
 	};
@@ -335,31 +349,54 @@ export const MutasiPage = () => {
 				</Box>
 			</Box>
 
-			<ModalBuktiTransfer
-				open={!!selectedMutationId}
-				onClose={() => setSelectedMutationId(null)}
-				appName="Rupi App"
-				status={
-					dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
-					"CREDIT"
-						? "Bukti Terima Transfer"
-						: "Transfer Berhasil"
-				}
-				recipientName={detailMutasi?.receiver_detail.name}
-				bankName="RUPI APP"
-				// bankName={destinationDetailTransaksi?.bank_name}
-				accountNumber={detailMutasi?.account_number}
-				transferAmount={detailMutasi?.mutation_detail.amount}
-				transferMethod={detailMutasi?.transaction_purpose}
-				transferFee="0"
-				totalTransaction={detailMutasi?.mutation_detail.amount}
-				senderName={detailMutasi?.sender_detail.name}
-				senderBankName="Rupi App"
-				senderAccountSuffix={detailMutasi?.sender_detail.account_number}
+			{MutationType == "TRANSFER" ? (
+				<>
+					<ModalBuktiTransfer
+						open={!!selectedMutationId}
+						onClose={() => setSelectedMutationId(null)}
+						appName="Rupi App"
+						status={
+							dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
+							"CREDIT"
+								? "Bukti Terima Transfer"
+								: "Transfer Berhasil"
+						}
+						recipientName={detailMutasi?.receiver_detail?.name}
+						bankName="RUPI APP"
+						// bankName={destinationDetailTransaksi?.bank_name}
+						accountNumber={detailMutasi?.account_number}
+						transferAmount={detailMutasi?.mutation_detail.amount}
+						transferMethod={detailMutasi?.transaction_purpose}
+						transferFee="0"
+						totalTransaction={detailMutasi?.mutation_detail.amount}
+						senderName={detailMutasi?.sender_detail.name}
+						senderBankName="Rupi App"
+						senderAccountSuffix={detailMutasi?.sender_detail.account_number}
 
-				// onShare={handleShare}
-				// onDownload={handleDownload}
-			/>
+						// onShare={handleShare}
+						// onDownload={handleDownload}
+					/>
+				</>
+			) : (
+				<>
+					<ModalBuktiTransaksiQris
+						open={selectedMutationId}
+						onClose={() => setSelectedMutationId(null)}
+						appName="Rupi App"
+						status="Transfer Berhasil"
+						recipientName={detailMutasi?.merchant}
+						bankName="Bank BCA"
+						transferAmount={detailMutasi?.amount}
+						transferFee="0"
+						totalTransaction={detailMutasi?.amount}
+						senderName={account?.full_name}
+						senderBankName="Rupi App"
+						senderAccountSuffix={account?.account_number}
+						// onShare={handleShare}
+						// onDownload={handleDownload}
+					/>
+				</>
+			)}
 		</Layout>
 	);
 };
