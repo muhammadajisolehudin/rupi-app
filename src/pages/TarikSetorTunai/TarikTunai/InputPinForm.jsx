@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
@@ -25,21 +25,27 @@ export const InputPinForm = ({ onNext }) => {
         }),
         onSubmit: async (values) => {
             try {
-                generateToken(
-                    {
-                        amount: values.amount,
-                        type: "WITHDRAW",
-                        pin: values.pin,
-                    },
-                    {
-                        onSuccess: (response) => {
-                            onNext(response);
+                await new Promise((resolve, reject) => {
+                    generateToken(
+                        {
+                            amount: values.amount,
+                            type: "WITHDRAW",
+                            pin: values.pin,
                         },
-                        onError: (err) => {
-                            console.error("Error generating token:", err);
-                        },
-                    }
-                );
+                        {
+                            onSuccess: (response) => {
+                                onNext(response);
+                                resolve();
+                            },
+                            onError: (err) => {
+                                console.error("Error generating token:", err);
+                                reject(err);
+                            },
+                        }
+                    );
+                });
+
+                console.log("ini loading :", isLoading)
             } catch (err) {
                 console.error("Error in onSubmit:", err);
             }
@@ -64,10 +70,22 @@ export const InputPinForm = ({ onNext }) => {
                             gap: 5,
                         }}
                     >
-                        <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                            Masukkan PIN
-                        </Typography>
-                        <PinInput />
+                        {isLoading ? (
+                            <Grid item>
+                                <CircularProgress />
+                                <Typography variant="body2" sx={{ mt: 2 }}>
+                                    Loading...
+                                </Typography>
+                            </Grid>
+                        ) : (
+                            <>
+                            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+                                Masukkan PIN
+                            </Typography>
+                            <PinInput />
+                            </>
+                        
+                        )}
                         {formik.touched.pin && formik.errors.pin && (
                             <Typography color="error" sx={{ my: 2 }}>
                                 {formik.errors.pin}
@@ -78,6 +96,7 @@ export const InputPinForm = ({ onNext }) => {
                                 {error.message}
                             </Typography>
                         )}
+                        
                         <Button
                             onClick={formik.handleSubmit}
                             fullWidth

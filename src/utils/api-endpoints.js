@@ -53,5 +53,8 @@ export const API_ENDPOINT = {
 
   GET_IMG:"/",
 
-  DOWNLOAD_BUKTI_MUTASI: "/api/v1/mutations"
+  DOWNLOAD_BUKTI_MUTASI: "/api/v1/mutations",
+
+  // Mutations FSW
+  GET_ALL_MUTATIONS: "/api/v1/mutations",
 };

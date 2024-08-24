@@ -80,7 +80,7 @@ export const InfoSaldoPage = () => {
   };
 
   const transferIncomeCategory = dataIncome?.categories.find(category => category.type === 'TRANSFER');
-  const qrCategory = dataIncome?.categories.find(category => category.type === 'QRIS');
+  const qrCategory = dataIncome?.categories.find(category => category.type === 'QR');
   const setorCategory = dataIncome?.categories.find(category => category.type === 'SETOR');
 
   const transferExpenseCategory = dataExpense?.categories.find(category => category.type === 'TRANSFER');
@@ -102,10 +102,12 @@ export const InfoSaldoPage = () => {
   const groupedDataTransferExpense = groupByDate(transferExpenseCategory?.mutations);
   const groupedDataQris = groupByDate(qrisCategory?.mutations)
   const groupedDataTransferIncome = groupByDate(transferIncomeCategory?.mutations);
+  const groupedDataTransferQr = groupByDate(qrCategory?.mutations);
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
   const dataQris = formatGroupedData(groupedDataQris)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
+  const dataQrTerimaTransfer = formatGroupedData(groupedDataTransferQr)
 
   const { data: dataMutasi } = useGetMutations()
   console.log("data nutasi ini tuh : ", dataMutasi)
@@ -418,61 +420,6 @@ export const InfoSaldoPage = () => {
           <Box
             sx={{ display: 'flex', justifyContent: 'flex-start', mt: 5 }}
           >
-            {/* <TablePrimary
-              title="Aktivitas Terakhir"
-              rows={['Transaksi', 'Tanggal', 'Nominal', 'Aksi']}
-            >
-              {dataMutasi?.map((data) => (
-                <TableRow key={data?.id}>
-                  <TableCell>pag</TableCell>
-                  <TableCell>{data?.date}</TableCell>
-                  <TableCell>{data?.amount}</TableCell>
-                
-                  <TableCell>
-                    <Button
-                      key={data.id}
-                      variant="outlined"
-                      startIcon={<ReceiptIcon />}
-                      onClick={() => {
-                        handleOpenBuktiTransfer({
-                          recipientName: 'John Doe',
-                          bankName: 'Bank ABC',
-                          accountNumber: '1234567890',
-                          transferAmount: 'Rp 1.000.000',
-                          transferMethod: 'Online Banking',
-                          transferFee: 'Rp 5.000',
-                          totalTransaction: 'Rp 1.005.000',
-                          senderName: 'SAMSUL',
-                          senderBankName: 'Bank XYZ',
-                          senderAccountSuffix: '7890',
-                        });
-                      }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Lihat Bukti
-                    </Button>
-                    <Button
-                      key={data?.id}
-                      variant="outlined"
-                      startIcon={<DownloadIcon />}
-                      onClick={() => { }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Download
-                    </Button>
-                    <Button
-                      key={data?.id}
-                      variant="outlined"
-                      startIcon={<ShareIcon />}
-                      onClick={() => { }}
-                      style={{ margin: '0 4px' }}
-                    >
-                      Bagikan
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TablePrimary> */}
             
           </Box>
         </Box>

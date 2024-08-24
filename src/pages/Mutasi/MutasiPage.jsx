@@ -268,7 +268,7 @@ export const MutasiPage = () => {
                     </Grid>
                     <Grid item xs={7} sx={{ display: "flex", flexDirection: "column" }}>
                       <Typography variant="caption" >{data.mutation_type}</Typography>
-                      {/* <Typography variant="caption" >{}</Typography>  */}
+                      <Typography variant="caption" >{data.bank_name}</Typography> 
                       <Typography variant="caption" >{data.full_name}</Typography>
                       <Typography variant="caption" >{data.account_number}</Typography>
 
