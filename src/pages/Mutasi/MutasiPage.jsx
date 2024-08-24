@@ -339,7 +339,12 @@ export const MutasiPage = () => {
 				open={!!selectedMutationId}
 				onClose={() => setSelectedMutationId(null)}
 				appName="Rupi App"
-				status="Transfer Berhasil"
+				status={
+					dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
+					"CREDIT"
+						? "Bukti Terima Transfer"
+						: "Transfer Berhasil"
+				}
 				recipientName={detailMutasi?.receiver_detail.name}
 				bankName="RUPI APP"
 				// bankName={destinationDetailTransaksi?.bank_name}
