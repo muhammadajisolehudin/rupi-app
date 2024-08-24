@@ -203,7 +203,7 @@ const NavbarSecondary = () => {
 										color: { xs: "primary.main", sm: "#ffffff" },
 										cursor: "pointer",
 									}}
-									onClick={() => handlePageChange("customerService", "/")}
+									onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
 									role="button"
 									tabIndex={0}
 									aria-label="Customer service"

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -117,7 +117,7 @@ function Navbar() {
 							src={CustomerServiceIcon}
 							alt="customer service"
 							style={{ cursor: "pointer" }}
-							onClick={() => handlePageChange("customerService", "/")}
+							onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
 							role="button"
 							tabIndex={0}
 						/>
