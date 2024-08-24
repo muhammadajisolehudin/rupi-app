@@ -115,7 +115,7 @@ function Navbar() {
 						/>
 						<img
 							src={CustomerServiceIcon}
-							alt="customer service"
+							alt="Bantuan"
 							style={{ cursor: "pointer" }}
 							onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
 							role="button"

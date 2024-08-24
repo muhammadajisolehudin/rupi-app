@@ -36,7 +36,7 @@ export const InformasiRupiAppContent = () => {
 							<Box sx={{ display: "flex", alignItems: "center" }}>
 								<Button
 									variant="contained"
-									href="#customer-service"
+									href="https://wa.me/6283140156530"
 									sx={{
 										backgroundColor: "#0066AE",
 										color: "#fff",
@@ -47,6 +47,7 @@ export const InformasiRupiAppContent = () => {
 									}}
 									disableElevation
 									aria-label="Customer Service Button"
+									target="_blank"
 								>
 									<SupportAgentIcon
 										sx={{

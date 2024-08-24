@@ -13,7 +13,7 @@ const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 20
 		},
 
 		iconData: {
-			icon: <img src={item.icon} />,
+			icon: <img src={item.icon} alt={item.icon} />,
 		},
 	}));
 	console.log("data series : ", series);
@@ -24,6 +24,7 @@ const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 20
 			series={[{ data: series, innerRadius: 120, arcLabel: (item) => `${item.icon}` }]}
 			width={width}
 			height={height}
+			aria-label={"Chart laporan keuangan"}
 		>
 			<g transform={`translate(${width / 2.5}, ${height / 2})`}>
 				<text
@@ -45,7 +46,7 @@ const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 20
 					fill="textPrimary"
 					style={{ fontWeight: "bold", fontSize: 16 }}
 				>
-					{data?.data?.total_income || data?.data?.total_expense === null
+					{data?.data?.total_income != null || data?.data?.total_expense != null
 						? `Rp ${formatRupiah(data?.data?.total_income || data?.data?.total_expense)}`
 						: ""}
 				</text>

@@ -206,7 +206,7 @@ const NavbarSecondary = () => {
 									onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
 									role="button"
 									tabIndex={0}
-									aria-label="Customer service"
+									aria-label="Bantuan"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
