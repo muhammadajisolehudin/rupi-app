@@ -51,5 +51,7 @@ export const API_ENDPOINT = {
   USER_RESEND_NUMBER: "/user/resend-email",
   USER_RESEND_EMAIL: "/user/resend-number",
 
-  GET_IMG:"/"
+  GET_IMG:"/",
+
+  DOWNLOAD_BUKTI_MUTASI: "/api/v1/mutations"
 };

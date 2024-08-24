@@ -29,6 +29,7 @@ import { useGetMutations } from '../../services/account/account-mutasi';
 import { formatDate, formatDateRange } from '../../utils/utilities';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import { useGetMutationDetail } from '../../services/account/account-mutation-detail';
+import { useDownloadBuktiMutasi } from '../../services/download/download-bukti-mutasi';
 
 export const MutasiPage = () => {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -47,6 +48,7 @@ export const MutasiPage = () => {
   });
   const { data: dataMutasi } = useGetMutations(params)
   const { data: detailMutasi } = useGetMutationDetail(selectedMutationId)
+  const { data: downloadBuktiMutasi } = useDownloadBuktiMutasi(selectedMutationId)
 
   useEffect(() => {
     const { start, end } = formatDateRange(dateRange);
@@ -83,9 +85,9 @@ export const MutasiPage = () => {
     setSelectedMutationId(buktiTransfer);
   };
 
-  const handleCloseBuktiTransfer = () => {
-    setOpen(false);
-  };
+  // const handleCloseBuktiTransfer = () => {
+  //   setOpen(false);
+  // };
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
@@ -99,7 +101,19 @@ export const MutasiPage = () => {
   };
 
   const handleDownload = () => {
-    console.log('Download');
+    console.log("masuk sini")
+    // Buat URL dari blob data
+    const url = URL.createObjectURL(downloadBuktiMutasi);
+
+    // Buat elemen <a> dan trigger download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bukti-mutasi.pdf'; // Nama file yang akan diunduh
+    document.body.appendChild(a);
+    a.click();
+
+    // Bersihkan URL setelah selesai
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -363,7 +377,7 @@ export const MutasiPage = () => {
         senderAccountSuffix={detailMutasi?.sender_detail.account_number}
         
         // onShare={handleShare}
-        // onDownload={handleDownload}
+        onDownload={handleDownload}
       />
     </Layout>
   );
