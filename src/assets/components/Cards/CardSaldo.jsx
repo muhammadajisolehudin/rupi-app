@@ -15,7 +15,7 @@ const CardSaldo = ({ account }) => {
 	// Function to copy account number to clipboard
 	const handleCopy = () => {
 		navigator.clipboard
-			.writeText(account.balance)
+			.writeText(account?.account_number)
 			.then(() => {
 				alert("Rekening number copied to clipboard!");
 			})
