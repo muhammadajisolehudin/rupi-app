@@ -27,11 +27,11 @@ export const AuthProvider = ({ children }) => {
 
     const loginMutation = useLogin();
 
-    const { mutate: logoutMutation, isLoading: isLoadingSignout, IsError: isErrorSignout, error:errorSignout  } = useSignout();
+    const { mutate: logoutMutation, isLoading: isLoadingSignout, IsError: isErrorSignout, error:errorSignout, isSuccess:isSuccessSignout, reset: logoutReset } = useSignout();
 
     const login = async (input) => {
         try {
-            const result = await loginMutation.mutateAsync(input);
+            const result = await loginMutation. mutateAsync(input);
             setUser(result.data)
             return result;
             
@@ -43,6 +43,7 @@ export const AuthProvider = ({ children }) => {
     const logout = async () => {
         setUser(null)
         logoutMutation();
+        loginMutation.reset()
     }
 
     return <AuthContext.Provider
@@ -52,10 +53,15 @@ export const AuthProvider = ({ children }) => {
             logout,
             account,
             setAccount,
+            // isLoadingLogin,
+            // isErrorLogin,
+            // errorLogin,
+            // isSuccessLogin,
             ...loginMutation,
             isLoadingSignout,
             isErrorSignout,
             errorSignout,
+            isSuccessSignout,
             step,
             setStep,
             formData,

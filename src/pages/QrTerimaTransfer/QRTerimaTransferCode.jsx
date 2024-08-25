@@ -3,7 +3,7 @@ import useGenerateTransactionQR from '../../services/qr-transfer/generate-qr';
 
 export const QRTerimaTransferCode = () => {
     const [qrCode, setQrCode] = useState(null);
-    const { mutate, isLoading, error } = useGenerateTransactionQR();
+    const { mutate, isLoading, error, isError } = useGenerateTransactionQR();
 
     useEffect(() => {
         mutate(undefined, {
@@ -20,9 +20,9 @@ export const QRTerimaTransferCode = () => {
 
     return (
         <div>
-            {!qrCode && !isLoading && !error && <p>Generating your QR Code...</p>}
+            {!qrCode && !error && isLoading && <p>Generating your QR Code...</p>}
 
-            {error && <p>Something went wrong while generating the QR code. Please try again later</p>}
+            {isError && <p>{error?.response.message}</p>}
 
             {qrCode && !isLoading && (
                 <div>

@@ -180,7 +180,7 @@ export const VerifyOtpPage = () => {
 					title={otp.isError ? "Verifikasi Gagal" : "Resend OTP Gagal"}
 				/>
 			)}
-			{otp.isSuccess || resendOtp.isSuccess && (
+			{(otp.isSuccess || resendOtp.isSuccess) && (
 				<SuccesAlert 
 					message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
 					title={ otp.isSuccess? "Verifikasi Berhasil" : "Resend OTP" }

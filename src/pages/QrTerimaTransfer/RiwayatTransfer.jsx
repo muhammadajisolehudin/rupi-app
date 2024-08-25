@@ -17,6 +17,8 @@ import FilterModal from "../../assets/components/Modals/ModalFilter";
 import { Breadcrumb } from "../../assets/components/Breadcrumbs/Breadcrumb";
 
 import { useQRTransferHistory } from "../../services/qr-transfer/riwayat-qr-transfer";
+import { useGetWaitingQRHistory } from "../../services/qr-transfer/riwayat-qr-menunggu";
+import { formatExpiryDate } from "../../utils/utilities";
 
 export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
@@ -29,7 +31,16 @@ export const RiwayatTransfer = () => {
 
   const transactionsData = data?.data?.results;
 
-  console.log("transactionsData", transactionsData);
+  const [params, setParams] = useState({
+    page: 1,
+    size: 50,
+  });
+
+  const { data: getWaitingQRHistory } = useGetWaitingQRHistory(params)
+
+  // useEffect(() => {
+  //   console.log("Data waiting QR history:", getWaitingQRHistory);
+  // }, [getWaitingQRHistory]);
 
   useEffect(() => {
     if (transactionsData) {
@@ -49,9 +60,10 @@ export const RiwayatTransfer = () => {
     }
   }, [transactionsData]);
 
-  // if (isLoading) {
+  // if (isError) {
   //   return (
   //     <Typography
+  //       color="error"
   //       variant="h6"
   //       component="h2"
   //       sx={{
@@ -65,32 +77,10 @@ export const RiwayatTransfer = () => {
   //         marginBottom: '3rem',
   //       }}
   //     >
-  //       Please wait...
+  //       {error.message}
   //     </Typography>
   //   );
   // }
-
-  if (isError) {
-    return (
-      <Typography
-        color="error"
-        variant="h6"
-        component="h2"
-        sx={{
-          fontFamily: 'Calibri',
-          fontSize: '24px',
-          fontWeight: 700,
-          lineHeight: '24px',
-          letterSpacing: '0.15px',
-          textAlign: 'center',
-          marginTop: '3rem',
-          marginBottom: '3rem',
-        }}
-      >
-        {error.message}
-      </Typography>
-    );
-  }
 
   const handleNavigation = (view) => {
     setCurrentView(view);
@@ -105,31 +95,79 @@ export const RiwayatTransfer = () => {
   };
 
   const renderContent = () => {
+
+
     const transactionDates = Object.keys(transactionsGroupedByDate);
 
     if (currentView === "menunggu") {
-      return (
-        <Box sx={{ textAlign: "center", p: 4, pt: 4 }}>
 
-          <img
-            src={NoRiwayat}
-            alt="No Data"
-            style={{ width: "300px", height: "300px", margin: "auto" }}
-          />
-          <Typography variant="subtitle1" sx={{ mt: 2 }}>
-            Hore! Saat ini tidak ada proses QR yang menunggu.
-          </Typography>
-          <Typography variant="body2">
-            Status QR yang menunggu dengan nominal dan nama akan ditampilkan di
-            sini.
-          </Typography>
-        </Box>
+      return (
+        <>
+          <Box>
+            {getWaitingQRHistory?.results.length === 0 ? (
+              <Box sx={{ textAlign: "center", my: 2 }}>
+                <img
+                  src={NoRiwayat}
+                  alt="No Data"
+                  style={{ width: "300px", height: "300px", margin: "auto" }}
+                />
+                <Typography variant="subtitle1" sx={{ mt: 2 }}>
+                  Hore! Saat ini tidak ada proses QR yang menunggu.
+                </Typography>
+                <Typography variant="body2">
+                  Status QR yang menunggu dengan nominal dan nama akan ditampilkan di
+                  sini.
+                </Typography>
+              </Box>
+            ) : (
+              <>
+                {getWaitingQRHistory?.results.map((item) => (
+
+                  <Box key={item.id} sx={{ display: 'flex', my: 2 }}>
+                    <Box sx={{
+                      // display: 'flex',
+                      flexDirection: 'column',
+                      mr: 2,
+                      mt: 0.8
+                    }}>
+                      <img
+                        src={QRIcon}
+                        alt="QR Icon"
+                        style={{ width: "24px", marginRight: "8px" }}
+                      />
+                    </Box>
+                    <Box sx={{ flexGrow: 1 }}>
+                      <Typography variant="body1" sx={{ flexGrow: 1, mb: 0.5, fontWeight: "bold" }}>
+                        Qr Terima Transfer
+                        <br />
+                      </Typography>
+                      <Typography variant="body2" sx={{ flexGrow: 1 }}>
+                        {formatExpiryDate(item.expired_at)}
+                      </Typography>
+                    </Box>
+                    <Typography
+                      variant="body1"
+                      color="primary"
+                      sx={{ fontWeight: "medium" }}
+                    >
+                      Rp. 1000
+                    </Typography>
+                  </Box>
+
+                ))}
+              </>
+            )}
+          </Box>
+        </>
+        
+
+
       );
     }
 
     return transactionDates.map((date) => (
-      <Box key={date} sx={{ pt: 4, px: 0 }}>
-       
+      <>
+
         <Typography
           variant="subtitle1"
           color="text.primary"
@@ -137,36 +175,40 @@ export const RiwayatTransfer = () => {
         >
           {date}
         </Typography>
-        <Divider sx={{ my: 1 }} />
-
+        <Divider sx={{ mt: 4 }} />
         {transactionsGroupedByDate[date].map((transaction) => (
           <Box
             key={transaction.id}
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: 1,
+              display: 'flex', my: 2
+
             }}
           >
-            <img
-              src={QRIcon}
-              alt="QR Icon"
-              style={{ width: "24px", marginRight: "8px" }}
-            />
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              mr: 2,
+              mt: 0.8
+            }}>
+              <img
+                src={QRIcon}
+                alt="QR Icon"
+                style={{ width: "24px", marginRight: "8px" }}
+              />
+            </Box>
 
-            <Box sx={{ display: "flex", flexDirection:"column", width:"90%", gap:0.5 }}>
-              <Typography variant="body1" sx={{ flexGrow: 1, fontWeight:"bold" }}>
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography variant="body1" sx={{ flexGrow: 1, mb: 0.5, fontWeight: "bold" }}>
                 Qr Terima Transfer
               </Typography>
-              <Typography variant="body2" sx={{ flexGrow: 1 }}>
+              <Typography variant="body2" sx={{ flexGrow: 1, mb: 0.5 }}>
                 {transaction.full_name}
               </Typography>
-              <Typography variant="body2" sx={{ flexGrow: 1 }}>
+              <Typography variant="body2" sx={{ flexGrow: 1, mb: 0.5 }}>
                 {transaction.account_number}
               </Typography>
             </Box>
-            
+
             <Typography
               variant="body1"
               color="primary"
@@ -176,7 +218,7 @@ export const RiwayatTransfer = () => {
             </Typography>
           </Box>
         ))}
-      </Box>
+      </>
     ));
   };
 
@@ -237,27 +279,27 @@ export const RiwayatTransfer = () => {
           </Card>
           {/* <Divider sx={{ my: 1 }} /> */}
           <Box sx={{ px: 6 }}>
-            <Box sx={{ overflow: "auto", maxHeight: "calc(100vh - 180px)", display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center", mb:10 }}>
+            <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", mb:2, position: "relative" }}>
               <Typography
                 variant="body2"
                 style={{ fontWeight: "bold", fontSize: "18pt" }}
               >
                 Riwayat QR Terima Transfer
               </Typography>
-              <Box sx={{ width:"100%" }}>
+              <Box sx={{ width: "100%", mt: 5 }}>
                 {isLoading ? (
-                  <Box sx={{ width:"100%", display:"flex", justifyContent:"center", alignItems:"center", my:10 }}>
+                  <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
                     <CircularProgress />
                   </Box>
-                  
-                ): renderContent()}
-               
+
+                ) : renderContent()}
+
               </Box>
-              
+
             </Box>
-            <Divider sx={{ mx:-6 }} />
+            <Divider sx={{ mx: -6 }} />
             <Box sx={{ display: "flex", justifyContent: "center", p: 1 }}>
-              
+
               <IconButton
                 color="primary"
                 aria-label="filter list"

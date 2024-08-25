@@ -22,7 +22,7 @@ import { useAuthContext } from "../../context/AuthContext";
 export const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const { login, isLoading: isLoadingLogin, isSuccess: isSuccessLogin, error: errorLogin } = useAuthContext();
+  const { login, isError, error, isSuccess, isLoading, isSuccessSignout } = useAuthContext();
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -41,8 +41,11 @@ export const LoginPage = () => {
       try {
         await login(values);
         navigate("/verify");
+        // reset()
       } catch (error) {
-        console.error("Login failed, error:", error);
+        
+        return error
+        
       }
     }
   })
@@ -168,17 +171,17 @@ export const LoginPage = () => {
             fullWidth
             variant="contained"
             sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
-            disabled={isLoadingLogin}
+            disabled={isLoading}
             aria-label="Button Masuk"
           >
-            {isLoadingLogin ? "Logging in..." : "Masuk"}
+            {isLoading ? "Logging in..." : "Masuk"}
           </Button>
         </Box>
       </Paper>
-      {errorLogin && (
-        <FailAlert message={errorLogin?.response?.data?.message || errorLogin?.message} title="Login Gagal" />
+      {isError && (
+        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
       )}
-      {isSuccessLogin && (
+      {isSuccess && (
         <SuccesAlert message="" title="Login Berhasil" />
       )}
     </AuthLayout>

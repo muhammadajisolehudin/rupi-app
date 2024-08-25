@@ -4,7 +4,7 @@ import { Box } from '@mui/system';
 
 export const QRTerimaTransferCode = ({ amount }) => {
     const [qrCode, setQrCode] = useState(null);
-    const { mutate, isLoading, error } = useGenerateTransactionQR();
+    const { mutate, isLoading, error, isError } = useGenerateTransactionQR();
 
     useEffect(() => {
         if (amount !== undefined) {
@@ -28,7 +28,7 @@ export const QRTerimaTransferCode = ({ amount }) => {
         <Box >
             {!qrCode && !isLoading && !error && <p>Generating your QR Code...</p>}
 
-            {error && <p>Something went wrong while generating the QR code. Please try again later</p>}
+            {isError && <p>{ error?.message }</p>}
 
             {qrCode && !isLoading && (
                 <div>

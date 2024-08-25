@@ -30,6 +30,7 @@ import { formatDate, formatDateRange } from '../../utils/utilities';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import { useGetMutationDetail } from '../../services/account/account-mutation-detail';
 import { useDownloadBuktiMutasi } from '../../services/download/download-bukti-mutasi';
+import { useDownloadEstatment } from '../../services/download/download-e-statment';
 
 export const MutasiPage = () => {
   const [dateRange, setDateRange] = useState([null, null]);
@@ -46,9 +47,15 @@ export const MutasiPage = () => {
     page: page,
     size: rowsPerPage,
   });
+
+  // const [ estatmentParams, setEstatmentParams] = useState({
+  //   dateRange[start]: page,
+  //   size: rowsPerPage,
+  // });
   const { data: dataMutasi } = useGetMutations(params)
   const { data: detailMutasi } = useGetMutationDetail(selectedMutationId)
   const { data: downloadBuktiMutasi } = useDownloadBuktiMutasi(selectedMutationId)
+  const { data: downloadEstatment } = useDownloadEstatment()
 
   useEffect(() => {
     const { start, end } = formatDateRange(dateRange);
@@ -103,6 +110,7 @@ export const MutasiPage = () => {
   const handleDownload = () => {
     console.log("masuk sini")
     // Buat URL dari blob data
+    console.log(downloadBuktiMutasi instanceof Blob);
     const url = URL.createObjectURL(downloadBuktiMutasi);
 
     // Buat elemen <a> dan trigger download
@@ -115,6 +123,21 @@ export const MutasiPage = () => {
     // Bersihkan URL setelah selesai
     URL.revokeObjectURL(url);
   };
+
+  const handleDownloadEstatment = () =>{
+    console.log(downloadEstatment instanceof Blob);
+    const url = URL.createObjectURL(downloadEstatment);
+
+    // Buat elemen <a> dan trigger download
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'print-e-statment.pdf'; // Nama file yang akan diunduh
+    document.body.appendChild(a);
+    a.click();
+
+    // Bersihkan URL setelah selesai
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <Layout>
@@ -231,6 +254,7 @@ export const MutasiPage = () => {
           {/* Download E-Statement */}
           <Grid item xs={12} sm={4} md={2}>
             <Button
+            onClick={()=>{ handleDownloadEstatment()}}
               startIcon={<DownloadIcon />}
               sx={{
                 bgcolor: 'neutral.100',
@@ -324,7 +348,7 @@ export const MutasiPage = () => {
                     // key={data?.id}
                     variant="standar"
                     startIcon={<DownloadIcon />}
-                    onClick={() => { }}
+                    onClick={() => { handleDownload() }}
                     sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
                   >
                     Download

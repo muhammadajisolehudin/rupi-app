@@ -16,6 +16,7 @@ import { QRTerimaTransferCode } from "../../assets/components/QRTransferComponen
 
 import { useAuthContext } from "../../context/AuthContext";
 import { useGenerateTransactionQR } from "../../services/qr-transfer/generate-qr";
+import { formatExpiryDate } from "../../utils/utilities";
 
 export const QRTerimaTransfer = () => {
 	const navigate = useNavigate();
@@ -52,12 +53,7 @@ export const QRTerimaTransfer = () => {
 	const fullName = account.full_name;
 	const accountNumber = account.account_number;
 
-	const formatExpiryDate = (dateString) => {
-		const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-		const date = new Date(dateString);
-		date.setHours(date.getHours() - 7);
-		return `${date.toLocaleDateString('id-ID', options)}`;
-	};
+	
 
 	const goToRiwayat = () => {
 		navigate('/QR-terima-transfer/riwayat');

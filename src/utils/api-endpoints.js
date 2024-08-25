@@ -34,6 +34,7 @@ export const API_ENDPOINT = {
 
   // Transaction QR
   QR_TRANSACTION_GENERATEQR: "/api/v1/transactions/generate-qr",
+  QR_TRANSACTION_WAITING: "/api/v1/transactions/qr",
 
   //user
   USER_PROFILE: "/users/profile",

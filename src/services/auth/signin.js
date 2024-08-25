@@ -21,6 +21,9 @@ const login = async (input) => {
 const useLogin = () => {
   return useMutation({
     mutationFn: login,
+    onSettled: () => {
+      // Reset status or perform cleanup here
+    },
   });
 };
 

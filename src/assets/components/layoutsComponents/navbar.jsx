@@ -144,7 +144,6 @@ const shake = keyframes`
 			{/* Modal Notifikasi Aktivitas */}
 			<ModalNotifikasiAktivitas open={open} onClose={handleCloseNotifDropdown} />
 		</AppBar>
-  	);
-}
+)}
 
 export default Navbar;
