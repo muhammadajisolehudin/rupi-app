@@ -9,11 +9,10 @@ import FailAlert from "../../assets/components/Alerts/FailAlert";
 import SuccesAlert from "../../assets/components/Alerts/SuccesAlert";
 
 export const UbahNoHandphoneContent = () => {
-	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile() 
+	const { data: dataProfile, refetch: refetchProfile } = useGetUserProfile();
 	const [modalOpen, setModalOpen] = useState(false);
-	const mutateChangePhone = useChangeUserPhone()
+	const mutateChangePhone = useChangeUserPhone();
 	const [verificationSuccess, setVerificationSuccess] = useState(false);
-	
 
 	const formik = useFormik({
 		initialValues: {
@@ -29,13 +28,12 @@ export const UbahNoHandphoneContent = () => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				await mutateChangePhone.mutateAsync(values)
+				await mutateChangePhone.mutateAsync(values);
 				setModalOpen(true);
 			} catch (error) {
-				console.log("ada yang salah ")
-				return error
+				console.log("ada yang salah ");
+				return error;
 			}
-			
 		},
 	});
 
@@ -53,10 +51,9 @@ export const UbahNoHandphoneContent = () => {
 		// Lakukan tindakan lain jika perlu, seperti menampilkan notifikasi
 	};
 
-	useEffect(()=>{
-		refetchProfile()
-	}, [verificationSuccess])
-
+	useEffect(() => {
+		refetchProfile();
+	}, [verificationSuccess]);
 
 	return (
 		<Container>
@@ -143,12 +140,12 @@ export const UbahNoHandphoneContent = () => {
 				onSuccess={handleOtpVerified}
 			/>
 			{mutateChangePhone.isError && (
-				<FailAlert message={mutateChangePhone.error?.response?.data?.message || mutateChangePhone.error?.message} title="No Baru Gagal Didaftarkan" />
+				<FailAlert
+					message={mutateChangePhone.error?.response?.data?.message || mutateChangePhone.error?.message}
+					title="No Baru Gagal Didaftarkan"
+				/>
 			)}
-			{verificationSuccess && (
-				<SuccesAlert message="" title="No Phone Berhasil Diganti" />
-			)}
-			
+			{verificationSuccess && <SuccesAlert message="" title="No Phone Berhasil Diganti" />}
 		</Container>
 	);
 };

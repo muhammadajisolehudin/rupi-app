@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Avatar, Box, keyframes } from '@mui/material';
-import NotificationIcon from '../../img/icons/Notification.svg';
-import SettingIcon from '../../img/icons/Setting.svg';
-import CustomerServiceIcon from '../../img/icons/CustomerService.svg';
-import LogoutIcon from '../../img/icons/Logout.svg';
-import { useAuthContext } from '../../../context/AuthContext';
-import { styled } from '@mui/material/styles';
-import { ModalNotifikasiAktivitas } from '../Modals/ModalNotifikasiAktivitas';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Avatar, Box, keyframes } from "@mui/material";
+import NotificationIcon from "../../img/icons/Notification.svg";
+import SettingIcon from "../../img/icons/Setting.svg";
+import CustomerServiceIcon from "../../img/icons/CustomerService.svg";
+import LogoutIcon from "../../img/icons/Logout.svg";
+import { useAuthContext } from "../../../context/AuthContext";
+import { styled } from "@mui/material/styles";
+import { ModalNotifikasiAktivitas } from "../Modals/ModalNotifikasiAktivitas";
 
 function Navbar() {
 	const [activePage, setActivePage] = useState("beranda");
@@ -29,7 +29,7 @@ function Navbar() {
 		}, 1000);
 	};
 
-const shake = keyframes`
+	const shake = keyframes`
   0% { transform: translateX(0); }
   25% { transform: translateX(-2px); }
   50% { transform: translateX(2px); }
@@ -37,15 +37,15 @@ const shake = keyframes`
   100% { transform: translateX(0); }
 `;
 	const AnimatedAvatar = styled(Avatar)`
-  width: auto;
-  height: auto;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+		width: auto;
+		height: auto;
+		cursor: pointer;
+		transition: transform 0.3s ease-in-out;
 
-  &:hover {
-    animation: ${shake} 0.5s ease-in-out;
-  }
-`;
+		&:hover {
+			animation: ${shake} 0.5s ease-in-out;
+		}
+	`;
 
 	const [open, setOpen] = useState();
 	const handleOpenNotifDropdown = () => setOpen(true);
@@ -78,12 +78,7 @@ const shake = keyframes`
 						alt="Logo Rupi App"
 						style={{ paddingBottom: 10 }}
 					/>
-					<Typography
-						id="logoText"
-						variant="h6"
-						fontWeight={700}
-						aria-label="Nama Aplikasi, Rupi App"
-					>
+					<Typography id="logoText" variant="h6" fontWeight={700} aria-label="Nama Aplikasi, Rupi App">
 						Rupi App
 					</Typography>
 				</Box>
@@ -98,44 +93,51 @@ const shake = keyframes`
 							style={{ cursor: "pointer" }}
 							onClick={() => handlePageChange("beranda", "/")}
 							sx={{
-								transition: 'transform 0.3s ease', // Transisi halus untuk pergeseran
-								'&:hover': {
-									transform: 'translateX(-8px)', // Geser elemen 10px ke kiri saat hover
+								transition: "transform 0.3s ease", // Transisi halus untuk pergeseran
+								"&:hover": {
+									transform: "translateX(-8px)", // Geser elemen 10px ke kiri saat hover
 								},
 							}}
+							role="button"
 						>
 							Beranda
 						</Typography>
 					</Box>
 
 					{/* Icons */}
-					<Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-
+					<Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
 						<AnimatedAvatar
 							src={NotificationIcon}
 							alt="notifications"
 							onClick={() => handleOpenNotifDropdown()}
-
+							role="button"
+							tabIndex={0}
 						/>
 						<img
 							src={CustomerServiceIcon}
-							alt="customer service"
+							alt="Bantuan"
 							style={{ cursor: "pointer" }}
-							onClick={() => handlePageChange("customerService", "/")}
+							onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
+							role="button"
+							tabIndex={0}
 						/>
 						<img
 							src={SettingIcon}
 							alt="account settings"
 							style={{ cursor: "pointer" }}
 							onClick={() => handlePageChange("accountSettings", "/pengaturan")}
+							role="button"
+							tabIndex={0}
 						/>
 						{/* <Button> */}
 						<img
-							itemType='button'
+							itemType="button"
 							src={LogoutIcon}
 							alt="logout"
 							style={{ cursor: "pointer" }}
 							onClick={() => handleLogout()}
+							role="button"
+							tabIndex={0}
 						/>
 						{/* </Button> */}
 					</Box>
@@ -144,6 +146,7 @@ const shake = keyframes`
 			{/* Modal Notifikasi Aktivitas */}
 			<ModalNotifikasiAktivitas open={open} onClose={handleCloseNotifDropdown} />
 		</AppBar>
-)}
+	);
+}
 
 export default Navbar;

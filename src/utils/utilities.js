@@ -1,17 +1,17 @@
 // beranda
 export const formatRupiah = (amount) => {
- if (!amount) return "Rp 0";
- const number = parseFloat(amount);
- return `${number.toLocaleString("id-ID", {
-  //  style: "currency",
-  //  currency: "IDR",
-   minimumFractionDigits: 0, // Mengatur jumlah digit desimal minimum menjadi 0
-   maximumFractionDigits: 0, // Mengatur jumlah digit desimal maksimum menjadi 0
- })}`;
+  if (!amount) return "Rp 0";
+  const number = parseFloat(amount);
+  return `${number.toLocaleString("id-ID", {
+    //  style: "currency",
+    //  currency: "IDR",
+    minimumFractionDigits: 0, // Mengatur jumlah digit desimal minimum menjadi 0
+    maximumFractionDigits: 0, // Mengatur jumlah digit desimal maksimum menjadi 0
+  })}`;
 };
 export const formatAccountNumber = (number) => {
-  const cleaned = ("" + number).replace(/\D/g, ""); 
-  const formatted = cleaned.replace(/(.{3})(?=.)/g, "$1-"); 
+  const cleaned = ("" + number).replace(/\D/g, "");
+  const formatted = cleaned.replace(/(.{3})(?=.)/g, "$1-");
   return formatted;
 };
 
@@ -55,34 +55,34 @@ export const groupByDate = (mutations) => {
   }, {});
 };
 
-  export const formatGroupedData = (groupedData) => {
-    if (
-      groupedData &&
-      typeof groupedData === "object" &&
-      !Array.isArray(groupedData)
-    ) {
-      return Object.entries(groupedData).map(([date, transactions]) => ({
-        date,
-        transactions,
-      }));
-    } else {
-      console.error("Invalid groupedData:", groupedData);
-      return [];
-    }
-  };
+export const formatGroupedData = (groupedData) => {
+  if (
+    groupedData &&
+    typeof groupedData === "object" &&
+    !Array.isArray(groupedData)
+  ) {
+    return Object.entries(groupedData).map(([date, transactions]) => ({
+      date,
+      transactions,
+    }));
+  } else {
+    console.error("Invalid groupedData:", groupedData);
+    return [];
+  }
+};
 
 import dayjs from "dayjs";
 
-  export const formatDateRange = (dateRange) => {
-    const [startDate, endDate] = dateRange;
+export const formatDateRange = (dateRange) => {
+  const [startDate, endDate] = dateRange;
 
-    // Format tanggal ke 'YYYY-MM-DD'
-    const formattedStartDate = startDate
-      ? dayjs(startDate).format("YYYY-MM-DD")
-      : "";
-    const formattedEndDate = endDate
-      ? dayjs(endDate).format("YYYY-MM-DD")
-      : "";
+  // Format tanggal ke 'YYYY-MM-DD'
+  const formattedStartDate = startDate
+    ? dayjs(startDate).format("YYYY-MM-DD")
+    : "";
+  const formattedEndDate = endDate
+    ? dayjs(endDate).format("YYYY-MM-DD")
+    : "";
 
     return {
       start: formattedStartDate,
@@ -103,4 +103,13 @@ import dayjs from "dayjs";
     const date = new Date(dateString);
     date.setHours(date.getHours() - 7);
     return `${date.toLocaleDateString("id-ID", options)}`;
+  };
+
+
+  // mutasi 
+  export const hideAccountNumber = (number) => {
+    if (!number || number.length <= 4) return number; // Cek jika number tidak ada atau terlalu pendek
+    const visiblePart = number.slice(-4); // Menampilkan 4 digit terakhir
+    const hiddenPart = "*".repeat(number.length - 4); // Menyembunyikan digit sisanya
+    return `${hiddenPart}${visiblePart}`;
   };

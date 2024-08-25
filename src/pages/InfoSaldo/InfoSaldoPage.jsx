@@ -1,5 +1,5 @@
-import BreadcrumbSecondary from '../../assets/components/Breadcrumbs/BreadcrumbSecondary';
-import { useEffect, useState } from 'react';
+import BreadcrumbSecondary from "../../assets/components/Breadcrumbs/BreadcrumbSecondary";
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,54 +9,61 @@ import {
   TableCell,
   TableRow,
   Typography,
-} from '@mui/material';
-import CardSaldo from '../../assets/components/Cards/CardSaldo';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import ShareIcon from '@mui/icons-material/Share';
-import DownloadIcon from '@mui/icons-material/Download';
-import BarcodeIcon from '../../assets/img/icons/barcode-icon.png';
-import QrisIcon from '../../assets/img/icons/qris-pengeluaran-icon.png';
-import TarikTunaiIcon from '../../assets/img/icons/tarik-tunai-icon.png';
-import TransferPengeuaranIcon from '../../assets/img/icons/transfer-pengeluaran-icon.png';
-import TransferIcon from '../../assets/img/icons/transfer-icon.png';
-import TransactionMiniIcon from '../../assets/img/icons/transaction-mini-icon.svg';
-import QrMiniIcon from '../../assets/img/icons/qr-code-mini-Icon.svg'
-import MoneyMiniIcon from '../../assets/img/icons/money-mini-icon.svg'
-import SetorTunaiIcon from '../../assets/img/icons/setor-tunai-icon.png';
-import QrisMiniIcon from '../../assets/img/icons/qris-mini-icon.svg';
-import TransactionBox from '../../assets/components/boxComponents/TransactionBox';
-import DynamicPieChart from '../../assets/components/chartComponents/DynamicPieChart';
-import ButtonPrimary from '../../assets/components/buttonComponents/PrimaryButton';
-import TablePrimary from '../../assets/components/tableComponents/TablePrimary';
-import { ModalInfoSaldo } from '../../assets/components/Modals/ModalInfoSaldo';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import QrCodeIcon from '@mui/icons-material/QrCode';
-import WalletIcon from '@mui/icons-material/Wallet';
-import QrCode2Icon from '@mui/icons-material/QrCode2';
-import { useAuthContext } from '../../context/AuthContext';
-import { MonthNavigator } from '../../assets/components/navigators/MonthNavigator';
-import { formatGroupedData, groupByDate, parsePercentage } from '../../utils/utilities';
-import FailAlert from '../../assets/components/Alerts/FailAlert';
-import { LayoutSecondary } from '../layoutSecondary';
-import { useTransferContext } from '../../context/TransferContext';
-import { ChevronRightOutlined } from '@mui/icons-material';
-import { useGetMutations } from '../../services/account/account-mutasi';
-import ModalBuktiTransfer from '../../assets/components/Modals/ModalBuktiTransfer';
+} from "@mui/material";
+import CardSaldo from "../../assets/components/Cards/CardSaldo";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import ShareIcon from "@mui/icons-material/Share";
+import DownloadIcon from "@mui/icons-material/Download";
+import BarcodeIcon from "../../assets/img/icons/barcode-icon.png";
+import QrisIcon from "../../assets/img/icons/qris-pengeluaran-icon.png";
+import TarikTunaiIcon from "../../assets/img/icons/tarik-tunai-icon.png";
+import TransferPengeuaranIcon from "../../assets/img/icons/transfer-pengeluaran-icon.png";
+import TransferIcon from "../../assets/img/icons/transfer-icon.png";
+import TransactionMiniIcon from "../../assets/img/icons/transaction-mini-icon.svg";
+import QrMiniIcon from "../../assets/img/icons/qr-code-mini-Icon.svg";
+import MoneyMiniIcon from "../../assets/img/icons/money-mini-icon.svg";
+import SetorTunaiIcon from "../../assets/img/icons/setor-tunai-icon.png";
+import QrisMiniIcon from "../../assets/img/icons/qris-mini-icon.svg";
+import TransactionBox from "../../assets/components/boxComponents/TransactionBox";
+import DynamicPieChart from "../../assets/components/chartComponents/DynamicPieChart";
+import TablePrimary from "../../assets/components/tableComponents/TablePrimary";
+import { ModalInfoSaldo } from "../../assets/components/Modals/ModalInfoSaldo";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import { useAuthContext } from "../../context/AuthContext";
+import { MonthNavigator } from "../../assets/components/navigators/MonthNavigator";
+import {
+  formatDateRange,
+  formatGroupedData,
+  groupByDate,
+  parsePercentage,
+} from "../../utils/utilities";
+import FailAlert from "../../assets/components/Alerts/FailAlert";
+import { LayoutSecondary } from "../layoutSecondary";
+import { useTransferContext } from "../../context/TransferContext";
+import { ChevronRightOutlined } from "@mui/icons-material";
+import { useGetMutations } from "../../services/account/account-mutasi";
+import ModalBuktiTransfer from "../../assets/components/Modals/ModalBuktiTransfer";
+import TransactionIcon from "../../assets/img/icons/transaction-mini-icon.svg";
+import { formatDate } from "../../utils/utilities";
+import { useGetMutationDetail } from "../../services/account/account-mutation-detail";
+import ModalBuktiTransaksiQris from "../../assets/components/Modals/ModalBuktiTransaksiQris";
+
 export const InfoSaldoPage = () => {
   const [open, setOpen] = useState(false);
   const [openBuktiTransaksi, setOpenBuktiTransaksi] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState([]);
-  const [title, setTitle] = useState('');
-  const [activeSection, setActiveSection] = useState('Pemasukan');
-  const [detail, setDetail] = useState('');
-  const [type, setType] = useState('debit');
-  const [icon, setIcon] = useState('');
+  const [title, setTitle] = useState("");
+  const [activeSection, setActiveSection] = useState("Pemasukan");
+  const [detail, setDetail] = useState("");
+  const [type, setType] = useState("debit");
+  const [icon, setIcon] = useState("");
   const [selectedMonth, setSelectedMonth] = useState({
-    month: ('0' + (new Date().getMonth() + 1)).slice(-2),
-    year: new Date().getFullYear()
-  })
+    month: ("0" + (new Date().getMonth() + 1)).slice(-2),
+    year: new Date().getFullYear(),
+  });
   const { account } = useAuthContext();
   const { dataExpense, dataIncome, errorMutationSummary, setOptions } = useTransferContext();
+  const [category, setCategory] = useState("");
 
   // setOptions({ month: selectedMonth.month, year: selectedMonth.year });
   useEffect(() => {
@@ -71,7 +78,6 @@ export const InfoSaldoPage = () => {
     setType(type);
     setIcon(icon);
     setOpen(true);
-    
   };
 
   const handleClose = () => {
@@ -85,60 +91,102 @@ export const InfoSaldoPage = () => {
 
   const transferExpenseCategory = dataExpense?.categories.find(category => category.type === 'TRANSFER');
   const qrisCategory = dataExpense?.categories.find(category => category.type === 'QRIS');
-  const tarikCategory = dataExpense?.categories.find(category => category.type === 'SETOR');
+  const tarikCategory = dataExpense?.categories.find(category => category.type === 'TARIK');
 
   const chartDataPemasukan = (dataIncome?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
-    color: ['#0ed79c', '#0065ae', '#feb831'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
-    icon: ['transfer', 'qr', 'setor'][index]
+    color: ["#0ed79c", "#0065ae", "#feb831"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
+    icon: ["transfer", "qr", "setor"][index],
   }));
 
   const chartDataPengeluaran = (dataExpense?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
-    color: ['#ca3a31', '#0a3967', '#926001'][index] || '#cccccc', // Warna default jika index lebih dari jumlah warna
-    icon: ['transfer', 'qris', 'setor'][index]
+    color: ["#ca3a31", "#0a3967", "#926001"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
+    icon: ["transfer", "qris", "setor"][index],
   }));
 
   const groupedDataTransferExpense = groupByDate(transferExpenseCategory?.mutations);
   const groupedDataQris = groupByDate(qrisCategory?.mutations)
+  // const groupeDataTarik = groupByDate(tarikCategory?.mutations)
+
   const groupedDataTransferIncome = groupByDate(transferIncomeCategory?.mutations);
   const groupedDataTransferQr = groupByDate(qrCategory?.mutations);
+  // const groupeDataSetor = groupByDate(setorCategory?.mutations)
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
   const dataQris = formatGroupedData(groupedDataQris)
+  // const dataTarikTunai = formatGroupedData(groupeDataTarik)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
   const dataQrTerimaTransfer = formatGroupedData(groupedDataTransferQr)
+  // const dataSetorTunai = formatGroupedData(groupeDataSetor)
 
-  const { data: dataMutasi } = useGetMutations()
-  console.log("data nutasi ini tuh : ", dataMutasi)
-  const [transferData, setTransferData] = useState({
-    recipientName: 'John Doe',
-    bankName: 'Bank ABC',
-    accountNumber: '1234567890',
-    transferAmount: 'Rp 1.000.000',
-    transferMethod: 'Online Banking',
-    transferFee: 'Rp 5.000',
-    totalTransaction: 'Rp 1.005.000',
-    senderName: 'SAMSUL',
-    senderBankName: 'Bank XYZ',
-    senderAccountSuffix: '7890',
+  // Pagination state
+  const [page, setPage] = useState(1);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const rowsPerPage = 5;
+
+  const [params, setParams] = useState({
+    page: page,
+    size: rowsPerPage,
   });
 
+  const { data: dataMutasi } = useGetMutations(params);
+  const [transferData, setTransferData] = useState(null);
+  const { data: detailMutasi } = useGetMutationDetail(transferData);
+  let MutationType = null;
+
+  if (dataMutasi?.content?.length > 0) {
+    const filteredData = dataMutasi?.content?.filter((data) => data?.id === transferData);
+
+    if (filteredData?.length > 0) {
+      MutationType = filteredData[0]?.mutation_type;
+    }
+  }
+
+  useEffect(() => {
+    activeSection === "Pemasukan" ? setCategory("CREDIT") : setCategory("DEBIT");
+    const { start, end } = formatDateRange(dateRange);
+    setParams((prevParams) => {
+      const newParams = {
+        ...prevParams,
+        page: page - 1,
+        size: rowsPerPage,
+        startDate: start,
+        endDate: end,
+        category: category,
+      };
+
+      if (category) {
+        newParams.mutationType = category;
+      }
+
+      return newParams;
+    });
+
+    // console.log("data setelah di ubah :", start)
+    // console.log("data setelah di ubah :", end)
+  }, [activeSection, category, page]);
+
   const handleOpenBuktiTransfer = (buktiTransfer) => {
-    setOpen(true);
+    setOpenBuktiTransaksi(true);
     setTransferData(buktiTransfer);
   };
+
+  const handleCloseBuktiTransfer = () => {
+    if (openBuktiTransaksi) {
+      setOpenBuktiTransaksi(false);
+    } else {
+      setOpenBuktiTransaksiQR(false);
+    }
+  };
+
   const handleShare = () => {
-    console.log('Share');
+    console.log("Share");
   };
 
   const handleDownload = () => {
-    console.log('Download');
+    console.log("Download");
   };
-  const handleCloseBuktiTransfer = () => {
-    setOpen(false);
-  };
-
 
   return (
     <LayoutSecondary>
@@ -146,93 +194,96 @@ export const InfoSaldoPage = () => {
         item
         xs={12}
         sx={{
-          display: 'relative',
+          display: "relative",
         }}
       >
         <BreadcrumbSecondary />
         <Box
           sx={{
-            position: 'absolute',
-            top: '200px',
-            left: '0',
-            right: '0',
-            bottom: '0',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            position: "absolute",
+            top: "200px",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           <CardSaldo account={account} />
         </Box>
       </Grid>
-      <Container maxWidth="lg" sx={{ mx: 'auto', my: 5 }}>
+      <Container maxWidth="lg" sx={{ mx: "auto", my: 5 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} lg={6} sx={{ mt: 15, mb: 2 }}>
             <Box
               sx={{
                 height: 44,
-                backgroundColor: 'primary.main',
+                backgroundColor: "primary.main",
                 borderRadius: 1.25,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding: '0 16px',
-                boxSizing: 'border-box',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                padding: "0 16px",
+                boxSizing: "border-box",
               }}
             >
               {/* <MonthNavigator /> */}
-              <MonthNavigator onMonthChange={(date) => {
-                const formattedDate = {
-                  month: ('0' + (date.getMonth() + 1)).slice(-2),
-                  year: date.getFullYear()
-                };
-                setSelectedMonth(formattedDate);
-              }} />
+              <MonthNavigator
+                onMonthChange={(date) => {
+                  const formattedDate = {
+                    month: ("0" + (date.getMonth() + 1)).slice(-2),
+                    year: date.getFullYear(),
+                  };
+                  setSelectedMonth(formattedDate);
+                }}
+                tabIndex={0}
+              />
             </Box>
 
-            <Box sx={{ bgcolor: 'neutral.01', boxShadow: 3 }}>
+            <Box sx={{ bgcolor: "neutral.01", boxShadow: 3 }}>
               <Grid
                 container
                 // justifyContent="center"
                 spacing={1}
                 sx={{ px: 2, pt: 5, mb: 0, pb: 0 }}
               >
-                <Grid item xs={6} sm={6} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <ButtonBase onClick={() => setActiveSection('Pemasukan')}>
+                <Grid
+                  item
+                  xs={6}
+                  sm={6}
+                  md={6}
+                  sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <ButtonBase onClick={() => setActiveSection("Pemasukan")}>
                     <Typography
                       variant="h6"
                       component="div"
                       sx={{
-                        fontWeight:
-                          activeSection === 'Pemasukan' ? 'bold' : 'normal',
-                        color:
-                          activeSection === 'Pemasukan'
-                            ? '#0066AE'
-                            : '#dedede',
-                        cursor: 'pointer',
+                        fontWeight: activeSection === "Pemasukan" ? "bold" : "normal",
+                        color: activeSection === "Pemasukan" ? "#0066AE" : "#dedede",
+                        cursor: "pointer",
                       }}
                     >
                       Pemasukan
                     </Typography>
                   </ButtonBase>
                 </Grid>
-                <Grid item xs={6} sm={6} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                  <ButtonBase
-                    onClick={() => setActiveSection('Pengeluaran')}
-                  >
+                <Grid
+                  item
+                  xs={6}
+                  sm={6}
+                  md={6}
+                  sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                >
+                  <ButtonBase onClick={() => setActiveSection("Pengeluaran")}>
                     <Typography
                       variant="h6"
                       component="div"
                       sx={{
-                        fontWeight:
-                          activeSection === 'Pengeluaran'
-                            ? 'bold'
-                            : 'normal',
-                        color:
-                          activeSection === 'Pengeluaran'
-                            ? '#0066AE'
-                            : '#dedede',
-                        cursor: 'pointer',
+                        fontWeight: activeSection === "Pengeluaran" ? "bold" : "normal",
+                        color: activeSection === "Pengeluaran" ? "#0066AE" : "#dedede",
+                        cursor: "pointer",
                       }}
                     >
                       Pengeluaran
@@ -243,30 +294,26 @@ export const InfoSaldoPage = () => {
 
               <Box
                 sx={{
-                  display: 'grid',
+                  display: "grid",
                   rowGap: 1,
-                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gridTemplateColumns: "repeat(2, 1fr)",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
+                    display: "flex",
+                    justifyContent: "center",
                     borderTop: 4,
-                    borderColor:
-                      activeSection === 'Pemasukan' ? '#0066AE' : '#dedede',
+                    borderColor: activeSection === "Pemasukan" ? "#0066AE" : "#dedede",
                     py: 1,
                   }}
                 />
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
+                    display: "flex",
+                    justifyContent: "center",
                     borderTop: 4,
-                    borderColor:
-                      activeSection === 'Pengeluaran'
-                        ? '#0066AE'
-                        : '#dedede',
+                    borderColor: activeSection === "Pengeluaran" ? "#0066AE" : "#dedede",
                     py: 1,
                   }}
                 />
@@ -275,13 +322,13 @@ export const InfoSaldoPage = () => {
               {/* Transaction Box */}
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
+                  display: "flex",
+                  flexDirection: "column",
                   gap: 1,
                   p: 2,
                 }}
               >
-                {activeSection === 'Pemasukan' ? (
+                {activeSection === "Pemasukan" ? (
                   <>
                     <TransactionBox
                       icon={TransferIcon}
@@ -290,10 +337,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataTransferIncome,
-                          'Transfer Rupiah',
-                          'Transfer BI Fast',
-                          'credit',
-                          <img width={18}  src={TransactionMiniIcon} />
+                          "Transfer Rupiah",
+                          "Transfer BI Fast",
+                          "credit",
+                          <img width={18} src={TransactionMiniIcon} alt="Transfer Rupi Icon" />
                         )
                       }
                     />
@@ -304,10 +351,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataQrTerimaTransfer,
-                          'QR Terima Transfer',
-                          'QR Terima Transfer',
-                          'credit',
-                          <img width={18} src={QrMiniIcon} />
+                          "QR Terima Transfer",
+                          "QR Terima Transfer",
+                          "credit",
+                          <img width={18} src={QrMiniIcon} alt="QR terima transfer Icon" />
                         )
                       }
                     />
@@ -318,10 +365,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataSetorTunai,
-                          'Setor Tunai',
-                          'Setor Tunai',
-                          'credit',
-                          <img width={18} src={MoneyMiniIcon} />
+                          "Setor Tunai",
+                          "Setor Tunai",
+                          "credit",
+                          <img width={18} src={MoneyMiniIcon} alt="Setor Tunai Icon" />
                         )
                       }
                     />
@@ -335,10 +382,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataTransferExpense,
-                          'Transfer Rupiah',
-                          'Transfer Ke BCA',
-                          'debit',
-                          <img width={18} src={TransactionMiniIcon} />
+                          "Transfer Rupiah",
+                          "Transfer Ke BCA",
+                          "debit",
+                          <img width={18} src={TransactionMiniIcon} alt="Transfer pengeluaran icon" />
                         )
                       }
                     />
@@ -349,10 +396,10 @@ export const InfoSaldoPage = () => {
                       onClick={() =>
                         handleOpen(
                           dataQris,
-                          'QRIS',
-                          'Qris',
-                          'debit',
-                          <img width={18} src={QrisMiniIcon} />
+                          "QRIS",
+                          "Qris",
+                          "debit",
+                          <img width={18} src={QrisMiniIcon} alt="QRIS Icon" />
                         )
                       }
                     />
@@ -361,13 +408,10 @@ export const InfoSaldoPage = () => {
                       title="Tarik Tunai"
                       data={tarikCategory}
                       onClick={() =>
-                        handleOpen(
-                          dataTarikTunai,
-                          'Tarik Tunai',
-                          'Tarik Tunai',
-                          'debit',
-                          <CreditCardIcon />
-                        )
+                        handleOpen(dataTarikTunai, 
+                          "Tarik Tunai", 
+                          "Tarik Tunai", 
+                          "debit", <CreditCardIcon />)
                       }
                     />
                   </>
@@ -382,22 +426,18 @@ export const InfoSaldoPage = () => {
             xs={12}
             lg={6}
             sx={{
-              mt: 'auto',
+              mt: "auto",
               mb: 2,
-              display: 'flex',
-              justifyContent: 'center',
+              display: "flex",
+              justifyContent: "center",
             }}
           >
             <DynamicPieChart
               data={{
-                activeSection: activeSection === 'Pemasukan' ? chartDataPemasukan : chartDataPengeluaran,
-                data: activeSection === 'Pemasukan' ? dataIncome : dataExpense
+                activeSection: activeSection === "Pemasukan" ? chartDataPemasukan : chartDataPengeluaran,
+                data: activeSection === "Pemasukan" ? dataIncome : dataExpense,
               }}
-              centerLabel={
-                activeSection === 'Pemasukan'
-                  ? "Total Pemasukan"
-                  : "Total Pengeluaran"
-              }
+              centerLabel={activeSection === "Pemasukan" ? "Total Pemasukan" : "Total Pengeluaran"}
               // dataCart={data.income}
               width={500}
               height={500}
@@ -405,22 +445,107 @@ export const InfoSaldoPage = () => {
           </Grid>
         </Grid>
 
-        <Box sx={{ display: 'flex', mt: 5, flexDirection: 'column' }}>
+        <Box sx={{ display: "flex", mt: 5, flexDirection: "column" }}>
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              width: '100%',
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "100%",
             }}
           >
             {/* <ButtonPrimary text="Lihat Mutasi Rekening" /> */}
-            <Button href="/mutasi" variant="contained" sx={{ borderRadius: 3, textTransform: 'none' }}>Lihat Mutasi Rekening <ChevronRightOutlined /></Button>
+            <Button
+              href="/mutasi"
+              variant="contained"
+              sx={{ borderRadius: 3, textTransform: "none" }}
+              role="button"
+            >
+              Lihat Mutasi Rekening <ChevronRightOutlined />
+            </Button>
           </Box>
 
-          <Box
-            sx={{ display: 'flex', justifyContent: 'flex-start', mt: 5 }}
-          >
-            
+          <Box sx={{ display: "flex", justifyContent: "flex-start", mt: 5 }}>
+            <TablePrimary title="Aktivitas Terakhir" rows={["Transaksi", "Tanggal", "Nominal", "Aksi"]}>
+              {dataMutasi?.content?.slice(0, 2).map((data) => (
+                <TableRow key={data?.id}>
+                  <TableCell >
+                    <Grid container sx={{ display: "flex", height: "100%", alignItems: "center", minWidth: "20rem" }}>
+                      <Grid
+                        item
+                        xs={1.5}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          height: "100%",
+                        }}
+                      >
+                        <img src={TransactionIcon} alt="icon transaksi" height={24} width="auto" />
+                      </Grid>
+                      <Grid item xs={10.5} sx={{ display: "flex", flexDirection: "column", justifyContent:"center" }}>
+                        <Typography variant="caption">{data.mutation_type}</Typography>
+                        <Typography variant="caption" >{data.bank_name}</Typography> 
+                        <Typography variant="caption">{data.full_name}</Typography>
+                        <Typography variant="caption">{data.account_number}</Typography>
+                      </Grid>
+                    </Grid>
+                  </TableCell>
+                  <TableCell>
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      <Typography variant="caption">{formatDate(data?.date)}</Typography>
+                      <Typography variant="caption" sx={{ color: "#B3B3B3" }}>
+                        {" "}
+                        {data?.time}
+                      </Typography>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        fontWeight: "bold",
+                        color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
+                      }}
+                    >
+                      {data.transaction_type === "DEBIT" ? "-" : "+"} {data?.amount}
+                    </Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="standar"
+                      startIcon={<ReceiptIcon />}
+                      onClick={() => {
+                        handleOpenBuktiTransfer(data?.id);
+                      }}
+                      sx={{ mx: 1, my:0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                      aria-label="Lihat bukti transaksi"
+                    >
+                      Lihat Bukti
+                    </Button>
+                    
+                    <Button
+                      variant="standar"
+                      startIcon={<ShareIcon />}
+                      onClick={() => { }}
+                      sx={{ mx: 1, my: 0.5, p: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                      aria-label="Bagikan bukti transaksi"
+                    >
+                      Bagikan Resi
+                    </Button>
+
+                    <Button
+                      variant="standar"
+                      startIcon={<DownloadIcon />}
+                      onClick={() => { handleDownload() }}
+                      sx={{ mx: 1, my:0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                      aria-label="Download bukti transaksi"
+                    >
+                      Download
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TablePrimary>
           </Box>
         </Box>
       </Container>
@@ -433,31 +558,62 @@ export const InfoSaldoPage = () => {
         type={type}
         icon={icon}
       />
-      <ModalBuktiTransfer
-        open={openBuktiTransaksi}
-        onClose={handleCloseBuktiTransfer}
-        appName={transferData.appName}
-        status={transferData.status}
-        recipientName={transferData.recipientName}
-        bankName={transferData.bankName}
-        accountNumber={transferData.accountNumber}
-        transferAmount={transferData.transferAmount}
-        transferMethod={transferData.transferMethod}
-        transferFee={transferData.transferFee}
-        totalTransaction={transferData.totalTransaction}
-        senderName={transferData.senderName}
-        senderBankName={transferData.senderBankName}
-        senderAccountSuffix={transferData.senderAccountSuffix}
-        onShare={handleShare}
-        onDownload={handleDownload}
-      />
+
+      {MutationType == "TRANSFER" ? (
+        <>
+          <ModalBuktiTransfer
+            open={openBuktiTransaksi}
+            onClose={() => setOpenBuktiTransaksi(null)}
+            appName={"Rupi App"}
+            status={
+              dataMutasi?.content?.find((data) => data?.id === transferData)?.transaction_type === "CREDIT"
+                ? "Bukti Terima Transfer"
+                : "Transfer Berhasil"
+            }
+            recipientName={detailMutasi?.receiver_detail?.name}
+            bankName={"RUPI APP"}
+            // bankName={destinationDetailTransaksi?.bank_name}
+            accountNumber={detailMutasi?.receiver_detail?.account_number}
+            transferAmount={detailMutasi?.mutation_detail?.amount}
+            transferMethod={detailMutasi?.transaction_purpose}
+            transferFee={0}
+            totalTransaction={detailMutasi?.mutation_detail?.amount}
+            senderName={detailMutasi?.sender_detail?.name}
+            senderBankName={"Rupi App"}
+            senderAccountSuffix={detailMutasi?.sender_detail?.account_number}
+
+          // onShare={handleShare}
+          // onDownload={handleDownload}
+          />
+        </>
+      ) : (
+        <>
+          <ModalBuktiTransaksiQris
+            open={openBuktiTransaksi}
+            onClose={() => setOpenBuktiTransaksi(null)}
+            appName="Rupi App"
+            status="Transfer Berhasil"
+            recipientName={detailMutasi?.merchant}
+            bankName="Bank BCA"
+            transferAmount={detailMutasi?.amount}
+            transferFee="0"
+            totalTransaction={detailMutasi?.amount}
+            senderName={account?.full_name}
+            senderBankName="Rupi App"
+            senderAccountSuffix={account?.account_number}
+          // onShare={handleShare}
+          // onDownload={handleDownload}
+          />
+        </>
+      )}
 
       {errorMutationSummary && (
-        <FailAlert message={errorMutationSummary?.response?.data?.message || errorMutationSummary?.message} title="Gagal mengambil data" />
+        <FailAlert
+          message={errorMutationSummary?.response?.data?.message || errorMutationSummary?.message}
+          title="Gagal mengambil data"
+        />
       )}
     </LayoutSecondary>
-
-
   );
 };
 

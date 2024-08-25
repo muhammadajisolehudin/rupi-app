@@ -11,6 +11,7 @@ import { useTransferContext } from "../../../context/TransferContext";
 export const InputNominalTransferForm = ({ onNext }) => {
 	const { account } = useAuthContext();
 	const { formData } = useTransferContext();
+	console.log("data dari klick ", formData)
 	const formik = useFormik({
 		initialValues: {
 			destination_id: formData.destination_id,

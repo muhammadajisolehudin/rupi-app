@@ -18,6 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useSignout } from "../../../services/auth/signout";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ModalNotifikasiAktivitas } from "../Modals/ModalNotifikasiAktivitas";
+import { useAuthContext } from "../../../context/AuthContext";
 
 const NavbarSecondary = () => {
 	const [activePage, setActivePage] = useState("beranda");
@@ -36,16 +37,19 @@ const NavbarSecondary = () => {
 
 	const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 	const navigate = useNavigate();
-	const { mutate: logout } = useSignout();
+	// const { mutate: logout } = useSignout();
+	const { logout } = useAuthContext();
 
 	const handlePageChange = (pageName, path) => {
 		setActivePage(pageName);
 		navigate(path);
 	};
 
-	const handleLogout = () => {
-		logout();
-		navigate("/login");
+	const handleLogout = async () => {
+		await logout();
+		setTimeout(() => {
+			navigate("/login");
+		}, 1000);
 	};
 
 	const toggleDrawer = () => {
@@ -174,6 +178,7 @@ const NavbarSecondary = () => {
 								fontWeight={activePage === "beranda" ? 700 : 400}
 								sx={{ cursor: "pointer", mb: 1 }}
 								onClick={() => handlePageChange("beranda", "/")}
+								role="button"
 							>
 								Beranda
 							</Typography>
@@ -187,6 +192,9 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handleOpenNotifDropdown()}
+									role="button"
+									tabIndex={0}
+									aria-label="Notifikasi aktivitas"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -195,7 +203,10 @@ const NavbarSecondary = () => {
 										color: { xs: "primary.main", sm: "#ffffff" },
 										cursor: "pointer",
 									}}
-									onClick={() => handlePageChange("customerService", "/")}
+									onClick={() => window.open("https://wa.me/6283140156530", "_blank")}
+									role="button"
+									tabIndex={0}
+									aria-label="Bantuan"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -204,7 +215,10 @@ const NavbarSecondary = () => {
 										color: { xs: "primary.main", sm: "#ffffff" },
 										cursor: "pointer",
 									}}
-									onClick={() => handlePageChange("accountSettings", "/")}
+									onClick={() => handlePageChange("accountSettings", "/pengaturan")}
+									role="button"
+									tabIndex={0}
+									aria-label="Pengaturan akun RupiApp"
 								/>
 							</Box>
 							<Box sx={{ textAlign: "center" }}>
@@ -214,6 +228,9 @@ const NavbarSecondary = () => {
 										cursor: "pointer",
 									}}
 									onClick={() => handleLogout()}
+									role="button"
+									tabIndex={0}
+									aria-label="Logout"
 								/>
 							</Box>
 						</Box>

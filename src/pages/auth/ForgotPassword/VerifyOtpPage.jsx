@@ -6,10 +6,10 @@ import { useVerifyOtpResend } from "../../../services/auth/verify-resend";
 import { useAuthContext } from "../../../context/AuthContext";
 
 export const VerifyOtpPage = ({ onNext }) => {
-	const { formData } = useAuthContext()
-	console.log("data dari context :", formData)
+	const { formData } = useAuthContext();
+	console.log("data dari context :", formData);
 	const inputRefs = useRef([]);
-	const { user } = useAuthContext()
+	const { user } = useAuthContext();
 	// const location = useLocation();
 	const resendOtp = useVerifyOtpResend();
 	// const navigate = useNavigate()
@@ -37,16 +37,14 @@ export const VerifyOtpPage = ({ onNext }) => {
 			};
 
 			try {
-
-				onNext(payload)
+				onNext(payload);
 				// await otp.mutateAsync(payload);
 				// const previousPath = location.state?.from?.pathname || '/login';
 				// navigate(previousPath === '/forgot-password' ? '/set-password' : '/');
 				// navigate("/")
 			} catch (error) {
-				return error
+				return error;
 			}
-
 		},
 	});
 
@@ -66,7 +64,7 @@ export const VerifyOtpPage = ({ onNext }) => {
 
 	const handleResendOtp = async () => {
 		try {
-			console.log("ini data user dari use : ", user)
+			console.log("ini data user dari use : ", user);
 			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
@@ -85,19 +83,15 @@ export const VerifyOtpPage = ({ onNext }) => {
 					justifyContent: "center",
 					flexDirection: "column",
 					my: "auto",
-					py: 8, 
+					py: 8,
 					px: 4,
 				}}
 			>
 				<Typography variant="h5" sx={{ fontWeight: "bold", mx: "auto" }}>
 					Masukkan Kode Verifikasi
 				</Typography>
-				<Typography
-					variant="body1"
-					sx={{ mx: "auto", mt: 7, textAlign: "center" }}
-				>
-					Kami telah mengirimkan kode verifikasi 6 digit melalui WhatsApp ke
-					nomor yang terdaftar
+				<Typography variant="body1" sx={{ mx: "auto", mt: 7, textAlign: "center" }}>
+					Kami telah mengirimkan kode verifikasi 6 digit melalui WhatsApp ke nomor yang terdaftar
 				</Typography>
 				<form onSubmit={formik.handleSubmit}>
 					<Box
@@ -126,6 +120,7 @@ export const VerifyOtpPage = ({ onNext }) => {
 										size="small"
 										name={`otp[${index}]`}
 										value={digit}
+										autoComplete="off"
 										onChange={(e) => handleChange(index, e)}
 										onKeyDown={(e) => {
 											if (e.key === "Backspace" && index > 0 && !digit) {
@@ -144,19 +139,21 @@ export const VerifyOtpPage = ({ onNext }) => {
 								</Box>
 							))}
 						</Box>
-						<Typography onClick={handleResendOtp}
+						<Typography
+							onClick={handleResendOtp}
 							sx={{
 								color: "#B3B3B3",
 								cursor: "pointer",
 								"&:hover": {
 									color: "#1976d2",
 								},
-							}
-							}
+							}}
 							variant="body1"
 							role="button"
-							aria-label="Button Kirim kode otp baru"
-						>Kirim Kode Baru </Typography>
+							aria-label="Button request kode otp baru"
+						>
+							Kirim Kode Baru{" "}
+						</Typography>
 						<Button
 							type="submit"
 							fullWidth
@@ -164,13 +161,12 @@ export const VerifyOtpPage = ({ onNext }) => {
 							sx={{ py: 1.5, borderRadius: "8px" }}
 							disabled={formik.isSubmitting || !formik.isValid}
 							role="button"
-							aria-label="Button Lanjutkan verify kode OTP"
+							aria-label="Button lanjutkan verifikasi kode otp lupa password"
 						>
 							Lanjutkan
 						</Button>
 					</Box>
 				</form>
-				
 			</Paper>
 			{/* <SuccesAlert message="" title="Login Berhasil"/> */}
 		</>

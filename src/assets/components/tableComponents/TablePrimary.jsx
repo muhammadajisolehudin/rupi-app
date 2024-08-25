@@ -23,10 +23,7 @@ const TablePrimary = ({ title, rows, children }) => {
               {rows.map((row, index) => (
                 <TableCell
                   key={index}
-                  sx={{
-                    width: '1rem',
-                    padding: '16px',
-                  }}
+                 
                 >
                   {row}
                 </TableCell>

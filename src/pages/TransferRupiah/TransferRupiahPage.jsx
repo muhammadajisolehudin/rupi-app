@@ -12,11 +12,8 @@ import { useTransferContext } from "../../context/TransferContext";
 
 export const TransferRupiahPage = () => {
 	const [searchData, setSearchData] = useState("");
-	
 	const [page, setPage] = useState(1);
 	const rowsPerPage = 10;
-
-	// const [destinationData, setDestinationData] = useState(null);
 	const [destinationData, setDestinationData] = useState({
 		favorites: [],
 		others: [],
@@ -52,9 +49,9 @@ export const TransferRupiahPage = () => {
 		});
 	};
 
-	// useEffect(() => {
-	// 	setStep(1)
-	// }, [])
+	useEffect(() => {
+		setStep(1)
+	}, [])
 	
 	useEffect(() => {
 		setParams(prevParams => {

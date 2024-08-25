@@ -1,4 +1,14 @@
-import { Box, ButtonBase, Divider, Fade, Grid, IconButton, Paper, Tooltip, Typography } from "@mui/material";
+import {
+	Box,
+	ButtonBase,
+	Divider,
+	Fade,
+	Grid,
+	IconButton,
+	Paper,
+	Tooltip,
+	Typography,
+} from "@mui/material";
 import { LayoutSecondary } from "../layoutSecondary";
 import BreadcrumbSecondary from "../../assets/components/Breadcrumbs/BreadcrumbSecondary";
 import AddAPhotoOutlinedIcon from "@mui/icons-material/AddAPhotoOutlined";
@@ -23,10 +33,10 @@ import SettingsNavigator from "../../assets/components/navigators/SettingsNaviga
 
 export const PengaturanPage = () => {
 	const [activeSection, setActiveSection] = useState("Akun");
-	const { account } = useAuthContext()
-	const { data: getUserProfile, refetch: userProfileRefetch } = useGetUserProfile()
-	const { data: imgData, refetch: imgRefetch } = useGetImg(getUserProfile?.avatar)
-	const changeAvatarProfile = useChangeUserProfile()
+	const { account } = useAuthContext();
+	const { data: getUserProfile, refetch: userProfileRefetch } = useGetUserProfile();
+	const { data: imgData, refetch: imgRefetch } = useGetImg(getUserProfile?.avatar);
+	const changeAvatarProfile = useChangeUserProfile();
 	const fileInputRef = useRef(null);
 	const [profilePic, setProfilePic] = useState(null);
 
@@ -55,25 +65,23 @@ export const PengaturanPage = () => {
 		onSubmit: async (values) => {
 			const formData = new FormData();
 			if (values.avatar) {
-				formData.append('avatar', values.avatar);
+				formData.append("avatar", values.avatar);
 			}
 
 			try {
 				await changeAvatarProfile.mutateAsync(formData);
 			} catch (error) {
-				return error
+				return error;
 			}
 		},
 	});
-
-
 
 	const handleFileInputChange = (event) => {
 		const file = event.target.files[0];
 		if (file) {
 			if (validateFile(file)) {
 				formik.setFieldValue("avatar", file);
-				formik.submitForm(); // Automatically submit 
+				formik.submitForm(); // Automatically submit
 			} else {
 				formik.setFieldError("avatar", "Format file harus berupa .jpg, .png, atau .svg");
 			}
@@ -118,17 +126,19 @@ export const PengaturanPage = () => {
 		}
 	};
 
-	useEffect(()=>{
-		userProfileRefetch()
-		imgRefetch()
-
-	}, [changeAvatarProfile])
+	useEffect(() => {
+		userProfileRefetch();
+		imgRefetch();
+	}, [changeAvatarProfile]);
 
 	return (
 		<LayoutSecondary>
-			<Grid xs={12} sx={{
-				height: "130vh"
-			}}>
+			<Grid
+				xs={12}
+				sx={{
+					height: "130vh",
+				}}
+			>
 				<BreadcrumbSecondary />
 
 				<Grid
@@ -186,24 +196,32 @@ export const PengaturanPage = () => {
 											style={{ width: "8rem", height: "8rem", borderRadius: "50%" }}
 										/>
 									</Paper>
-									<Tooltip TransitionComponent={Fade} slotProps={{
-										popper: {
-											modifiers: [
-												{
-													name: 'offset',
-													options: {
-														offset: [0, -14],
+									<Tooltip
+										TransitionComponent={Fade}
+										slotProps={{
+											popper: {
+												modifiers: [
+													{
+														name: "offset",
+														options: {
+															offset: [0, -14],
+														},
 													},
-												},
-											],
-										},
-									}}
-										TransitionProps={{ timeout: 600 }} title={account.full_name}>
-										<Typography variant="h4" sx={{
-											fontWeight: "bold", width: "100%",
-											overflow: "hidden",
-											textOverflow: "ellipsis",
-										}}>
+												],
+											},
+										}}
+										TransitionProps={{ timeout: 600 }}
+										title={account.full_name}
+									>
+										<Typography
+											variant="h4"
+											sx={{
+												fontWeight: "bold",
+												width: "100%",
+												overflow: "hidden",
+												textOverflow: "ellipsis",
+											}}
+										>
 											{account.full_name}
 										</Typography>
 									</Tooltip>
@@ -214,7 +232,7 @@ export const PengaturanPage = () => {
 									<Box sx={{ display: "flex", justifyContent: "space-between" }}>
 										<IconButton
 											onClick={handleClickUpload}
-											aria-label="Tambahkan Foto"
+											aria-label="Tambah atau Ganti Foto,"
 											sx={{
 												display: "flex",
 												justifyContent: "center",
@@ -240,7 +258,6 @@ export const PengaturanPage = () => {
 												onChange={handleFileInputChange}
 												onBlur={formik.handleBlur}
 											/>
-
 										</IconButton>
 										<Box
 											onClick={() => handleImageChange(birdImg)}
@@ -257,7 +274,7 @@ export const PengaturanPage = () => {
 											}}
 											aria-label="Select bird image"
 										>
-											<img src={birdImg} alt="Bird" />
+											<img src={birdImg} alt="Pilih gambar burung" />
 										</Box>
 										<Box
 											onClick={() => handleImageChange(catImg)}
@@ -274,7 +291,7 @@ export const PengaturanPage = () => {
 											}}
 											aria-label="Select cat image"
 										>
-											<img src={catImg} alt="Cat" />
+											<img src={catImg} alt="Pilih gambar kucing" />
 										</Box>
 										<Box
 											onClick={() => handleImageChange(dogImg)}
@@ -291,15 +308,14 @@ export const PengaturanPage = () => {
 											}}
 											aria-label="Select dog image"
 										>
-											<img src={dogImg} alt="Dog" />
+											<img src={dogImg} alt="Pilih gambar gugug" />
 										</Box>
 									</Box>
-									<Box sx={{ mt:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
+									<Box sx={{ mt: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
 										{formik.errors.avatar && formik.touched.avatar && (
-										<Typography color="error">{formik.errors.avatar}</Typography>
-									)}
+											<Typography color="error">{formik.errors.avatar}</Typography>
+										)}
 									</Box>
-									
 								</form>
 							</Paper>
 						</Grid>
@@ -310,16 +326,18 @@ export const PengaturanPage = () => {
 								renderContent={renderContent}
 							/>
 						</Grid>
-
 					</Grid>
 				</Grid>
 			</Grid>
 			{changeAvatarProfile.isError && (
-				<FailAlert message={changeAvatarProfile.error?.response?.data?.message || changeAvatarProfile.error?.message} title="Foto Profil Gagal Diubah" />
+				<FailAlert
+					message={
+						changeAvatarProfile.error?.response?.data?.message || changeAvatarProfile.error?.message
+					}
+					title="Foto Profil Gagal Diubah"
+				/>
 			)}
-			{changeAvatarProfile.isSuccess && (
-				<SuccesAlert message="" title="Foto Profil Berhasil Diubah" />
-			)}
+			{changeAvatarProfile.isSuccess && <SuccesAlert message="" title="Foto Profil Berhasil Diubah" />}
 		</LayoutSecondary>
 	);
 };

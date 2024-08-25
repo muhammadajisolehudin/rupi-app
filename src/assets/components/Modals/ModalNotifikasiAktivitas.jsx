@@ -54,8 +54,7 @@ const style = {
 	borderRadius: 10,
 	width: 557,
 	backgroundColor: "white",
-	border: 'none',
-	
+	border: "none",
 };
 
 export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
@@ -93,9 +92,9 @@ export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
 			aria-expanded={open ? "true" : undefined}
 		>
 			<Box id="notification-dropdown" open={open} onClose={onClose} style={style}>
-				<Box sx={{ position: "relative", py:1 }}>
-					<Box sx={{ mt:2 }}>
-						<Box sx={{ display: "flex", justifyContent: "space-between", px:5 }}>
+				<Box sx={{ position: "relative", py: 1 }}>
+					<Box sx={{ mt: 2 }}>
+						<Box sx={{ display: "flex", justifyContent: "space-between", px: 5 }}>
 							<Typography
 								id="modal-notif-title"
 								variant="h5"
@@ -111,32 +110,39 @@ export const ModalNotifikasiAktivitas = ({ open, onClose }) => {
 								Notifikasi Aktivitas
 							</Typography>
 							<Box sx={{ mt: -2 }}>
-								<IconButton size="small" onClick={onClose} aria-label="Tombol Tutup Notifikasi">
+								<IconButton size="small" onClick={onClose} aria-label="Tombol Tutup Notifikasi,">
 									<CloseIcon />
 								</IconButton>
 							</Box>
-							
 						</Box>
 					</Box>
-					<Box sx={{
-						maxHeight: '55vh',
-						overflowY: 'auto',
-					}}>
-					{filterNewNotification.map((notification, index) => (
-						<MenuItem key={index}>
-							<NotifAktivitasItem
-								key={index}
-								{...notification}
-								date={parseDate(notification.date)}
-								isHighlighted={index % 2 === 0}
-							/>
-						</MenuItem>
-					))}	
+					<Box
+						sx={{
+							maxHeight: "55vh",
+							overflowY: "auto",
+						}}
+					>
+						{filterNewNotification.map((notification, index) => (
+							<MenuItem key={index}>
+								<NotifAktivitasItem
+									key={index}
+									{...notification}
+									date={parseDate(notification.date)}
+									isHighlighted={index % 2 === 0}
+								/>
+							</MenuItem>
+						))}
 					</Box>
-					
 
 					<MenuItem sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-						<Button href="/notifikasi-aktivitas" variant="contained" color="primary" sx={{ my: 2 }}>
+						<Button
+							href="/notifikasi-aktivitas"
+							variant="contained"
+							color="primary"
+							sx={{ my: 2 }}
+							role="button"
+							aria-label="Lihat semua notifikasi aktivitas,"
+						>
 							Lihat Semua Notif
 						</Button>
 					</MenuItem>

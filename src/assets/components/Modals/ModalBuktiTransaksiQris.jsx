@@ -12,6 +12,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import DownloadIcon from '@mui/icons-material/Download';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import { formatRupiah } from '../../../utils/utilities';
 
 const style = {
     position: 'absolute',
@@ -83,7 +84,7 @@ export const ModalBuktiTransaksiQris = ({
                         <Box sx={{ mb: 1, display: "flex", flexDirection: "column", gap: 0.5 }}>
                             <Grid container justifyContent="space-between">
                                 <Typography variant="body2" sx={{ fontWeight: "bold" }}>Nominal Transfer</Typography>
-                                <Typography variant="body2" sx={{ fontWeight: "bold" }}>{transferAmount}</Typography>
+                                <Typography variant="body2" sx={{ fontWeight: "bold" }}>{formatRupiah(transferAmount)}</Typography>
                             </Grid>
                             <Grid container justifyContent="space-between">
                                 <Typography variant="body2">Biaya Transfer</Typography>
@@ -94,7 +95,7 @@ export const ModalBuktiTransaksiQris = ({
                         <Divider sx={{ my: 2, borderColor: 'black' }} />
                         <Grid container justifyContent="space-between">
                             <Typography variant="body2" sx={{ fontWeight:"bold" }}>Total Transaksi</Typography>
-                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>{totalTransaction}</Typography>
+                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>{formatRupiah(totalTransaction)}</Typography>
                         </Grid>
                         <Divider sx={{ my: 2, borderColor: 'black' }} />
                     </Box>

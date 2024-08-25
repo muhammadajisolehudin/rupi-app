@@ -62,6 +62,10 @@ export const RouteList = () => {
                               path="/transfer-rupiah/transfer-ke-penerima-baru"
                               element={<TransferKePenerimaBaru />}
                             />
+                            <Route
+                              path="/transfer-rupiah/transfer-ke-daftar-rekening"
+                              element={<TransferKePenerimaBaru />}
+                            />
                             <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
                             <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
                             <Route path="/qris" element={<QrisPage />} />

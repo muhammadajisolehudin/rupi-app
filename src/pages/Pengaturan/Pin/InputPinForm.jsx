@@ -8,8 +8,7 @@ import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
 import { useVerifyUserPin } from "../../../services/user/verify-user-pin";
 
 export const InputPinForm = ({ onNext }) => {
-	
-	const mutateVerifyPin = useVerifyUserPin()
+	const mutateVerifyPin = useVerifyUserPin();
 
 	const formik = useFormik({
 		initialValues: {
@@ -23,13 +22,11 @@ export const InputPinForm = ({ onNext }) => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				const result = await mutateVerifyPin.mutateAsync(values)
+				const result = await mutateVerifyPin.mutateAsync(values);
 				onNext(result.data.data);
 			} catch (error) {
-				return error
+				return error;
 			}
-			
-			
 		},
 	});
 
@@ -38,7 +35,6 @@ export const InputPinForm = ({ onNext }) => {
 		formik.resetForm({ values: formik.initialValues });
 	};
 
-	
 	return (
 		<Container>
 			<Grid
@@ -125,10 +121,13 @@ export const InputPinForm = ({ onNext }) => {
 				</FormikProvider>
 			</Grid>
 			{mutateVerifyPin.isError && (
-				<FailAlert message={mutateVerifyPin?.response?.data?.message || mutateVerifyPin?.message} title="Verifikasi Pin Gagal" />
+				<FailAlert
+					message={mutateVerifyPin?.response?.data?.message || mutateVerifyPin?.message}
+					title="Verifikasi Pin Gagal"
+				/>
 			)}
 			{mutateVerifyPin.isSuccess && (
-				<SuccesAlert message="silahkan masukan pin baru" title="Ferivikasi Berhasil" />
+				<SuccesAlert message="silahkan masukan pin baru" title="Verifikasi Berhasil" />
 			)}
 		</Container>
 	);
