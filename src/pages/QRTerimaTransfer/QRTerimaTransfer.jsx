@@ -82,10 +82,10 @@ export const QRTerimaTransfer = () => {
 		setAmount(Number(inputAmount) || '');
 	};
 
-	const handleGenerateNewQRCode = () => {
-		setInputAmount('');
-		handleGenerateQRCode();
-	};
+	// const handleGenerateNewQRCode = () => {
+	// 	setInputAmount('');
+	// 	handleGenerateQRCode();
+	// };
 
 	useEffect(() => {
 		handleGenerateQRCode();
@@ -175,7 +175,8 @@ export const QRTerimaTransfer = () => {
 											backgroundColor: '#f0f0f0'
 										}
 									}}
-									onClick={handleGenerateNewQRCode}
+									// onClick={handleGenerateNewQRCode}
+									onClick={() => window.location.reload()}
 								>
 									<img src={ScanIcon} alt="Scan QR" style={{ width: '20px', height: '20px', marginRight: '4px', marginBottom: '2px' }} />
 									Buat QR Baru
