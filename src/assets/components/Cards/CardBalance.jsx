@@ -53,9 +53,8 @@ export const CardBalance = ({ user }) => {
         <Box component="a" href="/info-saldo">
           <Button
             sx={{ minWidth: "auto", padding: 0 }}
-            aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Saldo"
           >
-            <img src={buttonEnter} alt="" style={{ width: "28px" }} />
+            <img src={buttonEnter} alt="Tombol Info Saldo, ini akan membawa Anda ke halaman Saldo" style={{ width: "28px" }} />
           </Button>
         </Box>
       </Box>
@@ -111,10 +110,9 @@ export const CardBalance = ({ user }) => {
             </Box>
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
-              aria-label="Tombol Salin, ini akan menyalin nomor rekening pengguna"
               onClick={handleCopy}
             >
-              <img src={copyIcon} alt="" style={{ width: "24px" }} />
+              <img src={copyIcon} alt="Tombol Salin, ini akan menyalin nomor rekening pengguna" style={{ width: "24px" }} />
             </Button>
           </Box>
 
@@ -143,12 +141,11 @@ export const CardBalance = ({ user }) => {
             </Typography>
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
-              aria-label="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
               onClick={toggleNominalVisibility}
             >
               <img
                 src={showIcon}
-                alt=""
+                alt="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
                 style={{ width: '32px', height: '32px' }}
               />
             </Button>

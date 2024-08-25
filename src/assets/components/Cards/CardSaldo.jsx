@@ -93,6 +93,7 @@ const CardSaldo = ({ account }) => {
               <Button
                 sx={{ minWidth: 'auto', padding: 0 }}
                 onClick={handleCopy}
+                aria-label='tombol salin'
               >
                 <ContentCopyIcon />
               </Button>
@@ -121,6 +122,7 @@ const CardSaldo = ({ account }) => {
               <Button
                 sx={{ minWidth: 'auto' }}
                 onClick={toggleNominalVisibility}
+                aria-label='tampilkan saldo'
               >
                 {isNominalVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
               </Button>

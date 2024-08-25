@@ -51,10 +51,9 @@ export const TransferSearch = ({ onSearch }) => {
 			<img
 				id="scanIcon"
 				src={ScanIcon}
-				alt="QRIS"
+				aria-label="Tombol QRIS"
 				style={{ height: "40px", cursor: "pointer" }}
 				onClick={() => handlePageChange("/qr-terima-transfer")}
-				role={"button"}
 				tabIndex={0}
 			/>
 		</Box>
