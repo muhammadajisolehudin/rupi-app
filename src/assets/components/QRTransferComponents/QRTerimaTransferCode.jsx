@@ -6,18 +6,20 @@ export const QRTerimaTransferCode = ({ amount }) => {
     const { mutate, isLoading, error } = useGenerateTransactionQR();
 
     useEffect(() => {
-        if (amount !== undefined) {
-
+        if (amount !== undefined && amount > 0) {
             setQrCode(null);
 
             mutate({ amount }, {
                 onSuccess: (response) => {
                     if (response.data.success) {
                         setQrCode(response.data.data.qrCode);
+                    } else {
+                        setQrCode(null);
                     }
                 },
                 onError: (err) => {
                     console.error('Error generating QR code:', err);
+                    setQrCode(null);
                 },
             });
         }
@@ -25,9 +27,9 @@ export const QRTerimaTransferCode = ({ amount }) => {
 
     return (
         <div>
-            {!qrCode && !isLoading && !error && <p>Generating your QR Code...</p>}
+            {isLoading && !qrCode && !error && <p>Generating your QR Code...</p>}
 
-            {error && <p>Something went wrong while generating the QR code. Please try again later</p>}
+            {error && !isLoading && !qrCode && <p>Something went wrong while generating the QR code. Please try again later.</p>}
 
             {qrCode && !isLoading && (
                 <div>

@@ -19,11 +19,12 @@ import { useGenerateTransactionQR } from "../../services/qr-transfer/generate-qr
 
 export const QRTerimaTransfer = () => {
 	const navigate = useNavigate();
-	const { account } = useAuthContext();
-	const [amount, setAmount] = useState(undefined); // Awalnya undefined
-	const [inputAmount, setInputAmount] = useState(0);
+	const { account } = useAuthContext('');
+	const [amount, setAmount] = useState();
+	const [inputAmount, setInputAmount] = useState('');
 	const [expiryDate, setExpiryDate] = useState('');
-	const { mutate } = useGenerateTransactionQR();
+	const [qrCode, setQrCode] = useState(''); 
+	const { mutate, isLoading, isError } = useGenerateTransactionQR();
 
 	const formatAccountNumber = (number) => {
 		const visibleDigits = 4;
@@ -33,13 +34,27 @@ export const QRTerimaTransfer = () => {
 	};
 
 	useEffect(() => {
-		if (amount !== undefined) {
-			setExpiryDate('');
+		mutate({}, {
+			onSuccess: (data) => {
+				if (data.success) {
+					setExpiryDate(data.data.expiredAt);
+					setQrCode(data.data.qrCode);
+				}
+			},
+			onError: (err) => {
+				console.error('Error generating initial QR code:', err);
+			},
+		});
+	}, [mutate]);
 
+	useEffect(() => {
+		console.log('Amount for QR code generation:', amount);
+		if (amount) {
 			mutate({ amount }, {
-				onSuccess: (response) => {
-					if (response.data.success) {
-						setExpiryDate(response.data.data.expiredAt);
+				onSuccess: (data) => {
+					if (data.success) {
+						setExpiryDate(data.data.expiredAt);
+						setQrCode(data.data.qrCode);
 					}
 				},
 				onError: (err) => {
@@ -64,13 +79,11 @@ export const QRTerimaTransfer = () => {
 	};
 
 	const handleGenerateQRCode = () => {
-		setAmount(inputAmount);
+		setAmount(Number(inputAmount) || '');
 	};
 
 	const handleGenerateNewQRCode = () => {
-		setAmount(undefined);
-		setInputAmount(0);
-
+		setInputAmount('');
 		handleGenerateQRCode();
 	};
 
@@ -112,6 +125,9 @@ export const QRTerimaTransfer = () => {
 							</Typography>
 							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
 								<QRTerimaTransferCode amount={amount} />
+								{isLoading && <Typography variant="body2" sx={{ color: '#fff' }}>Generating your QR Code...</Typography>}
+								{isError && <Typography variant="body2" sx={{ color: '#fff' }}>Error generating QR Code.</Typography>}
+								{qrCode && <img src={qrCode} alt="QR Code" style={{ marginTop: '1rem', maxWidth: '100%' }} />}
 							</Box>
 							<Typography variant="body2" sx={{ textAlign: 'left', mb: '1rem' }}>
 								Masukkan nominal yang ingin Anda terima
@@ -122,13 +138,12 @@ export const QRTerimaTransfer = () => {
 								value={inputAmount}
 								onChange={(e) => {
 									const value = e.target.value;
-
 									if (/^\d*$/.test(value)) {
-										setInputAmount(value === '' ? '' : Number(value));
+										setInputAmount(value);
 									}
 								}}
 								onBlur={() => {
-									setInputAmount(prev => prev === '' ? 0 : Number(prev));
+									setInputAmount(prev => prev === '' ? '0' : Number(prev));
 								}}
 								sx={{ mb: '1rem', width: '100%', border: '1px solid #fff', color: '#fff' }}
 								InputProps={{

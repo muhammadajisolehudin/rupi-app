@@ -21,7 +21,7 @@ export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const queryParams = { page: 1, size: 50, category: '', mutationType: 'QRIS' };
+  const queryParams = { page: 1, size: 50, category: '', mutationType: 'QR' };
   const { data, isLoading, isError, error } = useQRTransferHistory(queryParams);
 
   const [transactionsGroupedByDate, setTransactionsGroupedByDate] = useState({});
