@@ -32,7 +32,7 @@ export const KonfirmasiPinPage = () => {
 
 			try {
 				await pinMutation.mutateAsync(values);
-				navigate("/beranda");
+				navigate("/");
 			} catch (error) {
 				console.error("PIN confirmation failed, error:", error);
 			}
