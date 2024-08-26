@@ -7,18 +7,20 @@ export const QRTerimaTransferCode = ({ amount }) => {
     const { mutate, isLoading, error, isError } = useGenerateTransactionQR();
 
     useEffect(() => {
-        if (amount !== undefined) {
-
+        if (amount !== undefined && amount > 0) {
             setQrCode(null);
 
             mutate({ amount }, {
                 onSuccess: (response) => {
                     if (response.data.success) {
                         setQrCode(response.data.data.qrCode);
+                    } else {
+                        setQrCode(null);
                     }
                 },
                 onError: (err) => {
                     console.error('Error generating QR code:', err);
+                    setQrCode(null);
                 },
             });
         }
