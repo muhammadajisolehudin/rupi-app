@@ -2,12 +2,44 @@ import { Box, Card, Typography, Button } from "@mui/material";
 import buttonEnter from "../../img/icons/button enter.svg";
 import pemasukanIcon from "../../img/icons/pemasukan.png";
 import pengeluaranIcon from "../../img/icons/pengeluaran.png";
-import { formatRupiah, getTotalTransaction } from "../../../utils/utilities";
+import { formatDate, formatRupiah, getTotalTransaction } from "../../../utils/utilities";
+import { useEffect, useState } from "react";
 
 export const CardFinanceRecap = ({income, expense}) => {
   const neutral = "#FFFFFF";
   const green = "#12D79C";
   const red = "#CB3A31";
+
+  const [dateRange, setDateRange] = useState({ startDate: null, endDate: null });
+
+  useEffect(() => {
+    const updateDateRange = () => {
+      const today = new Date();
+      const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      // const endOfMonth = today; // Tanggal hari ini
+      setDateRange({
+        startDate: startOfMonth,
+        endDate: today
+      });
+    };
+
+    updateDateRange();
+
+    // Update date range at the start of each month
+    const handleMonthChange = () => {
+      const now = new Date();
+      const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+      const timeToNextMonth = nextMonth - now;
+      setTimeout(() => {
+        updateDateRange();
+        handleMonthChange(); // Recursively call to ensure updates
+      }, timeToNextMonth);
+    };
+
+    handleMonthChange(); // Initial call to set up the interval
+
+    return () => clearTimeout(handleMonthChange); // Clean up
+  }, []);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -43,20 +75,19 @@ export const CardFinanceRecap = ({income, expense}) => {
             <Typography
               sx={{
                 color: "#000",
-                fontSize: "24px",
+                fontSize: "20px",
                 fontWeight: 400,
                 lineHeight: "24px",
               }}
             >
-              Periode 1 Jul 2024 - 21 Jul 2024
+              Periode {formatDate(dateRange.startDate)} - {formatDate(dateRange.endDate)}
             </Typography>
           </Box>
           <Box component="a" href="/info-saldo">
             <Button
               sx={{ minWidth: "auto", padding: 0 }}
-              aria-label="Tombol Info Saldo, ini akan membawa Anda ke halaman Info Saldo"
             >
-              <img src={buttonEnter} alt="" style={{ width: "28px" }} />
+              <img src={buttonEnter} alt="Tombol Info Saldo, ini akan membawa Anda ke halaman Info Saldo" style={{ width: "28px" }} />
             </Button>
           </Box>
         </Box>

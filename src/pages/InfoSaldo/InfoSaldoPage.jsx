@@ -284,6 +284,7 @@ export const InfoSaldoPage = () => {
                         fontWeight: activeSection === "Pengeluaran" ? "bold" : "normal",
                         color: activeSection === "Pengeluaran" ? "#0066AE" : "#dedede",
                         cursor: "pointer",
+                        ml:3
                       }}
                     >
                       Pengeluaran

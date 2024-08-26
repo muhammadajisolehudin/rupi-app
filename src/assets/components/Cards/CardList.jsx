@@ -4,6 +4,8 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import bcaIcon from "../../img/icons/bcaIcon.png";
 import bcaWhiteIcon from "../../img/icons/bca-white-icon.svg";
 import { styled } from '@mui/system';
+import { useNavigate } from "react-router-dom";
+import { useTransferContext } from "../../../context/TransferContext";
 
 
 const Dots = styled('div')(({ theme }) => ({
@@ -20,14 +22,26 @@ const Dots = styled('div')(({ theme }) => ({
 }));
 
 export const CardList = ({ cardData }) => {
+
+  const { setStep, handleNext } = useTransferContext();
+  const navigate = useNavigate();
+  const handleClick = (receiver) => {
+    setStep(1);
+    handleNext({
+      account_number: receiver.account_number, fullname: receiver.fullname, destination_id: receiver.id
+    });
+    navigate('/transfer-rupiah/transfer-ke-daftar-rekening');
+  };
+
   return (
     <Box sx={{ minWidth: 275, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)" }}>
-      <Card sx={{ borderRadius: "10px" }}>
+      <Card sx={{ borderRadius: 1 }}>
         <CardContent sx={{ backgroundColor: "white", pt:3 }}>
-          {cardData?.map((card) => (
+          {cardData?.map((data) => (
             <>
               <Box
-                key={card.id}
+                key={data.id}
+                onClick={() => { handleClick(data) }}
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -37,6 +51,8 @@ export const CardList = ({ cardData }) => {
                   '&:hover': {
                     backgroundColor: '#0A3967',
                     color: 'white',
+                    cursor:"pointer",
+                    borderRadius:1
                   },
                   '&:hover .dots': {
                     transform: 'scale(1)', // Tampilkan bintik-bintik saat hover
@@ -71,7 +87,7 @@ export const CardList = ({ cardData }) => {
                         
                       }}
                     >
-                      Transfer ke BCA
+                      Transfer Intra Bank
                     </Typography>
                     <Typography
                       variant="body"
@@ -83,13 +99,14 @@ export const CardList = ({ cardData }) => {
                         letterSpacing: "-0.15px",
                       }}
                     >
-                      Virtual Account
+                      { data?.fullname }
                       {/* {card.description} */}
                     </Typography>
                   </Box>
                 </Box>
                 <Button
-                  aria-label={`Tombol Detail Transaksi Transfer ke BCA, ini akan membawa Anda ke halaman detail transaksi ini`}
+                  onClick={() => handleClick(data)}
+                  aria-label={`Tombol navigasi cepat untuk transfer ke rekening di transaksi favorite, ini akan membawa Anda ke halaman transfer`}
                   role="button"
                 >
                   <ChevronRightRoundedIcon fontSize="large" />

@@ -130,7 +130,7 @@ export const QrisPage = () => {
 				<Breadcrumb />
 				<Box sx={{ display: "flex", mt: 10, gap: 5, flexDirection: "column" }}>
 					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-						<img src={QrisIcon} height={60} aria-hidden="true" />
+						<img src={QrisIcon} height={60} alt='QRIS' />
 					</Box>
 					<Box
 						sx={{
@@ -287,7 +287,7 @@ export const QrisPage = () => {
 										>
 											<img
 												src={ImgPlaceHolder}
-												alt="Placeholder"
+												alt="Masukkan QR Dari Galeri"
 												style={{ width: '30px', height: '30px' }} // Ukuran ikon
 											/>
 										</Button>
@@ -316,7 +316,7 @@ export const QrisPage = () => {
 									>
 										<img
 											src={Flashlight}
-											alt={isWebcamOpen ? 'Placeholder' : 'Flashlight'}
+											alt={isWebcamOpen ? 'Hidupkan Flashlight' : 'Hidupkan Flashlight'}
 											height={30}
 											width={30}
 										/>
@@ -346,7 +346,7 @@ export const QrisPage = () => {
 										}}
 										aria-hidden="true"
 									/>
-									<img src={currentView === "scan" ? IconScanPrimary : IconScan} alt="" aria-hidden="true" />
+									<img src={currentView === "scan" ? IconScanPrimary : IconScan} alt="Button Scan QR" />
 								</Button>
 							</Grid>
 							<Grid
@@ -371,8 +371,7 @@ export const QrisPage = () => {
 									/>
 									<img
 										src={currentView === "tampilkan" ? IconQrCodePrimary : IconQrCode}
-										alt="Qr Code"
-										aria-hidden="true"
+										alt="Button Tampilkan QR"
 									/>
 								</Button>
 							</Grid>

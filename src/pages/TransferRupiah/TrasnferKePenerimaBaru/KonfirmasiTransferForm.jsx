@@ -6,6 +6,7 @@ import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInf
 import PropTypes from "prop-types";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useTransferContext } from "../../../context/TransferContext";
+import { formatRupiah } from "../../../utils/utilities";
 
 export const KonfirmasiTransferForm = ({ onNext }) => {
 	const { account } = useAuthContext();
@@ -62,7 +63,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
 							<Typography sx={{ fontWeight: "bold" }}>{formData.fullname}</Typography>
-							<Typography variant="caption">Nama Bank - No rekenig {formData.account_number}</Typography>
+							<Typography variant="caption">Rupi Bank - No Rekenig {formData.account_number}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -97,7 +98,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 								Nominal Transfer
 							</Typography>
 							<Typography sx={{ fontWeight: "bold" }} aria-labelledby="nominal-transfer">
-								Rp.{formik.values.amount}
+								Rp.{formatRupiah(formik.values.amount) }
 							</Typography>
 						</Grid>
 						<Grid
@@ -111,7 +112,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 							<Typography id="biaya-transfer">Biaya Transfer </Typography>
 							<Typography sx={{ fontWeight: "bold" }} aria-labelledby="biaya-transfer">
 								{" "}
-								Rp.{" "}
+								Rp.{"0"}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -159,7 +160,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "none" }}
 						aria-label="Lanjutkan Transfer"
 						// disabled={mutation.isLoading}
 					>

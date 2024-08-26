@@ -85,7 +85,7 @@ export const SuccesInfo = () => {
                             color: "#0066AE",
                         }}
                     >
-                        <ShareIcon />
+                        <ShareIcon alt="Bagikan Kode" />
                         <Typography sx={{ ml: 1 }}>Bagikan Kode</Typography>
                     </Box>
                 </Card>

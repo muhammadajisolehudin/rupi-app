@@ -6,6 +6,7 @@ import ModalBuktiTransfer from "../../../assets/components/Modals/ModalBuktiTran
 import { useTransferContext } from "../../../context/TransferContext";
 import { useGetMutationDetail } from "../../../services/account/account-mutation-detail";
 import { useGetTransaksiDetail } from "../../../services/transfer-rupiah/get-detail-transaksi";
+import { hideAccountNumber } from "../../../utils/utilities";
 
 export const SuccesTransferInfo = () => {
 	const [open, setOpen] = useState(false);
@@ -70,7 +71,7 @@ export const SuccesTransferInfo = () => {
 				totalTransaction={detailTransaksi?.mutation_detail.amount}
 				senderName={detailTransaksi?.sender_detail.name}
 				senderBankName="Rupi App"
-				senderAccountSuffix={detailTransaksi?.sender_detail.account_number}
+				senderAccountSuffix={hideAccountNumber(detailTransaksi?.sender_detail.account_number) }
 				// onShare={handleShare}
 				// onDownload={handleDownload}
 			/>

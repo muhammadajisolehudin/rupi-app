@@ -15,7 +15,6 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useSignout } from "../../../services/auth/signout";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ModalNotifikasiAktivitas } from "../Modals/ModalNotifikasiAktivitas";
 import { useAuthContext } from "../../../context/AuthContext";
@@ -230,7 +229,7 @@ const NavbarSecondary = () => {
 									onClick={() => handleLogout()}
 									role="button"
 									tabIndex={0}
-									aria-label="Logout"
+									aria-label="keluar"
 								/>
 							</Box>
 						</Box>

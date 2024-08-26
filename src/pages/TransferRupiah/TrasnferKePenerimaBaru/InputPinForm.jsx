@@ -5,6 +5,7 @@ import PinInput from "../../../assets/components/Inputs/PinInput";
 import PropTypes from "prop-types";
 import { useAddTransaksiIntrabank } from "../../../services/transfer-rupiah/add-transaksi-intrabank";
 import { useTransferContext } from "../../../context/TransferContext";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
 
 export const InputPinForm = ({ onNext }) => {
 	const { formData } = useTransferContext();
@@ -28,11 +29,11 @@ export const InputPinForm = ({ onNext }) => {
     onSubmit: async (values) => {
       try {
         const response = await transaksiIntrabank.mutateAsync(values);
-		console.log("data respon id mutasi dari transaksi intra bank", response?.data)
-		console.log("data respon id mutasi dari transaksi intra bank", response?.data.mutation_detail.mutation_id)
+		// console.log("data respon id mutasi dari transaksi intra bank", response?.data)
+		// console.log("data respon id mutasi dari transaksi intra bank", response?.data.mutation_detail.mutation_id)
 		onNext(response?.data.mutation_detail);
       } catch (error) {
-        console.error("Error:", error);
+        return error
       }
     },
   });
@@ -66,7 +67,7 @@ export const InputPinForm = ({ onNext }) => {
 						py: 1.5,
 						px: 18,
 						borderRadius: 3,
-						textTransform: "capitalize",
+						textTransform: "none",
 						mt: 4,
 					}}
 					variant="contained"
@@ -75,6 +76,12 @@ export const InputPinForm = ({ onNext }) => {
 					Lanjutkan
 				</Button>
 			</Grid>
+			{transaksiIntrabank.isError && (
+				<FailAlert message={transaksiIntrabank.error?.response?.data?.message || transaksiIntrabank?.error?.message} title="Transfer Gagal" />
+			)}
+			{/* {isSuccess && (
+				<SuccesAlert message="" title="Login Berhasil" />
+			)} */}
 		</FormikProvider>
 	);
 };

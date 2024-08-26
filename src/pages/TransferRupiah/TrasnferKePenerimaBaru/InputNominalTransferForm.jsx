@@ -71,7 +71,7 @@ export const InputNominalTransferForm = ({ onNext }) => {
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
 							<Typography sx={{ fontWeight: "bold" }}>{formData.fullname}</Typography>
-							<Typography variant="caption">Nama Bank - No rekenig {formData.account_number}</Typography>
+							<Typography variant="caption">Rupi Bank - No Rekenig {formData.account_number}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -120,7 +120,7 @@ export const InputNominalTransferForm = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform:"none" }}
 						aria-label="Lanjutkan Transfer"
 						// disabled={mutation.isLoading}
 					>

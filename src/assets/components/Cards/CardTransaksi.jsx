@@ -11,9 +11,10 @@ import { useNavigate } from "react-router-dom";
 export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 	const { setStep, handleNext } = useTransferContext();
 	const navigate = useNavigate();
-	const handleCardClick = (card) => {
+	const handleCardClick = (receiver) => {
 		setStep(1);
-		handleNext({ account_number: card.account_number, fullname: card.fullname });
+		handleNext({
+			account_number: receiver.account_number, fullname: receiver.fullname, destination_id: receiver.id });
 		navigate('/transfer-rupiah/transfer-ke-daftar-rekening');
 	};
 

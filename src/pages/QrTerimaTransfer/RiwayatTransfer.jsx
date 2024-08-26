@@ -308,7 +308,7 @@ export const RiwayatTransfer = () => {
               >
                 <img
                   src={FilterIcon}
-                  alt="QR Icon"
+                  alt="Filter"
                   style={{ width: "15px", marginRight: "8px" }}
                 />
                 <Typography

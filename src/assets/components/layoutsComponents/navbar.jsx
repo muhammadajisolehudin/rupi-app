@@ -99,6 +99,7 @@ function Navbar() {
 								},
 							}}
 							role="button"
+							aria-label="Tombol beranda"
 						>
 							Beranda
 						</Typography>
@@ -108,7 +109,7 @@ function Navbar() {
 					<Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
 						<AnimatedAvatar
 							src={NotificationIcon}
-							alt="notifications"
+							alt="notifikasi aktivitas"
 							onClick={() => handleOpenNotifDropdown()}
 							role="button"
 							tabIndex={0}
@@ -123,17 +124,18 @@ function Navbar() {
 						/>
 						<img
 							src={SettingIcon}
-							alt="account settings"
+							alt="pengaturan"
 							style={{ cursor: "pointer" }}
 							onClick={() => handlePageChange("accountSettings", "/pengaturan")}
 							role="button"
 							tabIndex={0}
+							aria-label="tombol pengaturan"
 						/>
 						{/* <Button> */}
 						<img
 							itemType="button"
 							src={LogoutIcon}
-							alt="logout"
+							alt="keluar"
 							style={{ cursor: "pointer" }}
 							onClick={() => handleLogout()}
 							role="button"
