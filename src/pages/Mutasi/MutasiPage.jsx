@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import {
-  Box,
-  Button,
-  TextField,
-  MenuItem,
-  Select,
-  FormControl,
-  Grid,
-  TableRow,
-  TableCell,
-  Pagination, // Import Pagination component
-  Typography,
-  Paper, // Import Typography for the page info
+	Box,
+	Button,
+	TextField,
+	MenuItem,
+	Select,
+	FormControl,
+	Grid,
+	TableRow,
+	TableCell,
+	Pagination, // Import Pagination component
+	Typography,
+	Paper, // Import Typography for the page info
 } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
 import SearchIcon from '@mui/icons-material/Search';
@@ -45,15 +45,15 @@ export const MutasiPage = () => {
 	const [page, setPage] = useState(1);
 	const rowsPerPage = 10;
 
-  const [params, setParams] = useState({
-    page: page,
-    size: rowsPerPage,
-  });
+	const [params, setParams] = useState({
+		page: page,
+		size: rowsPerPage,
+	});
 
-  const { data: dataMutasi } = useGetMutations(params)
-  const { data: detailMutasi } = useGetMutationDetail(selectedMutationId)
-  const { data: downloadBuktiMutasi } = useDownloadBuktiMutasi(selectedMutationId)
-  const { data: downloadEstatment } = useDownloadEstatment()
+	const { data: dataMutasi } = useGetMutations(params)
+	const { data: detailMutasi } = useGetMutationDetail(selectedMutationId)
+	const { data: downloadBuktiMutasi } = useDownloadBuktiMutasi(selectedMutationId)
+	const { data: downloadEstatment } = useDownloadEstatment()
 
 	useEffect(() => {
 		const { start, end } = formatDateRange(dateRange);
@@ -98,33 +98,33 @@ export const MutasiPage = () => {
 	};
 
 
-  const handleDownload = () => {
+	const handleDownload = () => {
 
-    // setSelectedMutationId(id)
-    // Buat URL dari blob data
-    // console.log(downloadBuktiMutasi instanceof Blob);
-    const url = URL.createObjectURL(downloadBuktiMutasi);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'bukti-mutasi.pdf';
-    document.body.appendChild(a);
-    a.click();
+		// setSelectedMutationId(id)
+		// Buat URL dari blob data
+		// console.log(downloadBuktiMutasi instanceof Blob);
+		const url = URL.createObjectURL(downloadBuktiMutasi);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'bukti-mutasi.pdf';
+		document.body.appendChild(a);
+		a.click();
 
-    URL.revokeObjectURL(url);
-  };
+		URL.revokeObjectURL(url);
+	};
 
-  const handleDownloadEstatment = () =>{
-    // console.log(downloadEstatment instanceof Blob);
-    const url = URL.createObjectURL(downloadEstatment);
+	const handleDownloadEstatment = () => {
+		// console.log(downloadEstatment instanceof Blob);
+		const url = URL.createObjectURL(downloadEstatment);
 
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'print-e-statment.pdf'; 
-    document.body.appendChild(a);
-    a.click();
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = 'print-e-statment.pdf';
+		document.body.appendChild(a);
+		a.click();
 
-    URL.revokeObjectURL(url);
-  }
+		URL.revokeObjectURL(url);
+	}
 
 	const handleCategoryChange = (event) => {
 		setCategory(event.target.value);
@@ -146,7 +146,7 @@ export const MutasiPage = () => {
 				<Grid container spacing={2} marginTop={2}>
 					<Grid item xs={12} sm={4} md={5}>
 						<Box
-              sx={{ display: 'flex', alignItems: 'center', width: '100%', height: 56, borderRadius: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}
+							sx={{ display: 'flex', alignItems: 'center', width: '100%', height: 56, borderRadius: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}
 						>
 							<TextField
 								variant="standard"
@@ -221,20 +221,20 @@ export const MutasiPage = () => {
 								onChange={handleCategoryChange}
 								displayEmpty
 								inputProps={{ "aria-label": "Kategori Transaksi" }}
-                sx={{
-                  bgcolor: 'neutral.100',
-                  borderRadius: 2,
-                  boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-                  width: '100%',
-                  height: 56,
-                  '& .MuiSelect-select': {
-                    display: 'flex',
-                    alignItems: 'center',
-                  },
-                  '& .MuiOutlinedInput-notchedOutline': {
-                    border: 'none',
-                  },
-                }}
+								sx={{
+									bgcolor: 'neutral.100',
+									borderRadius: 2,
+									boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+									width: '100%',
+									height: 56,
+									'& .MuiSelect-select': {
+										display: 'flex',
+										alignItems: 'center',
+									},
+									'& .MuiOutlinedInput-notchedOutline': {
+										border: 'none',
+									},
+								}}
 							>
 								<MenuItem value="">Kategori Transaksi</MenuItem>
 								<MenuItem value="CREDIT">Pemasukan</MenuItem>
@@ -246,20 +246,20 @@ export const MutasiPage = () => {
 					{/* Download E-Statement */}
 					<Grid item xs={12} sm={4} md={2}>
 						<Button
-              onClick={() => { handleDownloadEstatment ()}}
+							onClick={() => { handleDownloadEstatment() }}
 							startIcon={<DownloadIcon />}
-              sx={{
-                bgcolor: 'neutral.100',
-                color: 'primary.main',
-                borderRadius: 2,
-                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-                padding: '0.75rem 1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%',
-                height: 56,
-              }}
+							sx={{
+								bgcolor: 'neutral.100',
+								color: 'primary.main',
+								borderRadius: 2,
+								boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
+								padding: '0.75rem 1rem',
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+								width: '100%',
+								height: 56,
+							}}
 							aria-label="Download E-statement mutasi rekening"
 						>
 							Download E-Statement
@@ -272,7 +272,7 @@ export const MutasiPage = () => {
 						{dataMutasi?.content.map((data) => (
 							<TableRow key={data?.id}>
 								<TableCell>
-                  <Grid container sx={{ display: "flex", height: "100%", alignItems: "center", minWidth: "20rem" }}>
+									<Grid container sx={{ display: "flex", height: "100%", alignItems: "center", minWidth: "20rem" }}>
 										<Grid
 											item
 											xs={1.5}
@@ -281,15 +281,15 @@ export const MutasiPage = () => {
 												justifyContent: "center",
 												alignItems: "center",
 												height: "100%",
-                        p:0,
-                        m:0
+												p: 0,
+												m: 0
 											}}
 										>
 											<img src={TransactionIcon} alt="icon transaksi" height={24} width="auto" />
 										</Grid>
 										<Grid item xs={10.5} sx={{ display: "flex", flexDirection: "column" }}>
 											<Typography variant="caption">{data.mutation_type}</Typography>
-                      <Typography variant="caption" >{data.bank_name}</Typography> 
+											<Typography variant="caption" >{data.bank_name}</Typography>
 											<Typography variant="caption">{data.full_name}</Typography>
 											<Typography variant="caption">{data.account_number}</Typography>
 										</Grid>
@@ -312,41 +312,41 @@ export const MutasiPage = () => {
 											color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
 										}}
 									>
-										{data.transaction_type === "DEBIT" ? "-" : "+"} {data?.amount}
+										{data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{data?.amount}
 									</Typography>
 								</TableCell>
 								<TableCell>
-                  <Button
-                    variant="standar"
-                    startIcon={<ReceiptIcon />}
-                    onClick={() => {
-                      handleOpenBuktiTransfer(data?.id);
-                    }}
-                    sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
-                    aria-label="Lihat bukti transaksi"
-                  >
-                    Lihat Bukti
-                  </Button>
-                  {/* </Paper> */}
-                  <Button
-                    variant="standar"
-                    startIcon={<ShareIcon />}
-                    onClick={() => { }}
-                    sx={{ mx: 1, p: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
-                    aria-label="Bagikan bukti transaksi"
-                  >
-                    Bagikan Resi
-                  </Button>
+									<Button
+										variant="standar"
+										startIcon={<ReceiptIcon />}
+										onClick={() => {
+											handleOpenBuktiTransfer(data?.id);
+										}}
+										sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+										aria-label="Lihat bukti transaksi"
+									>
+										Lihat Bukti
+									</Button>
+									{/* </Paper> */}
+									<Button
+										variant="standar"
+										startIcon={<ShareIcon />}
+										onClick={() => { }}
+										sx={{ mx: 1, p: 1, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+										aria-label="Bagikan bukti transaksi"
+									>
+										Bagikan Resi
+									</Button>
 
-                  <Button
-                    variant="standar"
-                    startIcon={<DownloadIcon />}
-                    onClick={() => {  handleDownload() }}
-                    sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
-                    aria-label="Download bukti transaksi"
-                  >
-                    Download
-                  </Button>
+									<Button
+										variant="standar"
+										startIcon={<DownloadIcon />}
+										onClick={() => { handleDownload() }}
+										sx={{ mx: 1, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+										aria-label="Download bukti transaksi"
+									>
+										Download
+									</Button>
 								</TableCell>
 							</TableRow>
 						))}
@@ -374,7 +374,7 @@ export const MutasiPage = () => {
 				</Box>
 			</Box>
 
-			{MutationType == "TRANSFER" ? (
+			{(MutationType == "TRANSFER" || MutationType == "QR")? (
 				<>
 					<ModalBuktiTransfer
 						open={!!selectedMutationId}
@@ -382,14 +382,14 @@ export const MutasiPage = () => {
 						appName="Rupi App"
 						status={
 							dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
-							"CREDIT"
+								"CREDIT"
 								? "Bukti Terima Transfer"
 								: "Transfer Berhasil"
 						}
 						recipientName={detailMutasi?.receiver_detail?.name}
 						bankName="Rupi Bank"
-            // bankName={detailMutasi.receiver_detail.bank_name}
-            accountNumber={detailMutasi?.receiver_detail.account_number}
+						// bankName={detailMutasi.receiver_detail.bank_name}
+						accountNumber={detailMutasi?.receiver_detail.account_number}
 						transferAmount={detailMutasi?.mutation_detail.amount}
 						transferMethod={detailMutasi?.transaction_purpose}
 						transferFee="0"
@@ -397,9 +397,9 @@ export const MutasiPage = () => {
 						senderName={detailMutasi?.sender_detail.name}
 						senderBankName="Rupi Bank"
 						senderAccountSuffix={
-              dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
-              "CREDIT" ?
-                detailMutasi?.sender_detail.account_number : hideAccountNumber(detailMutasi?.sender_detail.account_number)} 
+							dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
+								"CREDIT" ?
+								detailMutasi?.sender_detail.account_number : hideAccountNumber(detailMutasi?.sender_detail.account_number)}
 
 						// onShare={handleShare}
 						onDownload={handleDownload}
@@ -414,13 +414,13 @@ export const MutasiPage = () => {
 						status="Transfer Berhasil"
 						recipientName={detailMutasi?.merchant}
 						bankName="Id Transaksi"
-            accountNumber={selectedMutationId}
+						accountNumber={selectedMutationId}
 						transferAmount={detailMutasi?.amount}
 						transferFee="0"
 						totalTransaction={detailMutasi?.amount}
 						senderName={account?.full_name}
 						senderBankName="Rupi App"
-						senderAccountSuffix={account?.account_number}
+						senderAccountSuffix={hideAccountNumber(account?.account_number)}
 						// onShare={handleShare}
 						onDownload={handleDownload}
 					/>

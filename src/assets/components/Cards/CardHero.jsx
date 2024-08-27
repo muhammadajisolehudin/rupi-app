@@ -43,6 +43,7 @@ export const CardHero = ({ user }) => {
             backgroundColor: lightBlue,
             color: darkBlue,
             width: { xs:"100%", md:"auto", lg:"auto" },
+            maxWidth: { xs: "100%", md: "90%", lg: "80%" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",

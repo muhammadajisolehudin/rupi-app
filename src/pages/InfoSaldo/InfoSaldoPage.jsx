@@ -179,21 +179,21 @@ export const InfoSaldoPage = () => {
     setTransferData(buktiTransfer);
   };
 
-  // const handleCloseBuktiTransfer = () => {
-  //   if (openBuktiTransaksi) {
-  //     setOpenBuktiTransaksi(false);
-  //   } else {
-  //     setOpenBuktiTransaksiQR(false);
-  //   }
-  // };
+  const handleCloseBuktiTransfer = () => {
+    if (openBuktiTransaksi) {
+      setOpenBuktiTransaksi(false);
+    } else {
+      setOpenBuktiTransaksiQR(false);
+    }
+  };
 
-  // const handleShare = () => {
-  //   console.log("Share");
-  // };
+  const handleShare = () => {
+    console.log("Share");
+  };
 
-  // const handleDownload = () => {
-  //   console.log("Download");
-  // };
+  const handleDownload = () => {
+    console.log("Download");
+  };
 
   return (
     <LayoutSecondary>
@@ -513,7 +513,7 @@ export const InfoSaldoPage = () => {
                         color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
                       }}
                     >
-                      {data.transaction_type === "DEBIT" ? "-" : "+"} {data?.amount}
+                      {data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{data?.amount}
                     </Typography>
                   </TableCell>
                   <TableCell>

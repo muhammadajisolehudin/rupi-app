@@ -8,6 +8,7 @@ import { useTransferContext } from "../../../context/TransferContext";
 import { useGetMutationDetail } from "../../../services/account/account-mutation-detail";
 import { useAuthContext } from "../../../context/AuthContext";
 import ModalBuktiTransaksiQris from "../../../assets/components/Modals/ModalBuktiTransaksiQris";
+import { hideAccountNumber } from "../../../utils/utilities";
 
 
 export const SuccesInfoBayar = () => {
@@ -74,7 +75,7 @@ export const SuccesInfoBayar = () => {
 				totalTransaction={detailMutasi?.amount}
 				senderName={account?.full_name}
 				senderBankName="Rupi App"
-				senderAccountSuffix={account?.account_number}
+				senderAccountSuffix={hideAccountNumber(account?.account_number)}
 			// onShare={handleShare}
 			// onDownload={handleDownload}
 			/>

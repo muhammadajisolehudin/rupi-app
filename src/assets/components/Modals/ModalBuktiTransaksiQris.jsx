@@ -104,7 +104,7 @@ export const ModalBuktiTransaksiQris = ({
                         <Typography variant="subtitle2" sx={{ color: "#B3B3B3" }}>Rekening Sumber</Typography>
                         <Typography sx={{ fontWeight: "bold", fontSize: 18 }}>{senderName}</Typography>
                         <Typography variant="body2" color="text.secondary">
-                            {senderBankName} - <span>• • • •</span> {senderAccountSuffix}
+                            {senderBankName} - {senderAccountSuffix}
                         </Typography>
                     </Box>
 
