@@ -43,7 +43,7 @@ const ReuseButton = ({ imgSrc, title, targetLink, ariaLabel }) => {
       <Typography
         // variant="h7"
         component="div"
-        style={{ fontSize:"16px",color: "white" }}
+        style={{ fontSize: "16px", color: "white" }}
       >
         {title}
       </Typography>
@@ -73,12 +73,12 @@ export const Menu = () => {
             letterSpacing: "0.15px",
           }}
         >
-          {/* {" "} */}
           Mau Transaksi Apa Hari Ini?
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
+              id="menu-transfer-rupiah"
               imgSrc={imgTransactions}
               title="Transfer Rupiah"
               targetLink="/transfer-rupiah"
@@ -88,6 +88,7 @@ export const Menu = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
+              id="menu-mutasi-rekening"
               imgSrc={imgTopUp}
               title="Mutasi Rekening"
               targetLink="/mutasi"
@@ -97,6 +98,7 @@ export const Menu = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
+              id="menu-qris"
               imgSrc={imgQris}
               targetLink="/qris"
               ariaLabel="Tombol Menu QRIS, ini akan membawa Anda ke halaman QRIS"
@@ -105,6 +107,7 @@ export const Menu = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
+              id="menu-qr-terima-transfer"
               imgSrc={imgQR}
               title="QR Terima Transfer"
               targetLink="/qr-terima-transfer"
@@ -114,12 +117,13 @@ export const Menu = () => {
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <ReuseButton
+              id="menu-tarik-setor-tunai"
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
               targetLink="/tarik-setor-tunai"
-              ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Set"
+              ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Setor tunai"
               role="button"
-              // alt="tes lah masuk tidak"
+            // alt="tes lah masuk tidak"
             />
           </Grid>
         </Grid>

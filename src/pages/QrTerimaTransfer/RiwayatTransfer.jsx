@@ -150,7 +150,7 @@ export const RiwayatTransfer = () => {
                       color="primary"
                       sx={{ fontWeight: "medium" }}
                     >
-                      Rp. 1000
+                      {/* Rp. 1000 */}
                     </Typography>
                   </Box>
 

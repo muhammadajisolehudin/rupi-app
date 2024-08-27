@@ -36,6 +36,7 @@ import {
   formatGroupedData,
   groupByDate,
   parsePercentage,
+  updateStructCategory,
 } from "../../utils/utilities";
 import FailAlert from "../../assets/components/Alerts/FailAlert";
 import { LayoutSecondary } from "../layoutSecondary";
@@ -85,40 +86,46 @@ export const InfoSaldoPage = () => {
     setSelectedTransaction([]);
   };
 
-  const transferIncomeCategory = dataIncome?.categories.find(category => category.type === 'TRANSFER');
-  const qrCategory = dataIncome?.categories.find(category => category.type === 'QR');
-  const setorCategory = dataIncome?.categories.find(category => category.type === 'SETOR');
 
-  const transferExpenseCategory = dataExpense?.categories.find(category => category.type === 'TRANSFER');
-  const qrisCategory = dataExpense?.categories.find(category => category.type === 'QRIS');
-  const tarikCategory = dataExpense?.categories.find(category => category.type === 'TARIK');
+  const incomeCategory = updateStructCategory(dataIncome)
+  const expenseCategory = updateStructCategory(dataExpense)
+  console.log("expanse baru :", expenseCategory)
 
-  const chartDataPemasukan = (dataIncome?.categories || []).map((category, index) => ({
+  const transferIncomeCategory = incomeCategory?.categories.find(category => category.type === 'TRANSFER');
+  const qrCategory = incomeCategory?.categories.find(category => category.type === 'QR');
+  const setorCategory = incomeCategory?.categories.find(category => category.type === 'TOPUP');
+  
+  const transferExpenseCategory = expenseCategory?.categories.find(category => category.type === 'TRANSFER');
+  const qrisCategory = expenseCategory?.categories.find(category => category.type === 'QRIS');
+  const tarikCategory = expenseCategory?.categories?.find(category => category.type === 'WITHDRAW');
+
+  const chartDataPemasukan = (incomeCategory?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
-    color: ["#0ed79c", "#0065ae", "#feb831"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
-    icon: ["transfer", "qr", "setor"][index],
+    color: ["#0065ae", "#0ed79c", "#feb831"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
+    icon: ["qr", "transfer", "setor"][index],
   }));
 
-  const chartDataPengeluaran = (dataExpense?.categories || []).map((category, index) => ({
+  const chartDataPengeluaran = (expenseCategory?.categories || []).map((category, index) => ({
     value: parsePercentage(category.total_balance_percentage),
-    color: ["#ca3a31", "#0a3967", "#926001"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
-    icon: ["transfer", "qris", "setor"][index],
+    color: ["#0a3967", "#ca3a31", "#926001"][index] || "#cccccc", // Warna default jika index lebih dari jumlah warna
+    icon: ["qris", "transfer", "tarik"][index],
   }));
 
   const groupedDataTransferExpense = groupByDate(transferExpenseCategory?.mutations);
   const groupedDataQris = groupByDate(qrisCategory?.mutations)
-  // const groupeDataTarik = groupByDate(tarikCategory?.mutations)
+  const groupeDataTarik = groupByDate(tarikCategory?.mutations)
 
   const groupedDataTransferIncome = groupByDate(transferIncomeCategory?.mutations);
   const groupedDataTransferQr = groupByDate(qrCategory?.mutations);
-  // const groupeDataSetor = groupByDate(setorCategory?.mutations)
+  const groupeDataSetor = groupByDate(setorCategory?.mutations)
 
   const dataTransferExpense = formatGroupedData(groupedDataTransferExpense)
   const dataQris = formatGroupedData(groupedDataQris)
-  // const dataTarikTunai = formatGroupedData(groupeDataTarik)
+  const dataTarikTunai = formatGroupedData(groupeDataTarik)
   const dataTransferIncome = formatGroupedData(groupedDataTransferIncome)
   const dataQrTerimaTransfer = formatGroupedData(groupedDataTransferQr)
-  // const dataSetorTunai = formatGroupedData(groupeDataSetor)
+  const dataSetorTunai = formatGroupedData(groupeDataSetor)
+
 
   // Pagination state
   const [page, setPage] = useState(1);
@@ -172,21 +179,21 @@ export const InfoSaldoPage = () => {
     setTransferData(buktiTransfer);
   };
 
-  const handleCloseBuktiTransfer = () => {
-    if (openBuktiTransaksi) {
-      setOpenBuktiTransaksi(false);
-    } else {
-      setOpenBuktiTransaksiQR(false);
-    }
-  };
+  // const handleCloseBuktiTransfer = () => {
+  //   if (openBuktiTransaksi) {
+  //     setOpenBuktiTransaksi(false);
+  //   } else {
+  //     setOpenBuktiTransaksiQR(false);
+  //   }
+  // };
 
-  const handleShare = () => {
-    console.log("Share");
-  };
+  // const handleShare = () => {
+  //   console.log("Share");
+  // };
 
-  const handleDownload = () => {
-    console.log("Download");
-  };
+  // const handleDownload = () => {
+  //   console.log("Download");
+  // };
 
   return (
     <LayoutSecondary>
@@ -244,7 +251,6 @@ export const InfoSaldoPage = () => {
             <Box sx={{ bgcolor: "neutral.01", boxShadow: 3 }}>
               <Grid
                 container
-                // justifyContent="center"
                 spacing={1}
                 sx={{ px: 2, pt: 5, mb: 0, pb: 0 }}
               >
@@ -454,7 +460,6 @@ export const InfoSaldoPage = () => {
               width: "100%",
             }}
           >
-            {/* <ButtonPrimary text="Lihat Mutasi Rekening" /> */}
             <Button
               href="/mutasi"
               variant="contained"
@@ -573,7 +578,6 @@ export const InfoSaldoPage = () => {
             }
             recipientName={detailMutasi?.receiver_detail?.name}
             bankName={"RUPI APP"}
-            // bankName={destinationDetailTransaksi?.bank_name}
             accountNumber={detailMutasi?.receiver_detail?.account_number}
             transferAmount={detailMutasi?.mutation_detail?.amount}
             transferMethod={detailMutasi?.transaction_purpose}
@@ -582,9 +586,6 @@ export const InfoSaldoPage = () => {
             senderName={detailMutasi?.sender_detail?.name}
             senderBankName={"Rupi App"}
             senderAccountSuffix={detailMutasi?.sender_detail?.account_number}
-
-          // onShare={handleShare}
-          // onDownload={handleDownload}
           />
         </>
       ) : (
@@ -602,8 +603,6 @@ export const InfoSaldoPage = () => {
             senderName={account?.full_name}
             senderBankName="Rupi App"
             senderAccountSuffix={account?.account_number}
-          // onShare={handleShare}
-          // onDownload={handleDownload}
           />
         </>
       )}

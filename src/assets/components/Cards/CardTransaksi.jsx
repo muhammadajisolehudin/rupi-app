@@ -29,11 +29,15 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 			{data?.map((card) => (
 				<Card onClick={() => { handleCardClick(card) }} key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }} tabIndex={0}>
 					<CardContent sx={{
-						backgroundColor: "white", padding: 1, paddingBottom: "8px !important", "&:hover": {
+						backgroundColor: "white", padding: 1, paddingBottom: "8px !important", 
+						"&:hover": {
 							backgroundColor: "#0A3967",
 							color: "white",
 							cursor: 'pointer',
-						}, }}>
+							}, 
+						}}
+						aria-label={`pilih no rekening ${card.fullname} untuk ditransfer`}
+					>
 						<Box
 							sx={{
 								display: "flex",
@@ -50,6 +54,7 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 								</Box>
 							</Box>
 							<StarRoundedIcon
+								id="button-transaksi-favorite"
 								fontSize="large"
 								sx={{
 									color: card.favorites ? "#FFB831" : "#B3B3B3", // Pastikan penggunaan `card.favorite`

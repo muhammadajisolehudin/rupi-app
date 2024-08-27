@@ -9,7 +9,6 @@ export const InputPinForm = ({ onNext }) => {
 
     const formik = useFormik({
         initialValues: {
-            amount: 50000,
             pin: "",
         },
         validationSchema: Yup.object({

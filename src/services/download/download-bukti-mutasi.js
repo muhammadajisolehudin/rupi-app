@@ -37,7 +37,7 @@ const authToken = CookiesStorage.get(CookiesKey.AuthToken);
 // Hook yang menggunakan `useQuery` dengan URL hardcoded
 const useDownloadBuktiMutasi = (idTransaksi) => {
   return useQuery({
-    queryKey: ['http://0.tcp.ap.ngrok.io:19156/api/v1/mutations', idTransaksi],
+    queryKey: ["http://0.tcp.ap.ngrok.io:18464/api/v1/mutations", idTransaksi],
     queryFn: downloadBuktiMutasi,
   });
 };

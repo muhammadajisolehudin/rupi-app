@@ -42,7 +42,7 @@ export const CardHero = ({ user }) => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
-            width: { xs:"100%", md:"80%", lg:"70%" },
+            width: { xs:"100%", md:"auto", lg:"auto" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
             fontSize: "16px",

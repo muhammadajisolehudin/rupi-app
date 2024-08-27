@@ -387,7 +387,7 @@ export const MutasiPage = () => {
 								: "Transfer Berhasil"
 						}
 						recipientName={detailMutasi?.receiver_detail?.name}
-						bankName="RUPI BANK"
+						bankName="Rupi Bank"
             // bankName={detailMutasi.receiver_detail.bank_name}
             accountNumber={detailMutasi?.receiver_detail.account_number}
 						transferAmount={detailMutasi?.mutation_detail.amount}
@@ -395,7 +395,7 @@ export const MutasiPage = () => {
 						transferFee="0"
 						totalTransaction={detailMutasi?.mutation_detail.amount}
 						senderName={detailMutasi?.sender_detail.name}
-						senderBankName="Rupi App"
+						senderBankName="Rupi Bank"
 						senderAccountSuffix={
               dataMutasi?.content.find((data) => data?.id === selectedMutationId)?.transaction_type ===
               "CREDIT" ?

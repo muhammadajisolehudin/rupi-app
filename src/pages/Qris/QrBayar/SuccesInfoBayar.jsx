@@ -14,18 +14,8 @@ export const SuccesInfoBayar = () => {
 	const { formData } = useTransferContext()
 	const { data: detailMutasi } = useGetMutationDetail(formData?.mutation_id)
 	const { account } = useAuthContext()
-	// console.log("ini untuk bahan bukti", formData)
 	const [open, setOpen] = useState(false);
-	// console.log("id mutasi salah :", formData?.mutation_id)
-	// console.log("data nama merchan: ", formData?.merchant)
-	// console.log("data transaction id :", formData?.detailQris.transaction_id)
 	
-	// merchant
-	// :
-	// "REZA ISHAQ MAULANA"
-	// transaction_id
-	// :
-	// "0703A01"
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -75,7 +65,8 @@ export const SuccesInfoBayar = () => {
 				appName="Rupi App"
 				status="Transfer Berhasil"
 				recipientName={detailMutasi?.merchant}
-				bankName="Bank BCA"
+				bankName="Id Transaksi"
+				accountNumber={detailMutasi?.mutation_id}
 				// accountNumber={destinationDetailTransaksi?.account_number}
 				transferAmount={detailMutasi?.amount}
 				// transferMethod={detailMutasi?.transaction_purpose}

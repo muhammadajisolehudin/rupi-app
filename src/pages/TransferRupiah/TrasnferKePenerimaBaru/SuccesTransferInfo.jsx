@@ -60,7 +60,7 @@ export const SuccesTransferInfo = () => {
 			<ModalBuktiTransfer
 				open={open}
 				onClose={handleClose}
-				appName="Rupi App"
+				appName="Rupi Bank"
 				status="Transfer Berhasil"
 				recipientName={detailTransaksi?.receiver_detail.name}
 				bankName={destinationDetailTransaksi?.bank_name}
@@ -70,7 +70,7 @@ export const SuccesTransferInfo = () => {
 				transferFee="0"
 				totalTransaction={detailTransaksi?.mutation_detail.amount}
 				senderName={detailTransaksi?.sender_detail.name}
-				senderBankName="Rupi App"
+				senderBankName="Rupi Bank"
 				senderAccountSuffix={hideAccountNumber(detailTransaksi?.sender_detail.account_number) }
 				// onShare={handleShare}
 				// onDownload={handleDownload}

@@ -71,6 +71,92 @@ export const formatGroupedData = (groupedData) => {
   }
 };
 
+// import { useState } from "react";
+//ubah struktru data
+export const updateStructCategory = (dataIncome) => {
+  const categories = dataIncome?.categories;
+
+  if (!Array.isArray(categories)) {
+    return dataIncome;
+  }
+
+  // Temukan mutasi dengan description "Topup" dari semua kategori
+  const searchMutations = categories.flatMap((category) =>
+    category.mutations.filter(
+      (mutation) =>
+        mutation.description === "Topup" || mutation.description === "Withdraw"
+    )
+  );
+
+  const hasTopup = searchMutations.some(
+    (mutation) => mutation.description === "Topup"
+  );
+
+
+  // if (hasTopup) {
+  //   setIsTopup(true);
+  // } else {
+  //   setIsTopup(false);
+  // }
+  // Jika tidak ada mutasi dengan description "Topup", kembalikan data income tanpa perubahan
+  if (searchMutations.length === 0) {
+    return dataIncome;
+  }
+
+  // Hitung total_balance dari semua amount dalam searchMutations
+  const totalBalance = searchMutations
+    .reduce((sum, mutation) => sum + parseFloat(mutation.amount), 0)
+    .toFixed(2); // Format dua desimal
+
+  // Hitung total_balance_percentage berdasarkan totalIncome ---
+  const financialTransactions = categories
+    .flatMap((category) => category.mutations)
+    .reduce((sum, mutation) => sum + parseFloat(mutation.amount), 0);
+
+  const totalBalancePercentage = (parseFloat(totalBalance) / financialTransactions) * 100;
+
+  // Buat kategori baru dengan mutasi Topup
+  const newCategory = {
+    mutations: searchMutations,
+    type: hasTopup ? "TOPUP" : "WITHDRAW",
+    number_of_transactions: searchMutations.length,
+    total_balance: totalBalance,
+    total_balance_percentage: totalBalancePercentage,
+  };
+
+  // Tambahkan kategori baru ke array categories
+  const updatedCategories = [...categories, newCategory];
+
+  // Perbarui total_balance dan total_balance_percentage untuk kategori TRANSFER
+  const financialTransactionsWithNewCategory = updatedCategories
+    .flatMap((category) => category.mutations)
+    .reduce((sum, mutation) => sum + parseFloat(mutation.amount), 0);
+
+  const updatedCategoriesWithPercentages = updatedCategories.map((category) => {
+    if (category.type === "TRANSFER") {
+      const balance = category.mutations
+        .reduce((sum, mutation) => sum + parseFloat(mutation.amount), 0)
+        .toFixed(2);
+
+      const percentage =
+        (parseFloat(balance) / financialTransactionsWithNewCategory) * 100;
+
+      return {
+        ...category,
+        total_balance: balance,
+        total_balance_percentage: percentage,
+      };
+    }
+    return category;
+  });
+
+  // Kembalikan data income dengan kategori baru ditambahkan dan kategori TRANSFER diperbarui
+  return {
+    ...dataIncome,
+    categories: updatedCategoriesWithPercentages,
+  };
+};
+
 import dayjs from "dayjs";
 
 export const formatDateRange = (dateRange) => {
@@ -80,36 +166,33 @@ export const formatDateRange = (dateRange) => {
   const formattedStartDate = startDate
     ? dayjs(startDate).format("YYYY-MM-DD")
     : "";
-  const formattedEndDate = endDate
-    ? dayjs(endDate).format("YYYY-MM-DD")
-    : "";
+  const formattedEndDate = endDate ? dayjs(endDate).format("YYYY-MM-DD") : "";
 
-    return {
-      start: formattedStartDate,
-      end: formattedEndDate,
-    };
+  return {
+    start: formattedStartDate,
+    end: formattedEndDate,
   };
+};
 
-  //qr transfer
+//qr transfer
 
-  export const formatExpiryDate = (dateString) => {
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    };
-    const date = new Date(dateString);
-    date.setHours(date.getHours() - 7);
-    return `${date.toLocaleDateString("id-ID", options)}`;
+export const formatExpiryDate = (dateString) => {
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   };
+  const date = new Date(dateString);
+  date.setHours(date.getHours() - 7);
+  return `${date.toLocaleDateString("id-ID", options)}`;
+};
 
-
-  // mutasi 
-  export const hideAccountNumber = (number) => {
-    if (!number || number.length <= 4) return number; // Cek jika number tidak ada atau terlalu pendek
-    const visiblePart = number.slice(-4); // Menampilkan 4 digit terakhir
-    const hiddenPart = "*".repeat(number.length - 4); // Menyembunyikan digit sisanya
-    return `${hiddenPart}${visiblePart}`;
-  };
+// mutasi
+export const hideAccountNumber = (number) => {
+  if (!number || number.length <= 4) return number; // Cek jika number tidak ada atau terlalu pendek
+  const visiblePart = number.slice(-4); // Menampilkan 4 digit terakhir
+  const hiddenPart = "*".repeat(number.length - 4); // Menyembunyikan digit sisanya
+  return `${hiddenPart}${visiblePart}`;
+};

@@ -10,7 +10,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 	const nextMonth = () => {
 		setCurrentMonth((prev) => {
 			const newMonth = new Date(prev.setMonth(prev.getMonth() + 1));
-			onMonthChange(newMonth); // Notify parent component about the month change
+			onMonthChange(newMonth); 
 			return newMonth;
 		});
 	};
@@ -18,7 +18,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 	const prevMonth = () => {
 		setCurrentMonth((prev) => {
 			const newMonth = new Date(prev.setMonth(prev.getMonth() - 1));
-			onMonthChange(newMonth); // Notify parent component about the month change
+			onMonthChange(newMonth); 
 			return newMonth;
 		});
 	};
@@ -35,6 +35,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 	return (
 		<>
 			<IconButton
+				id="button-bulan-sebelumnya"
 				size="small"
 				sx={{ color: "white" }}
 				onClick={prevMonth}
@@ -58,6 +59,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 				{formatMonth(currentMonth)}
 			</Typography>
 			<IconButton
+				id="button-bulan-selanjutnya"
 				size="small"
 				sx={{ color: "white" }}
 				onClick={nextMonth}

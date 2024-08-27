@@ -108,6 +108,7 @@ function Navbar() {
 					{/* Icons */}
 					<Box sx={{ display: "flex", alignItems: "center", gap: 4 }}>
 						<AnimatedAvatar
+							id="navigasi-notifikasi"
 							src={NotificationIcon}
 							alt="notifikasi aktivitas"
 							onClick={() => handleOpenNotifDropdown()}
@@ -115,6 +116,7 @@ function Navbar() {
 							tabIndex={0}
 						/>
 						<img
+						id="navigasi-bantuan"
 							src={CustomerServiceIcon}
 							alt="Bantuan"
 							style={{ cursor: "pointer" }}
@@ -123,6 +125,7 @@ function Navbar() {
 							tabIndex={0}
 						/>
 						<img
+						id="navigasi-pengaturan"
 							src={SettingIcon}
 							alt="pengaturan"
 							style={{ cursor: "pointer" }}
@@ -133,6 +136,7 @@ function Navbar() {
 						/>
 						{/* <Button> */}
 						<img
+							id="navigiasi keluar"
 							itemType="button"
 							src={LogoutIcon}
 							alt="keluar"
