@@ -371,7 +371,7 @@ export const MutasiPage = () => {
                     }}
                   >
                     {data.transaction_type === 'DEBIT' ? '-' : '+'} Rp.
-                    {data?.amount}
+					{formatRupiah(data?.amount)}
                   </Typography>
                 </TableCell>
                 <TableCell>
