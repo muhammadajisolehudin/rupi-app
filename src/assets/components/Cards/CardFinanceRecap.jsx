@@ -85,9 +85,11 @@ export const CardFinanceRecap = ({income, expense}) => {
           </Box>
           <Box component="a" href="/info-saldo">
             <Button
+            role="button"
+              aria-label="Info Saldo, ini akan membawa Anda ke halaman Info Saldo"
               sx={{ minWidth: "auto", padding: 0 }}
             >
-              <img src={buttonEnter} alt="Tombol Info Saldo, ini akan membawa Anda ke halaman Info Saldo" style={{ width: "28px" }} />
+              <img src={buttonEnter} alt="info saldo" style={{ width: "28px" }} />
             </Button>
           </Box>
         </Box>

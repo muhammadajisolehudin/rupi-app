@@ -25,7 +25,7 @@ import TablePrimary from '../../assets/components/tableComponents/TablePrimary';
 import ModalBuktiTransfer from '../../assets/components/Modals/ModalBuktiTransfer';
 import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 import { useGetMutations } from '../../services/account/account-mutasi';
-import { formatDate, formatDateRange, hideAccountNumber } from '../../utils/utilities';
+import { formatDate, formatDateRange, formatRupiah, hideAccountNumber } from '../../utils/utilities';
 import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import { useGetMutationDetail } from '../../services/account/account-mutation-detail';
 import { useDownloadBuktiMutasi } from '../../services/download/download-bukti-mutasi';
@@ -289,7 +289,7 @@ export const MutasiPage = () => {
 										</Grid>
 										<Grid item xs={10.5} sx={{ display: "flex", flexDirection: "column" }}>
 											<Typography variant="caption">{data.mutation_type}</Typography>
-											<Typography variant="caption" >{data.bank_name}</Typography>
+											<Typography variant="caption">{data.bank_name}</Typography>
 											<Typography variant="caption">{data.full_name}</Typography>
 											<Typography variant="caption">{data.account_number}</Typography>
 										</Grid>
@@ -312,7 +312,7 @@ export const MutasiPage = () => {
 											color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
 										}}
 									>
-										{data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{data?.amount}
+										{data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{formatRupiah(data?.amount)}
 									</Typography>
 								</TableCell>
 								<TableCell>

@@ -124,11 +124,11 @@ export const QRTerimaTransfer = () => {
 							{/* <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: -15 }}>
 								<QRTerimaTransferCode amount={amount} />
 							</Box> */}
-							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
+							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem'}}>
 								{/* <QRTerimaTransferCode height={60} amount={amount} /> */}
 								{isLoading && <Typography variant="body2" sx={{ color: '#fff' }}>Generating your QR Code...</Typography>}
 								{isError && <Typography variant="body2" sx={{ color: '#fff' }}>Error generating QR Code.</Typography>}
-								{qrCode && <img src={qrCode} alt="QR Code" style={{ marginTop: '1rem', maxWidth: '100%' }} />}
+								{qrCode && <img src={qrCode} alt="QR Code" style={{ marginTop: '1rem', maxWidth: '100%', borderRadius: 5 }} />}
 							</Box>
 							<Typography variant="body2" sx={{ textAlign: 'left', mb: '1rem' }}>
 								Masukkan nominal yang ingin Anda terima

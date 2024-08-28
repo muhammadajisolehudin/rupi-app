@@ -82,7 +82,7 @@ export const Menu = () => {
               imgSrc={imgTransactions}
               title="Transfer Rupiah"
               targetLink="/transfer-rupiah"
-              ariaLabel="Tombol Menu Transfer Rupiah, ini akan membawa Anda ke halaman Transfer Rupiah"
+              ariaLabel="Menu Transfer Rupiah, ini akan membawa Anda ke halaman Transfer Rupiah"
               role="button"
             />
           </Grid>
@@ -92,7 +92,7 @@ export const Menu = () => {
               imgSrc={imgTopUp}
               title="Mutasi Rekening"
               targetLink="/mutasi"
-              ariaLabel="Tombol Menu Mutasi Rekening, ini akan membawa Anda ke halaman Mutasi Rekening"
+              ariaLabel="Menu Mutasi Rekening, ini akan membawa Anda ke halaman Mutasi Rekening"
               role="button"
             />
           </Grid>
@@ -101,7 +101,7 @@ export const Menu = () => {
               id="menu-qris"
               imgSrc={imgQris}
               targetLink="/qris"
-              ariaLabel="Tombol Menu QRIS, ini akan membawa Anda ke halaman QRIS"
+              ariaLabel="Menu QRIS, ini akan membawa Anda ke halaman QRIS"
               role="button"
             />
           </Grid>
@@ -111,7 +111,7 @@ export const Menu = () => {
               imgSrc={imgQR}
               title="QR Terima Transfer"
               targetLink="/qr-terima-transfer"
-              ariaLabel="Tombol Menu QR Terima Transfer, ini akan membawa Anda ke halaman QR Terima Transfer"
+              ariaLabel="Menu QR Terima Transfer, ini akan membawa Anda ke halaman QR Terima Transfer"
               role="button"
             />
           </Grid>
@@ -121,7 +121,7 @@ export const Menu = () => {
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
               targetLink="/tarik-setor-tunai"
-              ariaLabel="Tombol Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik & Setor tunai"
+              ariaLabel="Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik dan Setor tunai"
               role="button"
             // alt="tes lah masuk tidak"
             />

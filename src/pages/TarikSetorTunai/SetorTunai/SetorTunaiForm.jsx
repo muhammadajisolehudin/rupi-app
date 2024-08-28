@@ -56,7 +56,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+                            sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
                         // disabled={mutation.isLoading}
                         >
                             Lanjutkan

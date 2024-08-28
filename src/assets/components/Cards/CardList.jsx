@@ -34,7 +34,9 @@ export const CardList = ({ cardData }) => {
   };
 
   return (
-    <Box sx={{ minWidth: 275, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)" }}>
+    <Box sx={{ minWidth: 275, boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.1)" }}
+      aria-label="daftar transaksi favorite"
+    >
       <Card sx={{ borderRadius: 1 }}>
         <CardContent sx={{ backgroundColor: "white", pt:3 }}>
           {cardData?.map((data) => (

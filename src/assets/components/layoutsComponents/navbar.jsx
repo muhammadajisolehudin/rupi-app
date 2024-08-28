@@ -99,7 +99,7 @@ function Navbar() {
 								},
 							}}
 							role="button"
-							aria-label="Tombol beranda"
+							aria-label="Beranda"
 						>
 							Beranda
 						</Typography>
@@ -132,7 +132,7 @@ function Navbar() {
 							onClick={() => handlePageChange("accountSettings", "/pengaturan")}
 							role="button"
 							tabIndex={0}
-							aria-label="tombol pengaturan"
+							aria-label="pengaturan"
 						/>
 						{/* <Button> */}
 						<img

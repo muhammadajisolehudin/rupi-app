@@ -1,8 +1,9 @@
 import * as Yup from "yup";
-import { Button, Container, Grid, Typography } from "@mui/material";
+import { Button, CircularProgress, Container, Grid, Typography } from "@mui/material";
 import { FormikProvider, useFormik } from "formik";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
+import { Box } from "@mui/system";
 
 export const InputPinForm = ({ onNext }) => {
     const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();
@@ -22,7 +23,6 @@ export const InputPinForm = ({ onNext }) => {
             try {
                 generateToken(
                     {
-                        amount: values.amount,
                         type: "TOPUP",
                         pin: values.pin,
                     },
@@ -87,7 +87,8 @@ export const InputPinForm = ({ onNext }) => {
                             aria-label="submit pin"
                             disabled={isLoading}
                         >
-                            Lanjutkan
+                            {isLoading ? 
+                                <CircularProgress /> : "Lanjutkan"}
                         </Button>
                     </Grid>
                 </FormikProvider>

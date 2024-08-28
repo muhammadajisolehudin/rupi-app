@@ -18,9 +18,9 @@ export const TarikTunaiForm = ({ onNext }) => {
                 .test('is-multiple-of-50000', 'Nominal harus kelipatan IDR 50.000', value => {
                     return value % 50000 === 0;
                 })
-                .required("Nominal harus diisi"),
+                .required("Nominal tarik tunai harus diisi"),
             
-            namaToken: Yup.string().min(6, "Must be at least 6 characters"),
+            namaToken: Yup.string().min(6, "minimal 6 characters"),
         }),
         onSubmit: (values) => {
             onNext(values);
@@ -97,7 +97,7 @@ export const TarikTunaiForm = ({ onNext }) => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+                                sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
                                 disabled={!formik.isValid || (formik.values.amount === "" && formik.values.namaToken === "" && formik.values.amount % 50000 !== 0)}
                                 aria-label="submit request tarik tunai form"
                             >

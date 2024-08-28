@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Modal, Box, Typography, TextField, Button, IconButton, Stack } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import InputAdornment from '@mui/material/InputAdornment';
 import CloseIcon from '@mui/icons-material/Close';
 import EventIcon from '@mui/icons-material/Event';
-import SearchIcon from '../../img/icons/Search.png'
 
-const FilterModal = ({ open, handleClose }) => {
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [isButtonActive, setIsButtonActive] = useState(false);
-
-    useEffect(() => {
-        if (startDate && endDate) {
-            setIsButtonActive(true);
-        } else {
-            setIsButtonActive(false);
-        }
-    }, [startDate, endDate]);
+const FilterModal = ({ open, handleClose, startDate, endDate, setStartDate, setEndDate }) => {
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const isButtonActive = startDate && endDate;
 
     const handleResetDates = () => {
         setStartDate(null);
         setEndDate(null);
+    };
+    const formatDate = (date) => {
+        if (!date) return null;
+        // Format date as YYYY-MM-DD
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const handleStartDateChange = (date) => {
+        setStartDate(formatDate(date));
+    };
+
+    const handleEndDateChange = (date) => {
+        setEndDate(formatDate(date));
     };
 
     const modalStyle = {
@@ -55,7 +59,6 @@ const FilterModal = ({ open, handleClose }) => {
                     <CloseIcon />
                 </IconButton>
                 <Typography id="filter-modal-title" variant="h6" component="h2" sx={{ mb: 4, textAlign: 'center', fontWeight: 'bold' }}>
-
                     Filter
                 </Typography>
                 <TextField
@@ -65,16 +68,6 @@ const FilterModal = ({ open, handleClose }) => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     sx={{ mb: 4, bgcolor: 'white', borderRadius: 1 }}
- 		        //     InputProps={{ 
-                //         startAdornment: (
-                //             <InputAdornment position="start">
-                //               <img src={SearchIcon} alt="search" style={{ width: '20px' }} />
-                //               <Typography id="body-2" variant="h6" component="p" sx={{ mb: 2, textAlign: 'center' }}>
-                //     Cari apa
-                // </Typography>
-                //             </InputAdornment>
-                //           )
-                //      }}
                 />
                 <Stack direction="row" spacing={2} sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
                     <Typography sx={{ ml: 'auto', cursor: 'pointer', color: 'gray' }} onClick={handleResetDates}>
@@ -85,10 +78,10 @@ const FilterModal = ({ open, handleClose }) => {
                     <Stack direction="row" spacing={2} justifyContent="center" sx={{ mb: 2 }}>
                         <DatePicker
                             label="Mulai dari"
-                            value={startDate}
-                            onChange={setStartDate}
+                            value={startDate ? new Date(startDate) : null}
+                            onChange={handleStartDateChange}
                             renderInput={(params) => (
-                                <TextField {...params} 
+                                <TextField {...params}
                                     InputProps={{
                                         endAdornment: (
                                             <IconButton>
@@ -101,10 +94,10 @@ const FilterModal = ({ open, handleClose }) => {
                         />
                         <DatePicker
                             label="Sampai dengan"
-                            value={endDate}
-                            onChange={setEndDate}
+                            value={endDate ? new Date(endDate) : null}
+                            onChange={handleEndDateChange}
                             renderInput={(params) => (
-                                <TextField {...params} 
+                                <TextField {...params}
                                     InputProps={{
                                         endAdornment: (
                                             <IconButton>

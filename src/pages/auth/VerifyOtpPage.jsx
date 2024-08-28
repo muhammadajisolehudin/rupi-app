@@ -153,7 +153,7 @@ export const VerifyOtpPage = () => {
 							}}
 							variant="body1"
 							role="button"
-							aria-label="Button request kode otp baru"
+							aria-label="request kode otp baru"
 						>
 							Kirim Kode Baru{" "}
 						</Typography>
@@ -161,10 +161,10 @@ export const VerifyOtpPage = () => {
 							type="submit"
 							fullWidth
 							variant="contained"
-							sx={{ py: 1.5, borderRadius: "8px" }}
+							sx={{ py: 1.5, borderRadius: "8px", textTransform: "capitalize" }}
 							disabled={formik.isSubmitting || !formik.isValid}
 							role="button"
-							aria-label="Button Lanjutkan verifikasi kode OTP"
+							aria-label="Lanjutkan verifikasi kode OTP"
 						>
 							Lanjutkan
 						</Button>

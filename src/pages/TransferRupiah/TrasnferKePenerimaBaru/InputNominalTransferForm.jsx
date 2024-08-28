@@ -24,8 +24,7 @@ export const InputNominalTransferForm = ({ onNext }) => {
 			transaction_purpose: "OTHER",
 		},
 		validationSchema: Yup.object({
-			amount: Yup.string().required("Required"),
-			description: Yup.string().required("Required"),
+			amount: Yup.string().required("Nominal transfer harus diisi"),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -91,6 +90,11 @@ export const InputNominalTransferForm = ({ onNext }) => {
 						aria-required="true"
 						aria-label="Input Nominal Transfer"
 					/>
+					{formik.touched.amount && formik.errors.amount ? (
+						<Typography id="amount-error" variant="body2" sx={{ color: "red" }}>
+							{formik.errors.amount}
+						</Typography>
+					) : null}
 				</Grid>
 				<Grid
 					item

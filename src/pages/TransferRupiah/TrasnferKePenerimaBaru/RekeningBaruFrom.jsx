@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import BcaIcon from "../../../assets/img/icons/bcaIcon.png";
@@ -13,7 +13,8 @@ export const RekeningBaruForm = ({ onNext }) => {
 			account_number: "",
 		},
 		validationSchema: Yup.object({
-			account_number: Yup.string().required("Required"),
+			account_number: Yup.string().required("Nomber rekening harus diisi").
+			matches(/^[0-9]+$/, "Nomor rekening harus berupa angka"),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -43,11 +44,10 @@ export const RekeningBaruForm = ({ onNext }) => {
 					<Box role="form" onSubmit={formik.handleSubmit} width="100%" mt={2}>
 						<TextField
 							margin="normal"
-							required
 							fullWidth
 							id="account_number"
 							name="account_number"
-							type="text"
+							type="number"
 							autoComplete="off"
 							placeholder="Masukkan Nomor Rekening"
 							onChange={formik.handleChange}
@@ -60,6 +60,11 @@ export const RekeningBaruForm = ({ onNext }) => {
 							aria-label="Masukkan Nomor Rekening"
 							aria-required="true"
 						/>
+						{formik.touched.account_number && formik.errors.account_number ? (
+							<Typography id="account_number-error" variant="body2" sx={{ color: "red" }}>
+								{formik.errors.account_number}
+							</Typography>
+						) : null}
 						<Button
 							type="submit"
 							fullWidth

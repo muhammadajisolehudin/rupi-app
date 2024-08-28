@@ -158,7 +158,7 @@ export const VerifyOtpPage = ({ onNext }) => {
 							type="submit"
 							fullWidth
 							variant="contained"
-							sx={{ py: 1.5, borderRadius: "8px" }}
+							sx={{ py: 1.5, borderRadius: "8px", textTransform: "capitalize" }}
 							disabled={formik.isSubmitting || !formik.isValid}
 							role="button"
 							aria-label="Button lanjutkan verifikasi kode otp lupa password"

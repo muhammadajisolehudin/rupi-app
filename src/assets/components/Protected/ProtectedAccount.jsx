@@ -16,23 +16,13 @@ export const ProtectedAccount = ({ children }) => {
             if (isLoading) return;
 
             if (error) {
-                console.log("ini error : ", error.response.status)
+                // console.log("ini error : ", error.response.status)
                 if (error.response.status === 403) {
                     navigate("/set-password");
                 }
-                // if (error.response.status === 401) {
-                    
-                //     CookiesStorage.remove(CookiesKey.AuthToken);
-                //     CookiesStorage.remove(CookiesKey.User);
-                //     logout();
-                //     setTimeout(() => {
-                //         navigate('/login');
-                //     }, 1000); 
-                // }
 
                 setTimeout(() => {
                     if (error.response.status === 401) {
-                        // Hapus token dan informasi pengguna dari cookies
                         CookiesStorage.remove(CookiesKey.AuthToken);
                         CookiesStorage.remove(CookiesKey.User);
 
@@ -56,7 +46,7 @@ export const ProtectedAccount = ({ children }) => {
         
         handleError()
         console.log("ini akun :", account)
-    }, [isLoading, error, Account, setAccount, logout ]);
+    }, [ error, logout, Account ]);
 
 
     if (isLoading) {

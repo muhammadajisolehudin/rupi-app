@@ -3,7 +3,9 @@ import { Box, Card, CardContent, Typography, Button } from "@mui/material";
 import buttonEnter from "../../img/icons/button enter.svg";
 import arrowDownIcon from "../../img/icons/arrow down.png";
 import copyIcon from "../../img/icons/copy.png";
-import showIcon from "../../img/icons/show.png";
+// import showIcon from "../../img/icons/show.png";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import creditCardBlack from "../../img/credit card black.png";
 import { useState } from "react";
 import { formatAccountNumber, formatRupiah } from "../../../utils/utilities";
@@ -52,9 +54,11 @@ export const CardBalance = ({ user }) => {
 				</Typography>
 				<Box component="a" href="/info-saldo">
 					<Button
+					role="button"
+					aria-label="Info Saldo, ini akan membawa Anda ke halaman info saldo"
 						sx={{ minWidth: "auto", padding: 0 }}
 					>
-						<img src={buttonEnter} alt="Tombol Info Saldo, ini akan membawa Anda ke halaman Saldo" style={{ width: "28px" }} />
+						<img src={buttonEnter} alt="info saldo" style={{ width: "28px" }} />
 					</Button>
 				</Box>
 			</Box>
@@ -105,14 +109,16 @@ export const CardBalance = ({ user }) => {
 							<img
 								src={arrowDownIcon}
 								alt=""
-								style={{ width: '24px', height: '24px' }}
+								style={{ width: 'auto', height: '20px' }}
 							/>
 						</Box>
 						<Button
-							sx={{ minWidth: "auto", padding: 0 }}
+						role="Button"
+							aria-label="salin, ini akan menyalin nomor rekening pengguna"
+							sx={{ minWidth: "auto" }}
 							onClick={handleCopy}
 						>
-							<img src={copyIcon} alt="Tombol Salin, ini akan menyalin nomor rekening pengguna" style={{ width: "24px" }} />
+							<img src={copyIcon} alt="salin" style={{ width: "24px" }} />
 						</Button>
 					</Box>
 
@@ -122,7 +128,7 @@ export const CardBalance = ({ user }) => {
 							justifyContent: 'space-between',
 							alignItems: 'center',
 						}}
-						aria-label="Informasi saldo pengguna saat ini dan tombol tampilkan"
+						aria-label="Informasi saldo pengguna saat ini dan tombol tampilkan saldo"
 					>
 						<Typography
 							variant="h5"
@@ -140,14 +146,11 @@ export const CardBalance = ({ user }) => {
 							</span>
 						</Typography>
 						<Button
-							sx={{ minWidth: "auto", padding: 0 }}
+							sx={{ minWidth: 'auto', }}
 							onClick={toggleNominalVisibility}
+							aria-label='tampilkan saldo'
 						>
-							<img
-								src={showIcon}
-								alt="Tombol Tampilkan, ini akan menampilkan saldo pengguna"
-								style={{ width: '32px', height: '32px' }}
-							/>
+							{isNominalVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
 						</Button>
 					</Box>
 				</CardContent>

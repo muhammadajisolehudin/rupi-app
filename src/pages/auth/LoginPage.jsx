@@ -156,7 +156,7 @@ export const LoginPage = () => {
 								variant="body2"
 								style={{ textDecoration: "none" }}
 								role="button"
-								aria-label="Button lupa Username atau Password"
+								aria-label="lupa Username atau Password"
 							>
 								Lupa Username/Password?
 							</Link>
@@ -166,9 +166,9 @@ export const LoginPage = () => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
+						sx={{ mt: 2, py: 1.5, borderRadius: "8px", textTransform: "capitalize" }}
 						disabled={isLoading}
-						aria-label="Button Masuk RupiApp"
+						aria-label="Masuk RupiApp"
 					>
 						{isLoading ? "Logging in..." : "Masuk"}
 					</Button>

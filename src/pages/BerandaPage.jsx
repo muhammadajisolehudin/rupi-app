@@ -99,7 +99,7 @@ export const BerandaPage = () => {
                 backgroundColor: '#0A3967',
               },
             }}
-            aria-label="Tombol Lihat Semua Transaksi, ini akan membawa Anda ke halaman transaksi"
+            aria-label="Lihat Semua Transaksi, ini akan membawa Anda ke halaman daftar transaksi"
             role="button"
           >
             <Typography

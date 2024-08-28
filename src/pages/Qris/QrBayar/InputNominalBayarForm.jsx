@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useGetQrisDetail } from "../../../services/qris/get-qris-detail";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 export const InputNominalBayarForm = ({ onNext }) => {
@@ -18,22 +18,31 @@ export const InputNominalBayarForm = ({ onNext }) => {
     const qris = state.qris || {}; 
 	const navigate = useNavigate()
 
-	const { data: detailQris, error, isError } = useGetQrisDetail(qris)
+	const { data: detailQris, error, isError, isLoading } = useGetQrisDetail(qris)
+
+	// const [detail, setDetail] = useState(null);
+
+	// useEffect(() => {
+	// 	if (detailQris) {
+	// 		setDetail(detailQris);
+	// 	}
+	// }, [detailQris]);
 
     const formik = useFormik({
         initialValues: {
-			detailQris: detailQris,
+			merchant: detailQris?.merchant ,
+			transaction_id: detailQris?.transaction_id ,
             qris: qris,
             amount: "",
             description: "",
             pin: "",
         },
         validationSchema: Yup.object({
-            amount: Yup.string().required("Required"),
-            description: Yup.string().required("Required"),
+			amount: Yup.string().required("Nominal transfer harus diisi"),
         }),
-        onSubmit: async (values) => {
-            onNext(values);
+		onSubmit: async ( values ) => {
+			// console.log("merchant", detail?.merchant)
+			onNext(values);
         },
     });
 	useEffect(() => {
@@ -92,6 +101,11 @@ export const InputNominalBayarForm = ({ onNext }) => {
 						onChange={formik.handleChange}
 						aria-label="Input Nominal Transfer"
 					/>
+					{formik.touched.amount && formik.errors.amount ? (
+						<Typography id="amount-error" variant="body2" sx={{ color: "red" }}>
+							{formik.errors.amount}
+						</Typography>
+					) : null}
 				</Grid>
 				<Grid
 					item
@@ -121,8 +135,8 @@ export const InputNominalBayarForm = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
-						// disabled={mutation.isLoading}
+						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
+						disabled={isLoading}
 						aria-label="Lanjutkan transfer"
 					>
 						Lanjutkan

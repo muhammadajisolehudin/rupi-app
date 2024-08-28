@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 
 import { TransactionRiwayatCard } from './TransactionRiwayatCard';
 import { useTransactionHistory } from '../../../services/tarik-setor-tunai/riwayat-token';
@@ -28,22 +28,6 @@ export const RiwayatTransaksiToken = () => {
         }
     }, [data]);
 
-    if (isLoading) {
-        return <Typography
-            variant="h6"
-            component="h2"
-            sx={{
-                fontFamily: 'Calibri',
-                fontSize: '24px',
-                fontWeight: 700,
-                lineHeight: '24px',
-                letterSpacing: '0.15px',
-                textAlign: 'center',
-                marginTop: '3rem',
-                marginBottom: '3rem',
-            }}
-        >Please wait...</Typography>;
-    }
 
     if (isError) {
         return <Typography
@@ -64,7 +48,12 @@ export const RiwayatTransaksiToken = () => {
 
     return (
         <Box px={5}>
-            {Object.keys(transactionsGroupedByDate).map(date => (
+            {isLoading ? (
+                <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
+                    <CircularProgress />
+                </Box>
+
+            ) : Object.keys(transactionsGroupedByDate).map(date => (
                 <>
                     <Typography
                         key={date}
@@ -92,7 +81,8 @@ export const RiwayatTransaksiToken = () => {
                         <TransactionRiwayatCard key={transactionItem.code} transactionData={transactionItem} />
                     ))}
                 </>
-            ))}
+            )) }
+            {}
         </Box>
     );
 };

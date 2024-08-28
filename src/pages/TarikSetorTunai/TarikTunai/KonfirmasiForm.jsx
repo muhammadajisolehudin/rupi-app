@@ -87,7 +87,7 @@ export const KonfirmasiForm = ({ onNext }) => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+                                sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
                                 aria-label="submit confirmation form"
                             >
                                 Lanjutkan

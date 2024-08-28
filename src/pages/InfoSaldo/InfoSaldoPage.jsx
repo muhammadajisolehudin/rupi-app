@@ -34,6 +34,7 @@ import { MonthNavigator } from "../../assets/components/navigators/MonthNavigato
 import {
   formatDateRange,
   formatGroupedData,
+  formatRupiah,
   groupByDate,
   parsePercentage,
   updateStructCategory,
@@ -513,7 +514,7 @@ export const InfoSaldoPage = () => {
                         color: data.transaction_type === "DEBIT" ? "#CB3A31" : "#12D79C",
                       }}
                     >
-                      {data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{data?.amount}
+                      {data.transaction_type === "DEBIT" ? "-" : "+"} Rp.{formatRupiah(data?.amount)}
                     </Typography>
                   </TableCell>
                   <TableCell>

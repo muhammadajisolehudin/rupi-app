@@ -10,7 +10,7 @@ import { useTransferContext } from "../../../context/TransferContext";
 export const KonfirmasiBayarForm = ({ onNext }) => {
     const { account } = useAuthContext()
     const { formData } = useTransferContext()
-	console.log("ciba periksa : ", formData)
+	console.log("coba periksa : ", formData)
 
     const formik = useFormik({
         initialValues: {
@@ -60,8 +60,8 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 							></img>
 						</Grid>
 						<Grid item xs={11} sx={{ pl: 3 }}>
-							<Typography sx={{ fontWeight: "bold" }}>{formData?.detailQris?.merchant || ""}</Typography>
-							<Typography variant="caption"> Id Transaksi - {formData?.detailQris?.transaction_id || ""}</Typography>
+							<Typography sx={{ fontWeight: "bold" }}>{formData?.merchant || ""}</Typography>
+							<Typography variant="caption"> Id Transaksi - {formData?.transaction_id || ""}</Typography>
 						</Grid>
 					</Grid>
 				</Grid>
@@ -147,7 +147,7 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mb: 5, py: 1.5, borderRadius: 2 }}
+						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
 						// disabled={mutation.isLoading}
 						aria-label="Konfirmasi Lanjut Bayar Transfer"
 					>

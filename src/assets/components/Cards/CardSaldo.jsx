@@ -2,8 +2,8 @@ import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 import arrowDownIcon from "../../img/icons/arrow down.png";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import creditCardBlack from "../../img/credit card black.png";
+import copyIcon from "../../img/icons/copy.png";
 import { useState } from "react";
 import { formatAccountNumber, formatRupiah } from "../../../utils/utilities";
 
@@ -77,7 +77,7 @@ const CardSaldo = ({ account }) => {
                 <Typography
                   sx={{
                     color: blue,
-                    fontSize: { xs: '14px', md: '15px' },
+                    fontSize: { xs: '14px', md: '20px' },
                     fontWeight: 500,
                     marginBottom: 0,
                   }}
@@ -87,15 +87,15 @@ const CardSaldo = ({ account }) => {
                 <img
                   src={arrowDownIcon}
                   alt="arrow down"
-                  style={{ width: '15px', height: '15px' }}
+                  style={{ width: 'auto', height: '20px' }}
                 />
               </Box>
               <Button
-                sx={{ minWidth: 'auto', padding: 0 }}
+                sx={{ minWidth: 'auto' }}
                 onClick={handleCopy}
-                aria-label='tombol salin'
+                aria-label='salin'
               >
-                <ContentCopyIcon />
+                <img src={copyIcon} alt="salin" style={{ width: "24px" }} />
               </Button>
             </Box>
 
@@ -110,7 +110,7 @@ const CardSaldo = ({ account }) => {
               <Typography
                 sx={{
                   color: darkBlue,
-                  fontSize: { xs: '16px', md: '20px' },
+                  fontSize: { xs: '18px', md: '24px' },
                   fontWeight: 500,
                 }}
               >
@@ -120,7 +120,7 @@ const CardSaldo = ({ account }) => {
                 </span>
               </Typography>
               <Button
-                sx={{ minWidth: 'auto' }}
+                sx={{ minWidth: 'auto', }}
                 onClick={toggleNominalVisibility}
                 aria-label='tampilkan saldo'
               >

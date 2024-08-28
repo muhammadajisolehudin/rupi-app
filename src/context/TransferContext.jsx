@@ -49,6 +49,13 @@ export const TransferProvider = ({ children }) => {
         }
     }, [useMutationsSummary, setOptions])
 
+    useEffect(()=>{
+        if (useMutationsSummary) {
+            setDataIncome(useMutationsSummary.income);
+            setDataExpense(useMutationsSummary.expense);
+        }
+    }, [])
+
 
     return (
         <TransferContext.Provider value={{ step, setStep, handleNext, handleSubmit, formData, dataIncome, dataExpense, errorMutationSummary, setOptions, dataTransaksi, params, setParams, refetchDataTransaksi }}>

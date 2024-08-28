@@ -81,7 +81,7 @@ export const KonfirmasiForm = ({ onNext }) => {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
-                                sx={{ mb: 1, py: 1.5, borderRadius: 2 }}
+                                sx={{ mb: 1, py: 1.5, borderRadius: 2, textTransform: "capitalize" }}
                             >
                                 Lanjutkan
                             </Button>

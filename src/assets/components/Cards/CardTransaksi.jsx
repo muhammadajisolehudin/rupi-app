@@ -64,7 +64,7 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 								onClick={(event) => handleStarClick(event, card.id, card.favorites)}
 								role={"button"}
 								tabIndex={0}
-								aria-label={card.favorites ? "transaksi favorit" : "transaksi non favorit"}
+								aria-label={card.favorites ? "non aktifkan transaksi favorit" : "tambah ke transaksi favorit"}
 							/>
 						</Box>
 					</CardContent>

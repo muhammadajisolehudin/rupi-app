@@ -102,9 +102,9 @@ export const InputUsernamePage = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mt: 2, py: 1.5, borderRadius: "8px" }}
+						sx={{ mt: 2, py: 1.5, borderRadius: "8px", textTransform: "capitalize" }}
 						disabled={mutateForgotPassword.isLoading}
-						aria-label="Button kirim laporan forgot password"
+						aria-label="Kirim laporan forgot password"
 					>
 						{mutateForgotPassword.isLoading ? "Logging in..." : "Kirim"}
 					</Button>
@@ -115,7 +115,7 @@ export const InputUsernamePage = ({ onNext }) => {
 								variant="body2"
 								style={{ textDecoration: "none" }}
 								role="button"
-								aria-label="Button untuk kembali ke halaman login"
+								aria-label="link untuk kembali ke halaman login"
 							>
 								Kembali Ke Login?
 							</Link>

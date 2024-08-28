@@ -21,8 +21,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 			transaction_purpose: formData.transaction_purpose,
 		},
 		validationSchema: Yup.object({
-			amount: Yup.string().required("Required"),
-			description: Yup.string().required("Required"),
+			amount: Yup.string().required("Required")
 		}),
 		onSubmit: async (values) => {
 			console.log("Form Submitted", values);

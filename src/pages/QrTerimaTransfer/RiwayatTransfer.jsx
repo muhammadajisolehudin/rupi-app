@@ -24,7 +24,16 @@ export const RiwayatTransfer = () => {
   const [currentView, setCurrentView] = useState("diterima");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const queryParams = { page: 1, size: 50, mutationType: 'QR' };
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  // const [params, setParams] = useState({
+  //   page: page,
+  //   size: rowsPerPage,
+  // });
+  const [queryParams, setQueryParams] = useState({ 
+    page: 1, size: 50, mutationType: 'QR', transactionType: "CREDIT" 
+  });
+  console.log("param ", queryParams)
   const { data, isLoading, isError, error } = useQRTransferHistory(queryParams);
 
   const [transactionsGroupedByDate, setTransactionsGroupedByDate] = useState({});
@@ -38,9 +47,17 @@ export const RiwayatTransfer = () => {
 
   const { data: getWaitingQRHistory } = useGetWaitingQRHistory(params)
 
-  // useEffect(() => {
-  //   console.log("Data waiting QR history:", getWaitingQRHistory);
-  // }, [getWaitingQRHistory]);
+  useEffect(() => {
+    console.log("start date dan end date:", startDate, endDate);
+    setQueryParams((prevParams) => {
+      const newParams = {
+        ...prevParams,
+        startDate: startDate,
+        endDate: endDate,
+      };
+      return newParams;
+    });
+  }, [startDate, endDate]);
 
   useEffect(() => {
     if (transactionsData) {
@@ -60,27 +77,6 @@ export const RiwayatTransfer = () => {
     }
   }, [transactionsData]);
 
-  // if (isError) {
-  //   return (
-  //     <Typography
-  //       color="error"
-  //       variant="h6"
-  //       component="h2"
-  //       sx={{
-  //         fontFamily: 'Calibri',
-  //         fontSize: '24px',
-  //         fontWeight: 700,
-  //         lineHeight: '24px',
-  //         letterSpacing: '0.15px',
-  //         textAlign: 'center',
-  //         marginTop: '3rem',
-  //         marginBottom: '3rem',
-  //       }}
-  //     >
-  //       {error.message}
-  //     </Typography>
-  //   );
-  // }
 
   const handleNavigation = (view) => {
     setCurrentView(view);
@@ -122,44 +118,46 @@ export const RiwayatTransfer = () => {
             ) : (
               <>
                 {getWaitingQRHistory?.results.map((item) => (
-
-                  <Box key={item.id} sx={{ display: 'flex', my: 2 }}>
-                    <Box sx={{
-                      // display: 'flex',
-                      flexDirection: 'column',
-                      mr: 2,
-                      mt: 0.8
-                    }}>
-                      <img
-                        src={QRIcon}
-                        alt="QR Icon"
-                        style={{ width: "24px", marginRight: "8px" }}
-                      />
-                    </Box>
-                    <Box sx={{ flexGrow: 1 }}>
-                      <Typography variant="body1" sx={{ flexGrow: 1, mb: 0.5, fontWeight: "bold" }}>
-                        Qr Terima Transfer
-                        <br />
+                  <>
+                    <Divider />
+                    <Box key={item.id} sx={{ display: 'flex', my: 2 }}>
+                      <Box sx={{
+                        // display: 'flex',
+                        flexDirection: 'column',
+                        mr: 2,
+                        mt: 0.8
+                      }}>
+                        <img
+                          src={QRIcon}
+                          alt="QR Icon"
+                          style={{ width: "24px", marginRight: "8px" }}
+                        />
+                      </Box>
+                      <Box sx={{ flexGrow: 1 }}>
+                        <Typography variant="body1" sx={{ flexGrow: 1, mb: 0.5, fontWeight: "bold" }}>
+                          Qr Terima Transfer
+                          <br />
+                        </Typography>
+                        <Typography variant="body2" sx={{ flexGrow: 1 }}>
+                          {formatExpiryDate(item.expired_at)}
+                        </Typography>
+                      </Box>
+                      <Typography
+                        variant="body1"
+                        color="primary"
+                        sx={{ fontWeight: "medium" }}
+                      >
+                        {/* Rp. 1000 */}
                       </Typography>
-                      <Typography variant="body2" sx={{ flexGrow: 1 }}>
-                        {formatExpiryDate(item.expired_at)}
-                      </Typography>
                     </Box>
-                    <Typography
-                      variant="body1"
-                      color="primary"
-                      sx={{ fontWeight: "medium" }}
-                    >
-                      {/* Rp. 1000 */}
-                    </Typography>
-                  </Box>
 
+                  </>
                 ))}
               </>
             )}
           </Box>
         </>
-        
+
 
 
       );
@@ -279,7 +277,7 @@ export const RiwayatTransfer = () => {
           </Card>
           {/* <Divider sx={{ my: 1 }} /> */}
           <Box sx={{ px: 6 }}>
-            <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", mb:2, position: "relative" }}>
+            <Box sx={{ overflow: "auto", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", mb: 2, position: "relative" }}>
               <Typography
                 variant="body2"
                 style={{ fontWeight: "bold", fontSize: "18pt" }}
@@ -325,7 +323,14 @@ export const RiwayatTransfer = () => {
             </Box>
           </Box>
         </Card>
-        <FilterModal open={isModalOpen} handleClose={handleCloseModal} />
+        <FilterModal
+          open={isModalOpen}
+          handleClose={handleCloseModal}
+          startDate={startDate}
+          endDate={endDate}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+        />
       </Box>
     </Layout>
   );
