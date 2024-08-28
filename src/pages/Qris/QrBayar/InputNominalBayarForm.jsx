@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useGetQrisDetail } from "../../../services/qris/get-qris-detail";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 export const InputNominalBayarForm = ({ onNext }) => {

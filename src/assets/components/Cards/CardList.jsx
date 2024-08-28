@@ -1,7 +1,6 @@
 import { Box, Card, CardContent, Button, Typography, Divider } from "@mui/material";
 
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import bcaIcon from "../../img/icons/bcaIcon.png";
 import bcaWhiteIcon from "../../img/icons/bca-white-icon.svg";
 import { styled } from '@mui/system';
 import { useNavigate } from "react-router-dom";

@@ -2,7 +2,6 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useForgotPassword } from "../../../services/auth/forgot-password";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useVerifyOtp } from "../../../services/auth/verify";
 import FailAlert from "../../../assets/components/Alerts/FailAlert";

@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
 // import ModalTransferBerhasil from "../../../assets/components/Modals/ModalTransferBerhasil";
-import ModalBuktiTransfer from "../../../assets/components/Modals/ModalBuktiTransfer";
 import { useTransferContext } from "../../../context/TransferContext";
 import { useGetMutationDetail } from "../../../services/account/account-mutation-detail";
 import { useAuthContext } from "../../../context/AuthContext";

@@ -9,7 +9,6 @@ import { InputPinForm } from './InputPinForm';
 import { useTransferContext } from '../../../context/TransferContext';
 import { Breadcrumb } from '../../../assets/components/Breadcrumbs/Breadcrumb';
 import { BreadcrumbsTranferRupiah } from '../../../assets/components/Breadcrumbs/BreadcrumbsTransferRupiah';
-import { useEffect } from 'react';
 
 const TransferKePenerimaBaru = () => {
     const { step, handleNext, handleSubmit } = useTransferContext();
