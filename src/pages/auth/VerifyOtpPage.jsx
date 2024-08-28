@@ -67,11 +67,9 @@ export const VerifyOtpPage = () => {
 
 	const handleResendOtp = async () => {
 		try {
-			console.log("ini data user dari use : ", user);
 			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
-			// Tangani error jika resend OTP gagal
 		}
 	};
 
@@ -182,9 +180,9 @@ export const VerifyOtpPage = () => {
 				/>
 			)}
 			{(otp.isSuccess || resendOtp.isSuccess) && (
-				<SuccesAlert 
+				<SuccesAlert
 					message={otp.isSuccess ? " " : "kode OTP sudah dikirim ulang"}
-					title={ otp.isSuccess? "Verifikasi Berhasil" : "Resend OTP" }
+					title={otp.isSuccess ? "Verifikasi Berhasil" : "Resend OTP"}
 				/>
 			)}
 			{/* <SuccesAlert message="" title="Login Berhasil"/> */}
@@ -192,4 +190,3 @@ export const VerifyOtpPage = () => {
 	);
 };
 
-// export default VerifyOtpPage;

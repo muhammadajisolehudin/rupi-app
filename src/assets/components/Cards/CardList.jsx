@@ -14,10 +14,10 @@ const Dots = styled('div')(({ theme }) => ({
   width: '100%',
   height: '100%',
   background: 'radial-gradient(circle, rgba(255,255,255,0.5) 20%, transparent 20%)',
-  backgroundSize: '20px 20px', // Ukuran bintik-bintik
-  transform: 'scale(0)', // Awalnya tidak terlihat
-  transition: 'transform 0.5s ease', // Transisi halus untuk transformasi bintik-bintik
-  pointerEvents: 'none', // Tidak memblokir interaksi dengan elemen lain
+  backgroundSize: '20px 20px', 
+  transform: 'scale(0)', 
+  transition: 'transform 0.5s ease', 
+  pointerEvents: 'none',
 }));
 
 export const CardList = ({ cardData }) => {
@@ -47,8 +47,8 @@ export const CardList = ({ cardData }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   padding: "18px 50px",
-                  transition: 'background-color 0.5s ease', // Transisi halus untuk perubahan warna latar belakang
-                  overflow: 'hidden', // Menghindari bintik-bintik meluas ke luar elemen
+                  transition: 'background-color 0.5s ease',
+                  overflow: 'hidden', 
                   '&:hover': {
                     backgroundColor: '#0A3967',
                     color: 'white',
@@ -56,7 +56,7 @@ export const CardList = ({ cardData }) => {
                     borderRadius:1
                   },
                   '&:hover .dots': {
-                    transform: 'scale(1)', // Tampilkan bintik-bintik saat hover
+                    transform: 'scale(1)', 
                   },
                 }}
               >
@@ -79,9 +79,7 @@ export const CardList = ({ cardData }) => {
                     <Typography
                     variant="h6"
                       sx={{
-                        // fontSize: "16px"
                         fontWeight: 400,
-                        // color: "#1C1C1E",
                         lineHeight: "24px",
                         letterSpacing: "-0.15px",
                         marginBottom: "8px",
@@ -93,9 +91,7 @@ export const CardList = ({ cardData }) => {
                     <Typography
                       variant="body"
                       sx={{
-                        // fontSize: "18px",
                         fontWeight: 300,
-                        // color: "#1C1C1E",
                         lineHeight: "24px",
                         letterSpacing: "-0.15px",
                       }}

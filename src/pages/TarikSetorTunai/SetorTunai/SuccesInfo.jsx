@@ -36,7 +36,7 @@ export const SuccesInfo = () => {
                 </Typography>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <Card component={Paper} elevation={4} sx={{ width: "550px", px: 4, py: 3, borderRadius: 2 }}>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <Box>

@@ -67,7 +67,7 @@ export const BreadcrumbsQrBayar = () => {
 							display="flex"
 							alignItems="center"
 							gap={2.57}
-							// sx={{ flexGrow: 1 }}
+						// sx={{ flexGrow: 1 }}
 						>
 							<Box
 								height={30}

@@ -13,7 +13,7 @@ export const ProtectedUser = ({ children }) => {
     const checkAuth = () => {
       // Jika token tidak ada, arahkan ke halaman login
       if (!TokenUser) {
-        <FailAlert message="kamu harus melakukan login terlebih dahulu"/>
+        <FailAlert message="kamu harus melakukan login terlebih dahulu" />
         if (location.pathname !== "/login") {
           navigate("/login");
         }
@@ -30,7 +30,7 @@ export const ProtectedUser = ({ children }) => {
 
 
   if (loading) {
-    return null; 
+    return null;
   }
 
   return children;

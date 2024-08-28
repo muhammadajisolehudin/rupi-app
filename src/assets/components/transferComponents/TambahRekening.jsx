@@ -11,7 +11,6 @@ export const TambahRekening = () => {
 	};
 
 	return (
-		// <Button variant="outlined" style={{ width:"100%" }}>
 		<Button
 			type="button"
 			role="button"
@@ -22,7 +21,7 @@ export const TambahRekening = () => {
 				marginY: 5,
 				width: "100%",
 				borderRadius: 2,
-				transition: 'background-color 0.3s ease', // Animasi perubahan warna background
+				transition: 'background-color 0.3s ease',
 				'&:hover': {
 					backgroundColor: "#0A3967",
 				},
@@ -62,6 +61,5 @@ export const TambahRekening = () => {
 				</Box>
 			</Box>
 		</Button>
-		// </Button>
 	);
 };

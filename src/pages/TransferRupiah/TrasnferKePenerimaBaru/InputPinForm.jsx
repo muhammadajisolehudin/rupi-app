@@ -11,32 +11,30 @@ export const InputPinForm = ({ onNext }) => {
 	const { formData } = useTransferContext();
 	const transaksiIntrabank = useAddTransaksiIntrabank();
 
-  const formik = useFormik({
-    initialValues: {
-      destination_id: formData.destination_id,
-      amount: formData.amount,
-      description: formData.description,
-      type: formData.type,
-      pin: "",
-      transaction_purpose: formData.transaction_purpose,
-    },
-    validationSchema: Yup.object({
-      pin: Yup.string()
-        .length(6, "PIN harus terdiri dari 6 digit")
-        .matches(/^\d+$/, "PIN harus berisi angka saja")
-        .required("PIN diperlukan"),
-    }),
-    onSubmit: async (values) => {
-      try {
-        const response = await transaksiIntrabank.mutateAsync(values);
-		// console.log("data respon id mutasi dari transaksi intra bank", response?.data)
-		// console.log("data respon id mutasi dari transaksi intra bank", response?.data.mutation_detail.mutation_id)
-		onNext(response?.data.mutation_detail);
-      } catch (error) {
-        return error
-      }
-    },
-  });
+	const formik = useFormik({
+		initialValues: {
+			destination_id: formData.destination_id,
+			amount: formData.amount,
+			description: formData.description,
+			type: formData.type,
+			pin: "",
+			transaction_purpose: formData.transaction_purpose,
+		},
+		validationSchema: Yup.object({
+			pin: Yup.string()
+				.length(6, "PIN harus terdiri dari 6 digit")
+				.matches(/^\d+$/, "PIN harus berisi angka saja")
+				.required("PIN diperlukan"),
+		}),
+		onSubmit: async (values) => {
+			try {
+				const response = await transaksiIntrabank.mutateAsync(values);
+				onNext(response?.data.mutation_detail);
+			} catch (error) {
+				return error
+			}
+		},
+	});
 
 	return (
 		<FormikProvider value={formik}>

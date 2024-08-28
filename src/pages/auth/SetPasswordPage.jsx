@@ -136,7 +136,7 @@ export const SetPasswordPage = () => {
 						fullWidth
 						variant="contained"
 						sx={{ mt: 4, py: 1.5, borderRadius: "8px", textTransform: "capitalize" }}
-						// disabled={mutation.isLoading}
+						disabled={mutation.isLoading}
 						aria-label="lanjutkan buat password baru"
 					>
 						Lanjutkan

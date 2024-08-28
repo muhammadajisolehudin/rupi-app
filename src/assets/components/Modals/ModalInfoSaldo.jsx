@@ -21,7 +21,6 @@ export const ModalInfoSaldo = ({
 }) => {
 	const error = red[500];
 	const success = green[500];
-	console.log("ini data : ", transactions);
 	return (
 		<Modal open={open} onClose={onClose}>
 			<Box

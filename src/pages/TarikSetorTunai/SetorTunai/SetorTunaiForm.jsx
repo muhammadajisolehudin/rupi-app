@@ -22,7 +22,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                     px: 2,
                 }}>
                     <Grid item xs={12}>
-                        <Typography variant="h6" sx={{ mt: 5, fontSize: "18px"}}>Rekening Tujuan</Typography>
+                        <Typography variant="h6" sx={{ mt: 5, fontSize: "18px" }}>Rekening Tujuan</Typography>
                         <CardAccountInfo
                             accountNumber={account.account_number}
                             balance={account.balance}
@@ -37,7 +37,7 @@ export const SetorTunaiForm = ({ onNext }) => {
                             gap: 2,
                         }}
                     >
-                        <Typography mt={0} pt={0} variant="h6" sx={{ fontSize: "18px"}}>Metode</Typography>
+                        <Typography mt={0} pt={0} variant="h6" sx={{ fontSize: "18px" }}>Metode</Typography>
                         <Card variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }} role="region" aria-labelledby="method-info">
                             <Typography id="method-info" sx={{ backgroundColor: "white", padding: 2, borderColor: "#B3B3B3" }}>
                                 ATM BCA

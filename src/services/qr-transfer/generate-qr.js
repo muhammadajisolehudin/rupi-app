@@ -5,7 +5,6 @@ import { API_ENDPOINT } from "../../utils/api-endpoints";
 const generateTransactionQR = async (input = {}) => {
     try {
         const response = await httpSecond.post(API_ENDPOINT.QR_TRANSACTION_GENERATEQR, input);
-        console.log('Response:', response);
         return response.data;
     } catch (error) {
         const errorMessage = error.response?.data?.message || error.message;

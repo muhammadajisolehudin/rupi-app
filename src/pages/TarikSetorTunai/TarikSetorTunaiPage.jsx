@@ -55,50 +55,50 @@ export const TarikSetorTunaiPage = () => {
 
         <Card component={Paper} elevation={4} >
           {(currentView !== "tarik" || currentStep === 1) &&
-          (currentView !== "setor" || currentStep === 1) &&
-          (
-            <Card elevation={4} sx={{ display: "flex", justifyContent: "space-evenly", p: 2, borderRadius: '4px 4px 0 0' }}>
-              <button
-                style={{
-                  backgroundColor: currentView === "tarik" ? "#0066AE" : "transparent",
-                  color: currentView === "tarik" ? "#fff" : "grey",
-                  width: "350px",
-                  borderRadius: "20px",
-                  padding: "10px",
-                  border: 0,
-                }}
-                onClick={() => setCurrentView("tarik")}
-              >
-                Tarik
-              </button>
-              <button
-                style={{
-                  backgroundColor: currentView === "setor" ? "#0066AE" : "transparent",
-                  color: currentView === "setor" ? "#fff" : "grey",
-                  width: "350px",
-                  borderRadius: "20px",
-                  padding: "10px",
-                  border: 0,
-                }}
-                onClick={() => setCurrentView("setor")}
-              >
-                Setor
-              </button>
-              <button
-                style={{
-                  backgroundColor: currentView === "token" ? "#0066AE" : "transparent",
-                  color: currentView === "token" ? "#fff" : "grey",
-                  width: "350px",
-                  borderRadius: "20px",
-                  padding: "10px",
-                  border: 0,
-                }}
-                onClick={() => setCurrentView("token")}
-              >
-                Token
-              </button>
-            </Card>
-          )}
+            (currentView !== "setor" || currentStep === 1) &&
+            (
+              <Card elevation={4} sx={{ display: "flex", justifyContent: "space-evenly", p: 2, borderRadius: '4px 4px 0 0' }}>
+                <button
+                  style={{
+                    backgroundColor: currentView === "tarik" ? "#0066AE" : "transparent",
+                    color: currentView === "tarik" ? "#fff" : "grey",
+                    width: "350px",
+                    borderRadius: "20px",
+                    padding: "10px",
+                    border: 0,
+                  }}
+                  onClick={() => setCurrentView("tarik")}
+                >
+                  Tarik
+                </button>
+                <button
+                  style={{
+                    backgroundColor: currentView === "setor" ? "#0066AE" : "transparent",
+                    color: currentView === "setor" ? "#fff" : "grey",
+                    width: "350px",
+                    borderRadius: "20px",
+                    padding: "10px",
+                    border: 0,
+                  }}
+                  onClick={() => setCurrentView("setor")}
+                >
+                  Setor
+                </button>
+                <button
+                  style={{
+                    backgroundColor: currentView === "token" ? "#0066AE" : "transparent",
+                    color: currentView === "token" ? "#fff" : "grey",
+                    width: "350px",
+                    borderRadius: "20px",
+                    padding: "10px",
+                    border: 0,
+                  }}
+                  onClick={() => setCurrentView("token")}
+                >
+                  Token
+                </button>
+              </Card>
+            )}
           {renderContent()}
         </Card>
       </Box>

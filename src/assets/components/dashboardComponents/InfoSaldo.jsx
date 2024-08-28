@@ -107,98 +107,98 @@ export const InfoSaldo = () => {
 		<React.Fragment>
 			<CssBaseline>
 				{/* <Container> */}
-					<Typography variant="h4" component="div" sx={{ my: 3 }}>
-						Info Saldo
-					</Typography>
+				<Typography variant="h4" component="div" sx={{ my: 3 }}>
+					Info Saldo
+				</Typography>
 
-					<Grid container style={{ width: "100%"}}>
-						<Grid item xs={10} sm={10} md={6} lg={6} sx={{ pr: 3, borderRadius: 0,  }}>
-							<Box
-								component={Paper}
-								elevation={5}
-								square={false}
-								sx={{ display: "flex", flexDirection: "row", justifyContent: "center", p: 3 }}
-							>
-								<CardWithOverlay
-									imgSrc={imgCardNasabah}
-									altText="rekening nasabah"
-									accountNumber="5667 2323 1444 5554"
-									balance="Rp5.000.000"
-								/>
-
-								<Grid
-									md={6}
-									sx={{ p: 3 }}
-									style={{ display: "flex", alignItems: "end", flexDirection: "column" }}
-								>
-									<Typography>Total pengeluaran bulan ini</Typography>
-									<Typography variant="h5" sx={{ my: 3, fontWeight: "bold" }}>
-										Rp 80.000
-									</Typography>
-
-									<Link
-										href="#"
-										variant="button"
-										style={{
-											textDecoration: "none",
-											padding: "10px",
-											display: "flex",
-											borderRadius: "10px",
-											backgroundColor: "#0066AE",
-											justifyContent: "center",
-											alignItems: "center",
-											width: "156px",
-											color: "white",
-										}}
-									>
-										<Typography>Lihat mutasi</Typography>
-										<ChevronRightIcon />
-									</Link>
-								</Grid>
-							</Box>
-						</Grid>
-
-						<Grid
-							item
-							xs={10}
-							sm={10}
-							md={6}
-							lg={6}
-							sx={{ display: "flex", flexDirection: "row", p: 1, bgcolor: "#0066AE", borderRadius: 2 }}
+				<Grid container style={{ width: "100%" }}>
+					<Grid item xs={10} sm={10} md={6} lg={6} sx={{ pr: 3, borderRadius: 0, }}>
+						<Box
+							component={Paper}
+							elevation={5}
+							square={false}
+							sx={{ display: "flex", flexDirection: "row", justifyContent: "center", p: 3 }}
 						>
-							<Grid md={12} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-								<img src={imgCalendar} alt="buat transfer terjadwal" />
-							</Grid>
+							<CardWithOverlay
+								imgSrc={imgCardNasabah}
+								altText="rekening nasabah"
+								accountNumber="5667 2323 1444 5554"
+								balance="Rp5.000.000"
+							/>
 
-							<Grid md={12} sx={{ p: 1 }} style={{ color: "#fff" }}>
-								<Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
-									Buat Transfer Terjadwal
-								</Typography>
-
-								<Typography sx={{ mb: 1.5 }}>
-									Gunakan fitur Transfer Terjadwal untuk memastikan semua tagihan dan kewajiban Anda dibayar
-									tepat waktu. Yuk, coba sekarang!
+							<Grid
+								md={6}
+								sx={{ p: 3 }}
+								style={{ display: "flex", alignItems: "end", flexDirection: "column" }}
+							>
+								<Typography>Total pengeluaran bulan ini</Typography>
+								<Typography variant="h5" sx={{ my: 3, fontWeight: "bold" }}>
+									Rp 80.000
 								</Typography>
 
 								<Link
-									href=""
+									href="#"
 									variant="button"
 									style={{
 										textDecoration: "none",
 										padding: "10px",
 										display: "flex",
 										borderRadius: "10px",
-										backgroundColor: "#fff",
+										backgroundColor: "#0066AE",
 										justifyContent: "center",
 										alignItems: "center",
+										width: "156px",
+										color: "white",
 									}}
 								>
-									<Typography sx={{ mr: 1 }}>Transfer Terjadwal</Typography>
+									<Typography>Lihat mutasi</Typography>
 									<ChevronRightIcon />
 								</Link>
 							</Grid>
+						</Box>
+					</Grid>
+
+					<Grid
+						item
+						xs={10}
+						sm={10}
+						md={6}
+						lg={6}
+						sx={{ display: "flex", flexDirection: "row", p: 1, bgcolor: "#0066AE", borderRadius: 2 }}
+					>
+						<Grid md={12} sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+							<img src={imgCalendar} alt="buat transfer terjadwal" />
+						</Grid>
+
+						<Grid md={12} sx={{ p: 1 }} style={{ color: "#fff" }}>
+							<Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
+								Buat Transfer Terjadwal
+							</Typography>
+
+							<Typography sx={{ mb: 1.5 }}>
+								Gunakan fitur Transfer Terjadwal untuk memastikan semua tagihan dan kewajiban Anda dibayar
+								tepat waktu. Yuk, coba sekarang!
+							</Typography>
+
+							<Link
+								href=""
+								variant="button"
+								style={{
+									textDecoration: "none",
+									padding: "10px",
+									display: "flex",
+									borderRadius: "10px",
+									backgroundColor: "#fff",
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+							>
+								<Typography sx={{ mr: 1 }}>Transfer Terjadwal</Typography>
+								<ChevronRightIcon />
+							</Link>
 						</Grid>
 					</Grid>
+				</Grid>
 				{/* </Container> */}
 			</CssBaseline>
 		</React.Fragment>

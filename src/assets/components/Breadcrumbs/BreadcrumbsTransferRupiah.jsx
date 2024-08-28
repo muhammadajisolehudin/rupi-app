@@ -1,9 +1,10 @@
 import { Box, Breadcrumbs, Card, Link, Typography } from "@mui/material";
 import DoubleArrowRight from "../../img/icons/double-arrow-right.svg";
 import DoubleArrowRightBlue from "../../img/icons/double-arrow-right-blue.svg";
-import { useTransferContext
-	
- } from "../../../context/TransferContext";
+import {
+	useTransferContext
+
+} from "../../../context/TransferContext";
 
 export const BreadcrumbsTranferRupiah = () => {
 	const { step } = useTransferContext();
@@ -69,7 +70,7 @@ export const BreadcrumbsTranferRupiah = () => {
 							display="flex"
 							alignItems="center"
 							gap={2.57}
-							// sx={{ flexGrow: 1 }}
+						// sx={{ flexGrow: 1 }}
 						>
 							<Box
 								height={30}

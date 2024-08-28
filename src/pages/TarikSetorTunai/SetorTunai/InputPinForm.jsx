@@ -18,7 +18,6 @@ export const InputPinForm = ({ onNext }) => {
                 .required("PIN diperlukan"),
         }),
         onSubmit: async (values) => {
-            console.log("Form Submitted", values);
             try {
                 generateToken(
                     {
@@ -86,7 +85,7 @@ export const InputPinForm = ({ onNext }) => {
                             aria-label="submit pin"
                             disabled={isLoading}
                         >
-                            {isLoading ? 
+                            {isLoading ?
                                 <CircularProgress /> : "Lanjutkan"}
                         </Button>
                     </Grid>

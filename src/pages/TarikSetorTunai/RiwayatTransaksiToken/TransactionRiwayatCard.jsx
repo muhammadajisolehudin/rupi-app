@@ -1,8 +1,6 @@
 import { Box, Typography, Card, Grid } from '@mui/material';
 
 export const TransactionRiwayatCard = ({ transactionData }) => {
-    console.log('TransactionData:', transactionData);
-
     const { type, is_success, code, created_at } = transactionData;
 
     return (

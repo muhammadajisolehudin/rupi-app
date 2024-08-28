@@ -1,13 +1,7 @@
 import { Box, Paper, ButtonBase, Typography, Divider } from '@mui/material';
 
 const SettingsNavigator = ({ activeSection, setActiveSection, renderContent }) => {
-    // const getTabStyle = (section) => ({
-    //     // Define your tab styles here
-    //     // For example:
-    //     padding: "10px",
-    //     borderRadius: "5px",
-    //     backgroundColor: activeSection === section ? "#e0e0e0" : "transparent",
-    // });
+
     const getTabStyle = (section) => ({
         position: "relative",
         "&::after": {

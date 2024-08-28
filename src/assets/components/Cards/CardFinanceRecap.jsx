@@ -5,7 +5,7 @@ import pengeluaranIcon from "../../img/icons/pengeluaran.png";
 import { formatDate, formatRupiah, getTotalTransaction } from "../../../utils/utilities";
 import { useEffect, useState } from "react";
 
-export const CardFinanceRecap = ({income, expense}) => {
+export const CardFinanceRecap = ({ income, expense }) => {
   const neutral = "#FFFFFF";
   const green = "#12D79C";
   const red = "#CB3A31";
@@ -85,7 +85,7 @@ export const CardFinanceRecap = ({income, expense}) => {
           </Box>
           <Box component="a" href="/info-saldo">
             <Button
-            role="button"
+              role="button"
               aria-label="Info Saldo, ini akan membawa Anda ke halaman Info Saldo"
               sx={{ minWidth: "auto", padding: 0 }}
             >
@@ -128,7 +128,7 @@ export const CardFinanceRecap = ({income, expense}) => {
                 letterSpacing: "0.15px",
               }}
             >
-              Rp {formatRupiah(income?.total_income) } 
+              Rp {formatRupiah(income?.total_income)}
             </Typography>
             <Typography
               sx={{
@@ -177,7 +177,7 @@ export const CardFinanceRecap = ({income, expense}) => {
                 letterSpacing: "0.15px",
               }}
             >
-              Rp {formatRupiah(expense?.total_expense) }
+              Rp {formatRupiah(expense?.total_expense)}
             </Typography>
             <Typography
               variant="h6"

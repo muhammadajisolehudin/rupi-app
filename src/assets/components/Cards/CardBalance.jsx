@@ -54,8 +54,8 @@ export const CardBalance = ({ user }) => {
 				</Typography>
 				<Box component="a" href="/info-saldo">
 					<Button
-					role="button"
-					aria-label="Info Saldo, ini akan membawa Anda ke halaman info saldo"
+						role="button"
+						aria-label="Info Saldo, ini akan membawa Anda ke halaman info saldo"
 						sx={{ minWidth: "auto", padding: 0 }}
 					>
 						<img src={buttonEnter} alt="info saldo" style={{ width: "28px" }} />
@@ -113,7 +113,7 @@ export const CardBalance = ({ user }) => {
 							/>
 						</Box>
 						<Button
-						role="Button"
+							role="Button"
 							aria-label="salin, ini akan menyalin nomor rekening pengguna"
 							sx={{ minWidth: "auto" }}
 							onClick={handleCopy}

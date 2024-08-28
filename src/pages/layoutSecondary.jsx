@@ -11,13 +11,13 @@ export const LayoutSecondary = ({ children }) => {
                 <Box style={{ width: '100%', height: 'auto' }}>
                     <NavbarSecondary />
                     {/* <Box > */}
-                        {children}
-                        
+                    {children}
+
                     {/* </Box> */}
                 </Box>
                 <Footer />
             </CssBaseline>
-            
+
         </React.Fragment>
     );
 };

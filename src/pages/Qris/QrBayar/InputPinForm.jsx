@@ -26,15 +26,11 @@ export const InputPinForm = ({ onNext }) => {
         onSubmit: async (values) => {
             try {
                 const result = await addTransferQris.mutateAsync(values)
-                console.log("data:", result)
-                console.log("respon dari qris :", result.data.data)
-                // console.log("respon dari values:", values)
                 onNext(result.data.data);
             } catch (error) {
                 return error
             }
-           
-            // Call mutation function here if using useMutation
+
         },
     });
 
@@ -60,21 +56,21 @@ export const InputPinForm = ({ onNext }) => {
                         {formik.errors.pin}
                     </Typography>
                 )}
-				<Button
-					onClick={formik.handleSubmit}
-					fullWidth
-					sx={{
-						py: 1.5,
-						px: 18,
-						borderRadius: 3,
-						textTransform: "capitalize",
-						mt: 4,
-					}}
-					variant="contained"
-					aria-label="Lanjutkan Transfer"
-				>
-					Lanjutkan
-				</Button>
+                <Button
+                    onClick={formik.handleSubmit}
+                    fullWidth
+                    sx={{
+                        py: 1.5,
+                        px: 18,
+                        borderRadius: 3,
+                        textTransform: "capitalize",
+                        mt: 4,
+                    }}
+                    variant="contained"
+                    aria-label="Lanjutkan Transfer"
+                >
+                    Lanjutkan
+                </Button>
             </Grid>
             {addTransferQris.isError && (
                 <FailAlert message={addTransferQris?.error.response.data.message || addTransferQris?.message} title="Transaksi Belum Berhasil" />
@@ -84,5 +80,5 @@ export const InputPinForm = ({ onNext }) => {
 };
 
 InputPinForm.propTypes = {
-	onNext: PropTypes.any,
+    onNext: PropTypes.any,
 };

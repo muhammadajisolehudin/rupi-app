@@ -14,7 +14,7 @@ export const RekeningBaruForm = ({ onNext }) => {
 		},
 		validationSchema: Yup.object({
 			account_number: Yup.string().required("Nomber rekening harus diisi").
-			matches(/^[0-9]+$/, "Nomor rekening harus berupa angka"),
+				matches(/^[0-9]+$/, "Nomor rekening harus berupa angka"),
 		}),
 		onSubmit: async (values) => {
 			try {
@@ -37,10 +37,10 @@ export const RekeningBaruForm = ({ onNext }) => {
 				}}
 			>
 				<Grid item xs={12} p={0} m={0}>
-					<Box sx={{ display: "flex", justifyContent:"center", alignItems:"center", mt:2 }}>
+					<Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mt: 2 }}>
 						<img src={BcaIcon} alt="Logo BCA" aria-hidden="true" />
 					</Box>
-					
+
 					<Box role="form" onSubmit={formik.handleSubmit} width="100%" mt={2}>
 						<TextField
 							margin="normal"
@@ -71,7 +71,7 @@ export const RekeningBaruForm = ({ onNext }) => {
 							variant="contained"
 							sx={{ mt: 4, mb: 5, py: 1.5, borderRadius: 2, textTransform: "none" }}
 							aria-label="Lanjutkan Menyimpan Nomor Rekening"
-							// disabled={mutation.isLoading}
+						// disabled={mutation.isLoading}
 						>
 							Lanjutkan
 						</Button>

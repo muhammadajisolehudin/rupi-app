@@ -91,9 +91,6 @@ export const PengaturanPage = () => {
 			const response = await fetch(imageUrl);
 			const blob = await response.blob();
 			const file = new File([blob], "avatar.png", { type: blob.type });
-
-			console.log("Selected file:", file);
-
 			// Update Formik value
 			formik.setFieldValue("avatar", file);
 			formik.setFieldTouched("avatar", true); // Mark as touched if needed

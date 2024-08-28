@@ -31,7 +31,6 @@ export const UbahNoHandphoneContent = () => {
 				await mutateChangePhone.mutateAsync(values);
 				setModalOpen(true);
 			} catch (error) {
-				console.log("ada yang salah ");
 				return error;
 			}
 		},

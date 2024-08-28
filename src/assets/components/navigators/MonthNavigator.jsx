@@ -10,7 +10,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 	const nextMonth = () => {
 		setCurrentMonth((prev) => {
 			const newMonth = new Date(prev.setMonth(prev.getMonth() + 1));
-			onMonthChange(newMonth); 
+			onMonthChange(newMonth);
 			return newMonth;
 		});
 	};
@@ -18,7 +18,7 @@ export const MonthNavigator = ({ onMonthChange }) => {
 	const prevMonth = () => {
 		setCurrentMonth((prev) => {
 			const newMonth = new Date(prev.setMonth(prev.getMonth() - 1));
-			onMonthChange(newMonth); 
+			onMonthChange(newMonth);
 			return newMonth;
 		});
 	};

@@ -23,7 +23,7 @@ export const QRTerimaTransfer = () => {
 	const [amount, setAmount] = useState();
 	const [inputAmount, setInputAmount] = useState('');
 	const [expiryDate, setExpiryDate] = useState('');
-	const [qrCode, setQrCode] = useState(''); 
+	const [qrCode, setQrCode] = useState('');
 	const { mutate, isLoading, isError } = useGenerateTransactionQR();
 
 	const formatAccountNumber = (number) => {
@@ -48,7 +48,6 @@ export const QRTerimaTransfer = () => {
 	}, [mutate]);
 
 	useEffect(() => {
-		console.log('Amount for QR code generation:', amount);
 		if (amount) {
 			mutate({ amount }, {
 				onSuccess: (data) => {
@@ -67,7 +66,7 @@ export const QRTerimaTransfer = () => {
 	const fullName = account.full_name;
 	const accountNumber = account.account_number;
 
-	
+
 
 	const goToRiwayat = () => {
 		navigate('/QR-terima-transfer/riwayat');
@@ -88,7 +87,7 @@ export const QRTerimaTransfer = () => {
 
 	return (
 		<Layout>
-			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem", height:"160vh" }}>
+			<Box sx={{ mx: 6, paddingTop: "1.5rem", paddingBottom: "2rem", height: "160vh" }}>
 				<Breadcrumb />
 				<Box sx={{ px: 6, mt: 6, mb: 4 }}>
 					<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -107,10 +106,10 @@ export const QRTerimaTransfer = () => {
 							QR Terima Transfer
 						</Typography>
 					</Box>
-					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)', mt:15 }}>
+					<Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 2rem)', mt: 15 }}>
 						<Card sx={{ backgroundColor: '#0066AE', color: '#fff', width: '100%', maxWidth: '450px', p: '2rem', borderRadius: '12px' }}>
 							<Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: '1rem' }}>
-								
+
 								<img src={QRISIcon} alt="QRIS Icon" style={{ width: '59px', height: '23px' }} />
 								<img src={LogoIcon} alt="Logo Icon" style={{ width: '30px', height: 'auto' }} />
 							</Box>
@@ -123,7 +122,7 @@ export const QRTerimaTransfer = () => {
 							{/* <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", mb: -15 }}>
 								<QRTerimaTransferCode amount={amount} />
 							</Box> */}
-							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem'}}>
+							<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: '2rem' }}>
 								{/* <QRTerimaTransferCode height={60} amount={amount} /> */}
 								{isLoading && <Typography variant="body2" sx={{ color: '#fff' }}>Generating your QR Code...</Typography>}
 								{isError && <Typography variant="body2" sx={{ color: '#fff' }}>Error generating QR Code.</Typography>}
@@ -156,7 +155,8 @@ export const QRTerimaTransfer = () => {
 									},
 									'& .MuiOutlinedInput-notchedOutline': {
 										borderColor: 'none', // Mengatur warna border pada mode outlined
-									}, }}
+									},
+								}}
 								InputProps={{
 									style: { color: '#fff' }
 								}}

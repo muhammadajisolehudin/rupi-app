@@ -19,16 +19,13 @@ export const TransferRupiahPage = () => {
 		others: [],
 	});
 
-	const { dataTransaksi, refetchDataTransaksi, setStep, setParams } = useTransferContext() 
-	
+	const { dataTransaksi, refetchDataTransaksi, setStep, setParams } = useTransferContext()
+
 	const { mutate: updateFavorite } = useAddFavorite();
 
 	const handleToggleFavorite = (id, currentFavoriteStatus) => {
 		const newFavoriteStatus = !currentFavoriteStatus;
-		// console.log("ini dta sudah benar apa belum : ", newFavoriteStatus )
 		updateFavorite({ id, input: { is_favorites: newFavoriteStatus } });
-
-		// Opsional: Memperbarui status lokal setelah update berhasil
 		setDestinationData((prevData) => {
 			const updatedFavorites = prevData.favorites.filter((item) => item.id !== id);
 			const updatedOthers = prevData.others.filter((item) => item.id !== id);
@@ -52,7 +49,7 @@ export const TransferRupiahPage = () => {
 	useEffect(() => {
 		setStep(1)
 	}, [])
-	
+
 	useEffect(() => {
 		setParams(prevParams => {
 			const newParams = {
@@ -69,18 +66,14 @@ export const TransferRupiahPage = () => {
 			// Pisahkan data menjadi favorit dan bukan favorit
 			const favorites = dataTransaksi?.content?.filter((item) => item.favorites);
 			const others = dataTransaksi?.content.filter((item) => !item.favorites);
-
-			// console.log("data favorite:", favorites)
-			// console.log("data other:", others)
 			setDestinationData({ favorites, others });
 		}
 	}, [dataTransaksi, searchData]);
 
 	useEffect(() => {
-		console.log("ok deh di refetch ")
 		refetchDataTransaksi()
 	}, [destinationData]);
-	
+
 
 	return (
 		<Layout>

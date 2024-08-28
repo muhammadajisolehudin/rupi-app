@@ -30,7 +30,7 @@ export const QRTerimaTransferCode = ({ amount }) => {
         <Box >
             {!qrCode && !isLoading && !error && <p>Generating your QR Code...</p>}
 
-            {isError && <p>{ error?.message }</p>}
+            {isError && <p>{error?.message}</p>}
 
             {qrCode && !isLoading && (
                 <div>

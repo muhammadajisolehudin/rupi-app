@@ -11,7 +11,6 @@ const HighlightedPaper = styled(Paper)(({ theme, isHighlighted }) => ({
 	alignItems: "center",
 	borderBottom: `1px solid ${theme.palette.divider}`,
 	width: "100%",
-	// maxWidth: "100%",
 }));
 
 export const NotifAktivitasItem = ({ icon, title, description, date, time, isHighlighted }) => {
@@ -30,7 +29,7 @@ export const NotifAktivitasItem = ({ icon, title, description, date, time, isHig
 					alignItems: "center",
 					justifyContent: "space-between",
 					width: "auto",
-					overflow:"scrool"
+					overflow: "scrool"
 				}}
 			>
 				<Box sx={{ display: "flex", gap: 2.5, alignItems: "center", minWidth: "240px" }}>
@@ -68,7 +67,7 @@ export const NotifAktivitasItem = ({ icon, title, description, date, time, isHig
 						<Typography variant="body2">{time}</Typography>
 					</Box>
 				</Box>
-				
+
 			</Box>
 		</HighlightedPaper>
 	);

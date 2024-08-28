@@ -32,7 +32,6 @@ export const InputPasswordForm = ({ onNext }) => {
 		onSubmit: async (values) => {
 			try {
 				const result = await mutateVerifyPassword.mutateAsync(values);
-				console.log("tes lah :", result.data.data);
 				onNext(result.data.data);
 			} catch (error) {
 				return error;

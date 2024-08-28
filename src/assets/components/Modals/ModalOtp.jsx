@@ -17,7 +17,6 @@ export const ModalOtp = ({ open, onClose, type, onSuccess }) => {
 	const mutateVerifiedEmail = useVerifyUserEmail();
 	const resendPhoneOtp = useResendPhoneVerificationOtp();
 	const resendEmailOtp = useResendEmailVerificationOtp();
-	// const [errorMessage, setErrorMessage] = useState(null)
 
 	const formik = useFormik({
 		initialValues: {
@@ -43,7 +42,6 @@ export const ModalOtp = ({ open, onClose, type, onSuccess }) => {
 				if (type === "phone") {
 					await mutateVerifiedPhone.mutateAsync(payload);
 				} else {
-					console.log("ok masuk ");
 					await mutateVerifiedEmail.mutateAsync(payload);
 				}
 				formik.resetForm();
@@ -156,9 +154,9 @@ export const ModalOtp = ({ open, onClose, type, onSuccess }) => {
 								<Typography sx={{ color: "red" }}>
 									{mutateVerifiedPhone?.error
 										? mutateVerifiedPhone.error?.response?.data?.message ||
-										  mutateVerifiedPhone?.error?.message
+										mutateVerifiedPhone?.error?.message
 										: mutateVerifiedEmail?.error?.response?.data?.message ||
-										  mutateVerifiedEmail?.error?.message}
+										mutateVerifiedEmail?.error?.message}
 								</Typography>
 							)}
 							{(resendPhoneOtp?.isSuccess || resendEmailOtp?.isSuccess) && (

@@ -8,25 +8,25 @@ import { useState } from "react";
 import { formatAccountNumber, formatRupiah } from "../../../utils/utilities";
 
 const CardSaldo = ({ account }) => {
-	const darkBlue = "#0A3967";
-	const blue = "#0066AE";
-	const [isNominalVisible, setIsNominalVisible] = useState(true);
+  const darkBlue = "#0A3967";
+  const blue = "#0066AE";
+  const [isNominalVisible, setIsNominalVisible] = useState(true);
 
-	// Function to copy account number to clipboard
-	const handleCopy = () => {
-		navigator.clipboard
-			.writeText(account?.account_number)
-			.then(() => {
-				alert("Rekening number copied to clipboard!");
-			})
-			.catch((err) => {
-				console.error("Failed to copy:", err);
-			});
-	};
+  // Function to copy account number to clipboard
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(account?.account_number)
+      .then(() => {
+        alert("Rekening number copied to clipboard!");
+      })
+      .catch((err) => {
+        console.error("Failed to copy:", err);
+      });
+  };
 
-	const toggleNominalVisibility = () => {
-		setIsNominalVisible(!isNominalVisible);
-	};
+  const toggleNominalVisibility = () => {
+    setIsNominalVisible(!isNominalVisible);
+  };
 
   return (
     <Card
@@ -36,10 +36,10 @@ const CardSaldo = ({ account }) => {
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 1.5,
-        bgcolor:"transparent",
+        bgcolor: "transparent",
         position: 'relative',
       }}
-      
+
     >
       <Box
         sx={{
@@ -51,7 +51,7 @@ const CardSaldo = ({ account }) => {
           position: 'relative',
           bgcolor: "white",
           borderRadius: 1,
-          width:"90%",
+          width: "90%",
           height: "100%",
           p: { xs: 0, md: 3 },
           boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.1)',
@@ -82,7 +82,7 @@ const CardSaldo = ({ account }) => {
                     marginBottom: 0,
                   }}
                 >
-                  Rekening {formatAccountNumber(account?.account_number)  }
+                  Rekening {formatAccountNumber(account?.account_number)}
                 </Typography>
                 <img
                   src={arrowDownIcon}
@@ -139,16 +139,14 @@ const CardSaldo = ({ account }) => {
           height: '100%',
           backgroundImage: `url(${creditCardBlack})`,
           borderRadius: 1.5,
-          backgroundSize: 'cover', // Untuk memastikan gambar menutupi seluruh area
-          backgroundPosition: 'center', // Untuk memposisikan gambar di tengah
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
           backgroundRepeat: 'no-repeat',
-          ml:"-1rem" // Untuk menghindari pengulangan gambar
+          ml: "-1rem"
         }}
       >
-        {/* <img src={creditCardBlack} alt="" /> */}
-        {/* Konten box di sini jika ada */}
       </Box>
-      
+
     </Card>
   );
 };

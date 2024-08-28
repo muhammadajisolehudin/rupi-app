@@ -11,7 +11,6 @@ import { useTransferContext } from "../../../context/TransferContext";
 export const InputNominalTransferForm = ({ onNext }) => {
 	const { account } = useAuthContext();
 	const { formData } = useTransferContext();
-	console.log("data dari klick ", formData)
 	const formik = useFormik({
 		initialValues: {
 			destination_id: formData.destination_id,
@@ -28,10 +27,9 @@ export const InputNominalTransferForm = ({ onNext }) => {
 		}),
 		onSubmit: async (values) => {
 			try {
-				console.log("Form Submitted", values);
 				onNext(values);
 			} catch (error) {
-				console.log("message error: ", error);
+				return error
 			}
 
 			// Panggil fungsi mutate di sini jika menggunakan useMutation
@@ -54,7 +52,7 @@ export const InputNominalTransferForm = ({ onNext }) => {
 						container
 						justifyContent="center"
 						alignItems="center"
-						// spacing={4}
+					// spacing={4}
 					>
 						<Grid item xs={1}>
 							<img
@@ -124,9 +122,9 @@ export const InputNominalTransferForm = ({ onNext }) => {
 						type="submit"
 						fullWidth
 						variant="contained"
-						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform:"none" }}
+						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "none" }}
 						aria-label="Lanjutkan Transfer"
-						// disabled={mutation.isLoading}
+					// disabled={mutation.isLoading}
 					>
 						Lanjutkan
 					</Button>

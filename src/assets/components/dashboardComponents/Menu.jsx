@@ -123,7 +123,6 @@ export const Menu = () => {
               targetLink="/tarik-setor-tunai"
               ariaLabel="Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik dan Setor tunai"
               role="button"
-            // alt="tes lah masuk tidak"
             />
           </Grid>
         </Grid>

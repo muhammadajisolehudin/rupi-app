@@ -9,9 +9,7 @@ import SuccesAlert from "../../../assets/components/Alerts/SuccesAlert";
 
 export const SetPasswordPage = () => {
 	const { formData } = useAuthContext();
-	console.log("data dari context :", formData);
 	const navigate = useNavigate();
-
 	const verifyForgotPassword = useVerifyOtp();
 
 	const formik = useFormik({

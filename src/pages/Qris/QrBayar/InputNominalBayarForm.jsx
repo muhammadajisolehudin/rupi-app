@@ -13,9 +13,9 @@ import { useEffect } from "react";
 
 
 export const InputNominalBayarForm = ({ onNext }) => {
-    const { account } = useAuthContext()
-    const { state } = useLocation();
-    const qris = state.qris || {}; 
+	const { account } = useAuthContext()
+	const { state } = useLocation();
+	const qris = state.qris || {};
 	const navigate = useNavigate()
 
 	const { data: detailQris, error, isError, isLoading } = useGetQrisDetail(qris)
@@ -28,28 +28,27 @@ export const InputNominalBayarForm = ({ onNext }) => {
 	// 	}
 	// }, [detailQris]);
 
-    const formik = useFormik({
-        initialValues: {
-			merchant: detailQris?.merchant ,
-			transaction_id: detailQris?.transaction_id ,
-            qris: qris,
-            amount: "",
-            description: "",
-            pin: "",
-        },
-        validationSchema: Yup.object({
+	const formik = useFormik({
+		initialValues: {
+			merchant: detailQris?.merchant,
+			transaction_id: detailQris?.transaction_id,
+			qris: qris,
+			amount: "",
+			description: "",
+			pin: "",
+		},
+		validationSchema: Yup.object({
 			amount: Yup.string().required("Nominal transfer harus diisi"),
-        }),
-		onSubmit: async ( values ) => {
-			// console.log("merchant", detail?.merchant)
+		}),
+		onSubmit: async (values) => {
 			onNext(values);
-        },
-    });
+		},
+	});
 	useEffect(() => {
 		if (isError) {
 			setTimeout(() => {
-				navigate(-1); 
-			}, 5000); 
+				navigate(-1);
+			}, 5000);
 		}
 	}, [isError, navigate]);
 
@@ -69,7 +68,7 @@ export const InputNominalBayarForm = ({ onNext }) => {
 						container
 						justifyContent="center"
 						alignItems="center"
-						// spacing={4}
+					// spacing={4}
 					>
 						<Grid item xs={1}>
 							<img

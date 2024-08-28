@@ -15,7 +15,7 @@ export const SuccesInfoBayar = () => {
 	const { data: detailMutasi } = useGetMutationDetail(formData?.mutation_id)
 	const { account } = useAuthContext()
 	const [open, setOpen] = useState(false);
-	
+
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -58,7 +58,6 @@ export const SuccesInfoBayar = () => {
 				Lihat Bukti Transfer
 			</Button>
 
-			{/* <ModalTransferBerhasil open={open} handleClose={handleClose} accountNumber={accountNumber} /> */}
 			<ModalBuktiTransaksiQris
 				open={open}
 				onClose={handleClose}

@@ -18,11 +18,11 @@ import { useTransferContext } from "../context/TransferContext";
 export const BerandaPage = () => {
   const { account } = useAuthContext();
   const { dataExpense, dataIncome, dataTransaksi } = useTransferContext();
-  const [ dataTransaksiFavorite, setDataFavorite ] = useState(null)
+  const [dataTransaksiFavorite, setDataFavorite] = useState(null)
 
   useEffect(() => {
     if (dataTransaksi) {
-        setDataFavorite(dataTransaksi?.content.filter((item) => item.favorites))
+      setDataFavorite(dataTransaksi?.content.filter((item) => item.favorites))
     }
   }, [dataTransaksi]);
 
@@ -30,7 +30,7 @@ export const BerandaPage = () => {
     <Layout>
       <Box
         // maxWidth={false}
-        sx={{ paddingTop: "2rem", paddingBottom: "2rem", mx:6 }}
+        sx={{ paddingTop: "2rem", paddingBottom: "2rem", mx: 6 }}
       >
         <Grid container sx={{ mb: 4 }} spacing={3.5}>
           <Grid item xs={12} md={12} lg={7.5}>
@@ -50,7 +50,7 @@ export const BerandaPage = () => {
             paddingLeft: 5,
             paddingRight: 6,
             position: "relative",
-            marginLeft: "-4rem",  
+            marginLeft: "-4rem",
             // marginRight: "-2rem", 
             width: "calc(100% + 7rem)", // Total lebar termasuk padding kiri dan kanan
             backgroundImage: `url(${backgroundWave})`,
@@ -63,7 +63,7 @@ export const BerandaPage = () => {
             <Menu />
           </Grid>
           <Grid item xs={12} lg={4.5}>
-            <CardFinanceRecap income={dataIncome} expense={dataExpense}/>
+            <CardFinanceRecap income={dataIncome} expense={dataExpense} />
           </Grid>
         </Grid>
 
@@ -77,7 +77,7 @@ export const BerandaPage = () => {
           }}
         >
           <Typography
-          variant="h4"
+            variant="h4"
             sx={{
               color: "#1C1C1E",
               fontFamily: "Calibri",

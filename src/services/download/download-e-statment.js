@@ -2,14 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { CookiesKey, CookiesStorage } from "../../utils/cookies";
 
-// Fungsi untuk mengambil bukti mutasi dengan URL yang di-hardcode
+
 const downloadEstatment = async ({ queryKey }) => {
   const [_key, params] = queryKey;
 
-  // Jika params adalah objek, konversi ke query string
   const queryParams = new URLSearchParams(params).toString();
 
-//   const url = `${_key}?${queryParams}`;
 const url = `${_key}`;
   // Ambil token otentikasi
   const authToken = CookiesStorage.get(CookiesKey.AuthToken);

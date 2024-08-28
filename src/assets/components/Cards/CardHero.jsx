@@ -26,7 +26,7 @@ export const CardHero = ({ user }) => {
         backgroundPosition: "center",
         display: "flex",
         flexDirection: "row",
-        p: { xs: "20px 36px", lg:"3rem 4rem " },
+        p: { xs: "20px 36px", lg: "3rem 4rem " },
         height: "auto",
         position: "relative",
         borderRadius: 4,
@@ -42,7 +42,7 @@ export const CardHero = ({ user }) => {
             justifyContent: "center",
             backgroundColor: lightBlue,
             color: darkBlue,
-            width: { xs:"100%", md:"auto", lg:"auto" },
+            width: { xs: "100%", md: "auto", lg: "auto" },
             maxWidth: { xs: "100%", md: "90%", lg: "80%" },
             padding: "3.5px 27.5px",
             marginBottom: "40px",
@@ -80,11 +80,10 @@ export const CardHero = ({ user }) => {
           variant="h5"
           sx={{
             color: darkBlue,
-            // fontSize: { xs: "24px", lg: "28px" },
             fontWeight: 700,
-            marginBottom: "16px",  
-            maxWidth: "80%", 
-            
+            marginBottom: "16px",
+            maxWidth: "80%",
+
           }}
           aria-label="Ucapan selamat datang kepada anda"
         >
@@ -97,7 +96,6 @@ export const CardHero = ({ user }) => {
             color: blue,
             fontSize: { xs: "14px", lg: "18px" },
             fontWeight: 500,
-            // marginBottom: "40px",
           }}
           aria-label="Ucapan semoga harimu menyenangkan"
         >
@@ -113,7 +111,7 @@ export const CardHero = ({ user }) => {
           left: "auto",
           width: { xs: "100%", lg: "calc(100% - 430px)" },
           overflow: "hidden",
-          p:20
+          p: 20
         }}
       >
         <img
@@ -124,7 +122,6 @@ export const CardHero = ({ user }) => {
             right: 0,
             top: "42%",
             left: "50%",
-            // bottom: "50%",
             width: "100%",
             height: "80%",
             transform: "translate(-50%, -50%)",

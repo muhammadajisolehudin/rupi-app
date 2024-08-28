@@ -37,52 +37,52 @@ export const RouteList = () => {
               <ProtectedUser>
                 <TransferProvider>
                   <QrProvider>
-                  <Routes>
-                    {/* auth */}
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/verify" element={<VerifyOtpPage />} />
-                    <Route path="/set-pin" element={<SetPinPage />} />
-                    <Route
-                      path="/konfirm-pin"
-                      element={<KonfirmasiPinPage />}
-                    />
-                    <Route path="/set-password" element={<SetPasswordPage />} />
-                    <Route
-                      path="/*"
-                      element={
-                        <ProtectedAccount>
-                          <Routes>
-                            <Route path="/" element={<BerandaPage />} />
-                            <Route path="/info-saldo" element={<InfoSaldoPage />} />
-                            <Route path="/mutasi" element={<MutasiPage />} />
+                    <Routes>
+                      {/* auth */}
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/verify" element={<VerifyOtpPage />} />
+                      <Route path="/set-pin" element={<SetPinPage />} />
+                      <Route
+                        path="/konfirm-pin"
+                        element={<KonfirmasiPinPage />}
+                      />
+                      <Route path="/set-password" element={<SetPasswordPage />} />
+                      <Route
+                        path="/*"
+                        element={
+                          <ProtectedAccount>
+                            <Routes>
+                              <Route path="/" element={<BerandaPage />} />
+                              <Route path="/info-saldo" element={<InfoSaldoPage />} />
+                              <Route path="/mutasi" element={<MutasiPage />} />
 
-                            {/* transfer */}
-                            <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
-                            <Route
-                              path="/transfer-rupiah/transfer-ke-penerima-baru"
-                              element={<TransferKePenerimaBaru />}
-                            />
-                            <Route
-                              path="/transfer-rupiah/transfer-ke-daftar-rekening"
-                              element={<TransferKePenerimaBaru />}
-                            />
-                            <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
-                            <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
-                            <Route path="/qris" element={<QrisPage />} />
-                            <Route path="/qris/qr-bayar" element={<QrBayar />} />
-                            <Route path="/qris/qr-merchan" element={<QrMerchan />} />
-                            <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
+                              {/* transfer */}
+                              <Route path="/transfer-rupiah" element={<TransferRupiahPage />} />
+                              <Route
+                                path="/transfer-rupiah/transfer-ke-penerima-baru"
+                                element={<TransferKePenerimaBaru />}
+                              />
+                              <Route
+                                path="/transfer-rupiah/transfer-ke-daftar-rekening"
+                                element={<TransferKePenerimaBaru />}
+                              />
+                              <Route path="/qr-terima-transfer" element={<QRTerimaTransfer />} />
+                              <Route path="/qr-terima-transfer/riwayat" element={<RiwayatTransfer />} />
+                              <Route path="/qris" element={<QrisPage />} />
+                              <Route path="/qris/qr-bayar" element={<QrBayar />} />
+                              <Route path="/qris/qr-merchan" element={<QrMerchan />} />
+                              <Route path="/tarik-setor-tunai" element={<TarikSetorTunaiPage />} />
 
-                            {/* pengaturan */}
-                            <Route path="/pengaturan" element={<PengaturanPage />} />
+                              {/* pengaturan */}
+                              <Route path="/pengaturan" element={<PengaturanPage />} />
 
-                            {/* notifikasi aktivitas */}
-                            <Route path="/notifikasi-aktivitas" element={<NotifikasiAktivitasPage />} />
-                          </Routes>
-                        </ProtectedAccount>
-                      }
-                    />
-                  </Routes>
+                              {/* notifikasi aktivitas */}
+                              <Route path="/notifikasi-aktivitas" element={<NotifikasiAktivitasPage />} />
+                            </Routes>
+                          </ProtectedAccount>
+                        }
+                      />
+                    </Routes>
                   </QrProvider>
                 </TransferProvider>
               </ProtectedUser>

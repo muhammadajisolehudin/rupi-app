@@ -24,7 +24,6 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 			amount: Yup.string().required("Required")
 		}),
 		onSubmit: async (values) => {
-			console.log("Form Submitted", values);
 			onNext(values);
 			// Panggil fungsi mutate di sini jika menggunakan useMutation
 		},
@@ -46,7 +45,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						container
 						justifyContent="center"
 						alignItems="center"
-						// spacing={4}
+					// spacing={4}
 					>
 						<Grid item xs={1}>
 							<img
@@ -82,7 +81,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 							// py: 2,
 							mt: 3,
 						}}
-						// spacing={2}
+					// spacing={2}
 					>
 						<Grid
 							//   item
@@ -97,7 +96,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 								Nominal Transfer
 							</Typography>
 							<Typography sx={{ fontWeight: "bold" }} aria-labelledby="nominal-transfer">
-								Rp.{formatRupiah(formik.values.amount) }
+								Rp.{formatRupiah(formik.values.amount)}
 							</Typography>
 						</Grid>
 						<Grid
@@ -161,7 +160,7 @@ export const KonfirmasiTransferForm = ({ onNext }) => {
 						variant="contained"
 						sx={{ mb: 5, py: 1.5, borderRadius: 2, textTransform: "none" }}
 						aria-label="Lanjutkan Transfer"
-						// disabled={mutation.isLoading}
+					// disabled={mutation.isLoading}
 					>
 						Lanjutkan
 					</Button>

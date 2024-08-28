@@ -5,8 +5,8 @@ export const formatRupiah = (amount) => {
   return `${number.toLocaleString("id-ID", {
     //  style: "currency",
     //  currency: "IDR",
-    minimumFractionDigits: 0, // Mengatur jumlah digit desimal minimum menjadi 0
-    maximumFractionDigits: 0, // Mengatur jumlah digit desimal maksimum menjadi 0
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   })}`;
 };
 export const formatAccountNumber = (number) => {
@@ -92,7 +92,6 @@ export const updateStructCategory = (dataIncome) => {
     (mutation) => mutation.description === "Topup"
   );
 
-
   // if (hasTopup) {
   //   setIsTopup(true);
   // } else {
@@ -113,7 +112,8 @@ export const updateStructCategory = (dataIncome) => {
     .flatMap((category) => category.mutations)
     .reduce((sum, mutation) => sum + parseFloat(mutation.amount), 0);
 
-  const totalBalancePercentage = (parseFloat(totalBalance) / financialTransactions) * 100;
+  const totalBalancePercentage =
+    (parseFloat(totalBalance) / financialTransactions) * 100;
 
   // Buat kategori baru dengan mutasi Topup
   const newCategory = {

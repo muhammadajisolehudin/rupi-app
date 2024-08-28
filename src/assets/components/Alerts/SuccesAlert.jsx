@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const SuccesAlert = ({ title, message }) => {
 
     useEffect(() => {
-        showAlert(); 
+        showAlert();
     }, []);
 
     const showAlert = () => {
@@ -26,7 +26,7 @@ const SuccesAlert = ({ title, message }) => {
             confirmButtonColor: '#0066AE',
             customClass: {
                 confirmButton: 'custom-swal-confirm-button',
-                htmlContainer: 'custom-swal-html-container', 
+                htmlContainer: 'custom-swal-html-container',
             },
             width: '20rem',
         });

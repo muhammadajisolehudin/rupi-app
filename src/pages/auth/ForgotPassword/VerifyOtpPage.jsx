@@ -7,12 +7,9 @@ import { useAuthContext } from "../../../context/AuthContext";
 
 export const VerifyOtpPage = ({ onNext }) => {
 	const { formData } = useAuthContext();
-	console.log("data dari context :", formData);
 	const inputRefs = useRef([]);
 	const { user } = useAuthContext();
-	// const location = useLocation();
 	const resendOtp = useVerifyOtpResend();
-	// const navigate = useNavigate()
 
 	const formik = useFormik({
 		initialValues: {
@@ -64,11 +61,9 @@ export const VerifyOtpPage = ({ onNext }) => {
 
 	const handleResendOtp = async () => {
 		try {
-			console.log("ini data user dari use : ", user);
 			await resendOtp.mutateAsync(user);
 		} catch (error) {
 			console.error("Resend OTP failed:", error);
-			// Tangani error jika resend OTP gagal
 		}
 	};
 

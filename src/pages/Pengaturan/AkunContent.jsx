@@ -41,9 +41,7 @@ export const AkunContent = ({ onNext }) => {
 
 			if (values.name !== initialValuesRef.current.name) {
 				formData.append("name", values.name);
-				// formData.append('avatar', values.avatar);
 				await changeUserProfile.mutateAsync(formData);
-				console.log("ini data isSucces: ", changeUserProfile.isSuccess);
 			}
 
 			if (values.email !== initialValuesRef.current.email) {
@@ -202,7 +200,7 @@ export const AkunContent = ({ onNext }) => {
 				onClose={handleCloseModal}
 				type="email"
 				onSuccess={handleOtpVerified}
-				// onOtpVerified={handleOtpVerified(formik.values)}
+			// onOtpVerified={handleOtpVerified(formik.values)}
 			/>
 			{(changeUserProfile.isError || changeUserEmail.isError) && (
 				<FailAlert

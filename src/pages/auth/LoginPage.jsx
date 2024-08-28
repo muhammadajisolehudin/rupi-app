@@ -20,9 +20,9 @@ import FailAlert from "../../assets/components/Alerts/FailAlert";
 import { useAuthContext } from "../../context/AuthContext";
 
 export const LoginPage = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const { login, isError, error, isSuccess, isLoading, isSuccessSignout } = useAuthContext();
+	const [showPassword, setShowPassword] = useState(false);
+	const navigate = useNavigate();
+	const { login, isError, error, isSuccess, isLoading, isSuccessSignout } = useAuthContext();
 
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -174,13 +174,12 @@ export const LoginPage = () => {
 					</Button>
 				</Box>
 			</Paper>
-      {isError && (
-        <FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
-      )}
-      {isSuccess && (
-        <SuccesAlert message="" title="Login Berhasil" />
-      )}
-			{/* {isSuccessSignout && <SuccesAlert message="" title="Logout Berhasil" />} */}
+			{isError && (
+				<FailAlert message={error?.response?.data?.message || error?.message} title="Login Gagal" />
+			)}
+			{isSuccess && (
+				<SuccesAlert message="" title="Login Berhasil" />
+			)}
 		</AuthLayout>
 	);
 };

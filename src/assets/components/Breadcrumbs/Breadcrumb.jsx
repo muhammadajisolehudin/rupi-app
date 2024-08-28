@@ -6,7 +6,7 @@ const formatBreadcrumbText = (text) => {
 };
 
 export const Breadcrumb = () => {
-  const location = useLocation();
+	const location = useLocation();
 
 	const getPathNames = () => {
 		const pathnames = location.pathname.split("/").filter((x) => x);
@@ -17,7 +17,7 @@ export const Breadcrumb = () => {
 
 	return (
 		<Card
-		elevation={4}
+			elevation={4}
 			sx={{
 				minWidth: 275,
 				height: 60,
@@ -78,4 +78,4 @@ export const Breadcrumb = () => {
 	);
 };
 
-// export default BreadcrumbsComponent;
+

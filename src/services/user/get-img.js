@@ -1,10 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-// import http from "../../utils/http";
 import http from "../../utils/http";
 
 const getImg = async ({ queryKey }) => {
   const [_key, pathParams] = queryKey;
-  // Mengatur responseType ke 'blob'
   const result = await http.get(`${_key}/${pathParams}`, {
     responseType: "blob",
   });

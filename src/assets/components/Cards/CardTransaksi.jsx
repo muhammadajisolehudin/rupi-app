@@ -14,28 +14,29 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 	const handleCardClick = (receiver) => {
 		setStep(1);
 		handleNext({
-			account_number: receiver.account_number, fullname: receiver.fullname, destination_id: receiver.id });
+			account_number: receiver.account_number, fullname: receiver.fullname, destination_id: receiver.id
+		});
 		navigate('/transfer-rupiah/transfer-ke-daftar-rekening');
 	};
 
 
 	const handleStarClick = (event, cardId, isFavorite) => {
-		event.stopPropagation(); // Prevents the card click handler from being triggered
+		event.stopPropagation();
 		handleToggleFavorite(cardId, isFavorite);
 	};
-	
+
 	return (
 		<Box sx={{ minWidth: 275 }}>
 			{data?.map((card) => (
 				<Card onClick={() => { handleCardClick(card) }} key={card.id} variant="outlined" sx={{ marginBottom: 4, borderRadius: 2 }} tabIndex={0}>
 					<CardContent sx={{
-						backgroundColor: "white", padding: 1, paddingBottom: "8px !important", 
+						backgroundColor: "white", padding: 1, paddingBottom: "8px !important",
 						"&:hover": {
 							backgroundColor: "#0A3967",
 							color: "white",
 							cursor: 'pointer',
-							}, 
-						}}
+						},
+					}}
 						aria-label={`pilih no rekening ${card.fullname} untuk ditransfer`}
 					>
 						<Box
@@ -57,9 +58,9 @@ export const CardTransaksi = ({ data, handleToggleFavorite }) => {
 								id="button-transaksi-favorite"
 								fontSize="large"
 								sx={{
-									color: card.favorites ? "#FFB831" : "#B3B3B3", // Pastikan penggunaan `card.favorite`
+									color: card.favorites ? "#FFB831" : "#B3B3B3",
 									cursor: "pointer",
-									zIndex:"9999"
+									zIndex: "9999"
 								}}
 								onClick={(event) => handleStarClick(event, card.id, card.favorites)}
 								role={"button"}

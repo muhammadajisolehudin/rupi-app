@@ -4,8 +4,6 @@ import httpSecond from "../../utils/http-second";
 
 const getWaitingQRHistory = async ({ queryKey }) => {
   const [_key, params] = queryKey;
-  const result = await httpSecond.get(_key, { params });
-//   console.log("data result :", result.data.data)
   return result.data.data;
 };
 

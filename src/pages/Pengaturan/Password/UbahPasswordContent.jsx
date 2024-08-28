@@ -26,12 +26,8 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 	const headers = {
 		"X-SIGNATURE": formData.signature,
 	};
-
-	console.log("data baru ini lihat :", formData.signature)
-
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
 	const handleClickShowConfirmPassword = () => setshowConfirmPassword(!showConfirmPassword);
-
 	const formik = useFormik({
 		initialValues: {
 			password: "",
@@ -57,7 +53,6 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 			} catch (error) {
 				return error
 			}
-			console.log("Form Submitted", values);
 			onSubmit(values);
 		},
 	});
@@ -66,7 +61,7 @@ export const UbahPasswordContent = ({ onSubmit }) => {
 	const handleReset = () => {
 		formik.resetForm({ values: formik.initialValues });
 	};
-	
+
 
 	return (
 		<Container>

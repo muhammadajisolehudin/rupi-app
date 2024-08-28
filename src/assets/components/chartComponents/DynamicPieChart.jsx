@@ -1,9 +1,6 @@
 import PropTypes from "prop-types";
 import { PieChart } from "@mui/x-charts/PieChart";
 import { formatRupiah, getTotalTransaction } from "../../../utils/utilities";
-// import { useDrawingArea } from '@mui/x-charts/hooks';
-// import { styled } from '@mui/material/styles';
-// import { Typography } from '@mui/material';
 
 const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 200 }) => {
 	const series = data?.activeSection.map((item) => ({
@@ -16,8 +13,6 @@ const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 20
 			icon: <img src={item.icon} alt={item.icon} />,
 		},
 	}));
-	console.log("data series : ", series);
-	// console.log(item.data.data.categories.type),
 
 	return (
 		<PieChart
@@ -62,7 +57,6 @@ const DynamicPieChart = ({ data = [], centerLabel = "", width = 400, height = 20
 				</text>
 			</g>
 
-			{/* <PieCenterLabel>{getTotalNumberOfTransactions()}</PieCenterLabel> */}
 		</PieChart>
 	);
 };

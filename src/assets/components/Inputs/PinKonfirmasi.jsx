@@ -4,7 +4,6 @@ import { useFormikContext } from "formik";
 
 const PinKonfirmasi = () => {
 	const { values, setFieldValue } = useFormikContext();
-	console.log("tes lahh :",values)
 
 	// Handle change in input field
 	const handleChange = (index, event) => {
@@ -66,9 +65,9 @@ const PinKonfirmasi = () => {
 							},
 						},
 						"& .MuiInputBase-input": {
-							caretColor: "transparent", // Hide cursor
+							caretColor: "transparent",
 							textAlign: "center",
-							color: "transparent", // Hide text
+							color: "transparent", 
 						},
 					}}
 				/>

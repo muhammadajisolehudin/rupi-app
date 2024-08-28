@@ -23,7 +23,7 @@ const style = {
     borderRadius: 2,
     boxShadow: 24,
     p: 3,
-    pb:2,
+    pb: 2,
     maxWidth: '100%',
     width: "22rem",
 };
@@ -49,21 +49,21 @@ export const ModalBuktiTransaksiQris = ({
         <Modal open={open} onClose={onClose}>
             <Box sx={style}>
                 <Box sx={{ position: 'relative' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "end", width: "100%", mb:-2, mt:0, pt:0}}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "end", width: "100%", mb: -2, mt: 0, pt: 0 }}>
                         <IconButton size="small" onClick={onClose}>
                             <CloseIcon />
                         </IconButton>
                     </Box>
                     <Box sx={{ display: 'flex' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent:"center", width:"100%", gap:1}}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", width: "100%", gap: 1 }}>
                             <img
                                 src="/logo.png"
                                 alt="Element"
-                                style={{ width: 24, height:"auto"  }}
+                                style={{ width: 24, height: "auto" }}
                             />
                             <Typography variant="h6">{appName}</Typography>
                         </Box>
-                        
+
                     </Box>
                     <Typography variant="subtitle1" align="center" sx={{ mt: 1, fontWeight: "bold" }}>
                         {status}
@@ -72,7 +72,7 @@ export const ModalBuktiTransaksiQris = ({
 
                     <Box sx={{ mb: 1, display: "flex", flexDirection: "column", gap: 0.5 }}>
                         <Typography variant="subtitle2" sx={{ color: "#B3B3B3" }}>Penerima</Typography>
-                        <Typography  sx={{ fontWeight: "bold", fontSize: 18 }}>{recipientName}</Typography>
+                        <Typography sx={{ fontWeight: "bold", fontSize: 18 }}>{recipientName}</Typography>
                         <Typography variant="caption" >
                             {bankName} - {accountNumber}
                         </Typography>
@@ -94,7 +94,7 @@ export const ModalBuktiTransaksiQris = ({
 
                         <Divider sx={{ my: 2, borderColor: 'black' }} />
                         <Grid container justifyContent="space-between">
-                            <Typography variant="body2" sx={{ fontWeight:"bold" }}>Total Transaksi</Typography>
+                            <Typography variant="body2" sx={{ fontWeight: "bold" }}>Total Transaksi</Typography>
                             <Typography variant="body2" sx={{ fontWeight: "bold" }}>{formatRupiah(totalTransaction)}</Typography>
                         </Grid>
                         <Divider sx={{ my: 2, borderColor: 'black' }} />
@@ -125,9 +125,9 @@ export const ModalBuktiTransaksiQris = ({
                         </Button>
                     </Paper>
 
-                   
+
                 </Box>
-                
+
             </Box>
         </Modal>
     );

@@ -95,7 +95,7 @@ export const InfoSaldoPage = () => {
   const transferIncomeCategory = incomeCategory?.categories.find(category => category.type === 'TRANSFER');
   const qrCategory = incomeCategory?.categories.find(category => category.type === 'QR');
   const setorCategory = incomeCategory?.categories.find(category => category.type === 'TOPUP');
-  
+
   const transferExpenseCategory = expenseCategory?.categories.find(category => category.type === 'TRANSFER');
   const qrisCategory = expenseCategory?.categories.find(category => category.type === 'QRIS');
   const tarikCategory = expenseCategory?.categories?.find(category => category.type === 'WITHDRAW');
@@ -171,8 +171,6 @@ export const InfoSaldoPage = () => {
       return newParams;
     });
 
-    // console.log("data setelah di ubah :", start)
-    // console.log("data setelah di ubah :", end)
   }, [activeSection, category, page]);
 
   const handleOpenBuktiTransfer = (buktiTransfer) => {
@@ -291,7 +289,7 @@ export const InfoSaldoPage = () => {
                         fontWeight: activeSection === "Pengeluaran" ? "bold" : "normal",
                         color: activeSection === "Pengeluaran" ? "#0066AE" : "#dedede",
                         cursor: "pointer",
-                        ml:3
+                        ml: 3
                       }}
                     >
                       Pengeluaran
@@ -416,9 +414,9 @@ export const InfoSaldoPage = () => {
                       title="Tarik Tunai"
                       data={tarikCategory}
                       onClick={() =>
-                        handleOpen(dataTarikTunai, 
-                          "Tarik Tunai", 
-                          "Tarik Tunai", 
+                        handleOpen(dataTarikTunai,
+                          "Tarik Tunai",
+                          "Tarik Tunai",
                           "debit", <CreditCardIcon />)
                       }
                     />
@@ -489,9 +487,9 @@ export const InfoSaldoPage = () => {
                       >
                         <img src={TransactionIcon} alt="icon transaksi" height={24} width="auto" />
                       </Grid>
-                      <Grid item xs={10.5} sx={{ display: "flex", flexDirection: "column", justifyContent:"center" }}>
+                      <Grid item xs={10.5} sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
                         <Typography variant="caption">{data.mutation_type}</Typography>
-                        <Typography variant="caption" >{data.bank_name}</Typography> 
+                        <Typography variant="caption" >{data.bank_name}</Typography>
                         <Typography variant="caption">{data.full_name}</Typography>
                         <Typography variant="caption">{data.account_number}</Typography>
                       </Grid>
@@ -524,12 +522,12 @@ export const InfoSaldoPage = () => {
                       onClick={() => {
                         handleOpenBuktiTransfer(data?.id);
                       }}
-                      sx={{ mx: 1, my:0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                      sx={{ mx: 1, my: 0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
                       aria-label="Lihat bukti transaksi"
                     >
                       Lihat Bukti
                     </Button>
-                    
+
                     <Button
                       variant="standar"
                       startIcon={<ShareIcon />}
@@ -544,7 +542,7 @@ export const InfoSaldoPage = () => {
                       variant="standar"
                       startIcon={<DownloadIcon />}
                       onClick={() => { handleDownload() }}
-                      sx={{ mx: 1, my:0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
+                      sx={{ mx: 1, my: 0.5, p: 1, px: 2, boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', borderRadius: 3, color: "primary.main", textTransform: 'none' }}
                       aria-label="Download bukti transaksi"
                     >
                       Download

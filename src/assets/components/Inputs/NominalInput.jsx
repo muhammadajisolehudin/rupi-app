@@ -15,7 +15,7 @@ const NominalInput = ({ text, value, onChange, onBlur }) => {
 			<Box display="flex" sx={{
 				alignItems: "center",
 			}}>
-				<Typography variant="caption" sx={{fontSize: "18px" }}>
+				<Typography variant="caption" sx={{ fontSize: "18px" }}>
 					Rp
 				</Typography>
 				<TextField

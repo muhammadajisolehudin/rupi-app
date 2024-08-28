@@ -1,7 +1,7 @@
 import { Modal, Box, Typography, Card, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import IconSuccess from '../../img/sukses-notif.png'; 
-import IconSwipeUp from '../../img/swipe-up.png'; 
+import IconSuccess from '../../img/sukses-notif.png';
+import IconSwipeUp from '../../img/swipe-up.png';
 
 const getCurrentDateTime = () => {
     const now = new Date();
@@ -48,7 +48,7 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
                 <Typography id="modal-title" variant="h5" component="h2" sx={{ mt: 2, fontWeight: 'bold' }}>
                     Berhasil
                 </Typography>
-                <Typography id="modal-description" sx={{ color: 'gray', mt: 2, mb:10 }}>
+                <Typography id="modal-description" sx={{ color: 'gray', mt: 2, mb: 10 }}>
                     {getCurrentDateTime()}
                 </Typography>
                 <Box sx={{ mt: 3 }}>
@@ -59,16 +59,16 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
                         onClick={handleNext}
                     />
                 </Box>
-                <Typography variant="body1" sx={{  cursor: 'pointer', color: 'gray', mb:5 }} onClick={handleNext}>
+                <Typography variant="body1" sx={{ cursor: 'pointer', color: 'gray', mb: 5 }} onClick={handleNext}>
                     Lihat Resi
                 </Typography>
-                <Typography variant="body1" sx={{ mt: 2, color: 'gray', mb:5 }}>
+                <Typography variant="body1" sx={{ mt: 2, color: 'gray', mb: 5 }}>
                     Lainnya
                 </Typography>
-                <Typography variant="body1" sx={{ mt: 1, color: 'gray', mb:2 }}>
+                <Typography variant="body1" sx={{ mt: 1, color: 'gray', mb: 2 }}>
                     Penerima
                 </Typography>
-                <Typography variant="body1" sx={{ mt: 1, fontSize:"18px", fontWeight: 'bold' }}>
+                <Typography variant="body1" sx={{ mt: 1, fontSize: "18px", fontWeight: 'bold' }}>
                     Historia Coffen
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 1 }}>
@@ -77,7 +77,7 @@ const SuccessNotificationModal = ({ open, handleClose, handleNext }) => {
                 <Typography variant="body1" sx={{ mt: 2, color: 'gray' }}>
                     Jumlah Transfer
                 </Typography>
-                <Typography variant="body1" sx={{ mt: 1, fontSize:"20px", fontWeight: 'bold' }}>
+                <Typography variant="body1" sx={{ mt: 1, fontSize: "20px", fontWeight: 'bold' }}>
                     Rp 20.000
                 </Typography>
                 <Typography variant="body1" sx={{ mt: 1 }}>

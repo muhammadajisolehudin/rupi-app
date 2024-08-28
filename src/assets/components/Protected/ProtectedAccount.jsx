@@ -9,14 +9,13 @@ export const ProtectedAccount = ({ children }) => {
     const { account, setAccount, logout } = useAuthContext();
     const { data: Account, isLoading, error } = useGetAccountDetail();
     const navigate = useNavigate();
- 
+
     useEffect(() => {
 
-        const handleError= async()=>{
+        const handleError = async () => {
             if (isLoading) return;
 
             if (error) {
-                // console.log("ini error : ", error.response.status)
                 if (error.response.status === 403) {
                     navigate("/set-password");
                 }
@@ -33,8 +32,8 @@ export const ProtectedAccount = ({ children }) => {
                         navigate('/login');
                     }
                 }, 1000);
-                
-               
+
+
                 return;
             }
 
@@ -42,11 +41,10 @@ export const ProtectedAccount = ({ children }) => {
             if (Account) {
                 setAccount(Account);
             }
-        } 
-        
+        }
+
         handleError()
-        console.log("ini akun :", account)
-    }, [ error, logout, Account ]);
+    }, [error, logout, Account]);
 
 
     if (isLoading) {

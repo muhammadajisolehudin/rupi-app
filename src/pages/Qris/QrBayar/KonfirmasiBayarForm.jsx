@@ -8,27 +8,26 @@ import { useAuthContext } from "../../../context/AuthContext";
 import { useTransferContext } from "../../../context/TransferContext";
 
 export const KonfirmasiBayarForm = ({ onNext }) => {
-    const { account } = useAuthContext()
-    const { formData } = useTransferContext()
-	console.log("coba periksa : ", formData)
+	const { account } = useAuthContext()
+	const { formData } = useTransferContext()
 
-    const formik = useFormik({
-        initialValues: {
-            qris: formData?.qris,
-            amount: formData?.amount,
-            description: formData?.description,
-            pin: "",
-        },
-        validationSchema: Yup.object({
-            amount: Yup.string().required("Required"),
-            description: Yup.string().required("Required"),
-        }),
-        onSubmit: async (values) => {
-            onNext(values)
-        },
-    });
+	const formik = useFormik({
+		initialValues: {
+			qris: formData?.qris,
+			amount: formData?.amount,
+			description: formData?.description,
+			pin: "",
+		},
+		validationSchema: Yup.object({
+			amount: Yup.string().required("Required"),
+			description: Yup.string().required("Required"),
+		}),
+		onSubmit: async (values) => {
+			onNext(values)
+		},
+	});
 
-    return (
+	return (
 		<form onSubmit={formik.handleSubmit}>
 			<Grid
 				container
@@ -158,7 +157,7 @@ export const KonfirmasiBayarForm = ({ onNext }) => {
 		</form>
 
 
-    );
+	);
 };
 
 KonfirmasiBayarForm.propTypes = {

@@ -22,7 +22,6 @@ const ReuseCard = ({ imgSrc, title, targetLink }) => {
 						minHeight: "150px",
 						p: 2
 					}}
-					// style={{ padding: "25px 20px 20px 20px" }}
 				>
 					<img src={imgSrc} alt={title} />
 					<Typography variant="h5" component="div" style={{ fontSize: "24px", color: "white" }}>

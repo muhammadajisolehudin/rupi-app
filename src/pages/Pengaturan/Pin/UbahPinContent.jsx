@@ -35,12 +35,12 @@ export const UbahPinContent = (onSubmit) => {
 			// 	updatedValues.pinBaru = values.pin;
 			// }
 			try {
-				await mutateChangePin.mutateAsync({input: values, headers : headers})
+				await mutateChangePin.mutateAsync({ input: values, headers: headers })
 				// changePin({ params: { userId }, input: { pin: newPin } });
 			} catch (error) {
 				return error
 			}
-			
+
 		},
 	});
 	// Reset form values to initial values

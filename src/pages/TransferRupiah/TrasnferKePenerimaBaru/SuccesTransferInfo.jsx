@@ -18,7 +18,7 @@ export const SuccesTransferInfo = () => {
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 
-	
+
 
 	return (
 		<Box
@@ -71,14 +71,11 @@ export const SuccesTransferInfo = () => {
 				totalTransaction={detailTransaksi?.mutation_detail.amount}
 				senderName={detailTransaksi?.sender_detail.name}
 				senderBankName="Rupi Bank"
-				senderAccountSuffix={hideAccountNumber(detailTransaksi?.sender_detail.account_number) }
-				// onShare={handleShare}
-				// onDownload={handleDownload}
+				senderAccountSuffix={hideAccountNumber(detailTransaksi?.sender_detail.account_number)}
+			// onShare={handleShare}
+			// onDownload={handleDownload}
 			/>
 		</Box>
 	);
 };
 
-// SuccesTransferInfo.propTypes = {
-//   onNext: PropTypes.any,
-// };

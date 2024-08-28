@@ -18,29 +18,27 @@ export const TransferProvider = ({ children }) => {
     const handleNext = (values) => {
         setFormData((prevData) => ({ ...prevData, ...values }));
         setStep((prevStep) => prevStep + 1);
-        
+
     };
 
     const handleSubmit = (values) => {
-        // console.log("Final Submission", { ...formData, ...values });
         setStep((prevStep) => prevStep + 1);
     };
 
-    
+
     const [params, setParams] = useState({
-        page:"0",
+        page: "0",
         size: "10",
     });
     const { data: dataTransaksi, refetch: refetchDataTransaksi } = useGetTransferDestination(params);
 
-    console.log("dat destinasi :", dataTransaksi)
     const [options, setOptions] = useState({
         month: currentMonth,
         year: currentYear
     });
 
     const { data: useMutationsSummary, error: errorMutationSummary } = useGetMutationsSummary(options)
-    
+
     useEffect(() => {
 
         if (useMutationsSummary) {
@@ -49,7 +47,7 @@ export const TransferProvider = ({ children }) => {
         }
     }, [useMutationsSummary, setOptions])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (useMutationsSummary) {
             setDataIncome(useMutationsSummary.income);
             setDataExpense(useMutationsSummary.expense);

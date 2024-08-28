@@ -12,7 +12,7 @@ export const QrProvider = ({ children }) => {
 
     const handleNextTarik = (values) => {
         setFormDataTarik((prevData) => ({ ...prevData, ...values }));
-       
+
         setStepTarik((prevStep) => prevStep + 1);
 
     };
@@ -26,8 +26,7 @@ export const QrProvider = ({ children }) => {
 
 
     const handleSubmit = (values) => {
-        console.log("Final Submission", { ...formDataTarik, ...formDataSetor, ...values });
-        if(setStepSetor){
+        if (setStepSetor) {
             setStepSetor((prevStep) => prevStep + 1)
         }
         setStepTarik((prevStep) => prevStep + 1)
