@@ -121,7 +121,7 @@ export const Menu = () => {
               imgSrc={imgMoney}
               title="Tarik & Setor Tunai"
               targetLink="/tarik-setor-tunai"
-              ariaLabel="Menu Tarik & Setor Tunai, ini akan membawa Anda ke halaman Tarik dan Setor tunai"
+              ariaLabel="Menu Tarik dan Setor Tunai, ini akan membawa Anda ke halaman Tarik dan Setor tunai"
               role="button"
             />
           </Grid>

@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import BcaIcon from "../../../assets/img/icons/bcaIcon.png";
 import PropTypes from "prop-types";
 import { useAddDataRekening } from "../../../services/transfer-rupiah/add-rekening-baru";
+import FailAlert from "../../../assets/components/Alerts/FailAlert";
 
 export const RekeningBaruForm = ({ onNext }) => {
 	const addRekening = useAddDataRekening();
@@ -78,6 +79,9 @@ export const RekeningBaruForm = ({ onNext }) => {
 					</Box>
 				</Grid>
 			</Grid>
+			{addRekening.isError && (
+				<FailAlert message={addRekening?.error?.response?.data?.message || addRekening?.error?.message} title="No Rekening tidak valid" />
+			)}
 		</form>
 	);
 };

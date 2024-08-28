@@ -103,7 +103,7 @@ export const CardList = ({ cardData }) => {
                 </Box>
                 <Button
                   onClick={() => handleClick(data)}
-                  aria-label={`Tombol navigasi cepat untuk transfer ke rekening di transaksi favorite, ini akan membawa Anda ke halaman transfer`}
+                  aria-label={`navigasi cepat untuk transfer ke rekening di transaksi favorite, ini akan membawa Anda kehalaman transfer`}
                   role="button"
                 >
                   <ChevronRightRoundedIcon fontSize="large" />
