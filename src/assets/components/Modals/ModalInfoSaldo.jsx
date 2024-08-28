@@ -6,13 +6,9 @@ import {
 	Divider,
 	Modal,
 	List,
-	ListItem,
-	ListItemText,
-	ListItemIcon,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { green, red } from "@mui/material/colors";
-import { Block } from "@mui/icons-material";
 
 export const ModalInfoSaldo = ({
 	open,

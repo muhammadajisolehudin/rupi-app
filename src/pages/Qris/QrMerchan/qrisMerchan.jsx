@@ -1,4 +1,4 @@
-import { Box, Card, Grid, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import QrisIcon from "../../../assets/img/icons/QRIS-Icon.svg"
 import { useTransferContext } from "../../../context/TransferContext";
 import { CardAccountInfo } from "../../../assets/components/Cards/CardAccountInfo";

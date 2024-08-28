@@ -10,12 +10,25 @@ module.exports = {
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'unused-imports'],
   rules: {
+    // Menghapus console.log secara otomatis
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+
+    // Aturan untuk menghapus import yang tidak digunakan
+    'unused-imports/no-unused-imports': 'error',
+
+    // Opsi tambahan: menghapus variabel yang tidak digunakan
+    'unused-imports/no-unused-vars': [
+      'warn',
+      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    ],
+    
+    // Aturan lainnya
     'react/jsx-no-target-blank': 'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
     ],
   },
-}
+};

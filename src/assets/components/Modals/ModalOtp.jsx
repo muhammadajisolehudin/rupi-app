@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { Box, IconButton, Modal, Paper, TextField, Typography } from "@mui/material";
 import * as Yup from "yup";
 import CloseIcon from "@mui/icons-material/Close";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useFormik } from "formik";
 import { useAuthContext } from "../../../context/AuthContext";
 import { useVerifyUserPhone } from "../../../services/user/verify-phone-otp";

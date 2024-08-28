@@ -4,7 +4,6 @@ import { FormikProvider, useFormik } from "formik";
 import PinInput from "../../../assets/components/Inputs/PinInput";
 import { useGenerateTransactionToken } from "../../../services/tarik-setor-tunai/generate-token";
 import { useQrContext } from "../../../context/QrContext";
-import { Box } from "@mui/system";
 
 export const InputPinForm = ({ onNext }) => {
     const { mutate: generateToken, isLoading, error } = useGenerateTransactionToken();

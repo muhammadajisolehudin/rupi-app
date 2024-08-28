@@ -12,7 +12,6 @@ import ShareIcon from '../../assets/img/icons/mdi_share.png';
 import RiayatIcon from '../../assets/img/icons/Document.png';
 import { Breadcrumb } from '../../assets/components/Breadcrumbs/Breadcrumb';
 
-import { QRTerimaTransferCode } from "../../assets/components/QRTransferComponents/QRTerimaTransferCode";
 
 import { useAuthContext } from "../../context/AuthContext";
 import { useGenerateTransactionQR } from "../../services/qr-transfer/generate-qr";

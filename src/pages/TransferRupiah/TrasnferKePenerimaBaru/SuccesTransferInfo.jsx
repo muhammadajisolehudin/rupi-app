@@ -1,5 +1,5 @@
 // TransferBerhasilPage.js
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import ilustrasi from "../../../assets/img/complete ilustrasi.png";
 import ModalBuktiTransfer from "../../../assets/components/Modals/ModalBuktiTransfer";
