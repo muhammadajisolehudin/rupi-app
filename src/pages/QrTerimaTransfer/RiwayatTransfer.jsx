@@ -26,10 +26,6 @@ export const RiwayatTransfer = () => {
 
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  // const [params, setParams] = useState({
-  //   page: page,
-  //   size: rowsPerPage,
-  // });
   const [queryParams, setQueryParams] = useState({ 
     page: 1, size: 50, mutationType: 'QR', transactionType: "CREDIT" 
   });
@@ -52,8 +48,8 @@ export const RiwayatTransfer = () => {
     setQueryParams((prevParams) => {
       const newParams = {
         ...prevParams,
-        startDate: startDate,
-        endDate: endDate,
+        "dateRange[start]": startDate,
+        "dateRange[end]": endDate,
       };
       return newParams;
     });
@@ -289,8 +285,17 @@ export const RiwayatTransfer = () => {
                   <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
                     <CircularProgress />
                   </Box>
-
-                ) : renderContent()}
+                 
+                ) : isError ? (
+                  <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", my: 10 }}>
+                      <Typography color="error" variant="h6">
+                        {error?.message}
+                      </Typography>
+                  </Box>
+                 
+                ) : (
+                  renderContent()
+                )}
 
               </Box>
 
